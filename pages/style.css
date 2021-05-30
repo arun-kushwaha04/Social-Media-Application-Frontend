@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    font-size: 62.5%;
+    background: linear-gradient(#fb009f, #fe0202);
+    font-family: sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+.page {
+    width: 25rem;
+    background: #fff;
+    border-radius: 1rem;
+    padding-bottom: 2rem;
+}
+
+.title {
+    padding: 3rem 0;
+    text-transform: capitalize;
+    font-size: 2rem;
+    font-family: "Pacifico", cursive;
+}
+
+form {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+form input {
+    margin-bottom: 1rem;
+    border: 0.1em solid rgba(0, 0, 0, 0.4);
+    border-radius: 0.2rem;
+    outline: none;
+}
+
+form input:focus {
+    border: 0.1em solid rgba(0, 0, 0, 0.7);
+    background: #efefef;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding-left: 0.5rem;
+    position: relative;
+    height: 3rem;
+    font-size: 1rem;
+}
+
+input::placeholder {
+    font-weight: normal;
+    font-size: 0.9rem;
+    transition: 0.3s ease;
+}
+
+input:focus::placeholder {
+    position: absolute;
+    font-size: 0.7rem;
+    transform: translateY(-0.03rem);
+}
+
+form button {
+    border: none;
+    background: #043fff;
+    font-size: 1rem;
+    padding: 1rem 0;
+    margin-top: 1rem;
+    color: #fff;
+    border-radius: 0.2em;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 0.1em;
+    outline: none;
+    cursor: pointer;
+}
+
+form button:active {
+    background: #2c58fe;
+    transform: scale(0.995);
+}
+
+form .option {
+    color: #5a5a5a;
+    margin: 1rem 0;
+    font-weight: bold;
+    position: relative;
+}
+
+form .option:before {
+    position: absolute;
+    content: "";
+    width: 37%;
+    height: 0.2rem;
+    background: #b6b6b6;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50px;
+}
+
+form .option:after {
+    position: absolute;
+    content: "";
+    width: 37%;
+    height: 0.2rem;
+    background: #b6b6b6;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50px;
+}
+
+.forgetPassword {
+    margin: 1rem;
+}
+
+.forgetPassword a {
+    text-decoration: none;
+    color: #025fd2;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.page .signup {
+    position: relative;
+    font-size: 1.2rem;
+    border: 0.1em solid #b6b6b6;
+    border-radius: 2px;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 2rem;
+    padding: 1em 0.3em;
+}
+
+.signup a {
+    text-decoration: none;
+    margin-left: 5px;
+    color: #008aff;
+    font-weight: bold;
+}
