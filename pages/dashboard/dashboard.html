@@ -1,54 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="dashboard.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet" />
     <title>Dashboard</title>
-  </head>
-  <body>
-    <header>
-      <nav class="profile"><button>My Profile</button></nav>
-      <h1 style="font-family: 'Pacifico', cursive">Dubify</h1>
-    </header>
-    <section>
-      <!-- Left Panel -->
-      <div class="left-section">
-        <!-- Top -->
-        <div class="top">
-          <!-- <img
-          src="../../assets/Dubify_Project_logo.png"
-          alt="Dubify-Logo"
-          class="logo"
-          width="150"
-          height="50"
-        /> -->
-          <div class="logo">Dubify</div>
-          <div class="search">
-            <img src="../../assets/Search.svg" />
-            <input type="search" placeholder="search..." autocomplete="off" />
-          </div>
+</head>
 
-          <button type="button" class="create-new">Create New</button>
+<body>
+
+
+    <nav>
+        <div>
+            <div class="logo">Dubify</div>
         </div>
-        <!-- Features Block -->
-        <div class="lower">
-          <div class="feature">
-            <img src="../../assets/Covid_Info.svg" />
-            <a
-              href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
-              ><span>Covid-19 Information</span></a
+        <div class="search">
+            <div class="search-icon"><img src="../../assets/Search.svg" /></div>
+            <input type="search" placeholder="Search Dubify" autocomplete="off" class="search-input" />
+        </div>
+        <div class="icons">
+            <div class="page-button"><img src="../../assets/Home.svg" /></div>
+            <div class="page-button"><img src="../../assets/Video.svg" /></div>
+            <div class="page-button"><img src="../../assets/Game.svg" /></div>
+        </div>
+    </nav>
+
+    <section>
+        <div class="left-section">
+            <!-- Features Block -->
+            <div class="lower">
+                <div class="feature">
+                    <img src="../../assets/Covid_Info.svg" />
+                    <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"><span>Covid-19 Information</span></a
             >
           </div>
           <div class="feature">
@@ -58,23 +47,22 @@
           <div class="feature">
             <img src="../../assets/Video.svg" />
             <a href="https://www.youtube.com/"><span>Videos</span></a>
-          </div>
-          <div class="feature">
-            <img src="../../assets/Trending.svg" />
-            <a href="https://trends.google.com/trends/"
-              ><span>Trending</span></a
+                </div>
+                <div class="feature">
+                    <img src="../../assets/Trending.svg" />
+                    <a href="https://trends.google.com/trends/"><span>Trending</span></a
             >
           </div>
         </div>
       </div>
 
       <!-- Main Container Where Others Others Posts wouls be shown -->
+
+      
+
+
+
       <div class="main-container">
-        <div class="icons">
-          <div class="page-button"><img src="../../assets/Home.svg" /></div>
-          <div class="page-button"><img src="../../assets/Video.svg" /></div>
-          <div class="page-button"><img src="../../assets/Game.svg" /></div>
-        </div>
         <div class="home-page">
           <!-- Stories Section -->
           <div class="story-block">
@@ -308,5 +296,5 @@
       </div>
     </section>
   </body>
-  <script href="dashboard.js"></script>
+  <script src="./dashboard.js"></script>
 </html>
