@@ -10,70 +10,6 @@ body {
     overflow-x: hidden;
 }
 
-section {
-    font-family: "Ubuntu", cursive;
-    display: flex;
-    font-size: 1rem;
-    align-items: space-between;
-    background: linear-gradient(to right, #a1fff7, #ffa6b5);
-    box-sizing: border-box;
-    width: 100%;
-    padding: 45px;
-}
-
-.left-section {
-    display: flex;
-    flex-direction: column;
-    /* width: 16rem; */
-    padding: 0.5rem;
-    width: 17%;
-    background-color: rgba(117, 117, 117, 0.294);
-}
-
-.create-new {
-    width: 60%;
-    height: 2.75rem;
-    margin: 1rem 0;
-    background-color: rgba(104, 250, 60, 0.89);
-    border: 1px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: 550;
-    letter-spacing: 0.75px;
-    align-self: center;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.create-new:hover {
-    background-color: rgba(90, 211, 53, 0.89);
-    transform: scale(1.1);
-}
-
-.create-new:active {
-    transform: scale(1);
-}
-
-.lower {
-    height: 13%;
-    margin: 1rem 0;
-    display: flex;
-    flex-direction: column;
-    padding-left: 0.5rem;
-}
-
-.feature {
-    display: flex;
-    height: 1.75rem;
-    gap: 4px;
-    padding: 10px 0;
-}
-
-.feature:hover {
-    background-color: rgba(255, 255, 255, 0.315);
-}
-
 
 /* Main Container */
 
@@ -320,8 +256,9 @@ nav {
     right: 0;
     background-color: white;
     padding: 0 2rem;
-    position: fixed;
+    position: sticky;
     display: flex;
+    height: 9%;
 }
 
 .icons {
@@ -428,10 +365,6 @@ nav {
     color: #ABADB1;
 }
 
-.story {
-    background-color: transparent;
-}
-
 .story-block {
     display: flex;
     padding: 0.3rem;
@@ -439,7 +372,7 @@ nav {
     margin-bottom: 1rem;
 }
 
-.box {
+.story-box {
     margin: 0.2rem;
     width: 8rem;
     height: 12rem;
@@ -486,4 +419,43 @@ nav {
     backdrop-filter: blur( 4px);
     -webkit-backdrop-filter: blur( 4px);
     border-radius: 0 0 1rem 1rem;
+}
+
+section {
+    font-family: "Ubuntu", cursive;
+    display: flex;
+    font-size: 1rem;
+    align-items: space-between;
+    background: linear-gradient(to right, #a1fff7, #ffa6b5);
+    box-sizing: border-box;
+    width: 100%;
+    height: 90%;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    /* width: 16rem; */
+    padding: 0.5rem;
+    width: 17%;
+    background-color: rgba(117, 117, 117, 0.294);
+}
+
+.lower {
+    height: 13%;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    padding-left: 0.5rem;
+}
+
+.feature {
+    display: flex;
+    height: 1.75rem;
+    gap: 4px;
+    padding: 10px 0;
+}
+
+.feature:hover {
+    background-color: rgba(255, 255, 255, 0.315);
 }
