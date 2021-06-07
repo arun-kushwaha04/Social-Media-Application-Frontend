@@ -435,33 +435,8 @@ nav {
 .story-block {
     display: flex;
     padding: 0.3rem;
-    /* overflow-x: scroll; */
     background-color: transparent;
-    margin-bottom: 1.5rem;
-}
-
-
-/* width */
-
-.story-block::-webkit-scrollbar {
-    width: 0.05rem;
-    height: 0.6rem;
-}
-
-
-/* Track */
-
-.story-block::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-}
-
-
-/* Handle */
-
-.story-block::-webkit-scrollbar-thumb {
-    background: rgba(47, 46, 46, 0.644);
-    border-radius: 20px;
+    margin-bottom: 1rem;
 }
 
 .box {
@@ -487,6 +462,9 @@ nav {
     width: 2.5rem;
     border: 0.2rem solid #FEA6B5;
     border-radius: 50%;
+}
+
+.story-profile-photo {
     position: absolute;
     top: 1rem;
     left: 1rem;
