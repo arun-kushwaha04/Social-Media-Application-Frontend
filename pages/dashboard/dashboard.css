@@ -30,120 +30,6 @@ body {
 }
 
 
-/* Create New Post */
-
-.create-new-post {
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
-    background-color: white;
-    margin-bottom: 1.5rem;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.add-text>textarea {
-    height: 7rem;
-    width: 27rem;
-    font-size: 125%;
-    text-justify: initial;
-    border: 0;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 0.5rem;
-    /* height: 70%; */
-    overflow-y: hidden;
-    word-break: break-word;
-    outline: none;
-    resize: none;
-}
-
-
-/* width */
-
-.add-text>textarea::-webkit-scrollbar {
-    width: 0.5rem;
-}
-
-
-/* Track */
-
-.add-text>textarea::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-}
-
-
-/* Handle */
-
-.add-text>textarea::-webkit-scrollbar-thumb {
-    background: rgba(47, 46, 46, 0.644);
-    border-radius: 20px;
-}
-
-
-/* Handle on hover */
-
-.add-text>textarea::-webkit-scrollbar-thumb:hover {
-    background: rgb(107, 107, 107);
-}
-
-.add-text>textarea:hover {
-    overflow-y: visible;
-}
-
-.add-text>button {
-    width: 10%;
-    height: 25%;
-    align-self: flex-end;
-    margin: 1% 2%;
-    background-color: rgba(104, 250, 60, 0.89);
-    border: 1px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: 550;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.add-text>button:hover {
-    background-color: rgba(90, 211, 53, 0.89);
-    transform: scale(1.1);
-}
-
-.add-text>button:active {
-    transform: scale(1);
-}
-
-.upload-files,
-.add-text {
-    display: flex;
-    gap: 0.75rem;
-    padding: 0.5rem 3rem;
-}
-
-.btn {
-    /* width: 30%; */
-    padding: 0 0.75rem;
-    display: flex;
-    font-size: 105%;
-    gap: 0.5rem;
-    /* font-size: 1.14rem; */
-    transition: all 0.25s ease;
-}
-
-.btn:hover {
-    background-color: rgba(59, 59, 59, 0.315);
-    transform: scale(1.1);
-}
-
-.btn>img {
-    width: 1.75rem;
-    height: 1.75rem;
-}
-
-
 /* Posts */
 
 .Posts {
@@ -159,19 +45,6 @@ body {
 .images {
     margin: 1rem;
 }
-
-
-/* .images {
-  margin-top: 1rem;
-  padding: 0 0.5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  grid-gap: 2rem;
-}
-.images > img {
-  height: 16rem;
-  width: 16rem;
-} */
 
 .engageButtons {
     display: flex;
@@ -258,7 +131,10 @@ nav {
     padding: 0 2rem;
     position: sticky;
     display: flex;
+    align-items: center;
+    justify-content: center;
     height: 9%;
+    z-index: 10;
 }
 
 .icons {
@@ -369,6 +245,7 @@ nav {
     display: flex;
     padding: 0.3rem;
     background-color: transparent;
+    margin: 0 3rem;
     margin-bottom: 1rem;
 }
 
@@ -426,7 +303,8 @@ section {
     display: flex;
     font-size: 1rem;
     align-items: space-between;
-    background: linear-gradient(to right, #a1fff7, #ffa6b5);
+    /* background: linear-gradient(to right, #a1fff7, #ffa6b5); */
+    background-color: rgb(233, 233, 233);
     box-sizing: border-box;
     width: 100%;
     height: 90%;
@@ -458,4 +336,56 @@ section {
 
 .feature:hover {
     background-color: rgba(255, 255, 255, 0.315);
+}
+
+.feed-section {
+    margin: 1rem 5rem;
+}
+
+.add-user-feed {
+    background-color: white;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: #fff;
+    position: relative;
+}
+
+.profile-photo-feed {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.feed-input {
+    background-color: #E4E6E8;
+    padding: 1rem 1rem;
+    border-radius: 2rem;
+    margin: 0 4rem;
+    cursor: text;
+}
+
+.underline-feed {
+    height: 0.1rem;
+    margin-top: 1rem;
+    background-color: #d1d1d1;
+}
+
+.add-photo-feed {
+    background-color: #FEA6B5;
+    margin: 0 auto;
+    width: 25%;
+    padding: 0.2rem 0;
+    margin-top: 0.5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.add-photo-icon {
+    height: 2rem;
+    width: 2rem;
 }
