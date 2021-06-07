@@ -25,9 +25,9 @@
             <input type="search" placeholder="Search Dubify" autocomplete="off" class="search-input" />
         </div>
         <div class="icons">
-            <div class="page-button"><img src="../../assets/Home.svg" /></div>
-            <div class="page-button"><img src="../../assets/Video.svg" /></div>
-            <div class="page-button"><img src="../../assets/Game.svg" /></div>
+            <div class="page-button home"><img class="home-icon" src="../../assets/Home.svg " /></div>
+            <div class="page-button video"><img src="../../assets/Video.svg" /></div>
+            <div class="page-button game"><img src="../../assets/Game.svg" /></div>
         </div>
     </nav>
 
@@ -58,41 +58,28 @@
 
       <!-- Main Container Where Others Others Posts wouls be shown -->
 
-      
+     
 
 
 
-      <div class="main-container">
+      <article class="main-container">
         <div class="home-page">
           <!-- Stories Section -->
-          <div class="story-block">
+
+
+          <section class="story">
+      <div class="story-block">
             <div class="box">
-              <img
-                src="../../assets/CreateStory.svg"
-                width="175"
-                height="200"
-              />
-              <div class="user">
-                <img
-                  src="../../assets/MyProfilePhoto.jpg"
-                  width="36"
-                  height="30"
-                />
-                <span>ME</span>
-              </div>
+              <img class="user-story" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
+              <img class="profile-photo" src="http://127.0.0.1:5500/assets/MyProfilePhoto.jpg"/>
+              <div class="user-name"> ME</div>
             </div>
             <div class="box">
-              <img src="../../assets/User1.jpg" width="175" height="200" />
-              <div class="user">
-                <img
-                  src="../../assets/User1ProfilePhoto.jpg"
-                  width="36"
-                  height="30"
-                />
-                <span>User1</span>
-              </div>
+              <img class="user-story" src="../../assets/User1.jpg"/>
+              <img class="profile-photo" src="../../assets/User1ProfilePhoto.jpg" />
+              <div class="user-name"> Catlin Snow </div>
             </div>
-            <div class="box">
+            <!-- <div class="box">
               <img src="../../assets/User2.jpg" width="175" height="200" />
               <div class="user">
                 <img
@@ -124,9 +111,10 @@
                 />
                 <span>User4</span>
               </div>
-            </div>
+            </div> -->
           </div>
-
+    </section>     
+          
           <!-- Create Our New Post -->
           <div class="create-new-post">
             <div class="user">
@@ -228,7 +216,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </article>
 
       <!-- Right Section -->
       <div class="right-section">
