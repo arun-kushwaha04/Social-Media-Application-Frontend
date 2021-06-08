@@ -90,9 +90,13 @@
 
                         <div class="underline-feed"></div>
 
-                        <div class="add-photo-feed">
-                            <img class="add-photo-icon" src="../../assets/AddPhoto.svg" alt=""> Add Photo
-                        </div>
+                        <input type="file" id="img" accept="image/*" multiple data-max-total-files="4" data-max-file-size="3MB">
+                        <label for="img">
+                            <div class="add-photo-feed">
+                                <img class="add-photo-icon" src="../../assets/AddPhoto.svg" alt="">Add Photo
+                            </div>
+                        </label>
+
                     </div>
 
                     <div class="add-feed-after-click">
@@ -113,11 +117,21 @@
 
                             <div class="post-section">
                                 <textarea class="feed-text" placeholder="What's In Your Crazy Mind" rows="4" cols="10"></textarea>
+                                <div class="preview"></div>
+
                             </div>
 
-                            <div class="add-photo-feed">
+                            <!-- <div class="add-photo-feed">
                                 <img class="add-photo-icon" src="../../assets/AddPhoto.svg" alt=""> Add Photo
-                            </div>
+                            </div> -->
+
+                            <input type="file" id="img" accept="image/*" multiple data-max-total-files="2" data-max-file-size="3MB">
+                            <label for="img">
+                                <div class="add-photo-feed">
+                                    <img class="add-photo-icon" src="../../assets/AddPhoto.svg" alt="">Add Photo
+                                </div>
+                            </label>
+
 
                             <div class="btn post-button">Post</div>
                         </article>

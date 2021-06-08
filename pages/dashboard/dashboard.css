@@ -372,11 +372,14 @@ section {
     background-color: #d1d1d1;
 }
 
+
+/* taking image input  */
+
 .add-photo-feed {
     background-color: #fa607a;
-    margin: 0 auto;
     width: 25%;
-    padding: 0.2rem 0;
+    margin: 0 auto;
+    padding: 0.2rem 0.5rem;
     margin-top: 0.5rem;
     border-radius: 1rem;
     display: flex;
@@ -388,6 +391,21 @@ section {
 .add-photo-icon {
     height: 2rem;
     width: 2rem;
+}
+
+#img {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#img+label {
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
 }
 
 .add-feed-after-click {
@@ -469,7 +487,24 @@ section {
     margin: 1rem 0.5rem;
     height: 15rem;
     overflow: auto;
+    /* overflow-x: hidden; */
 }
+
+.perview {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: start;
+    gap: 1rem;
+}
+
+
+/* .preview img {
+    margin: 1rem;
+    width: 100%;
+    background-color: #A2FEF6;
+} */
 
 .feed-text {
     border: 0;
