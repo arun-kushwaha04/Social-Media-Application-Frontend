@@ -402,12 +402,6 @@ section {
     z-index: -1;
 }
 
-#img+label {
-    font-size: 1rem;
-    font-weight: 400;
-    cursor: pointer;
-}
-
 .add-feed-after-click {
     position: absolute;
     left: 0;
@@ -490,13 +484,13 @@ section {
     /* overflow-x: hidden; */
 }
 
-.perview {
+.preview {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-items: start;
-    gap: 1rem;
+    gap: 0.5rem 1rem;
 }
 
 
