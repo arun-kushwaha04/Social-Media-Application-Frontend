@@ -373,7 +373,7 @@ section {
 }
 
 .add-photo-feed {
-    background-color: #FEA6B5;
+    background-color: #fa607a;
     margin: 0 auto;
     width: 25%;
     padding: 0.2rem 0;
@@ -397,12 +397,118 @@ section {
     bottom: 0;
     right: 0;
     overflow: hidden;
+    z-index: 100;
     background: rgba( 255, 255, 255, 0.15);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 1);
     backdrop-filter: blur( 2.5px);
     -webkit-backdrop-filter: blur( 2.5px);
+    visibility: hidden;
 }
 
-.add-post {
-    background-color: white;
+.post-container {
+    text-align: center;
+    background-color: #fff;
+    font-size: 1rem;
+    padding: 1em;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 6px;
+    }
+    .post-container {
+        width: 90vw;
+    }
+}
+
+.post-container .heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0.5em;
+    margin: 0rem 3rem;
+    /* line-height: 3.3rem; */
+}
+
+.post-container .underline-feed {
+    margin-top: 0;
+}
+
+.post-user-info {
+    height: 3rem;
+    position: relative;
+    margin-top: 1rem;
+}
+
+.profile-photo-feed-insert {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 1rem;
+}
+
+.user-name-feed {
+    margin-left: 1rem;
+    position: absolute;
+    font-size: 1rem;
+    top: 1.5rem;
+    left: 4rem;
+    transform: translate(0, -50%);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.post-section {
+    margin: 1rem 0.5rem;
+    height: 15rem;
+    overflow: auto;
+}
+
+.feed-text {
+    border: 0;
+    outline: none;
+    width: 100%;
+    resize: none;
+    font-size: 1.5rem;
+}
+
+.close-feed {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.profile-photo-close {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    padding: 0.5em;
+    border: 0;
+    cursor: pointer;
+    background-color: lightgrey;
+}
+
+.profile-photo-close:hover {
+    background-color: rgb(185, 185, 185);
+}
+
+.btn {
+    padding: 0.5em;
+    margin-top: 1rem;
+    background-color: #27ae60;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #F2F2F2;
+    font-size: 1rem;
+    border-radius: 0.5em;
+    /* display: 'none'; */
 }

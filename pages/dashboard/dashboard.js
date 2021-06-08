@@ -25,3 +25,19 @@ search.addEventListener('focusout', () => {
     searchIcon.style.visibility = 'visible';
     searchInput.style.paddingLeft = '2.5rem';
 });
+
+
+//implementing the add feed logic
+
+
+const feedInput = document.querySelector('.feed-input');
+const addFeed = document.querySelector('.add-feed-after-click');
+const closeAddFeed = document.querySelector('.close-feed');
+
+feedInput.addEventListener('click', () => {
+    addFeed.style.visibility = 'visible';
+})
+
+closeAddFeed.addEventListener('click', () => {
+    addFeed.style.visibility = 'hidden';
+})
