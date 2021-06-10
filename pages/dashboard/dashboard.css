@@ -359,8 +359,9 @@ section {
   background-color: #e4e6e8;
   padding: 1rem 1rem;
   border-radius: 2rem;
-  margin: 0 4rem;
+  margin: 0rem 4rem;
   cursor: text;
+  width: 75%;
 }
 
 .underline-feed {
@@ -369,11 +370,13 @@ section {
   background-color: #d1d1d1;
 }
 
+/* taking image input  */
+
 .add-photo-feed {
   background-color: #fa607a;
-  margin: 0 auto;
   width: 25%;
-  padding: 0.2rem 0;
+  margin: 0 auto;
+  padding: 0.2rem 0.5rem;
   margin-top: 0.5rem;
   border-radius: 1rem;
   display: flex;
@@ -385,6 +388,15 @@ section {
 .add-photo-icon {
   height: 2rem;
   width: 2rem;
+}
+
+#img {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 .add-feed-after-click {
@@ -466,7 +478,23 @@ section {
   margin: 1rem 0.5rem;
   height: 15rem;
   overflow: auto;
+  /* overflow-x: hidden; */
 }
+
+.preview {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: start;
+  gap: 0.5rem 1rem;
+}
+
+/* .preview img {
+    margin: 1rem;
+    width: 100%;
+    background-color: #A2FEF6;
+} */
 
 .feed-text {
   border: 0;
@@ -508,4 +536,64 @@ section {
   font-size: 1rem;
   border-radius: 0.5em;
   /* display: 'none'; */
+}
+
+/* media queries */
+
+@media (max-width: 500px) {
+  body {
+    font-size: 3px;
+    /* overflow-x: hidden; */
+    width: 100vw;
+  }
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    padding: 0.5rem;
+  }
+  .logo {
+    width: 100%;
+    margin: 0 0.5rem;
+  }
+  .search {
+    width: 100%;
+    margin: 0 0rem;
+  }
+  .icons {
+    width: 100%;
+    grid-column: 1 / span 2;
+  }
+  section {
+    display: block;
+  }
+  .left-section,
+  .right-section,
+  .story-block {
+    display: none;
+  }
+  .main-container {
+    width: 100%;
+  }
+  .feed-section {
+    width: 100%;
+    margin: 1rem 0rem;
+  }
+  .home-page {
+    padding: 0.5rem;
+  }
+  .add-user-feed {
+    padding: 0.1rem;
+  }
+  .profile-photo-feed {
+    margin-left: 0.5rem;
+    margin-top: 1rem;
+  }
+  .feed-input {
+    margin: 1rem 4rem;
+  }
+  .add-photo-feed {
+    background-color: transparent;
+    width: 50%;
+    margin-bottom: 0.5rem;
+  }
 }
