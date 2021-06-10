@@ -78,6 +78,9 @@ function updateImageDisplay() {
             image.src = URL.createObjectURL(file);
             image.style.width = '100%';
             image.style.height = '15rem';
+            if (window.screen.width <= 600) {
+                image.style.height = '10rem';
+            }
             image.style.objectFit = 'cover';
             image.style.alignSelf = 'center';
             // image.style.padding = '1rem';
