@@ -1,0 +1,103 @@
+*{
+    padding:0;
+    margin:0;
+}
+main{
+    display:flex;
+    background-color: bisque;
+    width:90vw;
+    height:100vh;
+    margin-left:5vw;
+    overflow:hidden;
+}
+.left-container{
+    width:25vw;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: rgb(206, 213, 213);
+    padding:15px;
+}
+.logo{
+    font-size:30px;
+    height:80px;
+}
+.stories-list{
+    width:26vw;
+    overflow:auto;
+}
+.story-item{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin:8px 0px;
+}
+.user-profile img{
+    height:50px;
+    width:50px;
+    border-radius:50%;
+    border:3px solid rgb(167, 53, 110);
+    padding:2px;
+}
+.user-name{
+    font-size: 20px;
+    margin:15px;
+}
+.right-container{
+    width:65vw;
+    height:100vh;
+    background:linear-gradient(to right, rgb(84, 84, 81) , rgb(152, 152, 146));
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.close-button{
+    width:60vw;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.close-button:hover{
+    cursor: pointer;
+}
+.close-button img:hover{
+    height:26px;
+}
+.close-button img{
+    height:25px;
+  
+}
+.story-container{
+    height:85vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.story-container img{
+    height:85vh;
+}
+.like-button{
+    background-color: rgb(89, 77, 223);
+    color:white;
+    border:2px solid rgb(253, 253, 253);
+    border-radius: 10px;
+    padding:5px 20px;
+}
+.like-button:hover{
+    background-color: blue;
+    cursor: pointer;
+}
+.toggle img{
+    height:25px;
+    background-color: rgba(226, 226, 226, 0.585);
+    padding:4px;
+    border-radius: 50%;
+    margin:0px 50px;
+}
+.toggle img:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.775);
+}
