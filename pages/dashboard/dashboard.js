@@ -100,6 +100,22 @@ imageButton.addEventListener('change', (event) => {
     updateImageDisplay();
 })
 
+
+// showing post and hiding the post button
+
+const postButton = document.querySelector('.post-button');
+const feedText = document.querySelector('.feed-text');
+
+feedText.addEventListener('input', () => {
+    if (feedText.value === "") {
+        postButton.style.display = 'none';
+    } else {
+        postButton.style.display = 'block';
+    }
+})
+
+
+
 function updateImageDisplay() {
     const curFiles = imageButton.files;
     if (curFiles.length !== 0 && counter < 5) {
@@ -110,13 +126,7 @@ function updateImageDisplay() {
             const container = document.createElement('div');
             const image = document.createElement('img');
             image.src = URL.createObjectURL(file);
-            image.style.width = '100%';
-            image.style.height = '15rem';
-            if (window.screen.width <= 600) {
-                image.style.height = '10rem';
-            }
-            image.style.objectFit = 'cover';
-            image.style.alignSelf = 'center';
+            image.classList.add('feed-image');
             // image.style.padding = '1rem';
             container.appendChild(image);
             preview.appendChild(container);

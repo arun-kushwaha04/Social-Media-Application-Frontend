@@ -1,73 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="dashboard.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet" />
     <title>Dashboard</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <nav>
-      <div>
-        <div class="logo">Dubify</div>
-      </div>
+        <div>
+            <div class="logo">Dubify</div>
+        </div>
 
-      <div class="icons">
-        <div class="page-button home">
-          <img class="home-icon" src="../../assets/Home.svg " />
+        <div class="icons">
+            <div class="page-button home">
+                <img class="home-icon" src="../../assets/Home.svg " />
+            </div>
+            <div class="page-button video">
+                <img src="../../assets/Video.svg" />
+            </div>
+            <div class="page-button game"><img src="../../assets/Game.svg" /></div>
         </div>
-        <div class="page-button video">
-          <img src="../../assets/Video.svg" />
+        <div class="search">
+            <div class="search-icon"><img src="../../assets/Search.svg" /></div>
+            <input type="search" placeholder="Search..." autocomplete="off" class="search-input" />
         </div>
-        <div class="page-button game"><img src="../../assets/Game.svg" /></div>
-      </div>
-      <div class="search">
-        <div class="search-icon"><img src="../../assets/Search.svg" /></div>
-        <input
-          type="search"
-          placeholder="Search..."
-          autocomplete="off"
-          class="search-input"
-        />
-      </div>
     </nav>
 
     <section>
-      <!-- left section -->
+        <!-- left section -->
 
-      <div class="left-section">
-        <div class="lower">
-          <div class="feature">
-            <img src="../../assets/Covid_Info.svg" />
-            <a
-              href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
-              ><span>Covid-19 Information</span></a
-            >
-          </div>
-          <div class="feature">
-            <img class="symbol" src="../../assets/Friends.svg" />
-            <span>Friends</span>
-          </div>
-          <div class="feature">
-            <img src="../../assets/Video2.svg" />
-            <a href="https://www.youtube.com/"><span>Videos</span></a>
-          </div>
-          <div class="feature">
-            <img src="../../assets/Trending.svg" />
-            <a href="https://trends.google.com/trends/"
-              ><span>Trending</span></a
+        <div class="left-section">
+            <div class="lower">
+                <div class="feature">
+                    <img class="symbol" src="../../assets/Friends.svg" />
+                    <span>Story</span>
+                </div>
+                <div class="feature">
+                    <img src="../../assets/Covid_Info.svg" />
+                    <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"><span>Covid-19 Information</span></a>
+                </div>
+                <div class="feature">
+                    <img src="../../assets/Video2.svg" />
+                    <a href="https://www.youtube.com/"><span>Videos</span></a>
+                </div>
+                <div class="feature">
+                    <img src="../../assets/Trending.svg" />
+                    <a href="https://trends.google.com/trends/"><span>Trending</span></a
             >
           </div>
         </div>
@@ -188,22 +174,27 @@
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Fugiat maiores, amet illum vero a dolore.
                 </p>
-                <div class="images">
-                  <img
-                    src="../../assets/PostImage1.jpg"
-                    height="200"
-                    width="250"
-                  />
-                  <img
-                    src="../../assets/PostImage2.jpg"
-                    height="200"
-                    width="250"
-                  />
-                  <img
-                    src="../../../assets/PostImage3.jpg"
-                    height="200"
-                    width="250"
-                  />
+                <div class="preview">
+                  <div>
+                    <img
+                    src="../../assets/PostImage1.jpg" class="feed-image"                  
+                    />
+                  </div>
+                  <div>
+                    <img
+                    src="../../assets/PostImage2.jpg" class="feed-image"                  
+                    />
+                  </div>
+                  <div>
+                    <img
+                    src="../../../assets/PostImage3.jpg" class="feed-image"                  
+                    />
+                  </div>
+                  <div>
+                    <img
+                    src="../../assets/PostImage1.jpg" class="feed-image"                  
+                    />
+                  </div>
                 </div>
                 <div class="engageButtons">
                   <div class="like-button">
@@ -260,32 +251,28 @@
             <div class="user">
               <img
                 src="../../assets/User1ProfilePhoto.jpg"
-                width="36"
-                height="30"
+                class="profile-photo"
               />
               <span>User1</span>
             </div>
             <div class="user">
               <img
                 src="../../assets/User2ProfilePhoto.jpg"
-                width="36"
-                height="30"
+                class="profile-photo"
               />
               <span>User2</span>
             </div>
             <div class="user">
               <img
                 src="../../assets/User3ProfilePhoto.jpg"
-                width="36"
-                height="30"
+                class="profile-photo"
               />
               <span>User3</span>
             </div>
             <div class="user">
               <img
                 src="../../assets/User4ProfilePhoto.jpg"
-                width="36"
-                height="30"
+                class="profile-photo"
               />
               <span>User4</span>
             </div>
