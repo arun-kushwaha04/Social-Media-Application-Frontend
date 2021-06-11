@@ -1,18 +1,47 @@
+//url 
+const url = "http://localhost:8000";
+
+let firebaseConfig;
+window.onload = () => {
+    // fetch(`${url}/uploadImage/addFeed`)
+    //     .then(res =>
+    //         res.json()
+    //     )
+    //     .then(data => {
+    //         firebaseConfig = data.firebaseConfig;
+    //         firebase.initializeApp(firebaseConfig);
+    //         console.log(data);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
+    fetchCredentials();
+}
+
+//a function to fetch firebase credentials from backend
+async function fetchCredentials() {
+    console.log("hi");
+    const response = await fetch(`${url}/uploadImage/addFeed`, {
+        method: "GET",
+    });
+    const credentials = await response.json();
+    if (response.ok) {
+        firebaseConfig = credentials.firebaseConfig;
+        firebase.initializeApp(firebaseConfig);
+    } else {
+        return Promise.reject(response);
+    }
+}
+
+
+
 const body = document.querySelector('body');
 
 const like = document.querySelector('.like-button');
 const comment = document.querySelector('.comment-button');
 const share = document.querySelector('.share-button');
-
 let likesCount = 0;
 
-// particle js configuration
-// particlesJS.load("particles-js", "particlesjs-config.json");
-
-// like.addEventListener('click',()=>{
-//     likesCount = likesCount + 1;
-//     document.
-// })
 
 const search = document.querySelector('.search');
 const searchInput = document.querySelector('.search-input');
@@ -27,6 +56,8 @@ search.addEventListener('focusout', () => {
     searchIcon.style.visibility = 'visible';
     searchInput.style.paddingLeft = '2.5rem';
 });
+
+
 
 
 //implementing the add feed logic
@@ -61,8 +92,11 @@ const imageButton = document.querySelector('#img');
 const imageSelector = document.querySelector('.image-selector');
 const preview = document.querySelector('.preview');
 let counter = 0;
+let imageToUpload = [];
 
-imageButton.addEventListener('change', () => {
+imageButton.addEventListener('change', (event) => {
+    imageToUpload.push(event.target.files[0]);
+    // console.log(JSON.parse(event.target.files[0]))
     updateImageDisplay();
 })
 
@@ -87,9 +121,6 @@ function updateImageDisplay() {
             container.appendChild(image);
             preview.appendChild(container);
 
-
-            // uploading to google drive
-
         }
     }
     if (counter > 3) {
@@ -98,3 +129,34 @@ function updateImageDisplay() {
         return;
     }
 }
+
+//upload image to firebase storage
+
+const uploadFeed = document.querySelector('.post-button');
+
+uploadFeed.addEventListener('click', () => {
+    imageToUpload.forEach(element => {
+        const refVar = firebase.storage().ref('feeds/' + element.name);
+
+        let task = refVar.put(element);
+
+        task.on('state_changed',
+            function progress(snapshot) {
+                var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            },
+            function error(err) {
+                console.log(err);
+            },
+            function complete() {
+                console.log(task);
+                console.log('File uploded');
+
+                task.snapshot.ref.getDownloadURL().then(
+                    function(downloadURL) {
+                        //we got the url of the image 
+                        console.log(downloadURL);
+                    });
+            }
+        )
+    });
+})
