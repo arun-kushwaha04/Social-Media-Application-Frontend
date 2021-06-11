@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Landing Page</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+</head>
 
-  <body>
+<body>
     <header>
-      <div class="heading">
-        <h1>Dubify</h1>
-        <p>Time to be Social, Go social.</p>
-      </div>
+        <div class="heading">
+            <h1>Dubify</h1>
+            <p>Time to be Social, Go social.</p>
+        </div>
     </header>
+
     <div class="container">
-      <div class="page">
-        <div class="title">dubify</div>
-        <form>
-          <input type="text" placeholder="Username or email" />
-          <input type="password" placeholder="Password" />
-          <button>Log in</button>
-          <div class="option">OR</div>
-        </form>
-        <div class="forgetPassword">
-          <a href="#">Forget password?</a>
+        <div class="page" id="login">
+            <div class="title">dubify</div>
+            <form>
+                <input type="text" placeholder="Username or email" />
+                <input type="password" placeholder="Password" />
+                <button>Log in</button>
+                <div class="option">OR</div>
+            </form>
+            <div class="forgetPassword">
+                <a href="#">Forget password?</a>
+            </div>
+            <div class="signup">
+                <p>Don't have an account?<a href="#" class="toSignUp">Sign up</a></p>
+            </div>
+            <!-- <div id="particles-js"></div> -->
         </div>
-        <div class="signup">
-          <p>Don't have an account?<a href="#">Sign up</a></p>
+
+
+        <div class="page" id="signup">
+            <div class="title">dubify</div>
+            <form>
+                <input type="text" placeholder="Username" />
+                <input type="text" placeholder="Name" />
+                <input type="text" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <input type="password" placeholder="Confirm Password" />
+                <button>Sign Up</button>
+            </form>
+            <div class="signup">
+                <p>Already Have A Account?<a href="#" class="toLogin">Login</a></p>
+            </div>
+            <!-- <div id="particles-js"></div> -->
         </div>
-        <!-- <div id="particles-js"></div> -->
-      </div>
     </div>
-  </body>
-  <!-- <script src="particles.js"></script> -->
-  <script src="./index.js"></script>
+</body>
+<!-- <script src="particles.js"></script> -->
+<script src="./index.js"></script>
+
 </html>

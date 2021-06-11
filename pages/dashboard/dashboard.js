@@ -48,7 +48,6 @@ const searchInput = document.querySelector('.search-input');
 const searchIcon = document.querySelector('.search-icon');
 
 search.addEventListener('focusin', () => {
-    console.log('hello');
     searchIcon.style.visibility = 'hidden';
     searchInput.style.paddingLeft = '1rem';
 });
@@ -70,11 +69,13 @@ const addPhoto = document.querySelector('.add-photo-feed');
 feedInput.addEventListener('click', () => {
     addFeed.style.visibility = 'visible';
     body.style.overflowY = 'hidden';
+    addFeed.scrollIntoView();
 })
 
 addPhoto.addEventListener('click', () => {
     addFeed.style.visibility = 'visible';
     body.style.overflowY = 'hidden';
+    addFeed.scrollIntoView();
 })
 
 closeAddFeed.addEventListener('click', () => {

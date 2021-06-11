@@ -605,7 +605,7 @@ section {
 
 /* media queries */
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     body {
         font-size: 3px;
         width: 100vw;
