@@ -130,10 +130,6 @@ function updateImageDisplay() {
     }
 }
 
-<<<<<<< HEAD
-myProfile.addEventListener('click',()=>{
-    location.href ="../profile/index.html"
-=======
 //upload image to firebase storage
 
 const uploadFeed = document.querySelector('.post-button');
@@ -163,5 +159,4 @@ uploadFeed.addEventListener('click', () => {
             }
         )
     });
->>>>>>> 50ae6b0fb1447b64f9b030e1d32a61d0c41f8150
 })
