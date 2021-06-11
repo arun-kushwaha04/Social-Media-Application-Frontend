@@ -11,6 +11,10 @@ body {
     font-weight: bold;
 }
 
+a {
+    text-decoration: none;
+}
+
 
 /* Main Container */
 
@@ -42,6 +46,10 @@ body {
     background-color: rgb(156, 197, 235);
     margin-bottom: 1.5rem;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.Posts header {
+    margin-bottom: 1rem;
 }
 
 .engageButtons {
@@ -96,6 +104,10 @@ body {
     color: #291261;
 }
 
+.suggestions {
+    overflow-y: auto;
+}
+
 .events-block>h2,
 .suggestions>h2 {
     font-size: 1.75em;
@@ -115,11 +127,31 @@ body {
     display: flex;
     gap: 0.5rem;
     font-weight: 600;
-    cursor: grab;
+}
+
+.left-section .suggestions .user {
+    padding: 0.1rem;
 }
 
 .user span {
     align-self: center;
+}
+
+.follow-btn {
+    align-self: center;
+    height: 1.5rem;
+    width: 4rem;
+    border-radius: 1rem;
+    background-color: rgb(105, 142, 245);
+    font-size: 0.8rem;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.left-section .suggestions .follow-btn {
+    font-size: 0.7rem;
 }
 
 nav {
@@ -328,6 +360,7 @@ section {
     display: flex;
     flex-direction: column;
     padding-left: 0.5rem;
+    margin-bottom: 4rem;
 }
 
 .feature {
