@@ -1,226 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="dashboard.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
     <title>Dashboard</title>
-</head>
+  </head>
 
-<body>
-
-
+  <body>
     <nav>
-        <div>
-            <div class="logo">Dubify</div>
+      <div>
+        <div class="logo">Dubify</div>
+      </div>
+
+      <div class="icons">
+        <div class="page-button home">
+          <img class="home-icon" src="../../assets/Home.svg " />
         </div>
-        <div class="search">
-            <div class="search-icon"><img src="../../assets/Search.svg" /></div>
-            <input type="search" placeholder="Search Dubify" autocomplete="off" class="search-input" />
+        <div class="page-button video">
+          <img src="../../assets/Video.svg" />
         </div>
-        <div class="icons">
-            <div class="page-button home"><img class="home-icon" src="../../assets/Home.svg " /></div>
-            <div class="page-button video"><img src="../../assets/Video.svg" /></div>
-            <div class="page-button game"><img src="../../assets/Game.svg" /></div>
-        </div>
+        <div class="page-button game"><img src="../../assets/Game.svg" /></div>
+      </div>
+      <div class="search">
+        <div class="search-icon"><img src="../../assets/Search.svg" /></div>
+        <input
+          type="search"
+          placeholder="Search..."
+          autocomplete="off"
+          class="search-input"
+        />
+      </div>
     </nav>
 
     <section>
-        <!-- left section -->
+      <!-- left section -->
 
-        <div class="left-section">
-            <div class="lower">
-                <div class="feature">
-                    <img src="../../assets/Covid_Info.svg" />
-                    <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"><span>Covid-19 Information</span></a>
-                </div>
-                <div class="feature">
-                    <img class="symbol" src="../../assets/Friends.svg" />
-                    <span>Friends</span>
-                </div>
-                <div class="feature">
-                    <img src="../../assets/Video.svg" />
-                    <a href="https://www.youtube.com/"><span>Videos</span></a>
-                </div>
-                <div class="feature">
-                    <img src="../../assets/Trending.svg" />
-                    <a href="https://trends.google.com/trends/"><span>Trending</span></a>
-                </div>
-            </div>
+      <div class="left-section">
+        <div class="lower">
+          <div class="feature">
+            <img src="../../assets/Covid_Info.svg" />
+            <a
+              href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019"
+              ><span>Covid-19 Information</span></a
+            >
+          </div>
+          <div class="feature">
+            <img class="symbol" src="../../assets/Friends.svg" />
+            <span>Friends</span>
+          </div>
+          <div class="feature">
+            <img src="../../assets/Video2.svg" />
+            <a href="https://www.youtube.com/"><span>Videos</span></a>
+          </div>
+          <div class="feature">
+            <img src="../../assets/Trending.svg" />
+            <a href="https://trends.google.com/trends/"
+              ><span>Trending</span></a
+            >
+          </div>
         </div>
+      </div>
 
-        <!-- Main Container Where Others Others Posts wouls be shown -->
+      <!-- Main Container Where Others Others Posts wouls be shown -->
 
+      <article class="main-container">
+        <div class="home-page">
+          <!-- story part -->
+          <div class="story-block">
+            <div class="story-box">
+              <img
+                class="user-story"
+                src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4"
+              />
+              <img
+                class="profile-photo story-profile-photo"
+                src="../../assets/plus.svg"
+              />
+              <div class="user-name">User Name</div>
+            </div>
+            <div class="story-box">
+              <img class="user-story" src="../../assets/User1.jpg" />
+              <img
+                class="profile-photo story-profile-photo"
+                src="../../assets/User1ProfilePhoto.jpg"
+              />
+              <div class="user-name">Catlin Snow</div>
+            </div>
+          </div>
 
+          <div class="feed-section">
+            <!-- Create Our New Post -->
+            <div class="add-user-feed">
+              <img
+                class="profile-photo-feed"
+                src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4"
+              />
 
+              <div class="feed-input">What's In Your Crazy Mind.</div>
 
+              <div class="underline-feed"></div>
 
-        <article class="main-container">
-            <div class="home-page">
-
-                <!-- story part -->
-                <div class="story-block">
-                    <div class="story-box">
-                        <img class="user-story" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-                        <img class="profile-photo story-profile-photo" src="../../assets/plus.svg" />
-                        <div class="user-name"> User Name</div>
-                    </div>
-                    <div class="story-box">
-                        <img class="user-story" src="../../assets/User1.jpg" />
-                        <img class="profile-photo story-profile-photo" src="../../assets/User1ProfilePhoto.jpg" />
-                        <div class="user-name"> Catlin Snow </div>
-                    </div>
-                </div>
-
-                <div class="feed-section">
-
-                    <!-- Create Our New Post -->
-                    <div class="add-user-feed">
-                        <img class="profile-photo-feed" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-
-                        <div class="feed-input">
-                            What's In Your Crazy Mind.
-                        </div>
-
-                        <div class="underline-feed"></div>
-
-                        <div class="add-photo-feed">
-                            <img class="add-photo-icon" src="../../assets/AddPhoto.svg" alt=""> Add Photo
-                        </div>
-
-                    </div>
-
-                    <div class="add-feed-after-click">
-
-                        <article class="post-container">
-                            <div class="heading">Create Post</div>
-                            <div class="underline-feed"></div>
-                            <div class="close-feed">
-                                <img class="profile-photo-close" src="../../assets/close.svg" alt="">
-                            </div>
-
-                            <header class="post-user-info">
-                                <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-                                <div class="user-name-feed">
-                                    User Name
-                                </div>
-                            </header>
-
-                            <div class="post-section">
-                                <textarea class="feed-text" placeholder="What's In Your Crazy Mind" rows="4" cols="10"></textarea>
-                                <div class="preview"></div>
-
-                            </div>
-
-                            <input type="file" id="img" accept="image/*" data-max-total-files="4" data-max-file-size="3MB">
-                            <label for="img" class="image-selector">
-                                <div class="add-photo-feed">
-                                    <img class="add-photo-icon" src="../../assets/AddPhoto.svg" alt="">Add Photo
-                                </div>
-                            </label>
-
-                            <div class="btn post-button">Post</div>
-                        </article>
-                    </div>
-
-
-
-                    <!-- Others Posts -->
-                    <div class="Posts">
-                        <div class="user">
-                            <img src="../../assets/User2ProfilePhoto.jpg" width="36" height="30" />
-                            <span>User2</span>
-                        </div>
-                        <div class="content">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat maiores, amet illum vero a dolore.
-                            </p>
-                            <div class="images">
-                                <img src="../../assets/PostImage1.jpg" height="200" width="250" />
-                                <img src="../../assets/PostImage2.jpg" height="200" width="250" />
-                                <img src="../../../assets/PostImage3.jpg" height="200" width="250" />
-                            </div>
-                            <div class="engageButtons">
-                                <div class="like-button">
-                                    <img src="../../assets/LikeButton.svg" class="crazy-button" />
-                                    <span class="likes">200</span>
-                                </div>
-                                <div class="comment-button">
-                                    <img src="../../assets/Comment.svg" class="crazy-button" />
-                                    <span class="comments">70</span>
-                                </div>
-                                <div class="share-button">
-                                    <img src="../../assets/Share.svg" class="crazy-button" />
-                                    <span class="share">30</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <div class="add-photo-feed">
+                <img
+                  class="add-photo-icon"
+                  src="../../assets/AddPhoto.svg"
+                  alt=""
+                />
+                Add Photo
+              </div>
             </div>
 
-        </article>
-
-        <!-- Right Section -->
-        <div class="right-section">
-            <!-- Events -->
-            <div class="events-block">
-                <h2>Events</h2>
-
-                <div class="events-table">
-                    <div class="event">
-                        <h3>Art Contest</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-                    </div>
-
-                    <div class="event">
-                        <h3>Singing Competition</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-                    </div>
-
-                    <div class="event">
-                        <h3>Live Consert</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-                    </div>
+            <div class="add-feed-after-click">
+              <article class="post-container">
+                <div class="heading">Create Post</div>
+                <div class="underline-feed"></div>
+                <div class="close-feed">
+                  <img
+                    class="profile-photo-close"
+                    src="../../assets/close.svg"
+                    alt=""
+                  />
                 </div>
-            </div>
-            <br />
-            <!-- Friends Suggestions -->
-            <div class="suggestions">
-                <h2>Suggestions</h2>
 
-                <div class="users-table">
-                    <div class="user">
-                        <img src="../../assets/User1ProfilePhoto.jpg" width="36" height="30" />
-                        <span>User1</span>
-                    </div>
-                    <div class="user">
-                        <img src="../../assets/User2ProfilePhoto.jpg" width="36" height="30" />
-                        <span>User2</span>
-                    </div>
-                    <div class="user">
-                        <img src="../../assets/User3ProfilePhoto.jpg" width="36" height="30" />
-                        <span>User3</span>
-                    </div>
-                    <div class="user">
-                        <img src="../../assets/User4ProfilePhoto.jpg" width="36" height="30" />
-                        <span>User4</span>
-                    </div>
+                <header class="post-user-info">
+                  <img
+                    class="profile-photo-feed-insert"
+                    src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4"
+                  />
+                  <div class="user-name-feed">User Name</div>
+                </header>
+
+                <div class="post-section">
+                  <textarea
+                    class="feed-text"
+                    placeholder="What's In Your Crazy Mind"
+                    rows="4"
+                    cols="10"
+                  ></textarea>
+                  <div class="preview"></div>
                 </div>
+
+                <input
+                  type="file"
+                  id="img"
+                  accept="image/*"
+                  data-max-total-files="4"
+                  data-max-file-size="3MB"
+                />
+                <label for="img" class="image-selector">
+                  <div class="add-photo-feed">
+                    <img
+                      class="add-photo-icon"
+                      src="../../assets/AddPhoto.svg"
+                      alt=""
+                    />Add Photo
+                  </div>
+                </label>
+
+                <div class="btn post-button">Post</div>
+              </article>
             </div>
+
+            <!-- Others Posts -->
+            <div class="Posts">
+              <div class="user">
+                <img
+                  src="../../assets/User2ProfilePhoto.jpg"
+                  width="36"
+                  height="30"
+                />
+                <span>User2</span>
+              </div>
+              <div class="content">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Fugiat maiores, amet illum vero a dolore.
+                </p>
+                <div class="images">
+                  <img
+                    src="../../assets/PostImage1.jpg"
+                    height="200"
+                    width="250"
+                  />
+                  <img
+                    src="../../assets/PostImage2.jpg"
+                    height="200"
+                    width="250"
+                  />
+                  <img
+                    src="../../../assets/PostImage3.jpg"
+                    height="200"
+                    width="250"
+                  />
+                </div>
+                <div class="engageButtons">
+                  <div class="like-button">
+                    <img
+                      src="../../assets/LikeButton.svg"
+                      class="crazy-button"
+                    />
+                    <span class="likes">200</span>
+                  </div>
+                  <div class="comment-button">
+                    <img src="../../assets/Comment.svg" class="crazy-button" />
+                    <span class="comments">70</span>
+                  </div>
+                  <div class="share-button">
+                    <img src="../../assets/Share.svg" class="crazy-button" />
+                    <span class="share">30</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </article>
+
+      <!-- Right Section -->
+      <div class="right-section">
+        <!-- Events -->
+        <div class="events-block">
+          <h2>Events</h2>
+
+          <div class="events-table">
+            <div class="event">
+              <h3>Art Contest</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+            </div>
+
+            <div class="event">
+              <h3>Singing Competition</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+            </div>
+
+            <div class="event">
+              <h3>Live Consert</h3>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+            </div>
+          </div>
+        </div>
+        <br />
+        <!-- Friends Suggestions -->
+        <div class="suggestions">
+          <h2>Suggestions</h2>
+
+          <div class="users-table">
+            <div class="user">
+              <img
+                src="../../assets/User1ProfilePhoto.jpg"
+                width="36"
+                height="30"
+              />
+              <span>User1</span>
+            </div>
+            <div class="user">
+              <img
+                src="../../assets/User2ProfilePhoto.jpg"
+                width="36"
+                height="30"
+              />
+              <span>User2</span>
+            </div>
+            <div class="user">
+              <img
+                src="../../assets/User3ProfilePhoto.jpg"
+                width="36"
+                height="30"
+              />
+              <span>User3</span>
+            </div>
+            <div class="user">
+              <img
+                src="../../assets/User4ProfilePhoto.jpg"
+                width="36"
+                height="30"
+              />
+              <span>User4</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-</body>
-<!-- firebase libaries -->
-<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
-<script src="./dashboard.js"></script>
-
+  </body>
+  <!-- firebase libaries -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+  <script src="./dashboard.js"></script>
 </html>
