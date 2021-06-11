@@ -8,7 +8,6 @@ body {
     font-size: 62.5%;
     overflow-y: scroll;
     overflow-x: hidden;
-    background-color: #282A36;
 }
 
 
@@ -79,8 +78,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    /* background-color: rgba(117, 117, 117, 0.294); */
-    background-color: #282A36;
+    background-color: rgba(117, 117, 117, 0.294);
 }
 
 .event-table {
@@ -166,7 +164,7 @@ nav {
     content: "Hello";
     position: absolute;
     bottom: -2rem;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     left: 50%;
     transform: translate(-50%, 0);
     background-color: rgba(0, 0, 0, 0.753);
@@ -194,11 +192,11 @@ nav {
 }
 
 .page-button:hover {
-    border-bottom: 0.2rem solid #A2FEF6;
+    border-bottom: 0.2rem solid #a2fef6;
 }
 
 .home-icon:hover {
-    fill: #A2FEF6;
+    color: #a2fef6;
 }
 
 .logo {
@@ -236,12 +234,12 @@ nav {
     border-radius: 1rem;
     border: 0;
     outline: none;
-    background-color: #F0F2F5;
+    background-color: #f0f2f5;
     color: black;
 }
 
 .search input::placeholder {
-    color: #ABADB1;
+    color: #abadb1;
 }
 
 .story-block {
@@ -273,7 +271,7 @@ nav {
 .profile-photo {
     height: 2.5rem;
     width: 2.5rem;
-    border: 0.2rem solid #FEA6B5;
+    border: 0.2rem solid #fea6b5;
     border-radius: 50%;
 }
 
@@ -294,10 +292,10 @@ nav {
     font-weight: 600;
     color: #fff;
     padding: 0.5em;
-    background: rgba( 0, 0, 0, 0.25);
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
-    backdrop-filter: blur( 4px);
-    -webkit-backdrop-filter: blur( 4px);
+    background: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 0 0 1rem 1rem;
 }
 
@@ -363,7 +361,7 @@ section {
 }
 
 .feed-input {
-    background-color: #E4E6E8;
+    background-color: #e4e6e8;
     padding: 1rem 1rem;
     border-radius: 2rem;
     margin: 0rem 4rem;
@@ -415,10 +413,10 @@ section {
     right: 0;
     overflow: hidden;
     z-index: 100;
-    background: rgba( 255, 255, 255, 0.15);
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 1);
-    backdrop-filter: blur( 2.5px);
-    -webkit-backdrop-filter: blur( 2.5px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 1);
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(2.5px);
     visibility: hidden;
 }
 
@@ -541,7 +539,7 @@ section {
     border: none;
     outline: none;
     cursor: pointer;
-    color: #F2F2F2;
+    color: #f2f2f2;
     font-size: 1rem;
     border-radius: 0.5em;
     /* display: 'none'; */
