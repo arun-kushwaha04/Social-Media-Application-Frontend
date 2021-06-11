@@ -8,13 +8,14 @@ body {
   font-size: 62.5%;
   overflow-y: scroll;
   overflow-x: hidden;
+  font-weight: bold;
 }
 
 /* Main Container */
 
 .main-container {
   width: 63%;
-  background-color: transparent;
+  background-color: rgba(204, 204, 204, 0.431);
   display: flex;
   flex-direction: column;
 }
@@ -23,8 +24,10 @@ body {
   /* background-color: white; */
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-  background-color: rgba(204, 204, 204, 0.431);
+  margin: 2rem;
+  background-color: rgb(24, 90, 219, 0.4);
+  padding-top: 1rem;
+
   /* overflow-y: scroll; */
 }
 
@@ -35,7 +38,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  background-color: white;
+  background-color: rgb(156, 197, 235);
   margin-bottom: 1.5rem;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
@@ -91,9 +94,14 @@ body {
   background-color: rgba(204, 204, 204, 0.431);
 }
 
+.event > h3 {
+  color: #291261;
+}
+
 .events-block > h2,
 .suggestions > h2 {
   font-size: 1.75em;
+  color: rgb(211, 201, 64);
 }
 
 .user-table {
@@ -107,9 +115,6 @@ body {
   border-radius: 5px;
   /* background-color: rgba(90, 211, 53, 0.89); */
   margin: 0.5rem 0;
-}
-
-.user {
   /* margin-top: 1rem; */
   display: flex;
   gap: 0.5rem;
@@ -119,19 +124,27 @@ body {
   /* margin-bottom: 1rem; */
 }
 
+.user > img {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  /* position: absolute; */
+}
+
 nav {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  background-color: white;
+  background-color: #0a1931;
   padding: 0 2rem;
   position: sticky;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 9%;
   z-index: 10;
+  color: #ffc947;
 }
 
 .icons {
@@ -199,15 +212,17 @@ nav {
   padding: 0;
   width: 25%;
   text-transform: capitalize;
-  font-size: 1.5rem;
+  font-size: 1.65rem;
+  font-weight: normal;
   font-family: "Pacifico", cursive;
   margin: 0.1rem 2rem;
 }
 
 .search {
-  width: 20%;
+  width: 15%;
   position: relative;
   margin: 0.5rem 1rem;
+  transform: translateX(-1rem);
 }
 
 .search-icon {
@@ -301,7 +316,7 @@ section {
   font-size: 1rem;
   align-items: space-between;
   /* background: linear-gradient(to right, #a1fff7, #ffa6b5); */
-  background-color: rgb(233, 233, 233);
+  background-color: #185adb;
   box-sizing: border-box;
   width: 100%;
   height: 90%;
@@ -326,13 +341,13 @@ section {
 
 .feature {
   display: flex;
-  height: 1.75rem;
+  height: 200%;
   gap: 4px;
   padding: 10px 0;
 }
 
 .feature:hover {
-  background-color: rgba(255, 255, 255, 0.315);
+  background-color: rgba(34, 34, 34, 0.315);
 }
 
 .feed-section {
@@ -340,7 +355,7 @@ section {
 }
 
 .add-user-feed {
-  background-color: white;
+  background-color: rgb(156, 197, 235);
   margin-bottom: 2rem;
   padding: 1rem;
   border-radius: 1rem;
@@ -373,7 +388,7 @@ section {
 /* taking image input  */
 
 .add-photo-feed {
-  background-color: #fa607a;
+  background-color: rgb(24, 90, 219, 0.4);
   width: 25%;
   margin: 0 auto;
   padding: 0.2rem 0.5rem;
@@ -579,7 +594,8 @@ section {
     margin: 1rem 0rem;
   }
   .home-page {
-    padding: 0.5rem;
+    padding: 0;
+    background-color: transparent;
   }
   .add-user-feed {
     padding: 0.1rem;

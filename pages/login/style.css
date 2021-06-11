@@ -26,6 +26,7 @@ body {
   width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+  font-family: sans-serif;
 }
 
 header {
@@ -50,7 +51,6 @@ header > .heading {
 .heading > h1 {
   text-transform: none;
   font-weight: lighter;
-  /* font-size: 4rem; */
   letter-spacing: 3px;
   font-family: "Pacifico", cursive;
   margin: 0;
@@ -69,11 +69,10 @@ header::before {
   right: 0;
   bottom: 0;
   display: block;
-  background: url(colors.jpg);
+  background: url(../../assets/colors.jpg);
   background-size: cover;
   transform-origin: center center 0;
   transform: translateZ(-1px) scale(2);
-  /* transform: translateX(-50%); */
   z-index: -1;
   min-height: 100vh;
 }
@@ -82,29 +81,10 @@ header::before {
   z-index: 2;
   position: absolute;
   top: 100vh;
-  background: black;
-  /* background: url(signinPageBackground.jpg); */
-  /* background-size: cover; */
+  background-color: rgb(16, 57, 139);
   line-height: 30px;
   font-weight: lighter;
-  /* padding: 40px; */
   color: black;
-}
-
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
-
-body {
-  /* display: flex; */
-  /* min-height: 100vh; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* font-size: 62.5%; */
-  /* background: linear-gradient(#fb009f, #fe0202); */
-  font-family: sans-serif;
 }
 
 .container {
@@ -223,10 +203,6 @@ form .option:after {
   border-radius: 50px;
 }
 
-/* .forgetPassword {
-  margin: 1rem;
-} */
-
 .forgetPassword a {
   text-decoration: none;
   color: #025fd2;
@@ -275,11 +251,4 @@ form .option:after {
   .page {
     width: 90%;
   }
-  /* body {
-    font-size: 5px;
-  } */
-  /* .page {
-    display: grid;
-    flex-shrink: 1;
-  } */
 }

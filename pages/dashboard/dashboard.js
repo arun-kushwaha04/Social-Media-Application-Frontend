@@ -13,6 +13,7 @@ let likesCount = 0;
 //     likesCount = likesCount + 1;
 //     document.
 // })
+const myProfile = document.querySelector('.profile-photo-feed');
 
 const search = document.querySelector('.search');
 const searchInput = document.querySelector('.search-input');
@@ -98,3 +99,7 @@ function updateImageDisplay() {
         return;
     }
 }
+
+myProfile.addEventListener('click',()=>{
+    location.href ="../profile/index.html"
+})
