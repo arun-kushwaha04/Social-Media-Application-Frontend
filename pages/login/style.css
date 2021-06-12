@@ -134,11 +134,16 @@ form {
     transform: translateX(-50%);
 }
 
-form input {
+.field {
+    position: relative;
     margin-bottom: 0.5rem;
+}
+
+form input {
     border: 0.1em solid rgba(0, 0, 0, 0.4);
     border-radius: 0.2rem;
     outline: none;
+    width: 100%;
 }
 
 form input:focus {
@@ -241,6 +246,61 @@ form .option:after {
     margin-left: 5px;
     color: #008aff;
     font-weight: bold;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+}
+
+.icon span {
+    height: 1rem;
+    width: 1rem;
+    border: 0.15rem solid;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    line-height: 1rem;
+    display: none;
+}
+
+.icon1 {
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.icon2 {
+    color: #27ae60;
+    border-color: #27ae60;
+}
+
+.error {
+    margin: 0.1rem 0 0.5rem 0;
+    background-color: #e74c3c;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    position: relative;
+    display: none;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.error:before {
+    display: block;
+    content: " ";
+    background-color: #e74c3c;
+    height: 1rem;
+    width: 1rem;
+    position: absolute;
+    top: -0.5rem;
+    right: 0.69rem;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.register {
+    display: none;
 }
 
 #signup {
