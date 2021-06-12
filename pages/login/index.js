@@ -190,3 +190,14 @@ function check5() {
     if (chk1 === 1 && chk2 === 1 && chk3 === 1 && chk4 === 1 && chk5 === 1) register.style.display = 'block';
     else register.style.display = 'none';
 }
+
+//LOGIN
+
+const email = document.querySelector('.email');
+const password = document.querySelector('.password');
+const login = document.querySelector('.login');
+
+function check6() {
+    if (email.value != "" && password.value != "") login.style.display = 'block';
+    else login.style.display = 'none';
+}

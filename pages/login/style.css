@@ -299,7 +299,8 @@ form .option:after {
     z-index: -1;
 }
 
-.register {
+.register,
+.login {
     display: none;
 }
 

@@ -24,8 +24,12 @@
         <div class="page" id="login">
             <div class="title">dubify</div>
             <form>
-                <input type="text" placeholder="Username or email" />
-                <input type="password" placeholder="Password" />
+                <div class="field">
+                    <input type="text" placeholder="Username or email" class="email" onkeyup=check6() />
+                </div>
+                <div class="field">
+                    <input type="password" placeholder="Password" class="password" onkeyup=check6() />
+                </div>
                 <button class="login">Log in</button>
                 <div class="option">OR</div>
             </form>
