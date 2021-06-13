@@ -31,6 +31,10 @@ body {
     font-family: sans-serif;
 }
 
+a {
+    cursor: pointer;
+}
+
 body::-webkit-scrollbar {
     display: none;
 }
@@ -184,6 +188,7 @@ form button {
     letter-spacing: 0.1em;
     outline: none;
     cursor: pointer;
+    width: 100%;
 }
 
 form button:active {

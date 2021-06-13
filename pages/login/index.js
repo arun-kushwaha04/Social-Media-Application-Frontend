@@ -1,3 +1,4 @@
+const url = "https://sheltered-citadel-84490.herokuapp.com"
 const loginButton = document.querySelector("form button");
 const register = document.querySelector(".register");
 
@@ -33,7 +34,7 @@ const usernameError = document.querySelector('.username-error');
 let chk1 = 0;
 
 function check1() {
-    if (username.value.length <= 10) {
+    if (username.value.length <= 10 && username.value[0] !== ' ') {
         username.style.borderColor = '#27ae60';
         usernameIcon1.style.display = 'none';
         usernameIcon2.style.display = 'block';
@@ -66,7 +67,7 @@ const nameError = document.querySelector('.name-error');
 let chk2 = 0;
 
 function check2() {
-    if (_name.value.length <= 20) {
+    if (_name.value.length <= 20 && _name.value[0] !== ' ') {
         _name.style.borderColor = '#27ae60';
         nameIcon1.style.display = 'none';
         nameIcon2.style.display = 'block';
@@ -200,4 +201,162 @@ const login = document.querySelector('.login');
 function check6() {
     if (email.value != "" && password.value != "") login.style.display = 'block';
     else login.style.display = 'none';
+}
+
+//get request at sign up route
+
+register.addEventListener('click', () => {
+    if (chk1 !== 1 && chk2 !== 1 && chk3 !== 1 && chk4 !== 1 && chk5 !== 1) {
+        return;
+    }
+    let userData = {
+        username: username.value,
+        name: _name.value,
+        email: signUpEmail.value,
+        password: signUpPassword.value,
+    }
+    userData = JSON.stringify(userData);
+    registerUser(userData, signUpEmail.value);
+})
+
+//get request at login route
+
+login.addEventListener('click', () => {
+    let userData = {
+        email: email.value,
+        password: password.value,
+    }
+    userData = JSON.stringify(userData);
+    loginUser(userData);
+})
+
+//forgot password button 
+const forgotPasswordButton = document.querySelector('.forgetPassword');
+
+forgotPasswordButton.addEventListener('click', () => {
+    if (email.value === "") { return; }
+    let userData = {
+        email: email.value,
+    }
+    userData = JSON.stringify(userData);
+    forgotPassword(userData, email.value);
+})
+
+
+//registering the user
+const registerUser = async(userData, email) => {
+    try {
+        const res = await fetch(`${url}/auth/signUp`, {
+            method: 'POST',
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            verifyEmail(email, data.domain, data.key, data.userToken);
+            console.log(data);
+
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+//logging in the user
+const loginUser = async(userData) => {
+    try {
+        const res = await fetch(`${url}/auth/login`, {
+            method: 'POST',
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await res.json();
+        console.log(data);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+//forgot password routes
+const forgotPassword = async(userData, email) => {
+    try {
+        const res = await fetch(`${url}/auth/forgotPassword`, {
+            method: 'POST',
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            forgotPasswordEmail(email, data.domain, data.key, data.userToken);
+            console.log(data);
+
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+//SMTP structure for forgotPassword email
+async function forgotPasswordEmail(email, domain, key, userToken) {
+    try {
+        const message = await Email.send({
+                Host: "smtp.gmail.com",
+                Username: `${domain}`,
+                Password: `${key}`,
+                EnableSsl: true,
+                To: `${email}`,
+                From: "noReply@Dubify.com",
+                Subject: "RESET PASSWORD",
+                Body: `
+            <p>Someone (hopefully you) has requested a password reset for your Note-Maker account. Follow the link below to set a new password:</p>
+            <h1>Click on Below Link To Reset Your Password.</h1>
+            <p>If you don't wish to reset your password, disregard this email and no action will be taken.</p>
+            <a href="https://dreamy-carson-5588a8.netlify.app/Pages/changePassword/index.html?userToken=${userToken}" target="_blank">Reset Password</a>
+            <p>Team dubify</p>
+        `,
+            })
+            //displaying the send message
+        if (message) {
+            console.log('mail sent successfully');
+        }
+    } catch (err) {
+        console.log(err);
+        //displaying error
+        setTimeout(() => { location.reload(); }, 10000);
+    };
+}
+
+//SMTP structure for verifyuser email
+async function verifyEmail(email, domain, key, userToken) {
+    try {
+        const message = await Email.send({
+                Host: "smtp.gmail.com",
+                Username: `${domain}`,
+                Password: `${key}`,
+                To: `${email}`,
+                From: "noReply@Dubify.com",
+                Subject: "Verify Email",
+                Body: `
+            <p>Thanks for signing up with Dubify You must follow this link to activate your account:</p>
+            <h1>Click on Below Link To Verify Your Mail.</h1>
+            <a href="https://dreamy-carson-5588a8.netlify.app/Pages/verifyEmail/index.html?userToken=${userToken}&email=${email}" target="_blank">Verify Email</a>
+            <p>Have fun, and don't hesitate to contact US with your feedback..</p>
+            <p>Team Dubify</p>
+        `,
+            })
+            //handling the errors
+        if (message) {
+            console.log('mail sent successfully');
+        }
+    } catch (err) {
+        console.log(err);
+        //displaying the error
+        setTimeout(() => { location.reload(); }, 10000);
+    };
 }
