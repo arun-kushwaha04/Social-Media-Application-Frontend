@@ -94,6 +94,7 @@ const imageSelector = document.querySelector('.image-selector');
 const preview = document.querySelector('.preview');
 let counter = 0;
 let imageToUpload = [];
+let imageUrl = [];
 
 imageButton.addEventListener('change', (event) => {
     imageToUpload.push(event.target.files[0]);
@@ -161,13 +162,33 @@ uploadFeed.addEventListener('click', () => {
             function complete() {
                 console.log(task);
                 console.log('File uploded');
-
-                task.snapshot.ref.getDownloadURL().then(
-                    function(downloadURL) {
-                        //we got the url of the image 
-                        console.log(downloadURL);
-                    });
+                task.snapshot.ref.getDownloadURL()
+                    .then(
+                        function(downloadURL) {
+                            //we got the url of the image 
+                            imageUrl.push(downloadURL);
+                        });
+                console.log(imageUrl);
             }
         )
     });
 })
+
+async function getUserNotes() {
+    const res = await fetch(`${url}/uploadImage/addFeed`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${localStorage.getItem("userToken")}`,
+        },
+    });
+    if (res.status === 200) {
+        const data = await res.json();
+        //we have to load the post of user.
+    } else {
+        const data = await res.json();
+        //show the error of from the response.    
+    }
+
+
+}

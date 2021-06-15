@@ -1,5 +1,4 @@
-const url = "https://sheltered-citadel-84490.herokuapp.com"
-const loginButton = document.querySelector("form button");
+const url = "https://sheltered-citadel-84490.herokuapp.com";
 const register = document.querySelector(".register");
 
 loginButton.addEventListener('click', () => {
@@ -196,6 +195,12 @@ function check5() {
 
 const email = document.querySelector('.email');
 const password = document.querySelector('.password');
+const emailError = document.querySelector('.email-error');
+const emailIcon1 = document.querySelector('.email-icon1');
+const emailIcon2 = document.querySelector('.email-icon2');
+const passwordIcon1 = document.querySelector('.password-icon1');
+const passwordIcon2 = document.querySelector('.password-icon2');
+const passwordError = document.querySelector('.password-error');
 const login = document.querySelector('.login');
 
 function check6() {
@@ -275,9 +280,30 @@ const loginUser = async(userData) => {
             },
         });
         const data = await res.json();
-        console.log(data);
+        if (data.message === 'Internal Server Error Please Try Again') {
+            //network error to be shown here
+        } else if (data.message === 'Please Verify Your Email') {
+            emailIcon1.style.display = 'block';
+            emailError.textContent = 'Email Not Verified';
+            emailError.style.display = 'block';
+        } else if (data.message === 'You Are Logged In Ohter Device Please Log Out') {
+            //error to be show when the user is already logged in
+        } else if (data.message === 'Invalid Password') {
+            passwordIcon1.style.display = 'block';
+            passwordError.textContent = 'Invalid Password';
+            passwordError.style.display = 'block';
+        } else if (data.message === 'No Such User Exists Try Registering Yourself') {
+            //error to be shown when user is not registered
+        } else {
+            localStorage.setItem("userToken", data.userToken);
+            localStorage.setItem("userId", data.userId);
+            localStorage.setItem("username", data.username);
+            location.href = "http://127.0.0.1:5500/pages/dashboard/dashboard.html";
+        }
+
     } catch (err) {
         console.log(err);
+        //Error to be shown of server down
     }
 }
 

@@ -26,10 +26,20 @@
             <form>
                 <div class="field">
                     <input type="text" placeholder="Username or email" class="email" onkeyup=check6() />
+                    <div class="icon">
+                        <span class="email-icon1 icon1 fas fa-exclamation"></span>
+                        <span class="email-icon2 icon2 fas fa-check"></span>
+                    </div>
                 </div>
+                <div class="error username-error">No Such Email Exists</div>
                 <div class="field">
                     <input type="password" placeholder="Password" class="password" onkeyup=check6() />
+                    <div class="icon">
+                        <span class="password-icon1 icon1 fas fa-exclamation"></span>
+                        <span class="password-icon2 icon2 fas fa-check"></span>
+                    </div>
                 </div>
+                <div class="error password-error">Inavlid Password</div>
                 <button class="login">Log in</button>
                 <div class="option">OR</div>
             </form>
