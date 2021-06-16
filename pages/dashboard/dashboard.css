@@ -355,7 +355,7 @@ section {
 }
 
 .lower {
-    height: 13%;
+    /* height: 13%; */
     margin: 1rem 0;
     display: flex;
     flex-direction: column;
@@ -365,9 +365,13 @@ section {
 
 .feature {
     display: flex;
-    height: 200%;
+    height: 4rem;
     gap: 4px;
     padding: 10px 0;
+}
+
+.feature a {
+    align-self: center;
 }
 
 .feature:hover {

@@ -1,14 +1,9 @@
-const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = "http://localhost:8000";
 const register = document.querySelector(".register");
-
-loginButton.addEventListener('click', () => {
-    location.href = "../dashboard/dashboard.html"
-})
 
 //changing sign and login page
 
-const loignPage = document.querySelector('#login');
-const signupPage = document.querySelector('#signup');
 const toLogin = document.querySelector('.toLogin');
 const toSignUp = document.querySelector('.toSignUp');
 
@@ -226,7 +221,8 @@ register.addEventListener('click', () => {
 
 //get request at login route
 
-login.addEventListener('click', () => {
+login.addEventListener('click', (event) => {
+    event.preventDefault();
     let userData = {
         email: email.value,
         password: password.value,
@@ -270,7 +266,7 @@ const registerUser = async(userData, email) => {
 }
 
 //logging in the user
-const loginUser = async(userData) => {
+async function loginUser(userData) {
     try {
         const res = await fetch(`${url}/auth/login`, {
             method: 'POST',
@@ -282,6 +278,7 @@ const loginUser = async(userData) => {
         const data = await res.json();
         if (data.message === 'Internal Server Error Please Try Again') {
             //network error to be shown here
+            alert('Error');
         } else if (data.message === 'Please Verify Your Email') {
             emailIcon1.style.display = 'block';
             emailError.textContent = 'Email Not Verified';
@@ -298,9 +295,9 @@ const loginUser = async(userData) => {
             localStorage.setItem("userToken", data.userToken);
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("username", data.username);
+            console.log(data.userId, data.username);
             location.href = "http://127.0.0.1:5500/pages/dashboard/dashboard.html";
         }
-
     } catch (err) {
         console.log(err);
         //Error to be shown of server down
