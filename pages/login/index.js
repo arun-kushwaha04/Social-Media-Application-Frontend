@@ -6,15 +6,18 @@ const register = document.querySelector(".register");
 
 const toLogin = document.querySelector('.toLogin');
 const toSignUp = document.querySelector('.toSignUp');
+const loginPage = document.querySelector('#login');
+const signupPage = document.querySelector('#signup');
 
 toLogin.addEventListener('click', () => {
+    console.log('hi');
     signupPage.style.display = 'none';
-    loignPage.style.display = 'block';
+    loginPage.style.display = 'block';
 });
 
 toSignUp.addEventListener('click', () => {
     signupPage.style.display = 'block';
-    loignPage.style.display = 'none';
+    loginPage.style.display = 'none';
 })
 
 
@@ -295,7 +298,7 @@ async function loginUser(userData) {
             localStorage.setItem("userToken", data.userToken);
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("username", data.username);
-            console.log(data.userId, data.username);
+            alert(data.userId, data.username);
             location.href = "http://127.0.0.1:5500/pages/dashboard/dashboard.html";
         }
     } catch (err) {
