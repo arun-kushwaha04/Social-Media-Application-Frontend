@@ -44,7 +44,8 @@ header > h1 {
   font-size: 5rem;
   letter-spacing: 0.2rem;
   font-weight: 550;
-  background: linear-gradient(to right, #a1fff7 50%, #ffa6b5 50%);
+  /* background: linear-gradient(to right, #a1fff7 50%, #ffa6b5 50%); */
+  background: white;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -63,7 +64,7 @@ header::before {
   right: 0;
   bottom: 0;
   display: block;
-  background: url(../../assets/on-load.jpg);
+  background: url(../../assets/blueBackground.jpg);
   background-size: cover;
   transform-origin: center center 0;
   transform: translateZ(-1px) scale(2);
