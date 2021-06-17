@@ -79,6 +79,9 @@ a {
 /* Right Section */
 
 .right-section {
+    color: white;
+    font-weight: normal;
+    gap: 0.5rem;
     width: 20%;
     display: flex;
     flex-direction: column;
@@ -126,7 +129,7 @@ a {
     margin: 0.5rem 0;
     display: flex;
     gap: 0.5rem;
-    font-weight: 600;
+    font-weight: normal;
 }
 
 .left-section .suggestions .user {
@@ -139,10 +142,13 @@ a {
 
 .follow-btn {
     align-self: center;
+    color: black;
+    padding: 0 2rem;
     height: 1.5rem;
     width: 4rem;
     border-radius: 1rem;
     background-color: rgb(105, 142, 245);
+    font-weight: 600;
     font-size: 0.8rem;
     display: grid;
     align-content: center;
@@ -173,7 +179,7 @@ nav {
 .icons {
     display: flex;
     width: 70%;
-    justify-content: space-around;
+    justify-content: space-evenly;
     padding-top: 0.5rem;
     height: 100%;
     background-color: transparent;
@@ -305,7 +311,7 @@ nav {
 .profile-photo {
     height: 2.5rem;
     width: 2.5rem;
-    border: 0.2rem solid #FFC947;
+    border: 0.2rem solid #ffc947;
     border-radius: 50%;
 }
 
@@ -349,13 +355,15 @@ section {
     display: flex;
     flex-direction: column;
     /* width: 16rem; */
+    color: white;
+    font-weight: normal;
     padding: 0.5rem;
     width: 17%;
     background-color: rgba(117, 117, 117, 0.294);
 }
 
 .lower {
-    height: 13%;
+    /* height: 13%; */
     margin: 1rem 0;
     display: flex;
     flex-direction: column;
@@ -365,9 +373,13 @@ section {
 
 .feature {
     display: flex;
-    height: 200%;
+    height: 4rem;
     gap: 4px;
     padding: 10px 0;
+}
+
+.feature a {
+    align-self: center;
 }
 
 .feature:hover {
@@ -554,7 +566,7 @@ section {
     align-self: center;
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
     .feed-image {
         height: 10rem;
     }

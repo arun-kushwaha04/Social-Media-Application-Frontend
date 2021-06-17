@@ -16,6 +16,7 @@ window.onload = () => {
     //         console.log(err);
     //     })
     fetchCredentials();
+    getUserNotes();
 }
 
 //a function to fetch firebase credentials from backend
@@ -94,6 +95,7 @@ const imageSelector = document.querySelector('.image-selector');
 const preview = document.querySelector('.preview');
 let counter = 0;
 let imageToUpload = [];
+let imageUrl = [];
 
 imageButton.addEventListener('change', (event) => {
     imageToUpload.push(event.target.files[0]);
@@ -161,13 +163,92 @@ uploadFeed.addEventListener('click', () => {
             function complete() {
                 console.log(task);
                 console.log('File uploded');
-
-                task.snapshot.ref.getDownloadURL().then(
-                    function(downloadURL) {
-                        //we got the url of the image 
-                        console.log(downloadURL);
-                    });
+                task.snapshot.ref.getDownloadURL()
+                    .then(
+                        function(downloadURL) {
+                            //we got the url of the image 
+                            imageUrl.push(downloadURL);
+                        });
+                console.log(imageUrl);
             }
         )
     });
 })
+
+async function getUserNotes() {
+    const res = await fetch(`${url}/feed/getUserPost`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${localStorage.getItem("userToken")}`,
+        },
+    });
+    if (res.status === 200) {
+        const data = await res.json();
+        //we have to load the post of user.
+        const post = data.post;
+        console.log(post);
+        post.forEach(element => {
+            addUserPost(element);
+        })
+
+
+
+    } else {
+        const data = await res.json();
+        //show the error of from the response.
+
+    }
+
+}
+
+//fuction to populate the post
+function addUserPost(element) {
+    const container = document.querySelector('.user-posts');
+    const div = document.createElement("div");
+    div.classList = "Posts";
+    div.innerHTML = `
+        <header class="post-user-info">
+                            <img class="profile-photo-feed-insert" src="${element.profilephoto}" />
+                            <div class="user-name-feed">${element.userusername}</div>
+                        </header>
+                        <div class="content">
+                            <p>
+                                ${element.description}
+                            </p>
+                            <div class="preview" id="preview${element.postid}">
+
+                            </div>
+                            <div class="engageButtons">
+                                <div class="like-button" id = ${element.postid}>
+                                    <img src="../../assets/LikeButton.svg" class="crazy-button" />
+                                    <span class="likes">${element.postlikes}</span>
+                                </div>
+                                <div class="comment-button" id = ${element.postid}>
+                                    <img src="../../assets/Comment.svg" class="crazy-button" />
+                                    <span class="comments">${element.postcomments}</span>
+                                </div>
+                                <div class="share-button" id = ${element.postid}>
+                                    <img src="../../assets/Share.svg" class="crazy-button" />
+                                    <span class="share">${element.postshare}</span>
+                                </div>
+                            </div>
+                        </div>
+        `;
+    container.appendChild(div);
+    addPostImage(element.images, element.postid);
+}
+
+
+function addPostImage(ImageArray, postId) {
+    const id = `preview${postId}`;
+    const preview = document.querySelector(`#${id}`);
+    ImageArray.forEach(element => {
+        const div = document.createElement('div');
+        const img = document.createElement('img');
+        img.classList.add('feed-image');
+        img.src = element;
+        div.appendChild(img);
+        preview.appendChild(div);
+    })
+}
