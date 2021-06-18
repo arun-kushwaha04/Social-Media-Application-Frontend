@@ -178,7 +178,6 @@ nav {
     width: 25px;
     background-color: white;
     margin-bottom: 5px;
-    display: none;
 }
 
 .hamburger {
@@ -189,6 +188,7 @@ nav {
     top: 50%;
     transform: translate(-5%, -40%);
     z-index: 1;
+    display: none;
 }
 
 .icons {
@@ -295,16 +295,6 @@ nav {
 
 .search input::placeholder {
     color: #abadb1;
-}
-
-.hamburger {
-    /* display: none; */
-    position: absolute;
-    cursor: pointer;
-    right: 1.6%;
-    top: 50%;
-    transform: translate(-5%, -40%);
-    z-index: 1;
 }
 
 .story-block {
@@ -706,7 +696,7 @@ section {
         display: none;
     }
     .main-container {
-        width: 100%;
+        width: 100vw;
         padding: 0;
         margin: 0;
     }
@@ -737,10 +727,13 @@ section {
         width: 50%;
         margin-bottom: 0.5rem;
     }
+    .hamburger {
+        display: block;
+    }
 }
 
-@media (max-width: 1250px) {
-    .line {
+@media (min-width: 769px) and (max-width: 1250px) {
+    .hamburger {
         display: block;
     }
     .right-section {

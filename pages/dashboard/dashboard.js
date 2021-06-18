@@ -33,11 +33,11 @@ const share = document.querySelector('.share-button');
 let likesCount = 0;
 
 //hamburger
-const leftSection = document.querySelector('.right-section');
+const rightSection = document.querySelector('.right-section');
 const hamburgerButton = document.querySelector('.hamburger');
 
 hamburgerButton.addEventListener('click', () => {
-    leftSection.classList.toggle("open");
+    rightSection.classList.toggle("open");
 })
 
 
