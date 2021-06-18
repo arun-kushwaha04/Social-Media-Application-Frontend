@@ -142,13 +142,10 @@ a {
 
 .follow-btn {
     align-self: center;
-    color: black;
-    padding: 0 0.8rem;
-    height: 1.5rem;
-    width: 0;
-    border-radius: 1rem;
-    /* background-color: rgb(105, 142, 245); */
-    font-weight: 600;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: rgb(105, 142, 245);
     font-size: 0.8rem;
     display: grid;
     align-content: center;
@@ -298,6 +295,16 @@ nav {
 
 .search input::placeholder {
     color: #abadb1;
+}
+
+.hamburger {
+    /* display: none; */
+    position: absolute;
+    cursor: pointer;
+    right: 1.6%;
+    top: 50%;
+    transform: translate(-5%, -40%);
+    z-index: 1;
 }
 
 .story-block {
