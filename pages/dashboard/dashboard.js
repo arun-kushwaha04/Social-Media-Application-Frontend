@@ -14,7 +14,6 @@ window.onload = () => {
 
 //a function to fetch firebase credentials from backend
 async function fetchCredentials() {
-    console.log("hi");
     const response = await fetch(`${url}/uploadImage/addFeed`, {
         method: "GET",
     });
@@ -34,10 +33,14 @@ let likesCount = 0;
 
 //hamburger
 const rightSection = document.querySelector('.right-section');
-const hamburgerButton = document.querySelector('.hamburger');
+const hamburgerButton = document.querySelector('.hamburger-div');
 
 hamburgerButton.addEventListener('click', () => {
-    rightSection.classList.toggle("open");
+    rightSection.classList.toggle('open');
+    // rightSection.classList.toggle('right-section');
+    // console.log('hi');
+    // console.log(rightSection);
+    // rightSection.classList.toggle('open');
 })
 
 
