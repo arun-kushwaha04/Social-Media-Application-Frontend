@@ -1,6 +1,11 @@
 //url 
 const url = "http://localhost:8000";
 
+const myProfile = document.querySelector(".profile-photo-feed");
+myProfile.addEventListener("click",()=>{
+    location.href = "/pages/profile/index.html"
+})
+
 let firebaseConfig;
 window.onload = () => {
     // fetch(`${url}/uploadImage/addFeed`)
@@ -42,6 +47,14 @@ const like = document.querySelector('.like-button');
 const comment = document.querySelector('.comment-button');
 const share = document.querySelector('.share-button');
 let likesCount = 0;
+
+//hamburger
+const leftSection = document.querySelector('.right-section');
+const hamburgerButton = document.querySelector('.hamburger');
+
+hamburgerButton.addEventListener('click',()=>{
+    leftSection.classList.toggle("open");
+})
 
 
 const search = document.querySelector('.search');
