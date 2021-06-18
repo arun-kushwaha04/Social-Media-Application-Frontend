@@ -648,7 +648,7 @@ section {
     /* display: 'none'; */
 }
 
-<<<<<<< HEAD .loading-effect {
+.loading-effect {
     display: none;
 }
 
@@ -661,7 +661,7 @@ section {
     padding: 0.1rem;
 }
 
-=======>>>>>>>01c44f9d297a2f5ecca8380373009207b357c261
+
 /* media queries */
 
 @media (max-width: 768px) {
