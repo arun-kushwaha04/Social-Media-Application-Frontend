@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Dashboard</title>
 </head>
 
@@ -27,6 +28,14 @@
                 <img src="../../assets/Video.svg" />
             </div>
             <div class="page-button game"><img src="../../assets/Game.svg" /></div>
+            <div class="page-button hamburger-div">
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+            
         </div>
         <div class="search">
             <div class="search-icon"><img src="../../assets/Search.svg" /></div>
@@ -61,26 +70,11 @@
                 <h2>Contacts</h2>
 
                 <div class="users-table">
-                    <div class="user">
+                    <!--<div class="user">
                         <img src="https://avatars.githubusercontent.com/u/78134473?v=4" class="profile-photo" />
                         <span>Harsh Gupta</span>
-                        <div class="follow-btn">UNFOLLOW</div>
-                    </div>
-                    <div class="user">
-                        <img src="https://avatars.githubusercontent.com/u/75408888?v=4" class="profile-photo" />
-                        <span>Vishwas</span>
-                        <div class="follow-btn">UNFOLLOW</div>
-                    </div>
-                    <div class="user">
-                        <img src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" class="profile-photo" />
-                        <span>Arun Kushwaha</span>
-                        <div class="follow-btn">UNFOLLOW</div>
-                    </div>
-                    <div class="user">
-                        <img src="https://media-exp3.licdn.com/dms/image/C4E03AQFFPC75CEjLQg/profile-displayphoto-shrink_200_200/0/1594212611651?e=1628726400&v=beta&t=PJSp5F1pCL2RUF-o_Elg2dVFjdcDAKIKiyLjz1di6qg" class="profile-photo" />
-                        <span>Ansh Singh</span>
-                        <div class="follow-btn">UNFOLLOW</div>
-                    </div>
+                        <div class="follow-btn"><i class="fas fa-user-minus"></i></div>
+                    </div>-->
                 </div>
             </div>
 
@@ -107,7 +101,7 @@
                 <div class="feed-section">
                     <!-- Create Our New Post -->
                     <div class="add-user-feed">
-                        <img class="profile-photo-feed" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
+                        <img class="profile-photo-feed"/>
 
                         <div class="feed-input">What's In Your Crazy Mind.</div>
 
@@ -120,86 +114,45 @@
 
                     <div class="add-feed-after-click">
                         <article class="post-container">
+                        <div class="container-for-post">
                             <div class="heading">Create Post</div>
-                            <div class="underline-feed"></div>
-                            <div class="close-feed">
-                                <img class="profile-photo-close" src="../../assets/close.svg" alt="" />
-                            </div>
+                                <div class="underline-feed"></div>
+                                <div class="close-feed">
+                                    <img class="profile-photo-close" src="../../assets/close.svg" alt="" />
+                                </div>
+                                <header class="post-user-info">
+                                    <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
+                                    <div class="user-name-feed">User Name</div>
+                                </header>
 
-                            <header class="post-user-info">
-                                <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-                                <div class="user-name-feed">User Name</div>
-                            </header>
-
-                            <div class="post-section">
-                                <textarea class="feed-text" placeholder="What's In Your Crazy Mind" rows="4" cols="10"></textarea>
-                                <div class="preview"></div>
-                            </div>
-
-                            <input type="file" id="img" accept="image/*" data-max-total-files="4" data-max-file-size="3MB" />
-                            <label for="img" class="image-selector">
-                  <div class="add-photo-feed">
-                    <img
-                      class="add-photo-icon"
-                      src="../../assets/AddPhoto.svg"
-                      alt=""
-                    />Add Photo
-                  </div>
-                </label>
-
-                <div class="btn post-button">Post</div>
+                                <div class="post-section">
+                                    <textarea class="feed-text" placeholder="What's In Your Crazy Mind" rows="4" cols="10"></textarea>
+                                    <div class="preview"></div>
+                                </div>
+                                <input type="file" id="img" accept="image/*" data-max-total-files="4" data-max-file-size="3MB" />
+                                <label for="img" class="image-selector">                            
+                                    <div class="add-photo-feed">
+                                        <img
+                                        class="add-photo-icon"
+                                        src="../../assets/AddPhoto.svg"
+                                        alt=""
+                                        />Add Photo
+                                    </div>
+                                </label>
+                                <div class="btn upload-button">Upload Images</div>
+                                <div class="btn post-button">Post</div>
+                        </div>                        
+                        <div class="loading-effect">
+                            <h3>Uploading...</h3>
+                            <progress class="loader" value="0" max="100">0%</progress>
+                        </div>
                         </article>
                     </div>
 
                     <!-- Others Posts -->
                     <div class="user-posts">
-
-
-                        <div class="Posts">
-                        <header class="post-user-info">
-                            <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-                            <div class="user-name-feed">Arun Kushwaha</div>
-                        </header>
-                        <div class="content">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat maiores, amet illum vero a dolore.
-                            </p>
-                            <div class="preview">
-                                <div>
-                                    <img src="../../assets/PostImage1.jpg" class="feed-image" />
-                                </div>
-                                <div>
-                                    <img src="../../assets/PostImage2.jpg" class="feed-image" />
-                                </div>
-                                <div>
-                                    <img src="../../../assets/PostImage3.jpg" class="feed-image" />
-                                </div>
-                                <div>
-                                    <img src="../../assets/PostImage1.jpg" class="feed-image" />
-                                </div>
-                            </div>
-                            <div class="engageButtons">
-                                <div class="like-button">
-                                    <img src="../../assets/LikeButton.svg" class="crazy-button" />
-                                    <span class="likes">200</span>
-                                </div>
-                                <div class="comment-button">
-                                    <img src="../../assets/Comment.svg" class="crazy-button" />
-                                    <span class="comments">70</span>
-                                </div>
-                                <div class="share-button">
-                                    <img src="../../assets/Share.svg" class="crazy-button" />
-                                    <span class="share">30</span>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
-
-
-                    </div>
-
-
-
                 </div>
             </div>
         </article>
@@ -209,7 +162,6 @@
             <!-- Events -->
             <div class="events-block">
                 <h2>Events</h2>
-
                 <div class="events-table">
                     <div class="event">
                         <h3>Art Contest</h3>
@@ -231,27 +183,26 @@
             <!-- Friends Suggestions -->
             <div class="suggestions">
                 <h2>Suggestions</h2>
-
                 <div class="users-table">
                     <div class="user">
                         <img src="https://avatars.githubusercontent.com/u/78134473?v=4" class="profile-photo" />
                         <span>Harsh Gupta</span>
-                        <div class="follow-btn">FOLLOW</div>
+                        <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
                     </div>
                     <div class="user">
                         <img src="https://avatars.githubusercontent.com/u/75408888?v=4" class="profile-photo" />
                         <span>Vishwas</span>
-                        <div class="follow-btn">FOLLOW</div>
+                        <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
                     </div>
                     <div class="user">
                         <img src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" class="profile-photo" />
                         <span>Arun Kushwaha</span>
-                        <div class="follow-btn">FOLLOW</div>
+                        <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
                     </div>
                     <div class="user">
                         <img src="https://media-exp3.licdn.com/dms/image/C4E03AQFFPC75CEjLQg/profile-displayphoto-shrink_200_200/0/1594212611651?e=1628726400&v=beta&t=PJSp5F1pCL2RUF-o_Elg2dVFjdcDAKIKiyLjz1di6qg" class="profile-photo" />
                         <span>Ansh Singh</span>
-                        <div class="follow-btn">FOLLOW</div>
+                        <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
                     </div>
                 </div>
             </div>

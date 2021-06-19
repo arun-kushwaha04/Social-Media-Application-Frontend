@@ -49,6 +49,10 @@ main {
   height: 28px;
 }
 
+.bold {
+  font-weight: 600;
+}
+
 .right-container {
   background-color: rgb(24, 90, 219, 0.4);
   width: 60vw;

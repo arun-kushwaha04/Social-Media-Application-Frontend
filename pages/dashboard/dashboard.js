@@ -1,27 +1,20 @@
 //url 
 const url = "http://localhost:8000";
 
+const myProfile = document.querySelector(".profile-photo-feed");
+myProfile.addEventListener("click", () => {
+    location.href = "/pages/profile/index.html"
+})
+
 let firebaseConfig;
 window.onload = () => {
-    // fetch(`${url}/uploadImage/addFeed`)
-    //     .then(res =>
-    //         res.json()
-    //     )
-    //     .then(data => {
-    //         firebaseConfig = data.firebaseConfig;
-    //         firebase.initializeApp(firebaseConfig);
-    //         console.log(data);
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     })
     fetchCredentials();
     getUserNotes();
+    getFollowing();
 }
 
 //a function to fetch firebase credentials from backend
 async function fetchCredentials() {
-    console.log("hi");
     const response = await fetch(`${url}/uploadImage/addFeed`, {
         method: "GET",
     });
@@ -33,15 +26,23 @@ async function fetchCredentials() {
         return Promise.reject(response);
     }
 }
-
-
-
 const body = document.querySelector('body');
-
 const like = document.querySelector('.like-button');
 const comment = document.querySelector('.comment-button');
 const share = document.querySelector('.share-button');
 let likesCount = 0;
+
+//hamburger
+const rightSection = document.querySelector('.right-section');
+const hamburgerButton = document.querySelector('.hamburger-div');
+
+hamburgerButton.addEventListener('click', () => {
+    rightSection.classList.toggle('open');
+    // rightSection.classList.toggle('right-section');
+    // console.log('hi');
+    // console.log(rightSection);
+    // rightSection.classList.toggle('open');
+})
 
 
 const search = document.querySelector('.search');
@@ -56,10 +57,6 @@ search.addEventListener('focusout', () => {
     searchIcon.style.visibility = 'visible';
     searchInput.style.paddingLeft = '2.5rem';
 });
-
-
-
-
 //implementing the add feed logic
 
 const feedInput = document.querySelector('.feed-input');
@@ -93,13 +90,15 @@ closeAddFeed.addEventListener('click', () => {
 const imageButton = document.querySelector('#img');
 const imageSelector = document.querySelector('.image-selector');
 const preview = document.querySelector('.preview');
+const containerForPost = document.querySelector('.container-for-post');
+const loadingEffect = document.querySelector('.loading-effect');
+const loader = document.querySelector('.loader');
 let counter = 0;
 let imageToUpload = [];
 let imageUrl = [];
 
 imageButton.addEventListener('change', (event) => {
     imageToUpload.push(event.target.files[0]);
-    // console.log(JSON.parse(event.target.files[0]))
     updateImageDisplay();
 })
 
@@ -107,33 +106,68 @@ imageButton.addEventListener('change', (event) => {
 // showing post and hiding the post button
 
 const postButton = document.querySelector('.post-button');
+const uploadButton = document.querySelector('.upload-button');
 const feedText = document.querySelector('.feed-text');
+let checker = 0;
 
 feedText.addEventListener('input', () => {
+
     if (feedText.value === "") {
         postButton.style.display = 'none';
-    } else {
+        uploadButton.style.display = 'none';
+    } else if (feedText.value !== "" && counter > 0) {
+        if (checker) {
+            postButton.style.display = 'block';
+            uploadButton.style.display = 'none';
+        } else {
+            postButton.style.display = 'none';
+            uploadButton.style.display = 'block';
+        }
+    } else if (feedText.value !== "" && counter === 0) {
         postButton.style.display = 'block';
+        uploadButton.style.display = 'none';
     }
 })
-
-
 
 function updateImageDisplay() {
     const curFiles = imageButton.files;
     if (curFiles.length !== 0 && counter < 5) {
+        uploadButton.style.display = 'block';
+        postButton.style.display = 'none';
         counter++;
         imageSelector.style.display = 'block';
         for (const file of curFiles) {
             // para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
             const container = document.createElement('div');
+            container.classList.add('post-image-container');
+            const closeImageDiv = document.createElement('div');
+            closeImageDiv.classList.add('close-image');
+            closeImageDiv.onclick = function(event) {
+                const parent = this.parentElement;
+                this.parentElement.parentElement.removeChild(parent);
+                imageToUpload.splice(event.target.id, 1);
+                console.log(imageToUpload);
+                counter--;
+                if (counter <= 3) {
+                    imageSelector.style.display = 'block';
+                }
+                if (counter === 0) {
+                    imageSelector.style.display = 'none';
+                }
+            };
+            const closeImage = document.createElement('img');
+            closeImage.src = '../../assets/close.svg';
+            closeImage.setAttribute('id', `${counter-1}`);
+            closeImage.classList.add('profile-photo-close');
+            closeImage.classList.add('image-photo-close');
+            closeImageDiv.appendChild(closeImage);
             const image = document.createElement('img');
             image.src = URL.createObjectURL(file);
             image.classList.add('feed-image');
             // image.style.padding = '1rem';
             container.appendChild(image);
+            container.appendChild(closeImageDiv);
             preview.appendChild(container);
-
         }
     }
     if (counter > 3) {
@@ -143,66 +177,93 @@ function updateImageDisplay() {
     }
 }
 
-//upload image to firebase storage
+//upload image to firebase storage then add th post to the database
 
-const uploadFeed = document.querySelector('.post-button');
+postButton.addEventListener('click', () => {
+    if (checker === 1) addPost();
+    else {
+        alert('First upload the image');
+    }
+});
 
-uploadFeed.addEventListener('click', () => {
-    imageToUpload.forEach(element => {
+uploadButton.addEventListener('click', () => {
+    uploadImageToFirebase();
+})
+
+function uploadImageToFirebase() {
+    containerForPost.style.display = 'none';
+    loadingEffect.style.display = 'block';
+    for (let i = 0; i < imageToUpload.length; i++) {
+        const element = imageToUpload[i];
         const refVar = firebase.storage().ref('feeds/' + element.name);
-
         let task = refVar.put(element);
-
         task.on('state_changed',
             function progress(snapshot) {
-                var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                loader.value = percentage;
+                console.log(percentage);
             },
             function error(err) {
                 console.log(err);
             },
             function complete() {
-                console.log(task);
-                console.log('File uploded');
                 task.snapshot.ref.getDownloadURL()
                     .then(
                         function(downloadURL) {
                             //we got the url of the image 
                             imageUrl.push(downloadURL);
                         });
+                containerForPost.style.display = 'block';
+                loadingEffect.style.display = 'none';
                 console.log(imageUrl);
             }
         )
-    });
-})
+    }
+    checker = 1;
+    postButton.style.display = 'block';
+    uploadButton.style.display = 'none';
+}
+
+
 
 async function getUserNotes() {
-    const res = await fetch(`${url}/feed/getUserPost`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `${localStorage.getItem("userToken")}`,
-        },
-    });
-    if (res.status === 200) {
-        const data = await res.json();
-        //we have to load the post of user.
-        const post = data.post;
-        console.log(post);
-        post.forEach(element => {
-            addUserPost(element);
-        })
+    try {
+        const res = await fetch(`${url}/feed/getFollowingPosts`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            //we have to load the post of user.
+            const post = data.post;
+            console.log(post);
+            post.forEach(element => {
+                addUserPost(element);
+            })
+        } else {
+            const data = await res.json();
+            //show the error of from the response.
 
-
-
-    } else {
-        const data = await res.json();
-        //show the error of from the response.
-
+        }
+    } catch (e) {
+        console.log(e);
+        //error handling done
     }
 
 }
 
-//fuction to populate the post
+//showing user image
+
+const profilePhotoFeed = document.querySelector('.profile-photo-feed');
+const profilePhotoFeedInsert = document.querySelector('.profile-photo-feed-insert');
+const userNameFeed = document.querySelector('.user-name-feed');
+profilePhotoFeed.src = localStorage.getItem("profilePhoto");
+profilePhotoFeedInsert.src = localStorage.getItem("profilePhoto");
+userNameFeed.textContent = localStorage.getItem("username");
+//function to populate the post
 function addUserPost(element) {
     const container = document.querySelector('.user-posts');
     const div = document.createElement("div");
@@ -239,7 +300,7 @@ function addUserPost(element) {
     addPostImage(element.images, element.postid);
 }
 
-
+//showing each post image to the user
 function addPostImage(ImageArray, postId) {
     const id = `preview${postId}`;
     const preview = document.querySelector(`#${id}`);
@@ -251,4 +312,87 @@ function addPostImage(ImageArray, postId) {
         div.appendChild(img);
         preview.appendChild(div);
     })
+}
+
+
+
+//adding notes to the server
+async function addPost() {
+    containerForPost.style.display = 'block';
+    loadingEffect.style.display = 'none';
+    addFeed.style.visibility = 'hidden';
+    console.log(imageUrl);
+    let userData = {
+        image: imageUrl,
+        description: feedText.value,
+        profilePhoto: localStorage.getItem("profilePhoto"),
+    }
+    console.log(userData);
+    userData = JSON.stringify(userData);
+    console.log(userData);
+    imageToUpload = [];
+    imageUrl = [];
+    try {
+        const res = await fetch(`${url}/feed/addPost`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            if (data.message === 'Post Created') {
+                //inform the user oabout this
+            } else {
+                //error handling to be done
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//follower list
+
+async function getFollowing() {
+    try {
+        const res = await fetch(`${url}/friend/getFollowing`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            console.log(data.follower);
+            renderFollowingList(data.follower);
+            //apend the mesagge
+        } else {
+            //error handling
+        }
+    } catch (error) {
+        //error handling
+    }
+}
+const table = document.querySelector('.users-table');
+
+function renderFollowingList(following) {
+    following.forEach(element => {
+        const div = document.createElement('div');
+        div.classList.add('user');
+        div.innerHTML = `
+            <img src="${element.profilephoto}" class="profile-photo" id="${element.following}" onClick = "profilePage(event)"/>
+            <span>${element.followingrusername}</span>
+            <div class="follow-btn"><i class="fas fa-user-minus"></i></div>
+        `;
+        table.appendChild(div);
+    })
+}
+
+function profilePage(event) {
+    const id = event.target.id;
+    // location.href = profile url
 }

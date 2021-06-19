@@ -155,8 +155,7 @@ form input:focus {
     background: #efefef;
 }
 
-input[type="text"],
-input[type="password"] {
+input {
     padding-left: 0.5rem;
     position: relative;
     height: 3rem;
@@ -283,7 +282,7 @@ form .option:after {
 .error {
     margin: 0.1rem 0 0.5rem 0;
     background-color: #e74c3c;
-    padding: 0.5em;
+    padding: 0.1em;
     border-radius: 0.5em;
     position: relative;
     display: none;
@@ -307,6 +306,7 @@ form .option:after {
 .register,
 .login {
     display: none;
+    margin: 0 auto;
 }
 
 #signup {

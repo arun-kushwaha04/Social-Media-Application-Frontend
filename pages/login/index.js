@@ -288,6 +288,9 @@ async function loginUser(userData) {
             emailError.style.display = 'block';
         } else if (data.message === 'You Are Logged In Ohter Device Please Log Out') {
             //error to be show when the user is already logged in
+            emailIcon1.style.display = 'block';
+            emailError.textContent = 'Logged In Ohter Device Please Log Out';
+            emailError.style.display = 'block';
         } else if (data.message === 'Invalid Password') {
             passwordIcon1.style.display = 'block';
             passwordError.textContent = 'Invalid Password';
@@ -298,8 +301,9 @@ async function loginUser(userData) {
             localStorage.setItem("userToken", data.userToken);
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("username", data.username);
-            alert(data.userId, data.username);
-            location.href = "http://127.0.0.1:5500/pages/dashboard/dashboard.html";
+            localStorage.setItem("profilePhoto", data.profilePhoto);
+            console.log(data);
+            location.replace("http://127.0.0.1:5500/pages/dashboard/dashboard.html");
         }
     } catch (err) {
         console.log(err);
