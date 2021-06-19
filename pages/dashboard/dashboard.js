@@ -10,6 +10,7 @@ let firebaseConfig;
 window.onload = () => {
     fetchCredentials();
     getUserNotes();
+    getFollowing();
 }
 
 //a function to fetch firebase credentials from backend
@@ -128,8 +129,6 @@ feedText.addEventListener('input', () => {
     }
 })
 
-
-
 function updateImageDisplay() {
     const curFiles = imageButton.files;
     if (curFiles.length !== 0 && counter < 5) {
@@ -146,8 +145,6 @@ function updateImageDisplay() {
             closeImageDiv.onclick = function(event) {
                 const parent = this.parentElement;
                 this.parentElement.parentElement.removeChild(parent);
-                console.log(event.target.id);
-                console.log(imageToUpload);
                 imageToUpload.splice(event.target.id, 1);
                 console.log(imageToUpload);
                 counter--;
@@ -178,10 +175,6 @@ function updateImageDisplay() {
         imageSelector.style.display = 'none';
         return;
     }
-}
-
-function remove(id) {
-    console.log(id);
 }
 
 //upload image to firebase storage then add th post to the database
@@ -359,4 +352,47 @@ async function addPost() {
     } catch (error) {
         console.log(error);
     }
+}
+
+//follower list
+
+async function getFollowing() {
+    try {
+        const res = await fetch(`${url}/friend/getFollowing`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            console.log(data.follower);
+            renderFollowingList(data.follower);
+            //apend the mesagge
+        } else {
+            //error handling
+        }
+    } catch (error) {
+        //error handling
+    }
+}
+const table = document.querySelector('.users-table');
+
+function renderFollowingList(following) {
+    following.forEach(element => {
+        const div = document.createElement('div');
+        div.classList.add('user');
+        div.innerHTML = `
+            <img src="${element.profilephoto}" class="profile-photo" id="${element.following}" onClick = "profilePage(event)"/>
+            <span>${element.followingrusername}</span>
+            <div class="follow-btn"><i class="fas fa-user-minus"></i></div>
+        `;
+        table.appendChild(div);
+    })
+}
+
+function profilePage(event) {
+    const id = event.target.id;
+    // location.href = profile url
 }

@@ -336,6 +336,7 @@ nav {
     width: 2.5rem;
     border: 0.2rem solid #ffc947;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .story-profile-photo {
