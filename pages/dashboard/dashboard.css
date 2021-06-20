@@ -8,7 +8,6 @@ body {
   font-size: 62.5%;
   overflow-y: scroll;
   overflow-x: hidden;
-  font-weight: bold;
 }
 
 a {
@@ -19,7 +18,13 @@ a {
 
 .main-container {
   width: 63%;
-  background-color: rgba(204, 204, 204, 0.431);
+  background: rgba(255, 255, 255, 0.185);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  /* border-radius: 10px; */
+  border-right: 2px solid rgba(255, 255, 255, 0.13);
+  /* background-color: rgba(204, 204, 204, 0.431); */
   display: flex;
   flex-direction: column;
 }
@@ -29,7 +34,7 @@ a {
   display: flex;
   flex-direction: column;
   margin: 2rem;
-  background-color: rgb(24, 90, 219, 0.4);
+  /* background-color: rgb(24, 90, 219, 0.4); */
   padding-top: 1rem;
   /* overflow-y: scroll; */
 }
@@ -37,17 +42,20 @@ a {
 /* Posts */
 
 .Posts {
+  color: white;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  background-color: rgb(156, 197, 235);
-  margin-bottom: 1.5rem;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.041);
+  margin-bottom: 2rem;
+  box-shadow: -15px 15px 30px black;
+  border: 0.05px solid rgba(0, 0, 0, 0.205);
 }
 
 .Posts header {
   margin-bottom: 1rem;
+  font-weight: bold;
 }
 
 .engageButtons {
@@ -76,14 +84,20 @@ a {
 /* Right Section */
 
 .right-section {
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
   font-weight: normal;
   gap: 0.5rem;
   width: 20%;
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  background-color: rgba(117, 117, 117, 0.294);
+  /* background-color: rgba(117, 117, 117, 0.294); */
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  /* border-radius: 10px; */
+  /* border: 1px solid rgba(255, 255, 255, 0.18); */
 }
 
 .event-table {
@@ -96,8 +110,11 @@ a {
   padding: 1rem;
   border-radius: 5px;
   /* background-color: rgba(211, 211, 211, 0.383); */
+  background-color: rgba(0, 0, 0, 0.06);
+  box-shadow: -7px 7px 20px black;
+  border: 0.05px solid rgba(0, 0, 0, 0.205);
   margin: 1rem 0;
-  background-color: rgba(204, 204, 204, 0.431);
+  /* background-color: rgba(204, 204, 204, 0.431); */
 }
 
 .event > h3 {
@@ -305,7 +322,7 @@ nav {
 }
 
 .confirmation-message {
-  /* display: none; */
+  display: none;
   font-size: 15px;
   text-align: center;
   text-justify: center;
@@ -331,7 +348,7 @@ nav {
   width: 8rem;
   height: 12rem;
   border-radius: 1rem;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.26);
+  box-shadow: -2px 2px 10px rgb(0, 0, 0);
   position: relative;
   cursor: pointer;
 }
@@ -392,11 +409,16 @@ section {
   display: flex;
   flex-direction: column;
   /* width: 16rem; */
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
   font-weight: normal;
   padding: 0.5rem;
   width: 17%;
-  background-color: rgba(117, 117, 117, 0.294);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  /* border-radius: 10px; */
+  border-right: 2px solid rgba(255, 255, 255, 0.13);
 }
 
 .lower {
@@ -421,7 +443,7 @@ section {
 }
 
 .feature:hover {
-  background-color: rgba(34, 34, 34, 0.315);
+  background-color: rgba(11, 10, 95, 0.698);
 }
 
 .feed-section {
@@ -430,10 +452,11 @@ section {
 
 .add-user-feed {
   background-color: rgb(156, 197, 235);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   padding: 1rem;
   border-radius: 1rem;
-  box-shadow: #fff;
+  box-shadow: -15px 15px 30px black;
+  border: 0.25px solid rgba(255, 255, 255, 0.205);
   position: relative;
 }
 
