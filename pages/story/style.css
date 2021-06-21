@@ -23,7 +23,7 @@ main {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: rgba(0, 0, 0, 0.644);
+  background-color: rgba(0, 0, 0, 0.753);
   padding: 15px;
 }
 .logo {
@@ -60,7 +60,7 @@ main {
 .right-container {
   width: 65vw;
   height: 100vh;
-
+  background-color: rgb(58, 106, 184);
   /* background: linear-gradient(to right, rgb(84, 84, 81), rgb(152, 152, 146)); */
   display: flex;
   flex-direction: column;
