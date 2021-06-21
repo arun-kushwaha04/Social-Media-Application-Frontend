@@ -6,6 +6,16 @@ myProfile.addEventListener("click", () => {
     location.href = "/pages/profile/index.html"
 })
 
+const game = document.querySelector(".game");
+const video = document.querySelector(".video");
+game.addEventListener("click", () =>{
+    location.href ="https://www.freeonlinegames.com/"
+})
+
+video.addEventListener("click", () =>{
+    location.href ="https://www.youtube.com/feed/trending"
+})
+
 let firebaseConfig;
 window.onload = () => {
     fetchCredentials();
@@ -34,7 +44,7 @@ let likesCount = 0;
 
 //hamburger
 const rightSection = document.querySelector('.right-section');
-const hamburgerButton = document.querySelector('.hamburger-div');
+const hamburgerButton = document.querySelector('.hamburger');
 
 hamburgerButton.addEventListener('click', () => {
     rightSection.classList.toggle('open');

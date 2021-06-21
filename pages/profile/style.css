@@ -11,7 +11,6 @@ nav {
   justify-content: center;
   align-items: center;
   height: 10vh;
-  border-bottom: 2px solid greenyellow;
 }
 nav h1 {
   font-family: "Pacifico", cursive;
@@ -98,7 +97,7 @@ main {
   border: 0.085px solid rgba(255, 255, 255, 0.267);
   box-shadow: -5px 5px 10px black;
   padding: 10px;
-  border-radius: 30px;
+  border-radius: 15px;
   font-size: 1.2vw;
   color: rgba(255, 255, 255, 0.746);
 }
