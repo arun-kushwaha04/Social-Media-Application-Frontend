@@ -38,10 +38,6 @@ const hamburgerButton = document.querySelector('.hamburger-div');
 
 hamburgerButton.addEventListener('click', () => {
     rightSection.classList.toggle('open');
-    // rightSection.classList.toggle('right-section');
-    // console.log('hi');
-    // console.log(rightSection);
-    // rightSection.classList.toggle('open');
 })
 
 
@@ -152,7 +148,7 @@ function updateImageDisplay() {
                     imageSelector.style.display = 'block';
                 }
                 if (counter === 0) {
-                    imageSelector.style.display = 'none';
+                    uploadButton.style.display = 'none';
                 }
             };
             const closeImage = document.createElement('img');
@@ -164,14 +160,13 @@ function updateImageDisplay() {
             const image = document.createElement('img');
             image.src = URL.createObjectURL(file);
             image.classList.add('feed-image');
-            // image.style.padding = '1rem';
+            image.style.padding = '1rem';
             container.appendChild(image);
             container.appendChild(closeImageDiv);
             preview.appendChild(container);
         }
     }
     if (counter > 3) {
-        console.log('hi');
         imageSelector.style.display = 'none';
         return;
     }
@@ -268,6 +263,11 @@ function addUserPost(element) {
     const container = document.querySelector('.user-posts');
     const div = document.createElement("div");
     div.classList = "Posts";
+    div.setAttribute('id', element.postid);
+    let temp = element;
+    console.log('hi');
+    const html = isLiked(temp);
+    console.log(html);
     div.innerHTML = `
         <header class="post-user-info">
                             <img class="profile-photo-feed-insert" src="${element.profilephoto}" />
@@ -280,16 +280,15 @@ function addUserPost(element) {
                             <div class="preview" id="preview${element.postid}">
 
                             </div>
-                            <div class="engageButtons">
-                                <div class="like-button" id = ${element.postid}>
-                                    <img src="../../assets/LikeButton.svg" class="crazy-button" />
-                                    <span class="likes">${element.postlikes}</span>
+                            <div class="engageButtons" id = ${element.originaluserid}>
+                                <div class="like-button" id = ${element.userid}>
+                                   ${html}
                                 </div>
-                                <div class="comment-button" id = ${element.postid}>
-                                    <img src="../../assets/Comment.svg" class="crazy-button" />
+                                <div class="comment-button" id = ${element.userid}>
+                                    <i class="far fa-comment-alt crazy-button" onClick = ""></i>
                                     <span class="comments">${element.postcomments}</span>
                                 </div>
-                                <div class="share-button" id = ${element.postid}>
+                                <div class="share-button" id = ${element.userid}>
                                     <img src="../../assets/Share.svg" class="crazy-button" />
                                     <span class="share">${element.postshare}</span>
                                 </div>
@@ -298,6 +297,41 @@ function addUserPost(element) {
         `;
     container.appendChild(div);
     addPostImage(element.images, element.postid);
+
+
+}
+
+//isPostLiked
+function isLiked(element) {
+    let userData = {
+        postid: element.postid
+    }
+    let html;
+    userData = JSON.stringify(userData);
+    fetch(`${url}/feed/isLiked`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        }).then(res => res.json())
+        .then(data => {
+            if (data.message === 'Post Is Liked') {
+                html = ` <i class="fas fa-heart crazy-button" onClick = "updateLike(event)"></i><span class="likes">${element.postlikes}</span>`;
+                console.log(html);
+                return html;
+            } else if (data.message === 'Post Is Not Liked') {
+                html = ` <i class="far fa-heart crazy-button" onClick = "updateLike(event)"></i><span class="likes">${element.postlikes}</span>`;
+                console.log(html);
+                return html;
+            } else {
+                message.textContent = 'Internal Server Error';
+            }
+
+        })
+
+
 }
 
 //showing each post image to the user
@@ -327,7 +361,6 @@ async function addPost() {
         description: feedText.value,
         profilePhoto: localStorage.getItem("profilePhoto"),
     }
-    console.log(userData);
     userData = JSON.stringify(userData);
     console.log(userData);
     imageToUpload = [];
@@ -395,4 +428,54 @@ function renderFollowingList(following) {
 function profilePage(event) {
     const id = event.target.id;
     // location.href = profile url
+}
+
+const message = document.querySelector('.request-message');
+const messageDiv = document.querySelector('.confirmation-message');
+//update like
+
+async function updateLike(event) {
+    messageDiv.style.opacity = '1';
+    message.textContent = 'Connecting To Server ...';
+    const userid = event.target.parentNode.id;
+    const originaluserid = event.target.parentNode.parentNode.id;
+    const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
+    const likes = (event.target.nextSibling.nextSibling);
+    let userData = {
+        userid,
+        originaluserid,
+        postid,
+    }
+    console.log(userData);
+    userData = JSON.stringify(userData);
+    try {
+        const res = await fetch(`${url}/feed/updateLike`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            if (data.value === 1) {
+                likes.innerHTML = parseInt(likes.innerHTML) + 1;
+                event.target.classList.add('fas');
+                event.target.classList.remove('far');
+            } else {
+                likes.innerHTML = parseInt(likes.innerHTML) - 1;
+                event.target.classList.add('far');
+                event.target.classList.remove('fas');
+            }
+            message.textContent = data.message;
+        } else {
+            message.textContent = 'Internal Server Error';
+        }
+    } catch (error) {
+        message.textContent = 'Server Down';
+        console.log(error);
+    }
+
+    setTimeout(() => { messageDiv.style.opacity = '0' }, 2000);
 }
