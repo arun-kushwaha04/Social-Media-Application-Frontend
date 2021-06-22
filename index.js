@@ -303,7 +303,7 @@ async function loginUser(userData) {
             localStorage.setItem("username", data.username);
             localStorage.setItem("profilePhoto", data.profilePhoto);
             console.log(data);
-            location.replace("http://127.0.0.1:5500/pages/dashboard/dashboard.html");
+            location.replace("./pages/dashboard/dashboard.html");
         }
     } catch (err) {
         console.log(err);
