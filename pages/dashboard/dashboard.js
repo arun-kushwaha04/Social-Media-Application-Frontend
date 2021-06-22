@@ -1,5 +1,7 @@
 //url 
 const url = "http://localhost:8000";
+//message showing
+const messageContainer = document.querySelector('.message-container');
 
 const myProfile = document.querySelector(".profile-photo-feed");
 myProfile.addEventListener("click", () => {
@@ -8,12 +10,12 @@ myProfile.addEventListener("click", () => {
 
 const game = document.querySelector(".game");
 const video = document.querySelector(".video");
-game.addEventListener("click", () =>{
-    location.href ="https://www.freeonlinegames.com/"
+game.addEventListener("click", () => {
+    location.href = "https://www.freeonlinegames.com/"
 })
 
-video.addEventListener("click", () =>{
-    location.href ="https://www.youtube.com/feed/trending"
+video.addEventListener("click", () => {
+    location.href = "https://www.youtube.com/feed/trending"
 })
 
 let firebaseConfig;
@@ -274,45 +276,11 @@ function addUserPost(element) {
     const div = document.createElement("div");
     div.classList = "Posts";
     div.setAttribute('id', element.postid);
-    let temp = element;
-    console.log('hi');
-    const html = isLiked(temp);
-    console.log(html);
-    div.innerHTML = `
-        <header class="post-user-info">
-                            <img class="profile-photo-feed-insert" src="${element.profilephoto}" />
-                            <div class="user-name-feed">${element.userusername}</div>
-                        </header>
-                        <div class="content">
-                            <p>
-                                ${element.description}
-                            </p>
-                            <div class="preview" id="preview${element.postid}">
-
-                            </div>
-                            <div class="engageButtons" id = ${element.originaluserid}>
-                                <div class="like-button" id = ${element.userid}>
-                                   ${html}
-                                </div>
-                                <div class="comment-button" id = ${element.userid}>
-                                    <i class="far fa-comment-alt crazy-button" onClick = ""></i>
-                                    <span class="comments">${element.postcomments}</span>
-                                </div>
-                                <div class="share-button" id = ${element.userid}>
-                                    <img src="../../assets/Share.svg" class="crazy-button" />
-                                    <span class="share">${element.postshare}</span>
-                                </div>
-                            </div>
-                        </div>
-        `;
-    container.appendChild(div);
-    addPostImage(element.images, element.postid);
-
-
+    isLiked(element, div, container);
 }
 
 //isPostLiked
-function isLiked(element) {
+function isLiked(element, div, container) {
     let userData = {
         postid: element.postid
     }
@@ -329,16 +297,45 @@ function isLiked(element) {
         .then(data => {
             if (data.message === 'Post Is Liked') {
                 html = ` <i class="fas fa-heart crazy-button" onClick = "updateLike(event)"></i><span class="likes">${element.postlikes}</span>`;
-                console.log(html);
-                return html;
             } else if (data.message === 'Post Is Not Liked') {
                 html = ` <i class="far fa-heart crazy-button" onClick = "updateLike(event)"></i><span class="likes">${element.postlikes}</span>`;
-                console.log(html);
-                return html;
             } else {
                 message.textContent = 'Internal Server Error';
             }
+            if (html) {
+                div.innerHTML = `
+                    <header class="post-user-info">
+                        <img class="profile-photo-feed-insert" src="${element.profilephoto}" />
+                        <div class="user-name-feed">${element.userusername}</div>
+                    </header>
+                    <div class="content">
+                        <p>
+                            ${element.description}
+                        </p>
+                        <div class="preview" id="preview${element.postid}">
 
+                        </div>
+                        <div class="engageButtons" id = ${element.originaluserid}>
+                            <div class="like-button" id = ${element.userid}>
+                            ${html}
+                            </div>
+                            <div class="comment-button" id = ${element.userid}>
+                                <i class="far fa-comment-alt crazy-button" onClick = ""></i>
+                                <span class="comments">${element.postcomments}</span>
+                            </div>
+                            <div class="share-button" id = ${element.userid}>
+                                <img src="../../assets/Share.svg" class="crazy-button" />
+                                <span class="share">${element.postshare}</span>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                container.appendChild(div);
+                addPostImage(element.images, element.postid);
+            }
+        })
+        .catch(err => {
+            message.textContent = 'Unable To Load Post'
         })
 
 
@@ -440,17 +437,25 @@ function profilePage(event) {
     // location.href = profile url
 }
 
-const message = document.querySelector('.request-message');
-const messageDiv = document.querySelector('.confirmation-message');
+
 //update like
 
 async function updateLike(event) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
     messageDiv.style.opacity = '1';
-    message.textContent = 'Connecting To Server ...';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
     const userid = event.target.parentNode.id;
     const originaluserid = event.target.parentNode.parentNode.id;
     const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
-    const likes = (event.target.nextSibling.nextSibling);
+    const likes = (event.target.nextSibling);
     let userData = {
         userid,
         originaluserid,
@@ -470,22 +475,32 @@ async function updateLike(event) {
         if (res.status === 200) {
             const data = await res.json();
             if (data.value === 1) {
+                console.log('liked');
                 likes.innerHTML = parseInt(likes.innerHTML) + 1;
                 event.target.classList.add('fas');
                 event.target.classList.remove('far');
             } else {
+                console.log('not liked');
                 likes.innerHTML = parseInt(likes.innerHTML) - 1;
                 event.target.classList.add('far');
                 event.target.classList.remove('fas');
             }
+            messageDiv.removeChild(error);
             message.textContent = data.message;
+            success.style.opacity = 1;
         } else {
             message.textContent = 'Internal Server Error';
+            error.style.display = 'block';
         }
     } catch (error) {
+        messageDiv.removeChild(success);
         message.textContent = 'Server Down';
+        error.style.opacity = 1;
         console.log(error);
     }
 
-    setTimeout(() => { messageDiv.style.opacity = '0' }, 2000);
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
 }
