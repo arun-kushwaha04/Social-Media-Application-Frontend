@@ -57,7 +57,7 @@ header {
 }
 
 header>.heading {
-    font-size: 2rem;
+    font-size: 2.25rem;
     margin: 0;
     position: absolute;
     top: 50%;
@@ -87,7 +87,7 @@ header::before {
     right: 0;
     bottom: 0;
     display: block;
-    background: url(../../assets/colors.jpg);
+    background: url(../../assets/blueBackground.jpg);
     background-size: cover;
     transform-origin: center center 0;
     transform: translateZ(-1px) scale(2);
@@ -95,11 +95,18 @@ header::before {
     min-height: 100vh;
 }
 
+.scroll_downward {
+    background-color: rgba(255, 255, 255, 0.527);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
 .container {
     z-index: 2;
     position: absolute;
     top: 100vh;
-    background-color: rgb(16, 57, 139);
+    background-color: rgb(33, 74, 156);
     line-height: 30px;
     font-weight: lighter;
     color: black;
