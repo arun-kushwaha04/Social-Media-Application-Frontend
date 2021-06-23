@@ -273,14 +273,15 @@ userNameFeed.textContent = localStorage.getItem("username");
 //function to populate the post
 function addUserPost(element) {
     const container = document.querySelector('.user-posts');
+    const divContainer = document.createElement("div");
     const div = document.createElement("div");
     div.classList = "Posts";
     div.setAttribute('id', element.postid);
-    isLiked(element, div, container);
+    isLiked(element, div, container, divContainer);
 }
 
 //isPostLiked
-function isLiked(element, div, container) {
+function isLiked(element, div, container, divContainer) {
     let userData = {
         postid: element.postid
     }
@@ -320,7 +321,7 @@ function isLiked(element, div, container) {
                             ${html}
                             </div>
                             <div class="comment-button" id = ${element.userid}>
-                                <i class="far fa-comment-alt crazy-button" onClick = ""></i>
+                                <i class="far fa-comment-alt crazy-button" onClick = "openCommentSection(event)"></i>
                                 <span class="comments">${element.postcomments}</span>
                             </div>
                             <div class="share-button" id = ${element.userid}>
@@ -328,9 +329,18 @@ function isLiked(element, div, container) {
                                 <span class="share">${element.postshare}</span>
                             </div>
                         </div>
-                    </div>
+                    </div>                                                                    
                     `;
-                container.appendChild(div);
+                const div2 = document.createElement('div');
+                div2.classList.add('comment-section');
+                div2.innerHTML = `<div class="add-comment">
+                    <input class="comment-input" type="text" placeholder="Add Comment">
+                    <i class="fas fa-paper-plane add-comment-button" onClick = "commentButtonClick(event)"></i>
+                    </div>
+                    `
+                divContainer.appendChild(div);
+                divContainer.appendChild(div2);
+                container.appendChild(divContainer);
                 addPostImage(element.images, element.postid);
             }
         })
@@ -503,4 +513,171 @@ async function updateLike(event) {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
     }, 2000);
+}
+
+//opening and closing the comment section
+
+function openCommentSection(event) {
+    const commentSection = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[1];
+    while (commentSection.children.length > 1) {
+        commentSection.removeChild(commentSection.children[0]);
+    }
+    commentSection.classList.toggle('comment-section-open');
+    commentSection.parentElement.children[0].classList.toggle('Posts-open');
+    const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
+    let userData = {
+        postid,
+    }
+    userData = JSON.stringify(userData);
+    getAllComment(commentSection, userData)
+}
+
+//adding the comment
+
+function commentButtonClick(event) {
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+
+    //selecting the comment button
+    const commentText = event.target.parentElement.children[0];
+    let text = commentText.value;
+    if (text === "") {
+        messageDiv.removeChild(success);
+        message.textContent = 'Please Enter Comment Message';
+        error.style.opacity = 1;
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            messageContainer.removeChild(messageDiv);
+        }, 2000);
+        return;
+    } else if (text.length > 40) {
+        messageDiv.removeChild(success);
+        message.textContent = '40 Characters At Max In Comment Message';
+        error.style.opacity = 1;
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            messageContainer.removeChild(messageDiv);
+        }, 2000);
+        return;
+    } else {
+        messageContainer.removeChild(messageDiv);
+        const postid = event.target.parentNode.parentNode.parentNode.children[0].id;
+        const originaluserid = event.target.parentNode.parentNode.parentNode.children[0].children[1].children[2].id;
+        const commentCounter = event.target.parentNode.parentNode.parentNode.children[0].children[1].children[2].children[1].children[1];
+        const comment = text;
+        //current date and time
+        let today = new Date();
+        let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time;
+
+        const profilePhoto = localStorage.getItem("profilePhoto");
+
+        let userData = {
+            postid,
+            originaluserid,
+            comment,
+            dateTime,
+            profilePhoto,
+        }
+        userData = JSON.stringify(userData);
+        console.log(userData);
+        addComment(userData, commentCounter, commentText);
+    }
+}
+
+//function for adding the comment
+
+async function addComment(userData, commentCounter, commentText) {
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+    try {
+        const res = await fetch(`${url}/feed/commentPost`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            commentCounter.innerHTML = parseInt(commentCounter.innerHTML) + 1;
+            commentText.value = "";
+            messageDiv.removeChild(error);
+            message.textContent = data.message;
+            success.style.opacity = 1;
+        } else {
+            messageDiv.removeChild(success);
+            message.textContent = 'Internal Server Error';
+            error.style.opacity = 1;
+        }
+    } catch (error) {
+        console.log(error);
+        messageDiv.removeChild(success);
+        message.textContent = 'Server Down';
+        message.style.opacity = 1;
+    }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
+}
+
+//populating a the comments of a post
+async function getAllComment(commentSection, userData) {
+    const res = await fetch(`${url}/feed/getAllPostComment`, {
+        method: "POST",
+        body: userData,
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${localStorage.getItem("userToken")}`,
+        },
+    });
+
+    if (res.status === 200) {
+        const data = await res.json();
+        console.log(data);
+        for (let i = 0; i < data.comment.length; i++) {
+            const comment = data.comment[i];
+            const div = document.createElement('div');
+            div.classList.add('comment');
+            div.innerHTML = `
+            <div class="comment">
+                <img class="profile-photo" src="${comment.profilephoto}" />
+                <div class="comment-box">
+                <div class="comment-details">
+                    <div class="comment-user-name">${comment.username}</div>
+                    <div class="comment-message">${comment.comment}</div>
+                </div>
+                <div class="time">${comment.datetime}</div>
+                </div>                    
+            </div>`;
+            commentSection.prepend(div);
+        }
+
+    } else {
+        console.log('error');
+    }
+
 }

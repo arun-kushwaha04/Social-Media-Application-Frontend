@@ -52,9 +52,17 @@ a {
     flex-direction: column;
     padding: 1.5rem;
     background-color: rgba(0, 0, 0, 0.041);
-    margin-bottom: 2rem;
     box-shadow: -15px 15px 30px black;
     border: 0.05px solid rgba(0, 0, 0, 0.205);
+    margin-bottom: 2rem;
+    /* border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; */
+}
+
+.Posts-open {
+    border-bottom-left-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+    margin-bottom: 0;
 }
 
 .Posts header {
@@ -65,6 +73,7 @@ a {
 .engageButtons {
     display: flex;
     justify-content: space-evenly;
+    cursor: pointer;
 }
 
 .like-button,
@@ -93,6 +102,96 @@ a {
 .fa-comment-alt {
     font-size: 1.5rem;
     color: #2ef107;
+}
+
+.comment-section {
+    position: relative;
+    padding: 1rem;
+    max-height: 20rem;
+    overflow-y: auto;
+    background-color: rgb(156, 197, 235);
+    margin-bottom: 2rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    box-shadow: -15px 15px 30px black;
+    border: 0.05px solid rgba(0, 0, 0, 0.205);
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    display: none;
+}
+
+.comment-section-open {
+    display: block;
+}
+
+.comment-section::-webkit-scrollbar {
+    display: none;
+}
+
+.add-comment {
+    background-color: #e4e6e8;
+    border-radius: 2rem;
+    width: 75%;
+    height: 2rem;
+    margin: 0 auto;
+    position: sticky;
+    bottom: 0;
+}
+
+.comment-input {
+    position: relative;
+    font-size: 0.9rem;
+    background-color: #e4e6e8;
+    padding: 1rem 1rem;
+    border-radius: 2rem;
+    cursor: text;
+    width: 90%;
+    height: 100%;
+    border: none;
+    outline: none;
+}
+
+.add-comment-button {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 1rem;
+    cursor: pointer;
+    color: #185adb;
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+}
+
+.comment {
+    margin-bottom: 1rem;
+}
+
+.comment-box {
+    display: inline-block;
+    margin-left: 0.5em;
+}
+
+.comment-details {
+    background-color: #4074D9;
+    border-radius: 0.5rem;
+    padding: 0.5em 1em;
+    margin-bottom: 0.3rem;
+}
+
+.comment-user-name {
+    color: #b5dbff;
+    margin-bottom: 0.5rem;
+}
+
+.comment-message {
+    font-size: 0.85rem;
+}
+
+.time {
+    margin-left: 1rem;
+    font-size: 0.75rem;
 }
 
 
