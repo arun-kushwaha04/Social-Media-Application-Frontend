@@ -345,7 +345,8 @@ function isLiked(element, div, container, divContainer) {
             }
         })
         .catch(err => {
-            message.textContent = 'Unable To Load Post'
+            console.log(err);
+            // message.textContent = 'Unable To Load Post'
         })
 
 
