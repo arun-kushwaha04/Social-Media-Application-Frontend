@@ -1,5 +1,9 @@
 //url 
 const url = "http://localhost:8000";
+
+//fortend url
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+
 //message showing
 const messageContainer = document.querySelector('.message-container');
 
@@ -21,9 +25,11 @@ video.addEventListener("click", () => {
 let firebaseConfig;
 window.onload = () => {
     fetchCredentials();
-    getUserNotes();
+    getUserPosts();
     getFollowing();
 }
+
+
 
 //a function to fetch firebase credentials from backend
 async function fetchCredentials() {
@@ -187,7 +193,7 @@ function updateImageDisplay() {
 //upload image to firebase storage then add th post to the database
 
 postButton.addEventListener('click', () => {
-    if (checker === 1) addPost();
+    if (checker === 1 || imageToUpload.length === 0) addPost();
     else {
         alert('First upload the image');
     }
@@ -233,7 +239,7 @@ function uploadImageToFirebase() {
 
 
 
-async function getUserNotes() {
+async function getUserPosts() {
     try {
         const res = await fetch(`${url}/feed/getFollowingPosts`, {
             method: "GET",
@@ -246,7 +252,7 @@ async function getUserNotes() {
             const data = await res.json();
             //we have to load the post of user.
             const post = data.post;
-            console.log(post);
+            await post.sort((a, b) => (a.postid < b.postid) ? 1 : -1);
             post.forEach(element => {
                 addUserPost(element);
             })
@@ -303,11 +309,27 @@ function isLiked(element, div, container, divContainer) {
             } else {
                 message.textContent = 'Internal Server Error';
             }
+            let heading = ` <div class="user-name-feed">
+                <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}">
+                ${element.userusername} </a>
+                <div class="time">${element.datetime}</div>
+            </div>`
+            if (element.userid != element.originaluserid) {
+                heading = ` <div class="user-name-feed">
+                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}">
+                    ${element.userusername} </a> Shared Post Of 
+                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}">
+                    ${element.originalusername}</a>
+                    <div class="time">${element.datetime}</div>
+                </div>`
+            }
+
             if (html) {
                 div.innerHTML = `
                     <header class="post-user-info">
-                        <img class="profile-photo-feed-insert" src="${element.profilephoto}" />
-                        <div class="user-name-feed">${element.userusername}</div>
+                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}"><img class="profile-photo-feed-insert" src="${element.profilephoto}" /></a>
+                        ${heading}
+                        
                     </header>
                     <div class="content">
                         <p>
@@ -345,7 +367,7 @@ function isLiked(element, div, container, divContainer) {
             }
         })
         .catch(err => {
-            message.textContent = 'Unable To Load Post'
+            //message.textContent = 'Unable To Load Post'
         })
 
 
@@ -367,41 +389,88 @@ function addPostImage(ImageArray, postId) {
 
 
 
-//adding notes to the server
+//adding post to the server
 async function addPost() {
     containerForPost.style.display = 'block';
     loadingEffect.style.display = 'none';
     addFeed.style.visibility = 'hidden';
-    console.log(imageUrl);
-    let userData = {
-        image: imageUrl,
-        description: feedText.value,
-        profilePhoto: localStorage.getItem("profilePhoto"),
-    }
-    userData = JSON.stringify(userData);
-    console.log(userData);
-    imageToUpload = [];
-    imageUrl = [];
-    try {
-        const res = await fetch(`${url}/feed/addPost`, {
-            method: "POST",
-            body: userData,
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
-            },
-        });
-        if (res.status === 200) {
-            const data = await res.json();
-            if (data.message === 'Post Created') {
-                //inform the user oabout this
-            } else {
-                //error handling to be done
-            }
+
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+
+    if (feedText.value.length > 40) {
+        messageDiv.removeChild(success);
+        message.textContent = '40 Characters At Max In Posts';
+        error.style.opacity = 1;
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            messageContainer.removeChild(messageDiv);
+        }, 2000);
+        return;
+    } else {
+        //dateTime
+        let today = new Date();
+        let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time;
+
+        let userData = {
+            image: imageUrl,
+            description: feedText.value,
+            profilePhoto: localStorage.getItem("profilePhoto"),
+            dateTime,
         }
-    } catch (error) {
-        console.log(error);
+        userData = JSON.stringify(userData);
+        imageToUpload = [];
+        imageUrl = [];
+        try {
+            const res = await fetch(`${url}/feed/addPost`, {
+                method: "POST",
+                body: userData,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                },
+            });
+            if (res.status === 200) {
+                const data = await res.json();
+                if (data.message === 'Post Created') {
+                    //inform the user oabout this
+                    body.style.overflowY = 'scroll';
+                    addFeed.style.visibility = 'hidden';
+                    messageDiv.removeChild(error);
+                    message.textContent = data.message;
+                    success.style.opacity = 1;
+                } else {
+                    //error handling to be done
+                    messageDiv.removeChild(success);
+                    message.textContent = 'Internal Server Error';
+                    success.style.opacity = 1;
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            messageDiv.removeChild(success);
+            message.textContent = 'Internal Server Error';
+            success.style.opacity = 1;
+        }
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            messageContainer.removeChild(messageDiv);
+        }, 2000);
     }
+
+
 }
 
 //follower list
@@ -434,19 +503,13 @@ function renderFollowingList(following) {
         const div = document.createElement('div');
         div.classList.add('user');
         div.innerHTML = `
-            <img src="${element.profilephoto}" class="profile-photo" id="${element.following}" onClick = "profilePage(event)"/>
-            <span>${element.followingrusername}</span>
+            <a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}"><img src="${element.profilephoto}" class="profile-photo" id="${element.following}"/></a>
+            <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.followingrusername}</a></span>
             <div class="follow-btn"><i class="fas fa-user-minus"></i></div>
         `;
         table.appendChild(div);
     })
 }
-
-function profilePage(event) {
-    const id = event.target.id;
-    // location.href = profile url
-}
-
 
 //update like
 
@@ -664,10 +727,10 @@ async function getAllComment(commentSection, userData) {
             div.classList.add('comment');
             div.innerHTML = `
             <div class="comment">
-                <img class="profile-photo" src="${comment.profilephoto}" />
+                <a href="${frontendUrl}/pages/profile/index.html?username=${comment.username}"><img class="profile-photo" src="${comment.profilephoto}" /></a>
                 <div class="comment-box">
                 <div class="comment-details">
-                    <div class="comment-user-name">${comment.username}</div>
+                    <div class="comment-user-name"><a href="${frontendUrl}/pages/profile/index.html?username=${comment.username}">${comment.username}</a></div>
                     <div class="comment-message">${comment.comment}</div>
                 </div>
                 <div class="time">${comment.datetime}</div>

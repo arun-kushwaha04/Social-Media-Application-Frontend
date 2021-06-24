@@ -1,5 +1,9 @@
 // const url = "https://sheltered-citadel-84490.herokuapp.com";
 const url = "http://localhost:8000";
+
+//fortend url
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+
 const register = document.querySelector(".register");
 
 //changing sign and login page
@@ -347,7 +351,7 @@ async function forgotPasswordEmail(email, domain, key, userToken) {
             <p>Someone (hopefully you) has requested a password reset for your Note-Maker account. Follow the link below to set a new password:</p>
             <h1>Click on Below Link To Reset Your Password.</h1>
             <p>If you don't wish to reset your password, disregard this email and no action will be taken.</p>
-            <a href="https://dreamy-carson-5588a8.netlify.app/Pages/changePassword/index.html?userToken=${userToken}" target="_blank">Reset Password</a>
+            <a href="${frontendUrl}/Pages/changePassword/index.html?userToken=${userToken}" target="_blank">Reset Password</a>
             <p>Team dubify</p>
         `,
             })
@@ -375,7 +379,7 @@ async function verifyEmail(email, domain, key, userToken) {
                 Body: `
             <p>Thanks for signing up with Dubify You must follow this link to activate your account:</p>
             <h1>Click on Below Link To Verify Your Mail.</h1>
-            <a href="https://dreamy-carson-5588a8.netlify.app/Pages/verifyEmail/index.html?userToken=${userToken}&email=${email}" target="_blank">Verify Email</a>
+            <a href="${frontendUrl}/Pages/verifyEmail/index.html?userToken=${userToken}&email=${email}" target="_blank">Verify Email</a>
             <p>Have fun, and don't hesitate to contact US with your feedback..</p>
             <p>Team Dubify</p>
         `,
