@@ -12,60 +12,17 @@ myProfile.addEventListener("click", () => {
     location.href = "/pages/profile/index.html"
 })
 
-var mainContainer2 = document.querySelector("article");
-var Posts2 = document.querySelector(".Posts");
-var event2 = document.querySelector(".event");
-var eventsBlock2 = document.querySelector(".events-block");
-var suggestions2 = document.querySelector(".suggestions");
-var nav2 = document.querySelector(".nav");
-var confirmationMessage2 = document.querySelector(".confirmation-message");
-var feature2 = document.querySelector(".feature");
-var addUserFeed2 = document.querySelector(".add-user-feed");
-var underlineFeed2 = document.querySelector(".underline-feed");
-var addPhotoFeed2 = document.querySelector(".add-photo-feed");
+const sec = document.querySelector(".sec");
+const nav2 = document.querySelector(".nav");
 const changeThemeButton = document.querySelector(".theme-changer");
-// changeThemeButton.addEventListener('click', () => {
-    // nav2.classList.toggle('nav-dark');
+
+changeThemeButton.onclick=function () {
+    sec.classList.toggle("dark")
+    nav2.style.background="#0c033a";
+    // nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
+    // nav2.css({"background":"#0c033a","border-bottom":"2px solid rgb(251, 122, 201)"});
     // nav2.classList.toggle("nav");
-
-    // mainContainer2.classList.toggle('main-container-dark');
-    // mainContainer2.classList.toggle("main-container");
-
-    // Posts2.classList.toggle('Posts-dark');
-    // Posts2.classList.toggle("Posts");
-
-    // event2.classList.toggle('event-dark');
-    // event2.classList.toggle('event');
-
-    // eventsBlock2.classList.toggle('events-block-dark');
-    // eventsBlock2.classList.toggle('events-block');
-
-    // suggestions2.classList.toggle('suggestions-dark');
-    // suggestions2.classList.toggle('suggestions');
-
-    // confirmationMessage2.classList.toggle('confirmation-message-dark');
-    // confirmationMessage2.classList.toggle('confirmation-message');
-
-    // feature2.classList.toggle('feature-dark');
-    // feature2.classList.toggle('feature');
-
-    // addUserFeed2.classList.toggle('add-user-feed-dark');
-    // addUserFeed2.classList.toggle('add-user-feed');
-    
-    // underlineFeed2.classList.toggle('underline-feed-dark');
-    // underlineFeed2.classList.toggle('underline-feed');
-
-    // addPhotoFeed2.classList.toggle('add-photo-feed-dark');
-    // addPhotoFeed2.classList.toggle('add-photo-feed');
-
-//     addUserFeed2.css({"background":"rgba(123, 93, 255, 0.897)","box-shadow": "-15px 15px 20px black"});
-// })
-
-$(document).ready(function(){
-    changeThemeButton.click(function(){
-        addUserFeed2.css({"background":"rgba(123, 93, 255, 0.897)","box-shadow": "-15px 15px 20px black"});
-    });
-  });
+}
 
 
 const game = document.querySelector(".game");
