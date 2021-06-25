@@ -12,18 +12,25 @@ body {
 }
 
 .theme-changer {
+  background: rgba(0, 0, 0, 0.479);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(5.5px);
+  -webkit-backdrop-filter: blur(5.5px);
+  /* border-radius: 10px; */
+  border: 1px solid rgba(255, 255, 255, 0.493);
+
   display: flex;
   align-items: center;
   padding-left: 0.5rem;
   position: fixed;
   width: 75px;
-  height: 35px;
+  height: 37px;
   right: -2%;
   top: 70px;
-  border: 2px solid white;
-  border-radius: 20px;
+  /* border: 2px solid white; */
+  border-radius: 15px;
   z-index: 10;
-  background-color: pink;
+  /* background-color: pink; */
 }
 
 a {
@@ -300,7 +307,7 @@ a {
   font-size: 0.7rem;
 }
 
-nav {
+.nav {
   position: absolute;
   top: 0;
   left: 0;
@@ -598,7 +605,7 @@ section {
   display: flex;
   height: 4rem;
   gap: 4px;
-  padding: 10px 0;
+  padding: 10px 7px;
 }
 
 .feature a {
@@ -874,7 +881,7 @@ section {
     width: 100vw;
     overflow-x: hidden;
   }
-  nav {
+  .nav {
     display: grid;
     grid-template-columns: 1fr 3fr;
     padding: 0.5rem;
@@ -970,7 +977,7 @@ section {
     right: -3.75%;
     top: 125px;
   }
-  nav {
+  .nav {
     display: grid;
     grid-template-columns: 1fr 3fr;
     padding: 0.5rem;
@@ -1081,4 +1088,65 @@ section {
     clip-path: circle(1100px at 90% -10%);
     -webkit-clip-path: circle(1100px at 90% -10%);
   }
+}
+
+/* DARK THEME */
+
+.main-container-dark {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.Posts-dark {
+  background-color: rgba(0, 0, 0, 0.06);
+  box-shadow: -15px 15px 20px black;
+}
+
+.event-dark > h3 {
+  color: rgba(90, 181, 255, 0.897);
+}
+
+.event-dark {
+  background-color: rgba(0, 0, 0, 0.06);
+  box-shadow: -7px 7px 15px black;
+}
+
+.events-block-dark > h2,
+.suggestions-dark > h2 {
+  font-size: 1.75em;
+  color: rgba(120, 96, 231, 0.897);
+}
+
+.nav-dark {
+  background-color: #0c033a;
+  border-bottom: 2px solid rgb(251, 122, 201);
+}
+
+.confirmation-message-dark {
+  background-color: rgb(251, 122, 201);
+}
+
+.feature-dark a {
+  color: rgba(255, 255, 255, 0.8);
+  align-self: center;
+}
+
+.feature-dark:hover {
+  background-color: rgba(123, 93, 255, 0.897);
+}
+.feature-dark a:hover {
+  color: white;
+}
+
+.add-user-feed-dark {
+  background-color: rgba(123, 93, 255, 0.897);
+  box-shadow: -15px 15px 20px black;
+}
+
+.underline-feed-dark {
+  background-color: #d1d1d149;
+}
+
+.add-photo-feed-dark {
+  color: rgb(255, 255, 255, 0.9);
+  background-color: #2d2666d3;
 }
