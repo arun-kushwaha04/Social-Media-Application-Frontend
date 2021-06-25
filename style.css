@@ -104,7 +104,7 @@ header::before {
   z-index: 2;
   position: absolute;
   top: 100vh;
-  background-color: rgb(33, 74, 156);
+  background-color: #174fbe;
   line-height: 30px;
   font-weight: lighter;
   color: black;

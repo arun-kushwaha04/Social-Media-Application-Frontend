@@ -5,7 +5,7 @@
 main {
   display: flex;
   justify-content: center;
-  background: rgba(18, 87, 224, 0.753);
+  background: rgba(17, 81, 209, 0.582);
   color: white;
 }
 .main-container {
@@ -13,7 +13,7 @@ main {
   width: 90vw;
   height: 100vh;
   /* margin-left: 5vw; */
-  background-color: rgba(41, 41, 41, 0.335);
+  background-color: #185adb;
   overflow: hidden;
 }
 .left-container {
@@ -60,7 +60,10 @@ main {
 .right-container {
   width: 65vw;
   height: 100vh;
-  background-color: rgb(58, 106, 184);
+  background: rgba(255, 255, 255, 0.157);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
   /* background: linear-gradient(to right, rgb(84, 84, 81), rgb(152, 152, 146)); */
   display: flex;
   flex-direction: column;

@@ -11,6 +11,21 @@ body {
   scroll-behavior: smooth;
 }
 
+.theme-changer {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+  position: fixed;
+  width: 75px;
+  height: 35px;
+  right: -2%;
+  top: 70px;
+  border: 2px solid white;
+  border-radius: 20px;
+  z-index: 10;
+  background-color: pink;
+}
+
 a {
   text-decoration: none;
 }
@@ -19,12 +34,13 @@ a {
 
 .main-container {
   width: 63%;
-  background: rgba(255, 255, 255, 0.335);
+  background: rgba(255, 255, 255, 0.411);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
   backdrop-filter: blur(100px);
   -webkit-backdrop-filter: blur(100px);
   /* border-radius: 10px; */
   border-right: 2px solid rgba(255, 255, 255, 0.13);
+  border-left: 2px solid rgba(255, 255, 255, 0.13);
   /* background-color: rgba(204, 204, 204, 0.431); */
   display: flex;
   flex-direction: column;
@@ -49,9 +65,9 @@ a {
   display: flex;
   flex-direction: column;
   padding: 0.5rem 1.5rem;
-  background-color: rgba(64, 94, 141, 0.192);
+  background-color: rgba(57, 120, 221, 0.349);
   box-shadow: -15px 15px 30px black;
-  border: 0.05px solid rgba(0, 0, 0, 0.205);
+  border: 0.05px solid rgba(0, 0, 0, 0.144);
   margin-bottom: 2rem;
   /* border-bottom-left-radius: 0;
     border-bottom-right-radius: 0; */
@@ -566,7 +582,7 @@ section {
   backdrop-filter: blur(9px);
   -webkit-backdrop-filter: blur(9px);
   /* border-radius: 10px; */
-  border-right: 2px solid rgba(255, 255, 255, 0.13);
+  /* border-right: 2px solid rgba(255, 255, 255, 0.13); */
 }
 
 .lower {
@@ -949,6 +965,11 @@ section {
     width: 100vw;
     overflow-x: hidden;
   }
+  .theme-changer {
+    width: 65px;
+    right: -3.75%;
+    top: 125px;
+  }
   nav {
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -1015,7 +1036,7 @@ section {
   }
   .right-section {
     display: block;
-    position: absolute;
+    position: fixed;
     min-height: 100%;
     width: 100%;
     z-index: 1;
@@ -1025,8 +1046,8 @@ section {
     -webkit-clip-path: circle(60px at 90% -10%);
   }
   .open {
-    clip-path: circle(60px at 90% -10%);
-    -webkit-clip-path: circle(1100px at 90% -10%);
+    clip-path: circle(1300px at 90% -10%);
+    -webkit-clip-path: circle(1300px at 90% -10%);
   }
   .pageButton {
     position: relative;
