@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css">
+    <title>Update Password</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="heading">Reset Password</div>
+        <div class="form">
+            <div class="field">
+                <div class="newPassword-field">
+                    <input class="newPassword" type="password" placeholder="New Password" onkeyup="check()">
+                    <div class="icon">
+                        <span class="newPassword-icon1 fas fa-exclamation"></span>
+                        <span class="newPassword-icon2 fas fa-check"></span>
+                    </div>
+                </div>
+                <div class="newPassword-error">Atleast 8 Characters Including Uppercase, Lowercase, Numbers And Symbols</div>
+                <div class="confirmPassword-field">
+                    <input class="confirmPassword" type="password" placeholder="Confirm Password" onkeyup="check3()">
+                    <div class="icon">
+                        <span class="confirmPassword-icon1 fas fa-exclamation"></span>
+                        <span class="confirmPassword-icon2 fas fa-check"></span>
+                    </div>
+                </div>
+                <div class="confirmPassword-error">Confirm Password And New Password Should Match</div>
+            </div>
+            <div class="btn">Reset</div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>

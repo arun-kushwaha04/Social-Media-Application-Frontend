@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css">
+    <title>Update Name</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="heading">Update Name</div>
+        <div class="form">
+            <div class="field">
+                <div class="name-field">
+                    <input class="name" type="text" placeholder="Enter Name" onkeyup="check()">
+                    <div class="icon">
+                        <span class="name-icon1 fas fa-exclamation"></span>
+                        <span class="name-icon2 fas fa-check"></span>
+                    </div>
+                </div>
+                <div class="name-error">Name Should At Max 20 Characters</div>
+                <div class="password-field">
+                    <input type="password" placeholder="Current Password" class="password" onkeyup="check2()">
+                    <div class="icon">
+                        <span class="password-icon1 fas fa-exclamation"></span>
+                        <span class="password-icon2 fas fa-check"></span>
+                    </div>
+                </div>
+                <div class="password-error">Password Incorrect</div>
+                <div class="error-text password-error">Enter Password</div>
+            </div>
+            <div class="btn">Update</div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+
+</html>
