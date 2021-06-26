@@ -3,19 +3,20 @@
 const url = "http://localhost:8000";
 
 //fortend url
-const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+const frontendUrl = `http://localhost:5500`;
 
 //message showing
 const messageContainer = document.querySelector('.message-container');
 
-let theme;
+let theme = localStorage.getItem("theme");
 let firebaseConfig;
+
+
 window.onload = () => {
     fetchCredentials();
     getUserPosts();
     getFollowing();
-    theme = localStorage.getItem("theme");
-    themeSlector()
 }
 
 console.log(window.innerWidth);
@@ -32,18 +33,21 @@ const changeThemeButton = document.querySelector(".theme-changer");
 changeThemeButton.addEventListener('click', () => themeSlector());
 
 function themeSlector() {
-    sec.classList.toggle("dark")
     nav2.style.background = "#0c033a";
-    if (theme === 0) {
-        localStorage.setItem("theme", 1);
-        changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
-        theme = 1;
-        nav2.style.borderBottom = "2px solid greenyellow";
-    } else {
+    if (theme === 1) {
         localStorage.setItem("theme", 0);
-        changeThemeButton.innerHTML = ` <img src="../../assets/lightTheme.svg" alt="">`;
+        sec.classList.remove('dark');
+        changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
         theme = 0;
+        nav2.style.borderBottom = "2px solid greenyellow";
+        return;
+    } else {
+        localStorage.setItem("theme", 1);
+        sec.classList.add('dark');
+        changeThemeButton.innerHTML = ` <img src="../../assets/lightTheme.svg" alt="">`;
+        theme = 1;
         nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
+        return;
     }
 }
 
