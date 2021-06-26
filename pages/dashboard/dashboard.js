@@ -1,4 +1,5 @@
 //url 
+// const url = "https://sheltered-citadel-84490.herokuapp.com";
 const url = "http://localhost:8000";
 
 //fortend url
@@ -6,6 +7,9 @@ const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 
 //message showing
 const messageContainer = document.querySelector('.message-container');
+
+
+console.log(window.innerWidth);
 
 const myProfile = document.querySelector(".profile-photo-feed");
 myProfile.addEventListener("click", () => {
@@ -252,6 +256,7 @@ async function getUserPosts() {
             const data = await res.json();
             //we have to load the post of user.
             const post = data.post;
+            console.log(post);
             await post.sort((a, b) => (a.postid < b.postid) ? 1 : -1);
             post.forEach(element => {
                 addUserPost(element);
@@ -302,10 +307,16 @@ function isLiked(element, div, container, divContainer) {
             },
         }).then(res => res.json())
         .then(data => {
+
+            let originalpostid = element.originalpostid;
+            if (originalpostid === null) {
+                originalpostid = element.postid;
+            }
+
             if (data.message === 'Post Is Liked') {
-                html = ` <i class="fas fa-heart crazy-button" onClick = "updateLike(event)"></i><span class="likes">${element.postlikes}</span>`;
+                html = ` <i class="fas fa-heart crazy-button" onClick = "updateLike(event)" id=${originalpostid}></i><span class="likes">${element.postlikes}</span>`;
             } else if (data.message === 'Post Is Not Liked') {
-                html = ` <i class="far fa-heart crazy-button" onClick = "updateLike(event)"></i><span class="likes">${element.postlikes}</span>`;
+                html = ` <i class="far fa-heart crazy-button" onClick = "updateLike(event)" id=${originalpostid}></i><span class="likes">${element.postlikes}</span>`;
             } else {
                 message.textContent = 'Internal Server Error';
             }
@@ -314,11 +325,12 @@ function isLiked(element, div, container, divContainer) {
                 ${element.userusername} </a>
                 <div class="time">${element.datetime}</div>
             </div>`
+
             if (element.userid != element.originaluserid) {
                 heading = ` <div class="user-name-feed">
                     <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}">
-                    ${element.userusername} </a> Shared Post Of 
-                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}">
+                    ${element.userusername}</a>&nbsp; Shared Post Of &nbsp;
+                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.originalusername}">
                     ${element.originalusername}</a>
                     <div class="time">${element.datetime}</div>
                 </div>`
@@ -340,14 +352,14 @@ function isLiked(element, div, container, divContainer) {
                         </div>
                         <div class="engageButtons" id = ${element.originaluserid}>
                             <div class="like-button" id = ${element.userid}>
-                            ${html}
+                                ${html}
                             </div>
                             <div class="comment-button" id = ${element.userid}>
-                                <i class="far fa-comment-alt crazy-button" onClick = "openCommentSection(event)"></i>
+                                <i class="far fa-comment-alt crazy-button" onClick = "openCommentSection(event)" id=${originalpostid}></i>
                                 <span class="comments">${element.postcomments}</span>
                             </div>
                             <div class="share-button" id = ${element.userid}>
-                                <img src="../../assets/Share.svg" class="crazy-button" />
+                                <i class="fas fa-share crazy-button" onClick = "sharePostClick(event)" id=${originalpostid}></i>
                                 <span class="share">${element.postshare}</span>
                             </div>
                         </div>
@@ -529,10 +541,13 @@ async function updateLike(event) {
     const originaluserid = event.target.parentNode.parentNode.id;
     const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
     const likes = (event.target.nextSibling);
+    const originalpostid = event.target.id;
+    // console.log(originalpostid);
     let userData = {
         userid,
         originaluserid,
         postid,
+        originalpostid,
     }
     console.log(userData);
     userData = JSON.stringify(userData);
@@ -582,17 +597,28 @@ async function updateLike(event) {
 
 function openCommentSection(event) {
     const commentSection = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[1];
-    while (commentSection.children.length > 1) {
-        commentSection.removeChild(commentSection.children[0]);
-    }
+    commentSection.innerHTML = "";
+    const div = document.createElement('div');
+    div.classList.add('add-comment');
+    div.innerHTML = `
+    <input class="comment-input" type="text" placeholder="Add Comment">
+    <i class="fas fa-paper-plane add-comment-button" onClick = "commentButtonClick(event)"></i>
+    </div>`;
+    // while (commentSection.children.length > 1) {
+    //     console.log(commentSection.children[0]);
+    //     commentSection.removeChild(commentSection.children[0]);
+    // }
     commentSection.classList.toggle('comment-section-open');
     commentSection.parentElement.children[0].classList.toggle('Posts-open');
     const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
+    const originalpostid = event.target.id;
+    console.log(originalpostid);
     let userData = {
         postid,
+        originalpostid,
     }
     userData = JSON.stringify(userData);
-    getAllComment(commentSection, userData)
+    getAllComment(commentSection, userData, div);
 }
 
 //adding the comment
@@ -645,13 +671,14 @@ function commentButtonClick(event) {
         let dateTime = date + ' ' + time;
 
         const profilePhoto = localStorage.getItem("profilePhoto");
-
+        const originalpostid = event.target.parentNode.parentNode.parentNode.children[0].children[1].children[2].children[1].children[0].id;
         let userData = {
             postid,
             originaluserid,
             comment,
             dateTime,
             profilePhoto,
+            originalpostid,
         }
         userData = JSON.stringify(userData);
         console.log(userData);
@@ -708,7 +735,7 @@ async function addComment(userData, commentCounter, commentText) {
 }
 
 //populating a the comments of a post
-async function getAllComment(commentSection, userData) {
+async function getAllComment(commentSection, userData, div) {
     const res = await fetch(`${url}/feed/getAllPostComment`, {
         method: "POST",
         body: userData,
@@ -720,7 +747,6 @@ async function getAllComment(commentSection, userData) {
 
     if (res.status === 200) {
         const data = await res.json();
-        console.log(data);
         for (let i = 0; i < data.comment.length; i++) {
             const comment = data.comment[i];
             const div = document.createElement('div');
@@ -738,9 +764,95 @@ async function getAllComment(commentSection, userData) {
             </div>`;
             commentSection.prepend(div);
         }
-
+        commentSection.appendChild(div);
     } else {
         console.log('error');
     }
+}
+
+//sharing a post 
+
+function sharePostClick(event) {
+    const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
+    const shareCounter = event.target.parentNode.children[1];
+    const profilephoto = localStorage.getItem("profilePhoto");
+    const originaluserid = event.target.parentElement.parentElement.id;
+    const originalpostid = event.target.id;
+    //current date and time
+    let today = new Date();
+    let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + ' ' + time;
+
+    let userData = {
+        postid,
+        profilephoto,
+        dateTime,
+        originalpostid,
+    }
+    userData = JSON.stringify(userData);
+    // console.log(userData, shareCounter);
+    sharePost(userData, shareCounter, originaluserid);
+}
+
+async function sharePost(userData, shareCounter, originaluserid) {
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+
+    const userId = localStorage.getItem("userId")
+    console.log(userId);
+    if (originaluserid === userId) {
+        messageDiv.removeChild(success);
+        message.textContent = `You Can't Re-Share Your Own Post`;
+        error.style.opacity = 1;
+    } else {
+        try {
+            const res = await fetch(`${url}/feed/sharePost`, {
+                method: "POST",
+                body: userData,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                },
+            });
+
+            if (res.status === 200) {
+                const data = await res.json();
+                if (data.message === 'You Shared The Post') {
+                    shareCounter.innerHTML = parseInt(shareCounter.innerHTML) + 1;
+                    messageDiv.removeChild(error);
+                    message.textContent = data.message;
+                    success.style.opacity = 1;
+                } else if (data.message === 'Post Is Already Shared') {
+                    messageDiv.removeChild(success);
+                    message.textContent = data.message;
+                    error.style.opacity = 1;
+                }
+            } else {
+                messageDiv.removeChild(success);
+                message.textContent = 'Internal Server Error';
+                error.style.opacity = 1;
+            }
+        } catch (error) {
+            console.log(error);
+            messageDiv.removeChild(success);
+            message.textContent = 'Server Down';
+            error.style.opacity = 1;
+        }
+    }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
 
 }

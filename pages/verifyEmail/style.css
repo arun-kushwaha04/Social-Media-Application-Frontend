@@ -17,6 +17,7 @@ body {
 }
 
 .container {
+    position: relative;
     text-align: center;
     background-color: #fff;
     height: 40%;
@@ -27,6 +28,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    padding: auto;
 }
 
 .container .heading {
@@ -35,4 +38,17 @@ body {
     padding: 0.5em;
     margin: 0 3rem;
     line-height: 3.3rem;
+}
+
+.btn {
+    position: absolute;
+    width: 50%;
+    font-size: 1.5rem;
+    border: 0.2em solid rebeccapurple;
+    border-radius: 10rem;
+    padding: 0.2em 0.5em 0.2em 0.5em;
+    cursor: pointer;
+    bottom: 1rem;
+    margin: 0 auto;
+    display: none;
 }

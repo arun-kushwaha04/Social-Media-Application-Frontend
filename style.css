@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 html {
     margin: 0;
     padding: 0;
@@ -7,6 +8,7 @@ html {
     font-family: "Monument Extended", Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
 }
 
 
