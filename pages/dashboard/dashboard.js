@@ -8,6 +8,15 @@ const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 //message showing
 const messageContainer = document.querySelector('.message-container');
 
+let theme;
+let firebaseConfig;
+window.onload = () => {
+    fetchCredentials();
+    getUserPosts();
+    getFollowing();
+    theme = localStorage.getItem("theme");
+    themeSlector()
+}
 
 console.log(window.innerWidth);
 
@@ -20,11 +29,22 @@ const sec = document.querySelector(".sec");
 const nav2 = document.querySelector(".nav");
 const changeThemeButton = document.querySelector(".theme-changer");
 
-changeThemeButton.onclick=function () {
+changeThemeButton.addEventListener('click', () => themeSlector());
+
+function themeSlector() {
     sec.classList.toggle("dark")
-    nav2.style.background="#0c033a";
-    document.getElementById("theme-button").innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
-    nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
+    nav2.style.background = "#0c033a";
+    if (theme === 0) {
+        localStorage.setItem("theme", 1);
+        changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
+        theme = 1;
+        nav2.style.borderBottom = "2px solid greenyellow";
+    } else {
+        localStorage.setItem("theme", 0);
+        changeThemeButton.innerHTML = ` <img src="../../assets/lightTheme.svg" alt="">`;
+        theme = 0;
+        nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
+    }
 }
 
 
@@ -37,14 +57,6 @@ game.addEventListener("click", () => {
 video.addEventListener("click", () => {
     location.href = "https://www.youtube.com/feed/trending"
 })
-
-let firebaseConfig;
-window.onload = () => {
-    fetchCredentials();
-    getUserPosts();
-    getFollowing();
-}
-
 
 
 //a function to fetch firebase credentials from backend

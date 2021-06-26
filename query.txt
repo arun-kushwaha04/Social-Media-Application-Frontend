@@ -1,0 +1,8 @@
+CREATE table comment (commentId serial primary key, postId int not null, originalpostid int not null, userId int not null, username text not null, comment text not null, datetime text not null, profilephoto text not null);
+
+CREATE TABLE posts ( postId serial primary key not null, originalpostid int, userId int not null,constraint userId foreign key (userId) 
+REFERENCES users (id) , userusername text not null, originalUserId int not null, constraint originalUserId foreign key (originalUserId) REFERENCES users (id),
+originalUsername text not null, description text not null, images text[] not null, postlikes int not null, postcomments int not null, postshare int not null, profilephoto text not null, datetime text not null);
+CREATE table comment (commentId serial primary key, postId int not null, userId int not null, username text not null, comment text not null, datetime text not null, profilephoto text not null);
+
+CREATE TABLE likes (postid int not null, userid int not null);

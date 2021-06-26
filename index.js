@@ -290,7 +290,7 @@ async function loginUser(userData) {
             emailIcon1.style.display = 'block';
             emailError.textContent = 'Email Not Verified';
             emailError.style.display = 'block';
-        } else if (data.message === 'You Are Logged In Ohter Device Please Log Out') {
+        } else if (data.message === 'You Are Logged In Other Device Please Log Out') {
             //error to be show when the user is already logged in
             emailIcon1.style.display = 'block';
             emailError.textContent = 'Logged In Ohter Device Please Log Out';
@@ -306,6 +306,7 @@ async function loginUser(userData) {
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("username", data.username);
             localStorage.setItem("profilePhoto", data.profilePhoto);
+            localStorage.setItem("theme", 1);
             console.log(data);
             location.replace("./pages/dashboard/dashboard.html");
         }
