@@ -306,7 +306,7 @@ async function loginUser(userData) {
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("username", data.username);
             localStorage.setItem("profilePhoto", data.profilePhoto);
-            localStorage.setItem("theme", 1);
+            localStorage.setItem("theme", 0);
             console.log(data);
             location.replace("./pages/dashboard/dashboard.html");
         }

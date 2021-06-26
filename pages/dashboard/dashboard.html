@@ -15,14 +15,14 @@
     <title>Dashboard</title>
 </head>
 
-  <body>
+<body>
     <div class="theme-changer" id="theme-button">
-      <img src="../../assets/lightTheme.svg" alt="">
+        <img src="../../assets/lightTheme.svg" alt="">
     </div>
     <nav class="nav">
-      <div>
-        <div class="logo">Dubify</div>
-      </div>
+        <div>
+            <div class="logo">Dubify</div>
+        </div>
 
         <div class="icons">
             <div class="page-button home">
@@ -61,6 +61,10 @@
 
         <div class="left-section">
             <div class="lower">
+                <div class="feature">
+                    <img class="symbol" src="../../assets/Friends.svg" />
+                    <a class='toProfile'><span>Profile</span></a>
+                </div>
                 <div class="feature">
                     <img class="symbol" src="../../assets/Friends.svg" />
                     <a href="../story/index.html"><span>Story</span></a>
@@ -129,59 +133,36 @@
           <div class="feed-section">
             <!-- Create Our New Post -->
             <div class="add-user-feed">
-              <img class="profile-photo-feed" />
+              <a class='toProfileInFeed'><img class="profile-photo-feed" /></a>
 
-              <div class="feed-input">What's In Your Crazy Mind.</div>
+                    <div class="feed-input">What's In Your Crazy Mind.</div>
 
-              <div class="underline-feed"></div>
+                    <div class="underline-feed"></div>
 
-              <div class="add-photo-feed">
-                <img
-                  class="add-photo-icon"
-                  src="../../assets/AddPhoto.svg"
-                  alt=""
-                />
-                Add Photo
-              </div>
-            </div>
+                    <div class="add-photo-feed">
+                        <img class="add-photo-icon" src="../../assets/AddPhoto.svg" alt="" /> Add Photo
+                    </div>
+                </div>
 
-            <div class="add-feed-after-click">
-              <article class="post-container">
-                <div class="container-for-post">
-                  <div class="heading">Create Post</div>
-                  <div class="underline-feed"></div>
-                  <div class="close-feed">
-                    <img
-                      class="profile-photo-close"
-                      src="../../assets/close.svg"
-                      alt=""
-                    />
-                  </div>
-                  <header class="post-user-info">
-                    <img
-                      class="profile-photo-feed-insert"
-                      src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4"
-                    />
-                    <div class="user-name-feed">User Name</div>
-                  </header>
+                <div class="add-feed-after-click">
+                    <article class="post-container">
+                        <div class="container-for-post">
+                            <div class="heading">Create Post</div>
+                            <div class="underline-feed"></div>
+                            <div class="close-feed">
+                                <img class="profile-photo-close" src="../../assets/close.svg" alt="" />
+                            </div>
+                            <header class="post-user-info">
+                                <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
+                                <div class="user-name-feed">User Name</div>
+                            </header>
 
-                  <div class="post-section">
-                    <textarea
-                      class="feed-text"
-                      placeholder="What's In Your Crazy Mind"
-                      rows="4"
-                      cols="10"
-                    ></textarea>
-                    <div class="preview"></div>
-                  </div>
-                  <input
-                    type="file"
-                    id="img"
-                    accept="image/*"
-                    data-max-total-files="4"
-                    data-max-file-size="3MB"
-                  />
-                  <label for="img" class="image-selector">
+                            <div class="post-section">
+                                <textarea class="feed-text" placeholder="What's In Your Crazy Mind" rows="4" cols="10"></textarea>
+                                <div class="preview"></div>
+                            </div>
+                            <input type="file" id="img" accept="image/*" data-max-total-files="4" data-max-file-size="3MB" />
+                            <label for="img" class="image-selector">
                     <div class="add-photo-feed">
                       <img
                         class="add-photo-icon"
@@ -190,19 +171,19 @@
                       />Add Photo
                     </div>
                   </label>
-                  <div class="btn upload-button">Upload Images</div>
-                  <div class="btn post-button">Post</div>
+                            <div class="btn upload-button">Upload Images</div>
+                            <div class="btn post-button">Post</div>
+                        </div>
+                        <div class="loading-effect">
+                            <h3>Uploading...</h3>
+                            <progress class="loader" value="0" max="100">0%</progress>
+                        </div>
+                    </article>
                 </div>
-                <div class="loading-effect">
-                  <h3>Uploading...</h3>
-                  <progress class="loader" value="0" max="100">0%</progress>
-                </div>
-              </article>
-            </div>
 
-            <!-- Others Posts -->
-            <div class="user-posts">
-              <!--<div>
+                <!-- Others Posts -->
+                <div class="user-posts">
+                    <!--<div>
                   <div class="Posts">
                         <header class="post-user-info">
                           <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
@@ -249,79 +230,68 @@
                   </div>
 
               </div>-->
-              
-            </div>
-          </div>
-        </div>
-      </article>
 
-      <!-- Right Section -->
-      <div class="right-section">
-        <!-- Events -->
-        <div class="events-block">
-          <h2>Events</h2>
-          <div class="events-table">
-            <div class="event">
-              <h3>Art Contest</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                </div>
             </div>
-
-            <div class="event">
-              <h3>Singing Competition</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-            </div>
-
-            <div class="event">
-              <h3>Live Consert</h3>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
-            </div>
-          </div>
         </div>
-        <br />
-        <!-- Friends Suggestions -->
-        <div class="suggestions">
-          <h2>Suggestions</h2>
-          <div class="users-table">
-            <div class="user">
-              <img
-                src="https://avatars.githubusercontent.com/u/78134473?v=4"
-                class="profile-photo"
-              />
-              <span>Harsh Gupta</span>
-              <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
+        </article>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <!-- Events -->
+            <div class="events-block">
+                <h2>Events</h2>
+                <div class="events-table">
+                    <div class="event">
+                        <h3>Art Contest</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                    </div>
+
+                    <div class="event">
+                        <h3>Singing Competition</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                    </div>
+
+                    <div class="event">
+                        <h3>Live Consert</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                    </div>
+                </div>
             </div>
-            <div class="user">
-              <img
-                src="https://avatars.githubusercontent.com/u/75408888?v=4"
-                class="profile-photo"
-              />
-              <span>Vishwas</span>
-              <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
+            <br />
+            <!-- Friends Suggestions -->
+            <div class="suggestions">
+                <h2>Suggestions</h2>
+                <div class="users-table">
+                    <div class="user">
+                        <img src="https://avatars.githubusercontent.com/u/78134473?v=4" class="profile-photo" />
+                        <span>Harsh Gupta</span>
+                        <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
+                    </div>
+                    <div class="user">
+                        <img src="https://avatars.githubusercontent.com/u/75408888?v=4" class="profile-photo" />
+                        <span>Vishwas</span>
+                        <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
+                    </div>
+                    <div class="user">
+                        <img src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" class="profile-photo" />
+                        <span>Arun Kushwaha</span>
+                        <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
+                    </div>
+                    <div class="user">
+                        <img src="https://media-exp3.licdn.com/dms/image/C4E03AQFFPC75CEjLQg/profile-displayphoto-shrink_200_200/0/1594212611651?e=1628726400&v=beta&t=PJSp5F1pCL2RUF-o_Elg2dVFjdcDAKIKiyLjz1di6qg" class="profile-photo" />
+                        <span>Ansh Singh</span>
+                        <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
+                    </div>
+                </div>
             </div>
-            <div class="user">
-              <img
-                src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4"
-                class="profile-photo"
-              />
-              <span>Arun Kushwaha</span>
-              <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
-            </div>
-            <div class="user">
-              <img
-                src="https://media-exp3.licdn.com/dms/image/C4E03AQFFPC75CEjLQg/profile-displayphoto-shrink_200_200/0/1594212611651?e=1628726400&v=beta&t=PJSp5F1pCL2RUF-o_Elg2dVFjdcDAKIKiyLjz1di6qg"
-                class="profile-photo"
-              />
-              <span>Ansh Singh</span>
-              <div class="follow-btn"><i class="fas fa-user-plus"></i></div>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
-  </body>
-  <!-- firebase libaries -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
-  <script src="./dashboard.js"></script>
+</body>
+<!-- firebase libaries -->
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+<script src="./dashboard.js"></script>
+
 </html>

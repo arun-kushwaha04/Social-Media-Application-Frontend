@@ -58,6 +58,11 @@ video.addEventListener("click", () => {
     location.href = "https://www.youtube.com/feed/trending"
 })
 
+const profile = document.querySelector('.toProfile');
+const profile2 = document.querySelector('.toProfileInFeed');
+profile.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+profile2.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+
 
 //a function to fetch firebase credentials from backend
 async function fetchCredentials() {

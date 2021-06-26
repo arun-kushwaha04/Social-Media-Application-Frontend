@@ -1366,6 +1366,10 @@ section.dark .main-container .home-page .feed-section .add-feed-after-click .pos
     background-color: transparent;
 }
 
+section.dark .user-name-feed a {
+    color: rgb(212, 212, 212);
+}
+
 section.dark .comment-section {
     background-color: rgba(123, 93, 255, 0.897);
 }
