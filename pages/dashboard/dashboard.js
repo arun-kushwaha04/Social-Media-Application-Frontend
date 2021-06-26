@@ -19,9 +19,8 @@ const changeThemeButton = document.querySelector(".theme-changer");
 changeThemeButton.onclick=function () {
     sec.classList.toggle("dark")
     nav2.style.background="#0c033a";
-    // nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
-    // nav2.css({"background":"#0c033a","border-bottom":"2px solid rgb(251, 122, 201)"});
-    // nav2.classList.toggle("nav");
+    document.getElementById("theme-button").innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
+    nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
 }
 
 
