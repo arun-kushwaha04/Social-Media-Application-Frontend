@@ -47,7 +47,7 @@ async function resendEmail() {
         "email": email
     }
     userData = JSON.stringify(userData);
-    const response = fetch(`${url}/auth/resendVerificationLink`, {
+    const res = fetch(`${url}/auth/resendVerificationLink`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",

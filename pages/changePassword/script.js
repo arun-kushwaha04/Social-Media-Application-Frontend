@@ -64,7 +64,7 @@ async function resendEmail() {
         body: userData,
     });
     const data = await res.json();
-    verifyEmail(email, data.domain, data.key, data.userToken);
+    forgotPasswordEmail(email, data.domain, data.key, data.userToken);
 }
 
 
