@@ -1,3 +1,10 @@
+// const url = "https://evening-earth-85816.herokuapp.com";
+const url = "http://localhost:8000";
+//fortend url
+// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+const frontendUrl = `http://localhost:5500`;
+
+const form = document.querySelector('.form');
 const newPassword = document.querySelector('.newPassword');
 const confirmPassword = document.querySelector('.confirmPassword');
 const newPasswordIcon1 = document.querySelector('.newPassword-icon1');
@@ -7,9 +14,91 @@ const confirmPasswordIcon2 = document.querySelector('.confirmPassword-icon2');
 const newPasswordError = document.querySelector('.newPassword-error');
 const confirmPasswordError = document.querySelector('.confirmPassword-error');
 const button = document.querySelector('.btn');
+const resend = document.querySelector('.resend');
 
 const currUrl = new URLSearchParams(window.location.search);
 const userToken = currUrl.get("userToken");
+const email = currUrl.get("email");
+
+
+window.addEventListener('load', () => {
+    let userData = {
+        "email": email
+    }
+    userData = JSON.stringify(userData);
+    fetch(`${url}/auth/verifyEmail`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${userToken}`,
+        },
+        body: userData,
+    }).then(res =>
+        res.json()
+    ).then(data => {
+        heading.textContent = data.message;
+        if (data.message === 'Email Verified Successfully !!') {
+            form.style.display = 'block'
+        } else {
+            resend.style.display = 'block';
+        }
+    }).catch(err => {
+        heading.textContent = 'Server Down';
+        resend.style.display = 'block';
+        console.log(err.message);
+    })
+})
+
+resend.addEventListener('click', () => resendEmail());
+
+async function resendEmail() {
+    let userData = {
+        "email": email
+    }
+    userData = JSON.stringify(userData);
+    const response = fetch(`${url}/auth/resendVerificationLink`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: userData,
+    });
+    const data = await res.json();
+    verifyEmail(email, data.domain, data.key, data.userToken);
+}
+
+
+async function forgotPasswordEmail(email, domain, key, userToken) {
+    try {
+        const message = await Email.send({
+                Host: "smtp.gmail.com",
+                Username: `${domain}`,
+                Password: `${key}`,
+                EnableSsl: true,
+                To: `${email}`,
+                From: "noReply@Dubify.com",
+                Subject: "RESET PASSWORD",
+                Body: `
+            <p>Someone (hopefully you) has requested a password reset for your Note-Maker account. Follow the link below to set a new password:</p>
+            <h1>Click on Below Link To Reset Your Password.</h1>
+            <p>If you don't wish to reset your password, disregard this email and no action will be taken.</p>
+            <a href="${frontendUrl}/Pages/changePassword/index.html?userToken=${userToken}&email=${email}" target="_blank">Reset Password</a>
+            <p>Team dubify</p>
+        `,
+            })
+            //displaying the send message
+        if (message) {
+            console.log('mail sent successfully');
+            heading.textContent = 'Verification Mail Sent';
+            resend.style.display = 'none';
+        }
+    } catch (err) {
+        console.log(err);
+        //displaying error
+        heading.textContent = 'Error In Sending Mail';
+        // setTimeout(() => { location.reload(); }, 10000);
+    };
+}
 
 
 let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
@@ -73,8 +162,7 @@ function check3() {
         button.style.display = 'block';
     }
 }
-// const url = "http://localhost:8000";
-const url = "https://evening-earth-85816.herokuapp.com";
+
 button.addEventListener('click', () => {
     let data = {
         "password": `${newPassword.value}`,
@@ -99,7 +187,7 @@ button.addEventListener('click', () => {
             return;
         } else {
             alert(data.message);
-            location.replace("https://dreamy-carson-5588a8.netlify.app/index.html");
+            location.replace(`${frontendUrl}/index.html`);
         }
 
     }).catch(err => {

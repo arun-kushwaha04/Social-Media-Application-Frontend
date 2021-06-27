@@ -352,7 +352,7 @@ async function forgotPasswordEmail(email, domain, key, userToken) {
             <p>Someone (hopefully you) has requested a password reset for your Note-Maker account. Follow the link below to set a new password:</p>
             <h1>Click on Below Link To Reset Your Password.</h1>
             <p>If you don't wish to reset your password, disregard this email and no action will be taken.</p>
-            <a href="${frontendUrl}/Pages/changePassword/index.html?userToken=${userToken}" target="_blank">Reset Password</a>
+            <a href="${frontendUrl}/Pages/changePassword/index.html?userToken=${userToken}&email=${email}" target="_blank">Reset Password</a>
             <p>Team dubify</p>
         `,
             })

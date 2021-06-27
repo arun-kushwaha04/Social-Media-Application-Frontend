@@ -34,11 +34,13 @@ window.addEventListener('load', () => {
             resend.style.display = 'block';
         }
     }).catch(err => {
+        heading.textContent = 'Server Down';
+        resend.style.display = 'block';
         console.log(err.message);
     })
 })
 
-resend.addEventListener('click', () => resendEmail);
+resend.addEventListener('click', () => resendEmail());
 
 async function resendEmail() {
     let userData = {
@@ -54,8 +56,6 @@ async function resendEmail() {
     });
     const data = await res.json();
     verifyEmail(email, data.domain, data.key, data.userToken);
-    heading.textContent = 'Verification Mail Sent';
-    resend.style.display = 'none';
 }
 
 async function verifyEmail(email, domain, key, userToken) {
@@ -78,10 +78,12 @@ async function verifyEmail(email, domain, key, userToken) {
             //handling the errors
         if (message) {
             console.log('mail sent successfully');
+            heading.textContent = 'Verification Mail Sent';
+            resend.style.display = 'none';
         }
     } catch (err) {
         console.log(err);
-        //displaying the error
-        setTimeout(() => { location.reload(); }, 10000);
+        heading.textContent = 'Error In Sending Mail';
+        // setTimeout(() => { location.reload(); }, 10000);
     };
 }
