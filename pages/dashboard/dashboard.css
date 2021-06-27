@@ -36,7 +36,9 @@ body {
     /* background-color: pink; */
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.post-section::-webkit-scrollbar,
+.feed-text::-webkit-scrollbar {
     display: none;
 }
 
