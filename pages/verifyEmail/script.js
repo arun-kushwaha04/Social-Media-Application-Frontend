@@ -8,6 +8,10 @@ const email = currUrl.get("email");
 
 // const url = "https://evening-earth-85816.herokuapp.com";
 const url = "http://localhost:8000";
+//fortend url
+// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+const frontendUrl = `http://localhost:5500`;
+
 window.addEventListener('load', () => {
     let userData = {
         "email": email
@@ -25,7 +29,7 @@ window.addEventListener('load', () => {
     ).then(data => {
         heading.textContent = data.message;
         if (data.message === 'Email Verified Successfully !!') {
-            setTimeout(() => { location.replace(`https://webkirti-social-media-website.netlify.app`) }, 2000);
+            setTimeout(() => { location.replace(`${frontendUrl}/index.html`) }, 2000);
         } else {
             resend.style.display = 'block';
         }
@@ -33,6 +37,8 @@ window.addEventListener('load', () => {
         console.log(err.message);
     })
 })
+
+resend.addEventListener('click', () => resendEmail);
 
 async function resendEmail() {
     let userData = {
