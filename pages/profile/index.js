@@ -9,6 +9,22 @@ const url = "http://localhost:8000";
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 const frontendUrl = `http://localhost:5500`;
 
+
+const name = document.querySelector('.name');
+const email = documnet.querySelector('.email');
+const postCount = document.querySelector('.postCount');
+const followerCount = document.querySelector('.followerCount');
+const followingCount = document.querySelector('.followingCount');
+const likeCount = document.querySelector('.likeCount');
+const about = document.querySelector('.about');
+
+
+window.addEventListener('load', ()=>{
+
+});
+
+
+
 homeButton.addEventListener('click', () => {
     location.href = `${frontendUrl}/pages/dashboard/index.html}`;
 });
