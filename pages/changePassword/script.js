@@ -37,7 +37,7 @@ window.addEventListener('load', () => {
         res.json()
     ).then(data => {
         heading.textContent = data.message;
-        if (data.message === 'Email Verified Successfully !!') {
+        if (data.message === 'Email Verified Succesfully, Would Be Directed To Login Page Shortly.') {
             form.style.display = 'block'
         } else {
             resend.style.display = 'block';
@@ -56,7 +56,7 @@ async function resendEmail() {
         "email": email
     }
     userData = JSON.stringify(userData);
-    const response = fetch(`${url}/auth/resendVerificationLink`, {
+    const res = await fetch(`${url}/auth/resendVerificationLink`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",

@@ -10,13 +10,16 @@ const frontendUrl = `http://localhost:5500`;
 const messageContainer = document.querySelector('.message-container');
 
 let theme = localStorage.getItem("theme");
+let users;
 let firebaseConfig;
 
 
 window.onload = () => {
+    getUserList();
     fetchCredentials();
     getUserPosts();
     getFollowing();
+    getSuggestionList()
 }
 
 console.log(window.innerWidth);
@@ -49,6 +52,47 @@ function themeSlector() {
         nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
         return;
     }
+}
+
+async function getUserList() {
+    try {
+        const res = await fetch(`${url}/friend/getUserList`);
+        const data = await res.json();
+        users = data.users
+    } catch (error) {
+        console.log(error);
+    }
+}
+async function getSuggestionList() {
+    try {
+        const res = await fetch(`${url}/friend/getSuggestionList`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        });
+        const data = await res.json();
+        const suggestion = data.users;
+        console.log(suggestion)
+        populateSuggestion(suggestion);
+    } catch (error) {
+        console.log(error);
+    }
+}
+const suggestionsTable = document.querySelector('.users-table-suggestion')
+
+function populateSuggestion(suggestion) {
+    suggestion.forEach(element => {
+        const div = document.createElement('div');
+        div.classList.add('user');
+        div.innerHTML = `
+            <img src="${element.profilephoto}" class="profile-photo" />
+            <span>${element.username}</span>
+            <div class="follow-btn"><i class="fas fa-user-plus id='${element.id}' onClick = ""></i></div>
+        `;
+        suggestionsTable.appendChild(div);
+    })
 }
 
 
@@ -290,7 +334,7 @@ async function getUserPosts() {
             //we have to load the post of user.
             const post = data.post;
             console.log(post);
-            await post.sort((a, b) => (a.postid < b.postid) ? 1 : -1);
+            // await post.sort((a, b) => (a.postid < b.postid) ? 1 : -1);
             post.forEach(element => {
                 addUserPost(element);
             })
@@ -824,6 +868,7 @@ function sharePostClick(event) {
         originalpostid,
     }
     userData = JSON.stringify(userData);
+    console.log(userData);
     // console.log(userData, shareCounter);
     sharePost(userData, shareCounter, originaluserid);
 }

@@ -211,6 +211,9 @@ a {
 
 .comment {
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .comment-box {
@@ -219,7 +222,7 @@ a {
 }
 
 .comment-details {
-    background-color: #4074d9;
+    background-color: #0080FF;
     border-radius: 0.5rem;
     padding: 0.5em 1em;
     margin-bottom: 0.3rem;
@@ -1296,12 +1299,12 @@ section.dark {
 }
 
 section.dark .main-container {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.336);
 }
 
 section.dark .main-container .home-page .feed-section .user-posts .Posts {
     color: white;
-    background-color: rgba(0, 0, 0, 0.06);
+    background-color: #2F2660;
     box-shadow: -15px 15px 20px black;
 }
 
@@ -1368,6 +1371,18 @@ section.dark .main-container .home-page .feed-section .add-feed-after-click .pos
 
 section.dark .user-name-feed a {
     color: rgb(212, 212, 212);
+}
+
+section.dark .comment-details {
+    background-color: #2F265F;
+}
+
+section.dark .comment-user-name {
+    color: rgb(212, 212, 212);
+}
+
+section.dark .comment-message {
+    color: white;
 }
 
 section.dark .comment-section {
