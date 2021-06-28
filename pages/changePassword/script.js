@@ -15,12 +15,14 @@ const confirmPasswordIcon2 = document.querySelector('.confirmPassword-icon2');
 const newPasswordError = document.querySelector('.newPassword-error');
 const confirmPasswordError = document.querySelector('.confirmPassword-error');
 const button = document.querySelector('.btn');
-const resend = document.querySelector('.resend');
 
 const currUrl = new URLSearchParams(window.location.search);
 const userToken = currUrl.get("userToken");
 const email = currUrl.get("email");
 
+
+const heading = document.querySelector('.heading');
+const resend = document.querySelector('.resend');
 
 window.addEventListener('load', () => {
     let userData = {
