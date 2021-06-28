@@ -1,3 +1,10 @@
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
+
+//fortend url
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
+
 const newPassword = document.querySelector('.newPassword');
 const confirmPassword = document.querySelector('.confirmPassword');
 const password = document.querySelector('.password');
@@ -92,8 +99,7 @@ function check3() {
         button.style.display = 'block';
     }
 }
-// const url = "http://localhost:8000";
-const url = "https://evening-earth-85816.herokuapp.com";
+
 button.addEventListener('click', () => {
     if (password.value === "") {
         password.style.borderColor = '#e74c3c';

@@ -1,3 +1,10 @@
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
+
+//fortend url
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
+
 //selcting all the elements to be manipulated
 const namea = document.querySelector('.name');
 const password = document.querySelector('.password');
@@ -42,8 +49,7 @@ function check2() {
     }
 }
 
-// const url = "http://localhost:8000";
-const url = "https://evening-earth-85816.herokuapp.com";
+
 button.addEventListener('click', () => {
 
     //checking if name is empty

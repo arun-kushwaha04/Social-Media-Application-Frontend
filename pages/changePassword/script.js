@@ -1,8 +1,9 @@
-// const url = "https://evening-earth-85816.herokuapp.com";
-const url = "http://localhost:8000";
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
+
 //fortend url
-// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-const frontendUrl = `http://localhost:5500`;
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
 
 const form = document.querySelector('.form');
 const newPassword = document.querySelector('.newPassword');
