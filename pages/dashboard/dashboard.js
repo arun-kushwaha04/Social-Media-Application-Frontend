@@ -58,11 +58,66 @@ async function getUserList() {
     try {
         const res = await fetch(`${url}/friend/getUserList`);
         const data = await res.json();
-        users = data.users
+        users = await data.users;
+        populateSearchResults(users);
     } catch (error) {
         console.log(error);
     }
 }
+
+const populateSearchResults = (users) => {
+    const container = document.querySelector('.search-result');
+    container.innerHTML = '';
+    users.forEach(element => {
+        const div = document.createElement('div');
+        div.classList.add('search-result-section');
+        div.innerHTML = `
+        
+        <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img src="${element.profilephoto}" class="profile-photo" id="${element.username}"></a>
+        <div class="search-details">
+            <div class="search-username"><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.username}</a></div>
+            <span class="search-name"><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.name}</a></span>&nbsp;&nbsp;
+            <span class="search-email"><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.email}</a></span>
+        </div>
+        
+        `
+        container.appendChild(div);
+    })
+}
+
+const search = document.querySelector('.search');
+const searchContainer = document.querySelector('.search-container');
+const searchInput = document.querySelector('.search-input');
+const searchIcon = document.querySelector('.search-icon');
+
+search.addEventListener('focusin', () => {
+    searchIcon.style.visibility = 'hidden';
+    searchInput.style.paddingLeft = '1rem';
+    searchContainer.style.display = 'block';
+});
+search.addEventListener('focusout', () => {
+    searchIcon.style.visibility = 'visible';
+    searchInput.style.paddingLeft = '2.5rem';
+    searchContainer.style.display = 'none';
+});
+
+searchInput.addEventListener('input', () => {
+    updateSearchBox();
+})
+
+const updateSearchBox = () => {
+    const value = searchInput.value.toLowerCase();
+    let temp = [];
+    for (let i = 0; i < users.length; i++) {
+        const name = users[i].name.toLowerCase();
+        const username = users[i].username.toLowerCase();
+        const email = users[i].email.toLowerCase();
+        if (name.indexOf(value) > -1 || username.indexOf(value) > -1 || email.indexOf(value) > -1) temp.push(users[i]);
+    }
+    populateSearchResults(temp);
+}
+
+
 async function getSuggestionList() {
     try {
         const res = await fetch(`${url}/friend/getSuggestionList`, {
@@ -139,19 +194,6 @@ hamburgerButton.addEventListener('click', () => {
     rightSection.classList.toggle('open');
 })
 
-
-const search = document.querySelector('.search');
-const searchInput = document.querySelector('.search-input');
-const searchIcon = document.querySelector('.search-icon');
-
-search.addEventListener('focusin', () => {
-    searchIcon.style.visibility = 'hidden';
-    searchInput.style.paddingLeft = '1rem';
-});
-search.addEventListener('focusout', () => {
-    searchIcon.style.visibility = 'visible';
-    searchInput.style.paddingLeft = '2.5rem';
-});
 //implementing the add feed logic
 
 const feedInput = document.querySelector('.feed-input');
