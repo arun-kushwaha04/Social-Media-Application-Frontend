@@ -19,7 +19,7 @@ window.onload = () => {
     fetchCredentials();
     getUserPosts();
     getFollowing();
-    getSuggestionList()
+    getSuggestionList();
 }
 
 console.log(window.innerWidth);
@@ -94,7 +94,6 @@ const searchIcon = document.querySelector('.search-icon');
 document.querySelector('body').addEventListener('click', () => {
     if (searchInput === document.activeElement) return;
     else {
-        console.log('hi from search container')
         searchIcon.style.visibility = 'visible';
         searchInput.style.paddingLeft = '2.5rem';
         searchContainer.style.display = 'none';
@@ -155,6 +154,7 @@ async function getSuggestionList() {
 const suggestionsTable = document.querySelector('.users-table-suggestion')
 
 function populateSuggestion(suggestion) {
+    suggestionsTable.innerHTML = " ";
     suggestion.forEach(element => {
         const div = document.createElement('div');
         div.classList.add('user');
@@ -164,6 +164,7 @@ function populateSuggestion(suggestion) {
             <div class="follow-btn"><i class="fas fa-user-plus" id='${element.id}' onClick = "followUser(event)"></i></div>
         `;
         suggestionsTable.appendChild(div);
+        setRightSectionHeight();
     })
 }
 
@@ -205,10 +206,24 @@ let likesCount = 0;
 
 //hamburger
 const rightSection = document.querySelector('.right-section');
+const leftSection = document.querySelector('.left-section');
 const hamburgerButton = document.querySelector('.hamburger');
 
+const setRightSectionHeight = () => {
+    if (window.innerWidth > 768) return;
+    const height = leftSection.offsetHeight;
+    rightSection.style.top = `${height}px`;
+    console.log(height);
+}
+
 hamburgerButton.addEventListener('click', () => {
-    rightSection.classList.toggle('open');
+    if (window.innerWidth <= 768) {
+        leftSection.classList.toggle('open');
+        rightSection.classList.toggle('open-right');
+        setRightSectionHeight();
+    } else {
+        rightSection.classList.toggle('open');
+    }
 })
 
 //implementing the add feed logic
@@ -647,6 +662,7 @@ async function getFollowing() {
 const table = document.querySelector('.users-table');
 
 function renderFollowingList(following) {
+    table.innerHTML = " ";
     following.forEach(element => {
         const div = document.createElement('div');
         div.classList.add('user');
@@ -656,6 +672,7 @@ function renderFollowingList(following) {
             <div class="follow-btn"><i class="fas fa-user-minus" id='${element.following}' onClick = 'unfollowUser(event)'></i></div>
         `;
         table.appendChild(div);
+        setRightSectionHeight();
     })
 }
 
@@ -1049,6 +1066,8 @@ async function followUser(event) {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
     }, 2000);
+    getFollowing();
+    getSuggestionList();
 }
 
 async function unfollowUser(event) {
@@ -1101,8 +1120,11 @@ async function unfollowUser(event) {
         message.textContent = 'Internal Server Error';
         error.style.opacity = 1;
     }
+    setRightSectionHeight();
     setTimeout(() => {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
     }, 2000);
+    getFollowing();
+    getSuggestionList();
 }
