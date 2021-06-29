@@ -15,6 +15,8 @@ const confirmPasswordIcon2 = document.querySelector('.confirmPassword-icon2');
 const newPasswordError = document.querySelector('.newPassword-error');
 const confirmPasswordError = document.querySelector('.confirmPassword-error');
 const button = document.querySelector('.btn');
+const heading = document.querySelector('.heading');
+const resend = document.querySelector('.resend');
 
 const currUrl = new URLSearchParams(window.location.search);
 const userToken = currUrl.get("userToken");
@@ -41,6 +43,7 @@ window.addEventListener('load', () => {
     ).then(data => {
         heading.textContent = data.message;
         if (data.message === 'Email Verified Succesfully, Would Be Directed To Login Page Shortly.') {
+            heading.textContent = 'Reset Password';
             form.style.display = 'block'
         } else {
             resend.style.display = 'block';

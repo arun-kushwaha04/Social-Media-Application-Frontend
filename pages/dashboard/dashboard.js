@@ -75,9 +75,9 @@ const populateSearchResults = (users) => {
         
         <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img src="${element.profilephoto}" class="profile-photo" id="${element.username}"></a>
         <div class="search-details">
-            <div class="search-username"><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.username}</a></div>
-            <span class="search-name"><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.name}</a></span>&nbsp;&nbsp;
-            <span class="search-email"><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.email}</a></span>
+            <div class="search-username"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}" target='_blank'>${element.username}</a></div>
+            <span class="search-name"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}" target='_blank'>${element.name}</a></span>&nbsp;&nbsp;
+            <span class="search-email"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}" target='_blank'>${element.email}</a></span>
         </div>
         
         `
@@ -90,16 +90,33 @@ const searchContainer = document.querySelector('.search-container');
 const searchInput = document.querySelector('.search-input');
 const searchIcon = document.querySelector('.search-icon');
 
+
+document.querySelector('body').addEventListener('click', () => {
+    if (searchInput === document.activeElement) return;
+    else {
+        console.log('hi from search container')
+        searchIcon.style.visibility = 'visible';
+        searchInput.style.paddingLeft = '2.5rem';
+        searchContainer.style.display = 'none';
+    }
+});
+
 search.addEventListener('focusin', () => {
     searchIcon.style.visibility = 'hidden';
     searchInput.style.paddingLeft = '1rem';
     searchContainer.style.display = 'block';
 });
-search.addEventListener('focusout', () => {
-    searchIcon.style.visibility = 'visible';
-    searchInput.style.paddingLeft = '2.5rem';
-    searchContainer.style.display = 'none';
-});
+// search.addEventListener('focusout', () => {
+//     console.log('hi from search')
+// searchIcon.style.visibility = 'visible';
+// searchInput.style.paddingLeft = '2.5rem';
+// searchContainer.style.display = 'none';
+
+// });
+
+// document.querySelector('.search-result').addEventListener('focusin', () => {
+//     alert('clicked');
+// })
 
 searchInput.addEventListener('input', () => {
     updateSearchBox();

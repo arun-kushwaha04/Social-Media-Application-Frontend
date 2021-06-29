@@ -358,7 +358,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 9%;
+    min-height: 9vh;
     z-index: 10;
     color: #ffc947;
     border-bottom: 2px solid #EFA37F;
@@ -366,27 +366,30 @@ a {
 
 .line {
     height: 3px;
-    width: 25px;
+    width: 90%;
     background-color: white;
-    margin-bottom: 5px;
+}
+
+.hamburger-div {
+    display: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0rem;
 }
 
 .hamburger {
-    display: none;
-    position: absolute;
     cursor: pointer;
-    right: 1.6%;
-    top: 50%;
-    transform: translate(-5%, -40%);
-    z-index: 1;
-}
-
-.hamburger-div:hover {
-    border-bottom: none;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .icons {
     display: flex;
+    align-items: center;
     width: 70%;
     justify-content: space-evenly;
     padding-top: 0.5rem;
@@ -402,7 +405,8 @@ a {
 
 .page-button {
     position: relative;
-    padding: 0.5rem;
+    align-self: center;
+    /* padding: 0.5rem; */
 }
 
 .page-button::after {
@@ -422,7 +426,7 @@ a {
     visibility: hidden;
 }
 
-.hamburger::after {
+.hamburger-div::after {
     content: "";
     display: none;
 }
@@ -449,6 +453,10 @@ a {
 
 .home-icon:hover {
     color: #a2fef6;
+}
+
+.hamburger-div:hover {
+    border-bottom: none;
 }
 
 .logo {
@@ -503,11 +511,20 @@ a {
     min-height: 40vh;
     max-height: 40vh;
     overflow-y: auto;
-    z-index: 2;
+    z-index: 5000;
     background-color: white;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
     display: none;
+}
+
+@media (max-width: 1024px) {
+    .search-container {
+        left: 0;
+        right: 0;
+        min-width: 90%;
+        margin: 0 auto;
+    }
 }
 
 .search-result {
@@ -1117,7 +1134,7 @@ section {
         width: 50%;
         margin-bottom: 0.5rem;
     }
-    .hamburger {
+    .hamburger-div {
         display: block;
     }
     .right-section {
@@ -1214,7 +1231,7 @@ section {
         width: 50%;
         margin-bottom: 0.5rem;
     }
-    .hamburger {
+    .hamburger-div {
         display: block;
     }
     .sec .right-section .events-block .events-table .event>h3 {
@@ -1235,10 +1252,10 @@ section {
         clip-path: circle(1300px at 90% -10%);
         -webkit-clip-path: circle(1300px at 90% -10%);
     }
-    .pageButton {
+    /* .pageButton {
         position: relative;
         padding: 0.5rem;
-    }
+    } */
 }
 
 @media (min-width: 769px) and (max-width: 1250px) {
