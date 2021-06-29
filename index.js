@@ -1,9 +1,9 @@
-// const url = "https://sheltered-citadel-84490.herokuapp.com";
-const url = "http://localhost:8000";
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
 
 //fortend url
-// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-const frontendUrl = `http://localhost:5500`;
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
 
 const register = document.querySelector(".register");
 //changing sign and login page
@@ -264,8 +264,6 @@ const registerUser = async(userData, email) => {
         if (res.status === 200) {
             const data = await res.json();
             verifyEmail(email, data.domain, data.key, data.userToken);
-            console.log(data);
-
         }
     } catch (err) {
         console.log(err);
@@ -329,8 +327,6 @@ const forgotPassword = async(userData, email) => {
         if (res.status === 200) {
             const data = await res.json();
             forgotPasswordEmail(email, data.domain, data.key, data.userToken);
-            console.log(data);
-
         }
     } catch (err) {
         console.log(err);

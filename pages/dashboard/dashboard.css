@@ -36,7 +36,9 @@ body {
     /* background-color: pink; */
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.post-section::-webkit-scrollbar,
+.feed-text::-webkit-scrollbar {
     display: none;
 }
 
@@ -492,6 +494,55 @@ a {
 
 .search input::placeholder {
     color: #abadb1;
+}
+
+.search-container {
+    width: 30%;
+    position: fixed;
+    right: 1rem;
+    min-height: 40vh;
+    max-height: 40vh;
+    overflow-y: auto;
+    z-index: 2;
+    background-color: white;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    display: none;
+}
+
+.search-result {
+    background: transparent;
+    width: 100%;
+    min-height: 100%;
+    padding: 0.5rem;
+}
+
+.search-container::-webkit-scrollbar {
+    display: none;
+}
+
+.search-result-section {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.search-username {
+    font-size: 1rem;
+}
+
+.search-name,
+.search-email {
+    font-size: 0.8rem;
+}
+
+.search-details {
+    margin-left: 1rem;
+}
+
+.search-result-section a {
+    text-decoration: none;
+    color: black;
 }
 
 .message-container {

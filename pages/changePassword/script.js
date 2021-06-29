@@ -1,8 +1,9 @@
-// const url = "https://evening-earth-85816.herokuapp.com";
-const url = "http://localhost:8000";
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
+
 //fortend url
-// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-const frontendUrl = `http://localhost:5500`;
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
 
 const form = document.querySelector('.form');
 const newPassword = document.querySelector('.newPassword');
@@ -14,6 +15,7 @@ const confirmPasswordIcon2 = document.querySelector('.confirmPassword-icon2');
 const newPasswordError = document.querySelector('.newPassword-error');
 const confirmPasswordError = document.querySelector('.confirmPassword-error');
 const button = document.querySelector('.btn');
+const heading = document.querySelector('.heading');
 const resend = document.querySelector('.resend');
 
 const currUrl = new URLSearchParams(window.location.search);
@@ -38,6 +40,7 @@ window.addEventListener('load', () => {
     ).then(data => {
         heading.textContent = data.message;
         if (data.message === 'Email Verified Succesfully, Would Be Directed To Login Page Shortly.') {
+            heading.textContent = 'Reset Password';
             form.style.display = 'block'
         } else {
             resend.style.display = 'block';
