@@ -1,200 +1,221 @@
 * {
-  padding: 0;
-  margin: 0;
-}
-main {
-  display: flex;
-  justify-content: center;
-  background: rgba(17, 81, 209, 0.582);
-  color: white;
-}
-.main-container {
-  display: flex;
-  width: 90vw;
-  height: 100vh;
-  /* margin-left: 5vw; */
-  background-color: #185adb;
-  overflow: hidden;
-}
-.left-container {
-  width: 25vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  background-color: rgba(0, 0, 0, 0.753);
-  padding: 15px;
-}
-.logo {
-  color: #ffc947;
-  font-size: 30px;
-  height: 80px;
-  font-family: "Pacifico", cursive;
-}
-.logo > span {
-  font-weight: bold;
-  font-family: "ubuntu", cursive;
-}
-.stories-list {
-  width: 26vw;
-  overflow: auto;
-}
-.story-item {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin: 8px 0px;
-}
-.user-profile img {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: 0.2rem solid #ffc947;
-  padding: 2px;
-}
-.user-name {
-  font-size: 20px;
-  margin: 15px;
-}
-.right-container {
-  width: 65vw;
-  height: 100vh;
-  background: rgba(255, 255, 255, 0.157);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
-  /* background: linear-gradient(to right, rgb(84, 84, 81), rgb(152, 152, 146)); */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.close-button {
-  margin: 0;
-  width: 60vw;
-  display: flex;
-  justify-content: flex-end;
-}
-.close-button:hover {
-  cursor: pointer;
-}
-.close-button img:hover {
-  height: 26px;
-}
-.close-button img {
-  height: 25px;
-}
-.story-container {
-  height: 85vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.story-container img {
-  height: 85vh;
-}
-.like-button {
-  font-size: 15px;
-  background-color: #0d0941;
-  color: rgb(255, 255, 255);
-  border: 2px solid rgb(253, 253, 253);
-  box-shadow: -5px 5px 10px black;
-  border-radius: 10px;
-  padding: 5px 20px;
-}
-.like-button:hover {
-  background-color: blue;
-  cursor: pointer;
-}
-.toggle img {
-  height: 25px;
-  background-color: rgba(226, 226, 226, 0.585);
-  padding: 4px;
-  border-radius: 50%;
-  margin: 0px 2vw;
-}
-.toggle img:hover {
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.775);
-}
-@media only screen and (max-width: 987px) {
-  main {
-    width: 100vw;
+    padding: 0;
     margin: 0;
-  }
-  .left-container {
-    width: 30vw;
-  }
-  .right-container {
-    width: 70vw;
-  }
 }
-@media only screen and (max-width: 730px) {
-  main {
-    height: 100vh;
-    width: 100vw;
-  }
-  .logo {
-    font-size: 4vw;
-  }
-  .right-container {
+
+main {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.157);
+    color: white;
+}
+
+.main-container {
+    display: flex;
     width: 100vw;
     height: 100vh;
-  }
-  .close-button {
-    width: 65vw;
-  }
-  .toggle img {
-    height: 3vw;
-  }
-  .like-button {
-    border: 1.5px solid rgb(253, 253, 253);
-    padding: 3px 10px;
-  }
-}
-@media only screen and (max-width: 690px) {
-  .user-name {
-    width: 0;
-    height: 0;
+    /* margin-left: 5vw; */
+    background-color: transparent;
     overflow: hidden;
-  }
-  .left-container {
-    width: 15vw;
-  }
-  .close-button {
-    width: 75vw;
-  }
-  .close-button img {
-    height: 15px;
-  }
 }
-@media only screen and (max-width: 590px) {
-  .left-container {
-    width: 0;
-    height: 0;
-    visibility: hidden;
-    display: none;
-  }
-  .right-container {
-    width: 100vw;
+
+.left-container {
+    width: 20vw;
     height: 100vh;
-  }
-  .close-button {
-    width: 98vw;
-  }
-  .like-button {
-    border: 1px solid rgb(253, 253, 253);
-    padding: 2.5px 10px;
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: #0A1931;
+    padding: 1rem;
 }
+
+.logo {
+    color: #ffc947;
+    font-size: 30px;
+    height: 80px;
+    font-family: "Pacifico", cursive;
+}
+
+.logo>span {
+    font-weight: bold;
+    font-family: "ubuntu", cursive;
+}
+
+.stories-list {
+    width: 26vw;
+    overflow: auto;
+}
+
+.story-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+}
+
+.user-profile img {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: 0.15rem solid #ffc947;
+    padding: 2px;
+}
+
+.user-name {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+}
+
+.right-container {
+    position: relative;
+    width: 80vw;
+    height: 100vh;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+.current-background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -10;
+}
+
+.current-background-image {
+    object-fit: center;
+    height: 100%;
+    width: 100%;
+    filter: blur(0.05rem);
+    -webkit-filter: blur(0.05rem);
+}
+
+.prev,
+.next {
+    color: black;
+    font-size: 2rem;
+    background-color: transparent;
+    z-index: 10;
+}
+
+.previous-image img,
+.current-image img,
+.next-image img {
+    height: 100%;
+    width: 90%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.current-image {
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.previous-image,
+.next-image {
+    height: 60%;
+    text-align: center;
+    filter: blur(0.2rem);
+    -webkit-filter: blur(0.2rem);
+}
+
+.current-image img {
+    margin: 0.5rem;
+    width: 85%;
+}
+
+
+/* @media only screen and (max-width: 987px) {
+    main {
+        width: 100vw;
+        margin: 0;
+    }
+    .left-container {
+        width: 30vw;
+    }
+    .right-container {
+        width: 70vw;
+    }
+}
+
+@media only screen and (max-width: 730px) {
+    main {
+        height: 100vh;
+        width: 100vw;
+    }
+    .logo {
+        font-size: 4vw;
+    }
+    .right-container {
+        width: 100vw;
+        height: 100vh;
+    }
+    .close-button {
+        width: 65vw;
+    }
+    .toggle img {
+        height: 3vw;
+    }
+    .like-button {
+        border: 1.5px solid rgb(253, 253, 253);
+        padding: 3px 10px;
+    }
+}
+
+@media only screen and (max-width: 690px) {
+    .user-name {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+    .left-container {
+        width: 15vw;
+    }
+    .close-button {
+        width: 75vw;
+    }
+    .close-button img {
+        height: 15px;
+    }
+}
+
+@media only screen and (max-width: 590px) {
+    .left-container {
+        width: 0;
+        height: 0;
+        visibility: hidden;
+        display: none;
+    }
+    .right-container {
+        width: 100vw;
+        height: 100vh;
+    }
+    .close-button {
+        width: 98vw;
+    }
+    .like-button {
+        border: 1px solid rgb(253, 253, 253);
+        padding: 2.5px 10px;
+    }
+}
+
 @media only screen and (max-width: 450px) {
-  .picture {
-    width: 85vw;
-    height: auto;
-  }
-  like-button {
-    border: 1.5px solid rgb(253, 253, 253);
-    padding: 2px 8px;
-  }
-}
+    .picture {
+        width: 85vw;
+        height: auto;
+    }
+    like-button {
+        border: 1.5px solid rgb(253, 253, 253);
+        padding: 2px 8px;
+    }
+} */
