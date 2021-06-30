@@ -3,8 +3,8 @@ const url = "https://sheltered-citadel-84490.herokuapp.com";
 // const url = "http://localhost:8000";
 
 //fortend url
-const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-// const frontendUrl = `http://localhost:5500`;
+// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+const frontendUrl = `http://localhost:5500`;
 
 //message showing
 const messageContainer = document.querySelector('.message-container');
@@ -19,7 +19,7 @@ window.onload = () => {
     fetchCredentials();
     getUserPosts();
     getFollowing();
-    getSuggestionList()
+    getSuggestionList();
 }
 
 console.log(window.innerWidth);
@@ -75,9 +75,9 @@ const populateSearchResults = (users) => {
         
         <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img src="${element.profilephoto}" class="profile-photo" id="${element.username}"></a>
         <div class="search-details">
-            <div class="search-username"><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.username}</a></div>
-            <span class="search-name"><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.name}</a></span>&nbsp;&nbsp;
-            <span class="search-email"><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.email}</a></span>
+            <div class="search-username"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}" target='_blank'>${element.username}</a></div>
+            <span class="search-name"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}" target='_blank'>${element.name}</a></span>&nbsp;&nbsp;
+            <span class="search-email"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}" target='_blank'>${element.email}</a></span>
         </div>
         
         `
@@ -90,16 +90,32 @@ const searchContainer = document.querySelector('.search-container');
 const searchInput = document.querySelector('.search-input');
 const searchIcon = document.querySelector('.search-icon');
 
+
+document.querySelector('body').addEventListener('click', () => {
+    if (searchInput === document.activeElement) return;
+    else {
+        searchIcon.style.visibility = 'visible';
+        searchInput.style.paddingLeft = '2.5rem';
+        searchContainer.style.display = 'none';
+    }
+});
+
 search.addEventListener('focusin', () => {
     searchIcon.style.visibility = 'hidden';
     searchInput.style.paddingLeft = '1rem';
     searchContainer.style.display = 'block';
 });
-search.addEventListener('focusout', () => {
-    searchIcon.style.visibility = 'visible';
-    searchInput.style.paddingLeft = '2.5rem';
-    searchContainer.style.display = 'none';
-});
+// search.addEventListener('focusout', () => {
+//     console.log('hi from search')
+// searchIcon.style.visibility = 'visible';
+// searchInput.style.paddingLeft = '2.5rem';
+// searchContainer.style.display = 'none';
+
+// });
+
+// document.querySelector('.search-result').addEventListener('focusin', () => {
+//     alert('clicked');
+// })
 
 searchInput.addEventListener('input', () => {
     updateSearchBox();
@@ -138,6 +154,7 @@ async function getSuggestionList() {
 const suggestionsTable = document.querySelector('.users-table-suggestion')
 
 function populateSuggestion(suggestion) {
+    suggestionsTable.innerHTML = " ";
     suggestion.forEach(element => {
         const div = document.createElement('div');
         div.classList.add('user');
@@ -147,6 +164,7 @@ function populateSuggestion(suggestion) {
             <div class="follow-btn"><i class="fas fa-user-plus" id='${element.id}' onClick = "followUser(event)"></i></div>
         `;
         suggestionsTable.appendChild(div);
+        setRightSectionHeight();
     })
 }
 
@@ -188,10 +206,27 @@ let likesCount = 0;
 
 //hamburger
 const rightSection = document.querySelector('.right-section');
+const leftSection = document.querySelector('.left-section');
 const hamburgerButton = document.querySelector('.hamburger');
 
+const setRightSectionHeight = () => {
+    if (window.innerWidth > 768) return;
+    const height = leftSection.offsetHeight;
+    rightSection.style.top = `${height}px`;
+}
+const mainContainer = document.querySelector('.main-container');
 hamburgerButton.addEventListener('click', () => {
-    rightSection.classList.toggle('open');
+    if (window.innerWidth <= 768) {
+        mainContainer.classList.toggle('maincontainer-open');
+        sec.classList.toggle('sec-open');
+        leftSection.classList.toggle('open');
+        leftSection.scrollIntoView();
+        rightSection.classList.toggle('open-right');
+        setRightSectionHeight();
+    } else {
+        rightSection.classList.toggle('open');
+        rightSection.scrollIntoView();
+    }
 })
 
 //implementing the add feed logic
@@ -316,10 +351,28 @@ function updateImageDisplay() {
 //upload image to firebase storage then add th post to the database
 
 postButton.addEventListener('click', () => {
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
     if (checker === 1 || imageToUpload.length === 0) addPost();
     else {
-        alert('First upload the image');
+        messageDiv.removeChild(success);
+        message.textContent = 'First Upload Images';
+        success.style.opacity = 1;
     }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
 });
 
 uploadButton.addEventListener('click', () => {
@@ -376,10 +429,9 @@ async function getUserPosts() {
             //we have to load the post of user.
             const post = data.post;
             console.log(post);
-            // await post.sort((a, b) => (a.postid < b.postid) ? 1 : -1);
-            post.forEach(element => {
-                addUserPost(element);
-            })
+            for (let i = 0; i < post.length; i++) {
+                addUserPost(post[i]);
+            }
         } else {
             const data = await res.json();
             //show the error of from the response.
@@ -630,6 +682,7 @@ async function getFollowing() {
 const table = document.querySelector('.users-table');
 
 function renderFollowingList(following) {
+    table.innerHTML = " ";
     following.forEach(element => {
         const div = document.createElement('div');
         div.classList.add('user');
@@ -639,6 +692,7 @@ function renderFollowingList(following) {
             <div class="follow-btn"><i class="fas fa-user-minus" id='${element.following}' onClick = 'unfollowUser(event)'></i></div>
         `;
         table.appendChild(div);
+        setRightSectionHeight();
     })
 }
 
@@ -714,30 +768,18 @@ async function updateLike(event) {
 
 //opening and closing the comment section
 
-function openCommentSection(event) {
+async function openCommentSection(event) {
     const commentSection = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[1];
-    commentSection.innerHTML = "";
-    const div = document.createElement('div');
-    div.classList.add('add-comment');
-    div.innerHTML = `
-    <input class="comment-input" type="text" placeholder="Add Comment">
-    <i class="fas fa-paper-plane add-comment-button" onClick = "commentButtonClick(event)"></i>
-    </div>`;
-    // while (commentSection.children.length > 1) {
-    //     console.log(commentSection.children[0]);
-    //     commentSection.removeChild(commentSection.children[0]);
-    // }
     commentSection.classList.toggle('comment-section-open');
     commentSection.parentElement.children[0].classList.toggle('Posts-open');
     const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
     const originalpostid = event.target.id;
-    console.log(originalpostid);
     let userData = {
         postid,
         originalpostid,
     }
     userData = JSON.stringify(userData);
-    getAllComment(commentSection, userData, div);
+    getAllComment(commentSection, userData);
 }
 
 //adding the comment
@@ -800,14 +842,14 @@ function commentButtonClick(event) {
             originalpostid,
         }
         userData = JSON.stringify(userData);
-        console.log(userData);
-        addComment(userData, commentCounter, commentText);
+        const commentSection = event.target.parentElement.parentElement;
+        addComment(userData, commentCounter, commentText, commentSection);
     }
 }
 
 //function for adding the comment
 
-async function addComment(userData, commentCounter, commentText) {
+async function addComment(userData, commentCounter, commentText, commentSection) {
     //message div 
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
@@ -836,6 +878,22 @@ async function addComment(userData, commentCounter, commentText) {
             messageDiv.removeChild(error);
             message.textContent = data.message;
             success.style.opacity = 1;
+            userData = JSON.parse(userData);
+            //adding comment 
+            const div = document.createElement("div");
+            div.classList.add('comment');
+            div.innerHTML = `
+            <div class="comment">
+                <a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}"><img class="profile-photo" src="${userData.profilePhoto}" /></a>
+                <div class="comment-box">
+                <div class="comment-details">
+                    <div class="comment-user-name"><a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}">${localStorage.getItem("username")}</a></div>
+                    <div class="comment-message">${userData.comment}</div>
+                </div>
+                <div class="time">${userData.dateTime}</div>
+                </div>                    
+            </div>`;
+            commentSection.prepend(div);
         } else {
             messageDiv.removeChild(success);
             message.textContent = 'Internal Server Error';
@@ -854,7 +912,19 @@ async function addComment(userData, commentCounter, commentText) {
 }
 
 //populating a the comments of a post
-async function getAllComment(commentSection, userData, div) {
+async function getAllComment(commentSection, userData) {
+    commentSection.innerHTML = " ";
+    const div = document.createElement('div');
+    div.classList.add('add-comment');
+    div.innerHTML = `
+    <input class="comment-input" type="text" placeholder="Add Comment">
+    <i class="fas fa-paper-plane add-comment-button" onClick = "commentButtonClick(event)"></i>
+    </div>`;
+    commentSection.appendChild(div);
+    while (commentSection.children.length > 1) {
+        console.log(commentSection.children[0]);
+        commentSection.removeChild(commentSection.children[0]);
+    }
     const res = await fetch(`${url}/feed/getAllPostComment`, {
         method: "POST",
         body: userData,
@@ -865,6 +935,9 @@ async function getAllComment(commentSection, userData, div) {
     });
 
     if (res.status === 200) {
+        if (commentSection.children.length > 1) {
+            return;
+        }
         const data = await res.json();
         for (let i = 0; i < data.comment.length; i++) {
             const comment = data.comment[i];
@@ -883,7 +956,6 @@ async function getAllComment(commentSection, userData, div) {
             </div>`;
             commentSection.prepend(div);
         }
-        commentSection.appendChild(div);
     } else {
         console.log('error');
     }
@@ -1032,6 +1104,8 @@ async function followUser(event) {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
     }, 2000);
+    getFollowing();
+    getSuggestionList();
 }
 
 async function unfollowUser(event) {
@@ -1084,8 +1158,11 @@ async function unfollowUser(event) {
         message.textContent = 'Internal Server Error';
         error.style.opacity = 1;
     }
+    setRightSectionHeight();
     setTimeout(() => {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
     }, 2000);
+    getFollowing();
+    getSuggestionList();
 }

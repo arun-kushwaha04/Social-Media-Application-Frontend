@@ -23,6 +23,9 @@ const userToken = currUrl.get("userToken");
 const email = currUrl.get("email");
 
 
+const heading = document.querySelector('.heading');
+const resend = document.querySelector('.resend');
+
 window.addEventListener('load', () => {
     let userData = {
         "email": email
