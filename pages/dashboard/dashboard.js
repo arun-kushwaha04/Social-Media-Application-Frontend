@@ -768,30 +768,18 @@ async function updateLike(event) {
 
 //opening and closing the comment section
 
-function openCommentSection(event) {
+async function openCommentSection(event) {
     const commentSection = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[1];
-    commentSection.innerHTML = "";
-    const div = document.createElement('div');
-    div.classList.add('add-comment');
-    div.innerHTML = `
-    <input class="comment-input" type="text" placeholder="Add Comment">
-    <i class="fas fa-paper-plane add-comment-button" onClick = "commentButtonClick(event)"></i>
-    </div>`;
-    // while (commentSection.children.length > 1) {
-    //     console.log(commentSection.children[0]);
-    //     commentSection.removeChild(commentSection.children[0]);
-    // }
     commentSection.classList.toggle('comment-section-open');
     commentSection.parentElement.children[0].classList.toggle('Posts-open');
     const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
     const originalpostid = event.target.id;
-    console.log(originalpostid);
     let userData = {
         postid,
         originalpostid,
     }
     userData = JSON.stringify(userData);
-    getAllComment(commentSection, userData, div);
+    getAllComment(commentSection, userData);
 }
 
 //adding the comment
@@ -854,14 +842,14 @@ function commentButtonClick(event) {
             originalpostid,
         }
         userData = JSON.stringify(userData);
-        console.log(userData);
-        addComment(userData, commentCounter, commentText);
+        const commentSection = event.target.parentElement.parentElement;
+        addComment(userData, commentCounter, commentText, commentSection);
     }
 }
 
 //function for adding the comment
 
-async function addComment(userData, commentCounter, commentText) {
+async function addComment(userData, commentCounter, commentText, commentSection) {
     //message div 
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
@@ -890,6 +878,22 @@ async function addComment(userData, commentCounter, commentText) {
             messageDiv.removeChild(error);
             message.textContent = data.message;
             success.style.opacity = 1;
+            userData = JSON.parse(userData);
+            //adding comment 
+            const div = document.createElement("div");
+            div.classList.add('comment');
+            div.innerHTML = `
+            <div class="comment">
+                <a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}"><img class="profile-photo" src="${userData.profilePhoto}" /></a>
+                <div class="comment-box">
+                <div class="comment-details">
+                    <div class="comment-user-name"><a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}">${localStorage.getItem("username")}</a></div>
+                    <div class="comment-message">${userData.comment}</div>
+                </div>
+                <div class="time">${userData.dateTime}</div>
+                </div>                    
+            </div>`;
+            commentSection.prepend(div);
         } else {
             messageDiv.removeChild(success);
             message.textContent = 'Internal Server Error';
@@ -908,7 +912,19 @@ async function addComment(userData, commentCounter, commentText) {
 }
 
 //populating a the comments of a post
-async function getAllComment(commentSection, userData, div) {
+async function getAllComment(commentSection, userData) {
+    commentSection.innerHTML = " ";
+    const div = document.createElement('div');
+    div.classList.add('add-comment');
+    div.innerHTML = `
+    <input class="comment-input" type="text" placeholder="Add Comment">
+    <i class="fas fa-paper-plane add-comment-button" onClick = "commentButtonClick(event)"></i>
+    </div>`;
+    commentSection.appendChild(div);
+    while (commentSection.children.length > 1) {
+        console.log(commentSection.children[0]);
+        commentSection.removeChild(commentSection.children[0]);
+    }
     const res = await fetch(`${url}/feed/getAllPostComment`, {
         method: "POST",
         body: userData,
@@ -919,6 +935,9 @@ async function getAllComment(commentSection, userData, div) {
     });
 
     if (res.status === 200) {
+        if (commentSection.children.length > 1) {
+            return;
+        }
         const data = await res.json();
         for (let i = 0; i < data.comment.length; i++) {
             const comment = data.comment[i];
@@ -937,7 +956,6 @@ async function getAllComment(commentSection, userData, div) {
             </div>`;
             commentSection.prepend(div);
         }
-        commentSection.appendChild(div);
     } else {
         console.log('error');
     }

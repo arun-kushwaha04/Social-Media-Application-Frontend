@@ -90,7 +90,7 @@ a {
 
 /* Posts */
 
-.sec .main-container .home-page .feed-section .user-posts .Posts {
+.Posts {
     color: #ffffffcb;
     border-radius: 1rem;
     display: flex;
@@ -1324,8 +1324,11 @@ section {
     .feed-section {
         margin: 1rem 0.5rem;
     }
-    .sec .main-container .home-page .feed-section .user-posts .Posts,
+    .Posts,
     .sec .main-container .home-page .feed-section .add-user-feed {
+        margin-bottom: 2.5rem;
+    }
+    .comment-section {
         margin-bottom: 2.5rem;
     }
 }
@@ -1368,15 +1371,21 @@ section {
     .feed-section {
         margin: 1rem 1rem;
     }
-    .sec .main-container .home-page .feed-section .user-posts .Posts,
+    .Posts,
     .sec .main-container .home-page .feed-section .add-user-feed {
+        margin-bottom: 3rem;
+    }
+    .comment-section {
         margin-bottom: 3rem;
     }
 }
 
 @media (min-width: 1251px) and (max-width:1799px) {
-    .sec .main-container .home-page .feed-section .user-posts .Posts,
+    .Posts,
     .sec .main-container .home-page .feed-section .add-user-feed {
+        margin-bottom: 4rem;
+    }
+    .comment-section {
         margin-bottom: 4rem;
     }
 }
@@ -1385,8 +1394,11 @@ section {
     .feed-section {
         margin: 2rem 10rem;
     }
-    .sec .main-container .home-page .feed-section .user-posts .Posts,
+    .Posts,
     .sec .main-container .home-page .feed-section .add-user-feed {
+        margin-bottom: 5rem;
+    }
+    .comment-section {
         margin-bottom: 5rem;
     }
 }
