@@ -41,7 +41,9 @@ const renderUserStory = () => {
     previousButton.style.visibility = 'hidden';
 }
 
-nextButton.addEventListener("click", () => {
+
+//function on next button clicked
+const nextButtonClick = () => {
     const id = parseInt(previousImage.id);
     previousImage.style.visibility = 'visible';
     previousButton.style.visibility = 'visible';
@@ -57,9 +59,12 @@ nextButton.addEventListener("click", () => {
     }
     nextImage.children[0].src = image[id + 1];
     renderMainContainerBackground();
-});
+    // setTimeout(nextButtonClick, 2000);
+    return;
+}
 
-previousButton.addEventListener("click", () => {
+//function on previous button clicked
+const previousButtonClick = () => {
     const id = parseInt(previousImage.id);
     nextImage.style.visibility = 'visible';
     nextButton.style.visibility = 'visible';
@@ -75,7 +80,12 @@ previousButton.addEventListener("click", () => {
     }
     previousImage.children[0].src = image[id - 3];
     renderMainContainerBackground();
-});
+    return;
+}
+
+//adding event listeners when buttons are clicked
+nextButton.addEventListener("click", () => nextButtonClick());
+previousButton.addEventListener("click", () => previousButtonClick());
 
 
 renderUserStory();

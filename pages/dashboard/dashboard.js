@@ -1,6 +1,6 @@
 //url 
-const url = "https://sheltered-citadel-84490.herokuapp.com";
-// const url = "http://localhost:8000";
+// const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = "http://localhost:8000";
 
 //fortend url
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
@@ -390,7 +390,6 @@ function uploadImageToFirebase() {
             function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 loader.value = percentage;
-                console.log(percentage);
             },
             function error(err) {
                 console.log(err);
@@ -404,7 +403,7 @@ function uploadImageToFirebase() {
                         });
                 containerForPost.style.display = 'block';
                 loadingEffect.style.display = 'none';
-                console.log(imageUrl);
+                // console.log(imageUrl);
             }
         )
     }
@@ -492,15 +491,15 @@ function isLiked(element, div, container, divContainer) {
                 message.textContent = 'Internal Server Error';
             }
             let heading = ` <div class="user-name-feed">
-                <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}">
-                ${element.userusername} </a>
+                <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">
+                ${element.username} </a>
                 <div class="time">${element.datetime}</div>
             </div>`
 
             if (element.userid != element.originaluserid) {
                 heading = ` <div class="user-name-feed">
-                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}">
-                    ${element.userusername}</a>&nbsp; Shared Post Of &nbsp;
+                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">
+                    ${element.username}</a>&nbsp; Shared Post Of &nbsp;
                     <a href="${frontendUrl}/pages/profile/index.html?username=${element.originalusername}">
                     ${element.originalusername}</a>
                     <div class="time">${element.datetime}</div>
@@ -510,7 +509,7 @@ function isLiked(element, div, container, divContainer) {
             if (html) {
                 div.innerHTML = `
                     <header class="post-user-info">
-                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}"><img class="profile-photo-feed-insert" src="${element.profilephoto}" /></a>
+                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img class="profile-photo-feed-insert" src="${element.profilephoto}" /></a>
                         ${heading}
                         
                     </header>
@@ -565,6 +564,7 @@ function addPostImage(ImageArray, postId) {
         const img = document.createElement('img');
         img.classList.add('feed-image');
         img.src = element;
+        console.log(firebase.storage().refFromURL(element));
         div.appendChild(img);
         preview.appendChild(div);
     })
