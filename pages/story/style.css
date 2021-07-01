@@ -242,7 +242,7 @@ main {
 }
 
 .loading-effect {
-    display: none;
+    visibility: hidden;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -258,6 +258,10 @@ main {
     -webkit-backdrop-filter: blur( 0.5px);
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18);
+}
+
+.loading-effect h3 {
+    color: black;
 }
 
 .loader {

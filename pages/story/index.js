@@ -47,6 +47,8 @@ let image = [
     './assets/WallpaperDog-8674.jpg'
 ]
 
+let storyUrl = [];
+
 //set main constainer bacground
 const renderMainContainerBackground = () => {
     mainContainerBackground.src = currentImage.children[0].src;
@@ -70,16 +72,16 @@ const renderUserStory = () => {
 
 //function on next button clicked
 const nextButtonClick = () => {
-    const id = parseInt(previousImage.id);
+    const id = parseInt(nextImage.id);
     previousImage.style.visibility = 'visible';
-    previousButton.style.visibility = 'visible';
+    // previousButton.style.visibility = 'visible';
     currentImage.id = id;
-    previousImage.id = id + 1;
+    nextImage.id = id + 1;
     previousImage.children[0].src = currentImage.children[0].src;
     currentImage.children[0].src = nextImage.children[0].src;
     if ((id + 1) === image.length) {
         nextImage.style.visibility = 'hidden';
-        nextButton.style.visibility = 'hidden';
+        // nextButton.style.visibility = 'hidden';
         renderMainContainerBackground();
         return;
     }
@@ -100,7 +102,7 @@ const previousButtonClick = () => {
     currentImage.children[0].src = previousImage.children[0].src;
     if ((id - 2) <= 0) {
         previousImage.style.visibility = 'hidden';
-        previousButton.style.visibility = 'hidden';
+        // previousButton.style.visibility = 'hidden';
         renderMainContainerBackground();
         return;
     }
@@ -120,16 +122,17 @@ function updateImageDisplay(event) {
     event.target.parentElement.parentElement.children[1].style.display = 'block';
 }
 
-const uploadImageToFirebase = () => {
-    const loading = document.querySelector('.loading-effect');
-    loading.style.display = 'block';
+const uploadImageToFirebase = (event) => {
+    console.log('hi');
+    const loader = document.querySelector('.loading-effect');
+    loader.style.visibility = 'visible';
     let today = new Date();
     let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     let dateTime = date + ' ' + time;
     const element = imageToUpload;
     let ans = Math.random().toString(36).slice(2);
-    const refVar = firebase.storage().ref('feeds/' + ans + element.lastModified + dateTime + element.name);
+    const refVar = firebase.storage().ref('story/' + ans + element.lastModified + dateTime + element.name);
     let task = refVar.put(element);
     task.on('state_changed',
         function progress(snapshot) {
@@ -138,16 +141,23 @@ const uploadImageToFirebase = () => {
         },
         function error(err) {
             console.log(err);
+            alert('Try Again');
+            loader.style.visibility = 'hidden';
         },
         function complete() {
             task.snapshot.ref.getDownloadURL()
                 .then(
                     function(downloadURL) {
-                        //we got the url of the image 
+                        //we got the url of the image                                             
                         storyUrl.push(downloadURL);
-                        loading.style.display = 'none';
-                        document.querySelector('.add-story-to-screen').style.display = 'none';
-                        // setTimeout(function)
+                        console.log(storyUrl);
+                        loader.style.display = 'none';
+                        // document.querySelector('.add-story-to-screen').style.display = 'none';
+                        event.target.parentElement.style.display = 'none';
+                        event.target.parentElement.parentElement.children[0].style.display = 'block';
+                        event.target.parentElement.parentElement.children[2].innerHTML = 'Add-Photo';
+                        alert('Image Uploaded');
+                        setTimeout(nextButtonClick(), 1000);
                     });
         }
     )
