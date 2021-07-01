@@ -3,15 +3,15 @@ const editProfileButtton = document.querySelector('.edit > img');
 const logoutButton = document.querySelector('.logout > img');
 const userToken = localStorage.getItem("userToken");
 
-// const url = "https://sheltered-citadel-84490.herokuapp.com";
-const url = "http://localhost:8000";
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
 
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 const frontendUrl = `http://localhost:5500`;
 
 
 const name = document.querySelector('.name');
-const email = documnet.querySelector('.email');
+const email = document.querySelector('.email');
 const postCount = document.querySelector('.postCount');
 const followerCount = document.querySelector('.followerCount');
 const followingCount = document.querySelector('.followingCount');
@@ -20,7 +20,22 @@ const about = document.querySelector('.about');
 
 
 window.addEventListener('load', ()=>{
-
+    if(userToken){
+        fetch(`${url}/auth/getUserinfo`, {
+            method:"POST",
+            headers: {
+                "Authorization": `${localStorage.getItem("userToken")}`,
+                "Content-Type": "application/json",
+            },
+        })
+        .then((res)=>res.json())
+        .then((data)=>{
+            console.log(data);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+    }
 });
 
 
