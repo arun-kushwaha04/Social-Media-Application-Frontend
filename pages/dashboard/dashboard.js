@@ -327,7 +327,6 @@ function updateImageDisplay() {
                 const parent = this.parentElement;
                 this.parentElement.parentElement.removeChild(parent);
                 imageToUpload.splice(event.target.id, 1);
-                console.log(imageToUpload);
                 counter--;
                 if (counter <= 3) {
                     imageSelector.style.display = 'block';
@@ -393,9 +392,13 @@ function uploadImageToFirebase() {
     containerForPost.style.display = 'none';
     loadingEffect.style.display = 'block';
     for (let i = 0; i < imageToUpload.length; i++) {
+        let today = new Date();
+        let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time;
         const element = imageToUpload[i];
         let ans = Math.random().toString(36).slice(2);
-        const refVar = firebase.storage().ref('feeds/' + ans + element.lastModified + element.name);
+        const refVar = firebase.storage().ref('feeds/' + ans + element.lastModified + dateTime + element.name);
         let task = refVar.put(element);
         task.on('state_changed',
             function progress(snapshot) {
