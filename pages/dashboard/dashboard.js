@@ -1,6 +1,6 @@
 //url 
-// const url = "https://sheltered-citadel-84490.herokuapp.com";
-const url = "http://localhost:8000";
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
 
 //fortend url
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
@@ -237,12 +237,14 @@ const closeAddFeed = document.querySelector('.close-feed');
 const addPhoto = document.querySelector('.add-photo-feed');
 
 feedInput.addEventListener('click', () => {
+    imageUrl = [];
     addFeed.style.visibility = 'visible';
     body.style.overflowY = 'hidden';
     addFeed.scrollIntoView();
 })
 
 addPhoto.addEventListener('click', () => {
+    imageUrl = [];
     addFeed.style.visibility = 'visible';
     body.style.overflowY = 'hidden';
     addFeed.scrollIntoView();
@@ -257,7 +259,8 @@ closeAddFeed.addEventListener('click', () => {
         preview.removeChild(preview.firstChild);
     }
     counter = 0;
-    imageUrl = [];
+    postButton.style.display = 'none';
+    uploadButton.style.display = 'none';
     body.style.overflowY = 'scroll';
     addFeed.style.visibility = 'hidden';
 })
@@ -273,6 +276,7 @@ const loader = document.querySelector('.loader');
 let counter = 0;
 let imageToUpload = [];
 let imageUrl = [];
+let images = [];
 
 imageButton.addEventListener('change', (event) => {
     imageToUpload.push(event.target.files[0]);
@@ -389,10 +393,9 @@ function uploadImageToFirebase() {
     containerForPost.style.display = 'none';
     loadingEffect.style.display = 'block';
     for (let i = 0; i < imageToUpload.length; i++) {
-        console.log(imageToUpload[i]);
         const element = imageToUpload[i];
         let ans = Math.random().toString(36).slice(2);
-        const refVar = firebase.storage().ref('feeds/' + ans + element.name);
+        const refVar = firebase.storage().ref('feeds/' + ans + element.lastModified + element.name);
         let task = refVar.put(element);
         task.on('state_changed',
             function progress(snapshot) {
@@ -416,6 +419,9 @@ function uploadImageToFirebase() {
         )
     }
     checker = 1;
+    document.querySelectorAll('.close-image').forEach(element => {
+        element.style.display = 'none';
+    })
     postButton.style.display = 'block';
     uploadButton.style.display = 'none';
 }
