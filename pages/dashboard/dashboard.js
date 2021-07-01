@@ -249,10 +249,15 @@ addPhoto.addEventListener('click', () => {
 })
 
 closeAddFeed.addEventListener('click', () => {
+    let i = 0;
     while (preview.firstChild) {
+        let ref = firebase.storage().refFromURL(imageUrl[i]);
+        ref.delete();
+        i++;
         preview.removeChild(preview.firstChild);
     }
     counter = 0;
+    imageUrl = [];
     body.style.overflowY = 'scroll';
     addFeed.style.visibility = 'hidden';
 })
@@ -325,6 +330,7 @@ function updateImageDisplay() {
                 }
                 if (counter === 0) {
                     uploadButton.style.display = 'none';
+                    postButton.style.display = 'none';
                 }
             };
             const closeImage = document.createElement('img');
@@ -383,8 +389,10 @@ function uploadImageToFirebase() {
     containerForPost.style.display = 'none';
     loadingEffect.style.display = 'block';
     for (let i = 0; i < imageToUpload.length; i++) {
+        console.log(imageToUpload[i]);
         const element = imageToUpload[i];
-        const refVar = firebase.storage().ref('feeds/' + element.name);
+        let ans = Math.random().toString(36).slice(2);
+        const refVar = firebase.storage().ref('feeds/' + ans + element.name);
         let task = refVar.put(element);
         task.on('state_changed',
             function progress(snapshot) {
@@ -564,7 +572,6 @@ function addPostImage(ImageArray, postId) {
         const img = document.createElement('img');
         img.classList.add('feed-image');
         img.src = element;
-        console.log(firebase.storage().refFromURL(element));
         div.appendChild(img);
         preview.appendChild(div);
     })
@@ -610,7 +617,6 @@ async function addPost() {
         let userData = {
             image: imageUrl,
             description: feedText.value,
-            profilePhoto: localStorage.getItem("profilePhoto"),
             dateTime,
         }
         userData = JSON.stringify(userData);
@@ -831,14 +837,12 @@ function commentButtonClick(event) {
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         let dateTime = date + ' ' + time;
 
-        const profilePhoto = localStorage.getItem("profilePhoto");
         const originalpostid = event.target.parentNode.parentNode.parentNode.children[0].children[1].children[2].children[1].children[0].id;
         let userData = {
             postid,
             originaluserid,
             comment,
             dateTime,
-            profilePhoto,
             originalpostid,
         }
         userData = JSON.stringify(userData);
@@ -966,7 +970,6 @@ async function getAllComment(commentSection, userData) {
 function sharePostClick(event) {
     const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
     const shareCounter = event.target.parentNode.children[1];
-    const profilephoto = localStorage.getItem("profilePhoto");
     const originaluserid = event.target.parentElement.parentElement.id;
     const originalpostid = event.target.id;
     //current date and time
@@ -977,13 +980,10 @@ function sharePostClick(event) {
 
     let userData = {
         postid,
-        profilephoto,
         dateTime,
         originalpostid,
     }
     userData = JSON.stringify(userData);
-    console.log(userData);
-    // console.log(userData, shareCounter);
     sharePost(userData, shareCounter, originaluserid);
 }
 
@@ -1002,7 +1002,6 @@ async function sharePost(userData, shareCounter, originaluserid) {
     const error = messageDiv.children[0];
 
     const userId = localStorage.getItem("userId")
-    console.log(userId);
     if (originaluserid === userId) {
         messageDiv.removeChild(success);
         message.textContent = `You Can't Re-Share Your Own Post`;
