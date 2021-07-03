@@ -1,11 +1,12 @@
 let imageToUpload = null;
 let storyImageUrl = [];
+let userStory = [];
 const mainContainerBackground = document.querySelector('.current-background-image');
 const previousImage = document.querySelector('.previous-image');
 const currentImage = document.querySelector('.current-image');
 const nextImage = document.querySelector('.next-image');
-// const nextButton = document.querySelector('.next');
-// const previousButton = document.querySelector('.prev');
+const nextButton = document.querySelector('.next');
+const previousButton = document.querySelector('.prev');
 
 // const url = "https://sheltered-citadel-84490.herokuapp.com";
 const url = "http://localhost:8000";
@@ -14,6 +15,8 @@ const url = "http://localhost:8000";
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 const frontendUrl = `http://localhost:5500`;
 
+//message showing
+const messageContainer = document.querySelector('.message-container');
 
 let firebaseConfig;
 
@@ -21,7 +24,10 @@ let firebaseConfig;
 window.onload = () => {
     fetchCredentials();
     getFollowing();
+    getUserStory(localStorage.getItem('userId'), 1);
 }
+
+document.querySelector('.user-story-div').src = localStorage.getItem('profilePhoto');
 
 //a function to fetch firebase credentials from backend
 async function fetchCredentials() {
@@ -42,17 +48,57 @@ fetch(`${url}/`, {
 
 });
 
-let image = [
-    './assets/22917.jpg',
-    './assets/WallpaperDog-643901.jpg',
-    './assets/WallpaperDog-700017.jpg',
-    './assets/WallpaperDog-701205.jpg',
-    './assets/WallpaperDog-8674.jpg'
-]
+// let image = [
+//     './assets/22917.jpg',
+//     './assets/WallpaperDog-643901.jpg',
+//     './assets/WallpaperDog-700017.jpg',
+//     './assets/WallpaperDog-701205.jpg',
+//     './assets/WallpaperDog-8674.jpg'
+// ]
 
+let image = [];
 let storyUrl = [];
 
-//getting the following users
+//funtion to fetch a user story
+const getUserStory = async(userId, arg, arg2) => {
+        let userData = {
+            userId,
+        }
+        userData = JSON.stringify(userData);
+        try {
+            const res = await fetch(`${url}/story/getUserStory`, {
+                method: "POST",
+                body: userData,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                },
+            });
+            if (res.status === 200) {
+                const data = await res.json();
+                console.log(data);
+                if (arg) {
+                    if (data.message != 'No Story Found') {
+                        document.querySelector('.add-your-story').style.display = 'none';
+                        document.querySelector('.view-your-story').style.display = 'block';
+                    }
+                } else {
+                    nextButton.style.visibility = 'visible';
+                    previousButton.style.visibility = 'visible';
+                }
+                if (data.message != 'No Story Found') {
+                    image = data.story;
+                    userStory = data.story;
+                    if (arg2) renderUserStory();
+                }
+            } else {
+                //error handling
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    //getting the following users
 async function getFollowing() {
     try {
         const res = await fetch(`${url}/story/getStoryList`, {
@@ -78,12 +124,14 @@ async function getFollowing() {
 //set main constainer bacground
 const renderMainContainerBackground = () => {
     mainContainerBackground.src = currentImage.children[0].src;
+    return;
 }
 
 //setting the fetched image to display
 const renderUserStory = () => {
     currentImage.children[0].src = image[0];
     currentImage.setAttribute('id', 0);
+    renderMainContainerBackground();
     if (image.length === 1) {
         previousImage.style.visibility = 'hidden';
         nextImage.style.visibility = 'hidden';
@@ -92,6 +140,9 @@ const renderUserStory = () => {
     nextImage.setAttribute('id', 1);
     nextImage.children[0].src = image[1];
     previousImage.style.visibility = 'hidden';
+    // setTimeout(nextButtonClick(), 5000);
+    return;
+
     // previousButton.style.visibility = 'hidden';
 }
 
@@ -99,21 +150,22 @@ const renderUserStory = () => {
 //function on next button clicked
 const nextButtonClick = () => {
     const id = parseInt(nextImage.id);
+    console.log(id);
     previousImage.style.visibility = 'visible';
-    // previousButton.style.visibility = 'visible';
+    previousButton.style.visibility = 'visible';
     currentImage.id = id;
     nextImage.id = id + 1;
     previousImage.children[0].src = currentImage.children[0].src;
     currentImage.children[0].src = nextImage.children[0].src;
     if ((id + 1) === image.length) {
         nextImage.style.visibility = 'hidden';
-        // nextButton.style.visibility = 'hidden';
+        nextButton.style.visibility = 'hidden';
         renderMainContainerBackground();
         return;
     }
     nextImage.children[0].src = image[id + 1];
     renderMainContainerBackground();
-    // setTimeout(nextButtonClick, 2000);
+    // setTimeout(nextButtonClick(), 3000);
     return;
 }
 
@@ -154,19 +206,35 @@ const renderFollowingList = (following) => {
     following.forEach(element => {
         const div = document.createElement('div');
         div.classList.add('story-item');
-        div.setAttribute('id', element.following);
+        div.setAttribute('id', `${element.id}`);
+        div.addEventListener("click", (event) => {
+            const userId = event.target.id;
+            console.log(userId);
+            if (userId) getUserStory(userId, null, 1);
+        })
         div.innerHTML = `    
             <div class="user-profile">
                 <img src="${element.profilephoto}" alt="user-image" />
             </div>
-            <div class="user-name">${element.followingrusername}</div>
+            <div class="user-name">${element.username}</div>
         `
         container.appendChild(div);
     })
 }
 
 const uploadImageToFirebase = (event) => {
-    console.log('hi');
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
     const loader = document.querySelector('.loading-effect');
     loader.style.visibility = 'visible';
     let today = new Date();
@@ -199,19 +267,71 @@ const uploadImageToFirebase = (event) => {
                         event.target.parentElement.style.display = 'none';
                         event.target.parentElement.parentElement.children[0].style.display = 'block';
                         event.target.parentElement.parentElement.children[2].innerHTML = 'Add-Photo';
-                        alert('Image Uploaded');
+                        messageDiv.removeChild(error);
+                        message.textContent = 'Image Uploaded';
+                        success.style.opacity = 1;
                         setTimeout(nextButtonClick(), 1000);
+                        document.querySelector('.add-story').style.display = 'block';
+                        setTimeout(() => {
+                            messageDiv.style.opacity = '0';
+                            messageContainer.removeChild(messageDiv);
+                        }, 2000);
                     });
         }
     )
 }
 
+//function to uplaod user story
+const addStoryTOServer = async() => {
+    console.log('hi');
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+    let userData = {
+        storyImageUrl,
+    }
+    userData = JSON.stringify(userData);
+    const res = await fetch(`${url}/story/addStory`, {
+        method: "POST",
+        body: userData,
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${localStorage.getItem("userToken")}`,
+        },
+    })
+    if (res.status === 200) {
+        const data = await res.json();
+        messageDiv.removeChild(error);
+        message.textContent = data.message;
+        success.style.opacity = 1;
+        document.querySelector('.add-your-story').style.display = 'none';
+        document.querySelector('.view-your-story').style.display = 'block';
+    } else {
+        messageDiv.removeChild(success);
+        message.textContent = 'Error Ocurred In Adding Story';
+        success.style.opacity = 1;
+    }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
+}
 
 
 
-//adding event listeners when buttons are clicked
-// nextButton.addEventListener("click", () => nextButtonClick());
-// previousButton.addEventListener("click", () => previousButtonClick());
+
+// adding event listeners when buttons are clicked
+nextButton.addEventListener("click", () => nextButtonClick());
+previousButton.addEventListener("click", () => previousButtonClick());
 
 
 

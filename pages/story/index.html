@@ -21,11 +21,20 @@
                 <div class="logo">Dubify<span> | Stories</span></div>
                 <div>Your Story</div>
                 <div class="underline"></div>
-                <div class="story-item">
+                <div class="story-item add-your-story">
                     <div class="user-profile add-user-story">
                         <img src="../../assets/plus.svg" alt="" />
                     </div>
                     <div class="user-name">Create A Story</div>
+                </div>
+
+                <div class="view-your-story">
+                    <div class="story-item ">
+                        <div class="user-profile ">
+                            <img src="" alt="" class="user-story-div" />
+                        </div>
+                        <div class="user-name">View Your Story</div>
+                    </div>
                 </div>
                 <div>All Stories</div>
                 <div class="underline"></div>
@@ -49,10 +58,10 @@
                         alt="" class="picture" />
                 </div>
                 <div class="current-image">
-                    <!-- <i class="fas fa-arrow-circle-left prev"></i> -->
+                    <i class="fas fa-arrow-circle-left prev"></i>
                     <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ8NDQ0NFREWFhURFRUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDQ0NFg4PFS0dHyItKzcrKystKysrLTcrNy0rKys3KysrLSsrLSs3KzctKzcrKysrKy0rLTcrNysrLSsrK//AABEIALEBHAMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQIH/8QAHhABAQEAAQUBAQAAAAAAAAAAAAERIQIxUWFx4UH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A7iAAlvMmeeeMigAAAAAkigAAAAAAAAAAAAAAAAMzqu2ZZmZeM6vjQAAAmKAAAGAAAAAAAAAAAAAAAAAACdVyb48c0FAABAUAASVQAAAABFBFAAAAAATVAAAAAAABAUAAAEVAFRQBIoACAoICgAiooAICggKgoCSKAAAAAAAAAAAAAIoAigIoAAAAAAAAAAAAAiooCKAAAAAAAAAAlBQAAAAAAARQAAAAAAAAAAAAAAARQAEtzv8AAUAAEgKCQFAAAAAASxQBFAAAAIAAAACYqSKCAoAAAAAAAAAAAAAAAAAJQUAAABFAAIAAAAAAAAAIUFAAAAAAAAAAAAEUAAAElBQAAAAAAAASUFAABJQUAAAAAAAAABFAAAAAAAAAAAAAAAAAAAAABKoAAAAAAAAAkUAAAAAAAAAAEUAEVAUEzn0CgAAAAAAAAAAAIoAAAAAAAAAAAAAAAJ1SWZZsveXsAoAAAAACKAAAAAAlv9/QUAAAAAAAAAATFABLPYKigIoAAAAAVIAKACKAAAAAAACQAUAAAAAAAAAAABAB/9k="
                         alt="" class="picture" />
-                    <!-- <i class="fas fa-arrow-circle-right next"></i> -->
+                    <i class="fas fa-arrow-circle-right next"></i>
 
                     <div class="add-story-to-screen">
                         <div class="user-name-story">
@@ -83,9 +92,19 @@
                 </div>
             </div>
         </div>
+        <div class="message-container">
+            <!--<div class="confirmation-message">
+            <div class="icon1 "><i class="fas fa-exclamation"></i></div>
+            <div class="icon2 "><i class="fas fa-check"></i></div>
+            <div class="request-message">
+            Post Created Successfully</div>
+          </div>-->
+        </div>
+
     </main>
 
-    <button>Add Sotry</button>
+    <button onClick='addStoryTOServer()' class="add-story">Add Sotry</button>
+
 
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
