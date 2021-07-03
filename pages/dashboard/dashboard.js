@@ -12,6 +12,7 @@ const messageContainer = document.querySelector('.message-container');
 let theme = localStorage.getItem("theme");
 let users;
 let firebaseConfig;
+let following;
 
 
 window.onload = () => {
@@ -685,6 +686,7 @@ async function getFollowing() {
         if (res.status === 200) {
             const data = await res.json();
             console.log(data.follower);
+            following = data.follower;
             renderFollowingList(data.follower);
             //apend the mesagge
         } else {
@@ -1174,3 +1176,5 @@ async function unfollowUser(event) {
     getFollowing();
     getSuggestionList();
 }
+
+export { following };

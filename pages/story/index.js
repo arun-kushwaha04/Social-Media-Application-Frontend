@@ -1,4 +1,5 @@
 let imageToUpload = null;
+let storyImageUrl = [];
 const mainContainerBackground = document.querySelector('.current-background-image');
 const previousImage = document.querySelector('.previous-image');
 const currentImage = document.querySelector('.current-image');
@@ -13,11 +14,13 @@ const url = "http://localhost:8000";
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 const frontendUrl = `http://localhost:5500`;
 
+
 let firebaseConfig;
 
 
 window.onload = () => {
     fetchCredentials();
+    getFollowing();
 }
 
 //a function to fetch firebase credentials from backend
@@ -48,6 +51,29 @@ let image = [
 ]
 
 let storyUrl = [];
+
+//getting the following users
+async function getFollowing() {
+    try {
+        const res = await fetch(`${url}/story/getStoryList`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            console.log(data.story);
+            renderFollowingList(data.story);
+            //apend the mesagge
+        } else {
+            //error handling
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 //set main constainer bacground
 const renderMainContainerBackground = () => {
@@ -122,6 +148,23 @@ function updateImageDisplay(event) {
     event.target.parentElement.parentElement.children[1].style.display = 'block';
 }
 
+//a function to render all following users
+const renderFollowingList = (following) => {
+    const container = document.querySelector('.stories-list');
+    following.forEach(element => {
+        const div = document.createElement('div');
+        div.classList.add('story-item');
+        div.setAttribute('id', element.following);
+        div.innerHTML = `    
+            <div class="user-profile">
+                <img src="${element.profilephoto}" alt="user-image" />
+            </div>
+            <div class="user-name">${element.followingrusername}</div>
+        `
+        container.appendChild(div);
+    })
+}
+
 const uploadImageToFirebase = (event) => {
     console.log('hi');
     const loader = document.querySelector('.loading-effect');
@@ -149,8 +192,8 @@ const uploadImageToFirebase = (event) => {
                 .then(
                     function(downloadURL) {
                         //we got the url of the image                                             
-                        storyUrl.push(downloadURL);
-                        console.log(storyUrl);
+                        storyImageUrl.push(downloadURL);
+                        console.log(storyImageUrl);
                         loader.style.display = 'none';
                         // document.querySelector('.add-story-to-screen').style.display = 'none';
                         event.target.parentElement.style.display = 'none';
