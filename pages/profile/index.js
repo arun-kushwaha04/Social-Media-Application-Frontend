@@ -70,3 +70,28 @@ logoutButton.addEventListener('click', () => {
 editProfileButtton.addEventListener('click', () => {
     location.href = "";
 });
+
+let theme = localStorage.getItem("theme");
+
+const changeThemeButton = document.querySelector(".theme-changer");
+
+changeThemeButton.addEventListener('click', () => themeSlector());
+
+function themeSlector() {
+    nav2.style.background = "#0c033a";
+    if (theme === 1) {
+        localStorage.setItem("theme", 0);
+        sec.classList.remove('dark');
+        changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
+        theme = 0;
+        nav2.style.borderBottom = "2px solid greenyellow";
+        return;
+    } else {
+        localStorage.setItem("theme", 1);
+        sec.classList.add('dark');
+        changeThemeButton.innerHTML = ` <img src="../../assets/lightTheme.svg" alt="">`;
+        theme = 1;
+        nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
+        return;
+    }
+}
