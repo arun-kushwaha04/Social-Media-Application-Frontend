@@ -3,8 +3,8 @@ const editProfileButtton = document.querySelector('.edit > img');
 const logoutButton = document.querySelector('.logout > img');
 const userToken = localStorage.getItem("userToken");
 
-const url = "https://sheltered-citadel-84490.herokuapp.com";
-// const url = "http://localhost:8000";
+// const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = "http://localhost:8000";
 
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 const frontendUrl = `http://localhost:5500`;
@@ -19,6 +19,7 @@ const likeCount = document.querySelector('.likeCount');
 const about = document.querySelector('.about');
 
 
+<<<<<<< HEAD
 window.addEventListener('load', ()=>{
     if(userToken){
         fetch(`${url}/user/getUserinfo`, {
@@ -35,6 +36,24 @@ window.addEventListener('load', ()=>{
         .catch((err)=>{
             console.log(err);
         });
+=======
+window.addEventListener('load', () => {
+    if (userToken) {
+        fetch(`${url}/user/getUserinfo`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+>>>>>>> 4ac90c2dd197989a3cfa4c0097723ef378992d0e
     }
 });
 
@@ -70,3 +89,28 @@ logoutButton.addEventListener('click', () => {
 editProfileButtton.addEventListener('click', () => {
     location.href = "";
 });
+
+let theme = localStorage.getItem("theme");
+
+const changeThemeButton = document.querySelector(".theme-changer");
+
+changeThemeButton.addEventListener('click', () => themeSlector());
+
+function themeSlector() {
+    nav2.style.background = "#0c033a";
+    if (theme === 1) {
+        localStorage.setItem("theme", 0);
+        sec.classList.remove('dark');
+        changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
+        theme = 0;
+        nav2.style.borderBottom = "2px solid greenyellow";
+        return;
+    } else {
+        localStorage.setItem("theme", 1);
+        sec.classList.add('dark');
+        changeThemeButton.innerHTML = ` <img src="../../assets/lightTheme.svg" alt="">`;
+        theme = 1;
+        nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
+        return;
+    }
+}

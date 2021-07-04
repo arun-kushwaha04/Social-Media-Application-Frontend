@@ -12,6 +12,7 @@ const messageContainer = document.querySelector('.message-container');
 let theme = localStorage.getItem("theme");
 let users;
 let firebaseConfig;
+let following;
 
 
 window.onload = () => {
@@ -153,6 +154,7 @@ async function getSuggestionList() {
 }
 const suggestionsTable = document.querySelector('.users-table-suggestion')
 
+
 function populateSuggestion(suggestion) {
     suggestionsTable.innerHTML = " ";
     suggestion.forEach(element => {
@@ -161,9 +163,12 @@ function populateSuggestion(suggestion) {
         div.innerHTML = `
             <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img src="${element.profilephoto}" class="profile-photo" /></a>
             <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">${element.username}</a></span>
-            <div class="follow-btn"><i class="fas fa-user-plus" id='${element.id}' onClick = "followUser(event)"></i></div>
+            <div class="follow-btn"><i class="fas fa-user-plus" id='${element.id}' ></i></div>
         `;
         suggestionsTable.appendChild(div);
+        div.children[2].addEventListener('click', (event) => {
+            followUser(event);
+        })
         setRightSectionHeight();
     })
 }
@@ -237,22 +242,30 @@ const closeAddFeed = document.querySelector('.close-feed');
 const addPhoto = document.querySelector('.add-photo-feed');
 
 feedInput.addEventListener('click', () => {
+    imageUrl = [];
     addFeed.style.visibility = 'visible';
     body.style.overflowY = 'hidden';
     addFeed.scrollIntoView();
 })
 
 addPhoto.addEventListener('click', () => {
+    imageUrl = [];
     addFeed.style.visibility = 'visible';
     body.style.overflowY = 'hidden';
     addFeed.scrollIntoView();
 })
 
 closeAddFeed.addEventListener('click', () => {
+    let i = 0;
     while (preview.firstChild) {
+        let ref = firebase.storage().refFromURL(imageUrl[i]);
+        ref.delete();
+        i++;
         preview.removeChild(preview.firstChild);
     }
     counter = 0;
+    postButton.style.display = 'none';
+    uploadButton.style.display = 'none';
     body.style.overflowY = 'scroll';
     addFeed.style.visibility = 'hidden';
 })
@@ -268,6 +281,7 @@ const loader = document.querySelector('.loader');
 let counter = 0;
 let imageToUpload = [];
 let imageUrl = [];
+let images = [];
 
 imageButton.addEventListener('change', (event) => {
     imageToUpload.push(event.target.files[0]);
@@ -318,13 +332,13 @@ function updateImageDisplay() {
                 const parent = this.parentElement;
                 this.parentElement.parentElement.removeChild(parent);
                 imageToUpload.splice(event.target.id, 1);
-                console.log(imageToUpload);
                 counter--;
                 if (counter <= 3) {
                     imageSelector.style.display = 'block';
                 }
                 if (counter === 0) {
                     uploadButton.style.display = 'none';
+                    postButton.style.display = 'none';
                 }
             };
             const closeImage = document.createElement('img');
@@ -383,14 +397,18 @@ function uploadImageToFirebase() {
     containerForPost.style.display = 'none';
     loadingEffect.style.display = 'block';
     for (let i = 0; i < imageToUpload.length; i++) {
+        let today = new Date();
+        let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time;
         const element = imageToUpload[i];
-        const refVar = firebase.storage().ref('feeds/' + element.name);
+        let ans = Math.random().toString(36).slice(2);
+        const refVar = firebase.storage().ref('feeds/' + ans + element.lastModified + dateTime + element.name);
         let task = refVar.put(element);
         task.on('state_changed',
             function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 loader.value = percentage;
-                console.log(percentage);
             },
             function error(err) {
                 console.log(err);
@@ -404,11 +422,14 @@ function uploadImageToFirebase() {
                         });
                 containerForPost.style.display = 'block';
                 loadingEffect.style.display = 'none';
-                console.log(imageUrl);
+                // console.log(imageUrl);
             }
         )
     }
     checker = 1;
+    document.querySelectorAll('.close-image').forEach(element => {
+        element.style.display = 'none';
+    })
     postButton.style.display = 'block';
     uploadButton.style.display = 'none';
 }
@@ -492,15 +513,15 @@ function isLiked(element, div, container, divContainer) {
                 message.textContent = 'Internal Server Error';
             }
             let heading = ` <div class="user-name-feed">
-                <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}">
-                ${element.userusername} </a>
+                <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">
+                ${element.username} </a>
                 <div class="time">${element.datetime}</div>
             </div>`
 
             if (element.userid != element.originaluserid) {
                 heading = ` <div class="user-name-feed">
-                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}">
-                    ${element.userusername}</a>&nbsp; Shared Post Of &nbsp;
+                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">
+                    ${element.username}</a>&nbsp; Shared Post Of &nbsp;
                     <a href="${frontendUrl}/pages/profile/index.html?username=${element.originalusername}">
                     ${element.originalusername}</a>
                     <div class="time">${element.datetime}</div>
@@ -510,7 +531,7 @@ function isLiked(element, div, container, divContainer) {
             if (html) {
                 div.innerHTML = `
                     <header class="post-user-info">
-                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.userusername}"><img class="profile-photo-feed-insert" src="${element.profilephoto}" /></a>
+                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img class="profile-photo-feed-insert" src="${element.profilephoto}" /></a>
                         ${heading}
                         
                     </header>
@@ -610,7 +631,6 @@ async function addPost() {
         let userData = {
             image: imageUrl,
             description: feedText.value,
-            profilePhoto: localStorage.getItem("profilePhoto"),
             dateTime,
         }
         userData = JSON.stringify(userData);
@@ -670,6 +690,7 @@ async function getFollowing() {
         if (res.status === 200) {
             const data = await res.json();
             console.log(data.follower);
+            following = data.follower;
             renderFollowingList(data.follower);
             //apend the mesagge
         } else {
@@ -689,8 +710,11 @@ function renderFollowingList(following) {
         div.innerHTML = `
             <a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}"><img src="${element.profilephoto}" class="profile-photo" id="${element.following}"/></a>
             <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.followingrusername}</a></span>
-            <div class="follow-btn"><i class="fas fa-user-minus" id='${element.following}' onClick = 'unfollowUser(event)'></i></div>
+            <div class="follow-btn"><i class="fas fa-user-minus" id='${element.following}'></i></div>
         `;
+        div.children[2].addEventListener('click', (event) => {
+            unfollowUser(event);
+        })
         table.appendChild(div);
         setRightSectionHeight();
     })
@@ -831,14 +855,12 @@ function commentButtonClick(event) {
         let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         let dateTime = date + ' ' + time;
 
-        const profilePhoto = localStorage.getItem("profilePhoto");
         const originalpostid = event.target.parentNode.parentNode.parentNode.children[0].children[1].children[2].children[1].children[0].id;
         let userData = {
             postid,
             originaluserid,
             comment,
             dateTime,
-            profilePhoto,
             originalpostid,
         }
         userData = JSON.stringify(userData);
@@ -966,7 +988,6 @@ async function getAllComment(commentSection, userData) {
 function sharePostClick(event) {
     const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
     const shareCounter = event.target.parentNode.children[1];
-    const profilephoto = localStorage.getItem("profilePhoto");
     const originaluserid = event.target.parentElement.parentElement.id;
     const originalpostid = event.target.id;
     //current date and time
@@ -977,13 +998,10 @@ function sharePostClick(event) {
 
     let userData = {
         postid,
-        profilephoto,
         dateTime,
         originalpostid,
     }
     userData = JSON.stringify(userData);
-    console.log(userData);
-    // console.log(userData, shareCounter);
     sharePost(userData, shareCounter, originaluserid);
 }
 
@@ -1002,7 +1020,6 @@ async function sharePost(userData, shareCounter, originaluserid) {
     const error = messageDiv.children[0];
 
     const userId = localStorage.getItem("userId")
-    console.log(userId);
     if (originaluserid === userId) {
         messageDiv.removeChild(success);
         message.textContent = `You Can't Re-Share Your Own Post`;
@@ -1050,6 +1067,7 @@ async function sharePost(userData, shareCounter, originaluserid) {
 }
 
 async function followUser(event) {
+    console.log('hi');
     //message div 
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
@@ -1166,3 +1184,5 @@ async function unfollowUser(event) {
     getFollowing();
     getSuggestionList();
 }
+
+export { following };
