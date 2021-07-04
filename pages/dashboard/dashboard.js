@@ -1,6 +1,6 @@
 //url 
-const url = "https://sheltered-citadel-84490.herokuapp.com";
-// const url = "http://localhost:8000";
+// const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = "http://localhost:8000";
 
 //fortend url
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
@@ -154,6 +154,7 @@ async function getSuggestionList() {
 }
 const suggestionsTable = document.querySelector('.users-table-suggestion')
 
+
 function populateSuggestion(suggestion) {
     suggestionsTable.innerHTML = " ";
     suggestion.forEach(element => {
@@ -162,9 +163,12 @@ function populateSuggestion(suggestion) {
         div.innerHTML = `
             <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img src="${element.profilephoto}" class="profile-photo" /></a>
             <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">${element.username}</a></span>
-            <div class="follow-btn"><i class="fas fa-user-plus" id='${element.id}' onClick = "followUser(event)"></i></div>
+            <div class="follow-btn"><i class="fas fa-user-plus" id='${element.id}' ></i></div>
         `;
         suggestionsTable.appendChild(div);
+        div.children[2].addEventListener('click', (event) => {
+            followUser(event);
+        })
         setRightSectionHeight();
     })
 }
@@ -706,8 +710,11 @@ function renderFollowingList(following) {
         div.innerHTML = `
             <a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}"><img src="${element.profilephoto}" class="profile-photo" id="${element.following}"/></a>
             <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.followingrusername}</a></span>
-            <div class="follow-btn"><i class="fas fa-user-minus" id='${element.following}' onClick = 'unfollowUser(event)'></i></div>
+            <div class="follow-btn"><i class="fas fa-user-minus" id='${element.following}'></i></div>
         `;
+        div.children[2].addEventListener('click', (event) => {
+            unfollowUser(event);
+        })
         table.appendChild(div);
         setRightSectionHeight();
     })
@@ -1060,6 +1067,7 @@ async function sharePost(userData, shareCounter, originaluserid) {
 }
 
 async function followUser(event) {
+    console.log('hi');
     //message div 
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
