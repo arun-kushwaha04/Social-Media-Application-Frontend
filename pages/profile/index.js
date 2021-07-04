@@ -21,7 +21,7 @@ const about = document.querySelector('.about');
 
 window.addEventListener('load', ()=>{
     if(userToken){
-        fetch(`${url}/auth/getUserinfo`, {
+        fetch(`${url}/user/getUserinfo`, {
             method:"POST",
             headers: {
                 "Authorization": `${localStorage.getItem("userToken")}`,
