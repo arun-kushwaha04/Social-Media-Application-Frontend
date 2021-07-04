@@ -1,6 +1,8 @@
 let imageToUpload = null;
 let storyImageUrl = [];
 let userStory = [];
+let followingStory = [];
+let element = [];
 const mainContainerBackground = document.querySelector('.current-background-image');
 const previousImage = document.querySelector('.previous-image');
 const currentImage = document.querySelector('.current-image');
@@ -89,6 +91,7 @@ const getUserStory = async(userId, arg, arg2) => {
                 if (data.message != 'No Story Found') {
                     image = data.story;
                     userStory = data.story;
+                    element = data.element;
                     if (arg2) renderUserStory();
                 }
             } else {
@@ -123,23 +126,27 @@ async function getFollowing() {
 
 //set main constainer bacground
 const renderMainContainerBackground = () => {
-    mainContainerBackground.src = currentImage.children[0].src;
+    mainContainerBackground.src = currentImage.children[1].src;
     return;
 }
 
 //setting the fetched image to display
 const renderUserStory = () => {
-    currentImage.children[0].src = image[0];
+    previousButton.style.visibility = 'hidden';
+    nextButton.style.visibility = 'visible';
+    currentImage.children[1].src = image[0];
     currentImage.setAttribute('id', 0);
     renderMainContainerBackground();
     if (image.length === 1) {
         previousImage.style.visibility = 'hidden';
         nextImage.style.visibility = 'hidden';
+        nextButton.style.visibility = 'hidden';
         return;
     }
     nextImage.setAttribute('id', 1);
     nextImage.children[0].src = image[1];
     previousImage.style.visibility = 'hidden';
+    nextImage.style.visibility = 'visible';
     // setTimeout(nextButtonClick(), 5000);
     return;
 
@@ -150,13 +157,12 @@ const renderUserStory = () => {
 //function on next button clicked
 const nextButtonClick = () => {
     const id = parseInt(nextImage.id);
-    console.log(id);
     previousImage.style.visibility = 'visible';
     previousButton.style.visibility = 'visible';
     currentImage.id = id;
     nextImage.id = id + 1;
-    previousImage.children[0].src = currentImage.children[0].src;
-    currentImage.children[0].src = nextImage.children[0].src;
+    previousImage.children[0].src = currentImage.children[1].src;
+    currentImage.children[1].src = nextImage.children[0].src;
     if ((id + 1) === image.length) {
         nextImage.style.visibility = 'hidden';
         nextButton.style.visibility = 'hidden';
@@ -171,16 +177,16 @@ const nextButtonClick = () => {
 
 //function on previous button clicked
 const previousButtonClick = () => {
-    const id = parseInt(previousImage.id);
+    const id = parseInt(nextImage.id);
     nextImage.style.visibility = 'visible';
     nextButton.style.visibility = 'visible';
     currentImage.id = id - 2;
-    previousImage.id = id - 1;
-    nextImage.children[0].src = currentImage.children[0].src;
-    currentImage.children[0].src = previousImage.children[0].src;
-    if ((id - 2) <= 0) {
+    nextImage.id = id - 1;
+    nextImage.children[0].src = currentImage.children[1].src;
+    currentImage.children[1].src = previousImage.children[0].src;
+    if (id <= 2) {
         previousImage.style.visibility = 'hidden';
-        // previousButton.style.visibility = 'hidden';
+        previousButton.style.visibility = 'hidden';
         renderMainContainerBackground();
         return;
     }
@@ -193,7 +199,7 @@ const previousButtonClick = () => {
 function updateImageDisplay(event) {
     imageToUpload = null;
     imageToUpload = (event.target.files[0]);
-    currentImage.children[0].src = URL.createObjectURL(imageToUpload)
+    currentImage.children[1].src = URL.createObjectURL(imageToUpload)
     renderMainContainerBackground();
     event.target.parentElement.parentElement.children[2].innerHTML = 'Upload / Change Image'
     event.target.parentElement.style.display = 'none';
@@ -203,14 +209,23 @@ function updateImageDisplay(event) {
 //a function to render all following users
 const renderFollowingList = (following) => {
     const container = document.querySelector('.stories-list');
+    let i = 0;
     following.forEach(element => {
         const div = document.createElement('div');
         div.classList.add('story-item');
-        div.setAttribute('id', `${element.id}`);
+        div.setAttribute('id', `${i}`);
         div.addEventListener("click", (event) => {
-            const userId = event.target.id;
-            console.log(userId);
-            if (userId) getUserStory(userId, null, 1);
+            const id = event.target.id;
+            console.log(id);
+            if (id) {
+                updateViewStory(element.storyid);
+                image = followingStory[id];
+                renderUserStory();
+                document.querySelector('.story-creator').innerHTML = `${element.username}`;
+                document.querySelector('.story-likes').innerHTML = `${element.likes}`;
+                document.querySelector('.story-views').innerHTML = `${element.views}`;
+                document.querySelector('nav').style.visibility = 'visible';
+            }
         })
         div.innerHTML = `    
             <div class="user-profile">
@@ -219,7 +234,10 @@ const renderFollowingList = (following) => {
             <div class="user-name">${element.username}</div>
         `
         container.appendChild(div);
+        followingStory.push(element.images);
+        i++;
     })
+    console.log('end');
 }
 
 const uploadImageToFirebase = (event) => {
@@ -326,7 +344,36 @@ const addStoryTOServer = async() => {
     }, 2000);
 }
 
+//function to view user it own story
+document.querySelector('.view-your-story').addEventListener('click', () => {
+    image = userStory;
+    document.querySelector('.story-creator').innerHTML = `${element.username}`;
+    document.querySelector('.story-likes').innerHTML = `${element.likes}`;
+    document.querySelector('.story-views').innerHTML = `${element.views}`;
+    document.querySelector('nav').style.visibility = 'visible';
+    renderUserStory();
+})
 
+//updating a view on a story
+const updateViewStory = async(storyId) => {
+    try {
+        let userData = {
+            storyId,
+        }
+        userData = JSON.stringify(userData);
+        const res = fetch(`${url}/story/updateViewStory`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        })
+        if (res.status === 200) console.log("query completed");
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 // adding event listeners when buttons are clicked
