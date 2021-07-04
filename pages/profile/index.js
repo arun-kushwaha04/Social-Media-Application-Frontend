@@ -19,22 +19,22 @@ const likeCount = document.querySelector('.likeCount');
 const about = document.querySelector('.about');
 
 
-window.addEventListener('load', ()=>{
-    if(userToken){
+window.addEventListener('load', () => {
+    if (userToken) {
         fetch(`${url}/user/getUserinfo`, {
-            method:"POST",
-            headers: {
-                "Authorization": `${localStorage.getItem("userToken")}`,
-                "Content-Type": "application/json",
-            },
-        })
-        .then((res)=>res.json())
-        .then((data)=>{
-            console.log(data);
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
+                method: "POST",
+                headers: {
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 });
 
