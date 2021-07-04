@@ -15,8 +15,8 @@ const addStoryButton = document.querySelector('.add-story');
 const addStoryButtonDiv = document.querySelector('.add-your-story');
 const viewStoryButtonDiv = document.querySelector('.view-your-story');
 
-// const url = "https://sheltered-citadel-84490.herokuapp.com";
-const url = "http://localhost:8000";
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
 
 //fortend url
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
