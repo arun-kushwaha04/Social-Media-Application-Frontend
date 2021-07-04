@@ -19,7 +19,6 @@ const likeCount = document.querySelector('.likeCount');
 const about = document.querySelector('.about');
 
 
-<<<<<<< HEAD
 window.addEventListener('load', ()=>{
     if(userToken){
         fetch(`${url}/user/getUserinfo`, {
@@ -36,24 +35,6 @@ window.addEventListener('load', ()=>{
         .catch((err)=>{
             console.log(err);
         });
-=======
-window.addEventListener('load', () => {
-    if (userToken) {
-        fetch(`${url}/user/getUserinfo`, {
-                method: "POST",
-                headers: {
-                    "Authorization": `${localStorage.getItem("userToken")}`,
-                    "Content-Type": "application/json",
-                },
-            })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
->>>>>>> 4ac90c2dd197989a3cfa4c0097723ef378992d0e
     }
 });
 
