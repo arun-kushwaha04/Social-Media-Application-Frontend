@@ -906,7 +906,7 @@ async function addComment(userData, commentCounter, commentText, commentSection)
             div.classList.add('comment');
             div.innerHTML = `
             <div class="comment">
-                <a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}"><img class="profile-photo" src="${userData.profilePhoto}" /></a>
+                <a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}"><img class="profile-photo" src="${localStorage.getItem("profilePhoto")}" /></a>
                 <div class="comment-box">
                 <div class="comment-details">
                     <div class="comment-user-name"><a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}">${localStorage.getItem("username")}</a></div>
@@ -1184,5 +1184,3 @@ async function unfollowUser(event) {
     getFollowing();
     getSuggestionList();
 }
-
-export { following };
