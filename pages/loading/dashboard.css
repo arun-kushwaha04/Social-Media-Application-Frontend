@@ -24,33 +24,28 @@ body {
 }
 
 header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   min-height: 100vh;
   position: relative;
   transform-style: inherit;
   width: 100vw;
-  text-align: center;
   overflow: hidden;
-  /* text-transform: uppercase; */
 }
-
-header > h1 {
-  display: inline-block;
-  margin: 0;
-  position: absolute;
-  top: 47%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 5rem;
-  letter-spacing: 0.2rem;
+.texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+.texts h1 {
   font-weight: 550;
-  /* background: linear-gradient(to right, #a1fff7 50%, #ffa6b5 50%); */
-  background: white;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
 }
-
 header,
 header:before {
   background: 50% 50% / cover;
@@ -71,3 +66,23 @@ header::before {
   z-index: -1;
   min-height: 100vh;
 }
+
+.loadingGIF img {
+  width: 185px;
+  height: 185px;
+}
+
+@media (max-width: 1150px) {
+  .texts h1 {
+    font-size: 3rem;
+  }
+  .loadingGIF img {
+    width: 150px;
+    height: 150px;
+  }
+  .texts h4 {
+    top: 49%;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+} ;
