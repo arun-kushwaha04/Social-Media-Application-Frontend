@@ -3,6 +3,7 @@ let storyImageUrl = [];
 let userStory = [];
 let followingStory = [];
 let element = [];
+let chk = null;
 const mainContainerBackground = document.querySelector('.current-background-image');
 const previousImage = document.querySelector('.previous-image');
 const currentImage = document.querySelector('.current-image');
@@ -215,12 +216,14 @@ const renderFollowingList = (following) => {
         div.classList.add('story-item');
         div.setAttribute('id', `${i}`);
         div.addEventListener("click", (event) => {
-            const id = event.target.id;
+            chk = 0;
+            const id = event.currentTarget.id;
             console.log(id);
             if (id) {
                 updateViewStory(element.storyid);
                 image = followingStory[id];
                 renderUserStory();
+                currentImage.children[0].setAttribute('id', `${element.storyid}`);
                 document.querySelector('.story-creator').innerHTML = `${element.username}`;
                 document.querySelector('.story-likes').innerHTML = `${element.likes}`;
                 document.querySelector('.story-views').innerHTML = `${element.views}`;
@@ -301,7 +304,6 @@ const uploadImageToFirebase = (event) => {
 
 //function to uplaod user story
 const addStoryTOServer = async() => {
-    console.log('hi');
     //message div 
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
@@ -346,6 +348,7 @@ const addStoryTOServer = async() => {
 
 //function to view user it own story
 document.querySelector('.view-your-story').addEventListener('click', () => {
+    chk = 0;
     image = userStory;
     document.querySelector('.story-creator').innerHTML = `${element.username}`;
     document.querySelector('.story-likes').innerHTML = `${element.likes}`;
@@ -354,7 +357,7 @@ document.querySelector('.view-your-story').addEventListener('click', () => {
     renderUserStory();
 })
 
-//updating a view on a story
+//updating  view on a story
 const updateViewStory = async(storyId) => {
     try {
         let userData = {
@@ -375,6 +378,100 @@ const updateViewStory = async(storyId) => {
     }
 }
 
+
+//logic for liking a image in a story
+const likeButton = document.querySelector('.crazy-button');
+
+currentImage.addEventListener('mouseover', (event) => {
+    const id = currentImage.id;
+    const storyId = currentImage.children[0].id;
+    if (id && storyId && chk === 0) {
+        const image = storyId + id;
+        let userData = { image };
+        userData = JSON.stringify(userData);
+        const res = fetch(`${url}/story/isImageLiked`, {
+                method: "POST",
+                body: userData,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                },
+            }).then(res => res.json())
+            .then(data => {
+                if (data.message === "Liked") {
+                    likeButton.classList.add('fas');
+                    likeButton.classList.remove('far');
+                }
+                if (data.message === "Not Liked") {
+                    likeButton.classList.add('far');
+                    likeButton.classList.remove('fas');
+                }
+            }).catch(err => console.log(err));
+        likeButton.setAttribute('id', `${image}`);
+        // setTimeout(() => { document.querySelector('.like-story').style.opacity = 1; }, 1000);
+        document.querySelector('.like-story').style.opacity = 1;
+    }
+}, false);
+currentImage.addEventListener('mouseout', (event) => {
+    const id = currentImage.id;
+    if (id) document.querySelector('.like-story').style.opacity = 0;
+}, false)
+
+//updtae like on like
+const updateLike = async(event) => {
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+    const image = likeButton.id;
+    const storyId = currentImage.children[0].id;
+    let userData = { storyId, image };
+    userData = JSON.stringify(userData);
+    try {
+        const res = await fetch(`${url}/story/updateLikeStory`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        })
+        if (res.status === 200) {
+            const data = await res.json();
+            if (data.value === 1) {
+                console.log('liked');
+                // likes.innerHTML = parseInt(likes.innerHTML) + 1;
+                likeButton.classList.add('fas');
+                likeButton.classList.remove('far');
+            } else {
+                console.log('not liked');
+                // likes.innerHTML = parseInt(likes.innerHTML) - 1;
+                likeButton.classList.add('far');
+                likeButton.classList.remove('fas');
+            }
+            messageDiv.removeChild(error);
+            message.textContent = data.message;
+            success.style.opacity = 1;
+        }
+    } catch (err) {
+        messageDiv.removeChild(success);
+        message.textContent = 'Server Down';
+        error.style.opacity = 1;
+        console.log(err);
+    }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
+}
 
 // adding event listeners when buttons are clicked
 nextButton.addEventListener("click", () => nextButtonClick());

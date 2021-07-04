@@ -249,8 +249,7 @@ main {
     cursor: pointer;
 }
 
-.loading-effect {
-    visibility: hidden;
+.common-loading-like {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -266,6 +265,12 @@ main {
     -webkit-backdrop-filter: blur( 0.5px);
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18);
+    /* background-color: red;
+    z-index: 100; */
+}
+
+.loading-effect {
+    visibility: hidden;
 }
 
 .loading-effect h3 {
@@ -372,6 +377,45 @@ nav {
     background: rgba( 255, 255, 255, 0.40);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
     visibility: hidden;
+}
+
+.engageButtons {
+    display: flex;
+    justify-content: space-evenly;
+    cursor: pointer;
+}
+
+.like-button {
+    display: flex;
+    gap: 1.2rem;
+    width: 15%;
+    height: 60%;
+    justify-content: center;
+}
+
+.crazy-button {
+    transition: all 0.25s ease;
+}
+
+.crazy-button:hover {
+    transform: scale(1.2);
+}
+
+.fa-heart {
+    font-size: 1.5rem;
+    color: red;
+}
+
+.likes {
+    font-size: 1rem;
+    color: black;
+    font-weight: bold;
+}
+
+.like-story {
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
 
