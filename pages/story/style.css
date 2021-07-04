@@ -10,6 +10,16 @@ html {
     font-size: 15px;
 }
 
+input,
+textarea,
+button,
+select,
+div,
+i,
+a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 body {
     position: relative;
 }
@@ -235,7 +245,7 @@ main {
     right: 0;
     bottom: 1.25rem;
     cursor: default;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .image-selector {
@@ -430,88 +440,109 @@ nav {
     cursor: pointer;
 }
 
+.hamburger-div {
+    position: fixed;
+    display: none;
+    top: 1rem;
+    left: 1rem;
+    z-index: -1;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0rem;
+}
 
-/* @media only screen and (max-width: 987px) {
-    main {
-        width: 100vw;
-        margin: 0;
+.hamburger {
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.line {
+    height: 3px;
+    width: 90%;
+    background-color: white;
+}
+
+@media (max-width: 768px) {
+    .message-container {
+        width: 100%;
+        right: 0;
+        left: 0;
     }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .message-container {
+        width: 50%;
+        right: 1rem;
+    }
+}
+
+@media (max-width:1170px) {
     .left-container {
-        width: 30vw;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        overflow-y: auto;
+        width: 100vw;
     }
     .right-container {
-        width: 70vw;
+        z-index: -1;
+        opacity: 0;
+        width: 100vw;
+        grid-template-columns: 0fr 1fr 0fr;
+        transition: opacity 1s ease-in-out;
+    }
+    .hamburger-div {
+        display: block;
     }
 }
 
-@media only screen and (max-width: 730px) {
-    main {
-        height: 100vh;
-        width: 100vw;
+@media (max-width:768px) {
+    html {
+        font-size: 11px;
     }
-    .logo {
-        font-size: 4vw;
+    .current-image {
+        height: 70%;
+        margin: 0.5rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width:1170px) {
+    html {
+        font-size: 13px;
     }
     .right-container {
-        width: 100vw;
-        height: 100vh;
+        grid-template-columns: 1fr 2fr 1fr;
     }
-    .close-button {
-        width: 65vw;
+    .current-image {
+        height: 65%;
     }
-    .toggle img {
-        height: 3vw;
-    }
-    .like-button {
-        border: 1.5px solid rgb(253, 253, 253);
-        padding: 3px 10px;
+    .next-image,
+    .previous-image {
+        height: 30%;
     }
 }
 
-@media only screen and (max-width: 690px) {
-    .user-name {
-        width: 0;
-        height: 0;
-        overflow: hidden;
+@media (hover: none),
+(hover: on-demand) {
+    .crazy-button:hover {
+        transform: scale(1);
     }
-    .left-container {
-        width: 15vw;
-    }
-    .close-button {
-        width: 75vw;
-    }
-    .close-button img {
-        height: 15px;
-    }
-}
-
-@media only screen and (max-width: 590px) {
-    .left-container {
-        width: 0;
-        height: 0;
-        visibility: hidden;
+    .page-button:hover::after {
         display: none;
     }
-    .right-container {
-        width: 100vw;
-        height: 100vh;
+    .page-button:hover {
+        border-bottom: none;
     }
-    .close-button {
-        width: 98vw;
+    .feature:hover {
+        background-color: none;
     }
-    .like-button {
-        border: 1px solid rgb(253, 253, 253);
-        padding: 2.5px 10px;
+    .profile-photo-close:hover {
+        background-color: none;
     }
 }
-
-@media only screen and (max-width: 450px) {
-    .picture {
-        width: 85vw;
-        height: auto;
-    }
-    like-button {
-        border: 1.5px solid rgb(253, 253, 253);
-        padding: 2px 8px;
-    }
-} */

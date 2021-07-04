@@ -14,9 +14,12 @@ const nav = document.querySelector('nav');
 const addStoryButton = document.querySelector('.add-story');
 const addStoryButtonDiv = document.querySelector('.add-your-story');
 const viewStoryButtonDiv = document.querySelector('.view-your-story');
+const leftContainer = document.querySelector('.left-container');
+const rightContainer = document.querySelector('.right-container');
+const hamburger = document.querySelector('.hamburger-div');
 
-const url = "https://sheltered-citadel-84490.herokuapp.com";
-// const url = "http://localhost:8000";
+// const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = "http://localhost:8000";
 
 //fortend url
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
@@ -228,6 +231,10 @@ const renderFollowingList = (following) => {
             const id = event.currentTarget.id;
             console.log(id);
             if (id) {
+                if (window.innerWidth <= 1170) {
+                    console.log('calling function')
+                    showRightContainer();
+                }
                 updateViewStory(element.storyid);
                 image = followingStory[id];
                 renderUserStory();
@@ -250,6 +257,20 @@ const renderFollowingList = (following) => {
     })
     console.log('end');
 }
+
+//swithching display on hamburger click
+const showRightContainer = () => {
+    rightContainer.style.zIndex = '50';
+    hamburger.style.zIndex = '50';
+    rightContainer.style.opacity = '1';
+    return;
+}
+hamburger.addEventListener('click', () => {
+    rightContainer.style.opacity = '0';
+    rightContainer.style.zIndex = '-1';
+    hamburger.style.zIndex = '-1';
+    return;
+})
 
 const uploadImageToFirebase = (event) => {
     //message div 
@@ -358,6 +379,9 @@ const addStoryTOServer = async() => {
 
 //function to view user it own story
 viewStoryButtonDiv.addEventListener('click', () => {
+    if (window.innerWidth <= 1170) {
+        showRightContainer();
+    }
     chk = 0;
     image = userStory;
     document.querySelector('.story-creator').innerHTML = `${element.username}`;
@@ -495,6 +519,9 @@ const addStory = document.querySelector('.add-user-story');
 const addStoryDiv = document.querySelector('.add-story-to-screen');
 
 addStory.addEventListener("click", () => {
+    if (window.innerWidth <= 1170) {
+        showRightContainer();
+    }
     nextButton.style.visibility = 'hidden';
     previousButton.style.visibility = 'hidden';
     image = [
