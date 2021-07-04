@@ -235,6 +235,7 @@ main {
     right: 0;
     bottom: 1.25rem;
     cursor: default;
+    z-index: 1000;
 }
 
 .image-selector {
@@ -413,9 +414,20 @@ nav {
 }
 
 .like-story {
-    z-index: 10000;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
+}
+
+.add-story {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    background-color: #e74c3c;
+    color: black;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 

@@ -11,6 +11,9 @@ const nextImage = document.querySelector('.next-image');
 const nextButton = document.querySelector('.next');
 const previousButton = document.querySelector('.prev');
 const nav = document.querySelector('nav');
+const addStoryButton = document.querySelector('.add-story');
+const addStoryButtonDiv = document.querySelector('.add-your-story');
+const viewStoryButtonDiv = document.querySelector('.view-your-story');
 
 // const url = "https://sheltered-citadel-84490.herokuapp.com";
 const url = "http://localhost:8000";
@@ -83,8 +86,8 @@ const getUserStory = async(userId, arg, arg2) => {
                 console.log(data);
                 if (arg) {
                     if (data.message != 'No Story Found') {
-                        document.querySelector('.add-your-story').style.display = 'none';
-                        document.querySelector('.view-your-story').style.display = 'block';
+                        addStoryButtonDiv.style.display = 'none';
+                        viewStoryButtonDiv.style.display = 'block';
                     }
                 } else {
                     nextButton.style.visibility = 'visible';
@@ -133,7 +136,7 @@ const renderMainContainerBackground = () => {
 }
 
 //setting the fetched image to display
-const renderUserStory = () => {
+const renderUserStory = (arg) => {
     previousButton.style.visibility = 'hidden';
     nextButton.style.visibility = 'visible';
     currentImage.children[1].src = image[0];
@@ -149,6 +152,10 @@ const renderUserStory = () => {
     nextImage.children[0].src = image[1];
     previousImage.style.visibility = 'hidden';
     nextImage.style.visibility = 'visible';
+    if (arg) {
+        nextButton.style.visibility = 'hidden';
+        previousButton.style.visibility = 'hidden';
+    }
     // setTimeout(nextButtonClick(), 5000);
     return;
 
@@ -303,6 +310,8 @@ const uploadImageToFirebase = (event) => {
     )
 }
 
+addStoryButton.addEventListener('click', () => { addStoryTOServer() })
+
 //function to uplaod user story
 const addStoryTOServer = async() => {
     //message div 
@@ -334,8 +343,8 @@ const addStoryTOServer = async() => {
         messageDiv.removeChild(error);
         message.textContent = data.message;
         success.style.opacity = 1;
-        document.querySelector('.add-your-story').style.display = 'none';
-        document.querySelector('.view-your-story').style.display = 'block';
+        addStoryButtonDiv.style.display = 'none';
+        viewStoryButtonDiv.style.display = 'block';
     } else {
         messageDiv.removeChild(success);
         message.textContent = 'Error Ocurred In Adding Story';
@@ -348,7 +357,7 @@ const addStoryTOServer = async() => {
 }
 
 //function to view user it own story
-document.querySelector('.view-your-story').addEventListener('click', () => {
+viewStoryButtonDiv.addEventListener('click', () => {
     chk = 0;
     image = userStory;
     document.querySelector('.story-creator').innerHTML = `${element.username}`;
@@ -486,6 +495,8 @@ const addStory = document.querySelector('.add-user-story');
 const addStoryDiv = document.querySelector('.add-story-to-screen');
 
 addStory.addEventListener("click", () => {
+    nextButton.style.visibility = 'hidden';
+    previousButton.style.visibility = 'hidden';
     image = [
         'https://images.unsplash.com/photo-1527843812948-a8c2ddd2fb68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTR8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80',
         'https://images.unsplash.com/photo-1468657988500-aca2be09f4c6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
@@ -495,7 +506,7 @@ addStory.addEventListener("click", () => {
     ]
     addStoryDiv.style.visibility = 'visible';
     nav.style.visibility = 'hidden';
-    renderUserStory();
+    renderUserStory(1);
     renderMainContainerBackground();
 
 })
