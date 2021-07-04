@@ -10,6 +10,7 @@ const currentImage = document.querySelector('.current-image');
 const nextImage = document.querySelector('.next-image');
 const nextButton = document.querySelector('.next');
 const previousButton = document.querySelector('.prev');
+const nav = document.querySelector('nav');
 
 // const url = "https://sheltered-citadel-84490.herokuapp.com";
 const url = "http://localhost:8000";
@@ -227,7 +228,7 @@ const renderFollowingList = (following) => {
                 document.querySelector('.story-creator').innerHTML = `${element.username}`;
                 document.querySelector('.story-likes').innerHTML = `${element.likes}`;
                 document.querySelector('.story-views').innerHTML = `${element.views}`;
-                document.querySelector('nav').style.visibility = 'visible';
+                nav.style.visibility = 'visible';
             }
         })
         div.innerHTML = `    
@@ -353,7 +354,7 @@ document.querySelector('.view-your-story').addEventListener('click', () => {
     document.querySelector('.story-creator').innerHTML = `${element.username}`;
     document.querySelector('.story-likes').innerHTML = `${element.likes}`;
     document.querySelector('.story-views').innerHTML = `${element.views}`;
-    document.querySelector('nav').style.visibility = 'visible';
+    nav.style.visibility = 'visible';
     renderUserStory();
 })
 
@@ -493,6 +494,7 @@ addStory.addEventListener("click", () => {
         'https://images.unsplash.com/photo-1515446808777-87f69cb475aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mjd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
     ]
     addStoryDiv.style.visibility = 'visible';
+    nav.style.visibility = 'hidden';
     renderUserStory();
     renderMainContainerBackground();
 
