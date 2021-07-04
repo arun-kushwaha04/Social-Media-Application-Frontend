@@ -122,6 +122,7 @@ main .container .top-part .right-side .details {
 }
 main .container .top-part .right-side .details .account .name {
   font-size: 1.5rem;
+  font-weight: 600;
 }
 main .container .top-part .right-side .overview-sections {
   display: flex;
@@ -179,6 +180,7 @@ main .container .posts-container .posts .image img {
   color: #ffffffcc;
 }
 
+/* MEDIA QUERIES */
 @media (max-width: 770px) {
   main .container .top-part .profile-photo img {
     width: 8rem;
@@ -250,4 +252,36 @@ main .container .posts-container .posts .image img {
     gap: 10%;
     justify-content: space-around;
   }
+}
+
+/* DARK THEME */
+.dark {
+  background-color: rgb(43, 34, 85);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  display: flex;
+  min-height: 91vh;
+  width: 100%;
+  justify-content: center;
+  scroll-behavior: smooth;
+}
+.dark .container {
+  background-color: rgba(210, 200, 255, 0.418);
+}
+.dark .top-part {
+  color: #ffffffcc;
+}
+.dark .posts-header {
+  color: #17324d;
+}
+.dark .edit-button {
+  background-color: rgb(123, 93, 255);
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 95px;
+  padding: 0.25rem;
+  border-radius: 10px;
+  color: #ffffffcc;
 }
