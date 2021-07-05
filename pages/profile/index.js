@@ -26,36 +26,33 @@ window.onload = () => {
     fetchUserDetails();
 };
 
-// function to fetch user details
-const fetchUserDetails = async() => {
-    let userData = { username };
-    userData = JSON.stringify(userData);
-    try {
-        const res = await fetch(`${url}/user/getUserinfo`, {
-            method: "POST",
-            body: userData,
-            headers: {
-                "Authorization": `${localStorage.getItem("userToken")}`,
-                "Content-Type": "application/json",
-            },
-        })
-        if (res.status === 200) {
-            const data = await res.json();
-            username_.innerHTML = username;
-            name_.innerHTML = data.userData.name;
-            email.innerHTML = data.userData.email;
-            postCount.innerHTML = data.userData.posts;
-            followerCount.innerHTML = data.userData.followers;
-            followingCount.innerHTML = data.userData.following;
-            likeCount.innerHTML = data.userData.likes;
-            // about.innerHTML = data.userData.about;            
-            photo.src = `${localStorage.getItem('profilePhoto')}`;
-        }
-    } catch (error) {
-        console.log(error);
-    }
+window.onload = () => {
 
-}
+    if (userToken) {
+        fetch(`${url}/user/getUserinfo`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("hi");
+                console.log(data.userData);
+                Name.innerHTML=data.name;
+                email.innerHTML=data.email;
+                postCount.innerHTML=data.posts;
+                followerCount.innerHTML=data.followers;
+                followingCount.innerHTML=data.following;
+                likeCount.innerHTML=data.likes;
+                about.innerHTML=data.about;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+};
 
 
 homeButton.addEventListener('click', () => {
