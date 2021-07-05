@@ -74,40 +74,15 @@ const fetchUserDetails = async() => {
             username_.innerHTML = username;
             name_.innerHTML = data.userData.name;
             email.innerHTML = data.userData.email;
-            postCount.innerHTML = data.userData.posts;
-            followerCount.innerHTML = data.userData.followers;
-            followingCount.innerHTML = data.userData.following;
+            postCount.innerHTML = data.userData.postmade;
+            followerCount.innerHTML = data.userData.followercount;
+            followingCount.innerHTML = data.userData.followingcount;
             likeCount.innerHTML = data.userData.likes;
             // about.innerHTML = data.userData.about;            
-            photo.src = data.userData.profilePhoto;
+            photo.src = data.userData.profilephoto;
         }
     } catch (error) {
         console.log(error);
-    }
-
-    if (userToken) {
-        fetch(`${url}/user/getUserinfo`, {
-                method: "POST",
-                headers: {
-                    "Authorization": `${localStorage.getItem("userToken")}`,
-                    "Content-Type": "application/json",
-                },
-            })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log("hi");
-                console.log(data.userData);
-                Name.innerHTML = data.name;
-                email.innerHTML = data.email;
-                postCount.innerHTML = data.posts;
-                followerCount.innerHTML = data.followers;
-                followingCount.innerHTML = data.following;
-                likeCount.innerHTML = data.likes;
-                about.innerHTML = data.about;
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     }
 };
 
@@ -276,12 +251,13 @@ function addPostImage(ImageArray, postId, divElement) {
                 let ref = firebase.storage().refFromURL(toRemoveImage);
                 ref.delete();
                 counter--;
+                postButton.style.display = 'block';
                 if (counter <= 3) {
                     imageSelector.style.display = 'block';
                 }
                 if (counter === 0) {
                     uploadButton.style.display = 'none';
-                    postButton.style.display = 'none';
+                    // postButton.style.display = 'none';
                 }
             };
             const closeImage = document.createElement('img');
@@ -366,6 +342,25 @@ const feedPreview = document.querySelector('#feed-preview');
 const postButton = document.querySelector('.post-button');
 const uploadButton = document.querySelector('.upload-button');
 const feedText = document.querySelector('.feed-text');
+
+feedText.addEventListener('input', () => {
+
+    if (feedText.value === "") {
+        postButton.style.display = 'none';
+        uploadButton.style.display = 'none';
+    } else if (feedText.value !== "" && counter > 0) {
+        if (checker) {
+            postButton.style.display = 'block';
+            uploadButton.style.display = 'none';
+        } else {
+            postButton.style.display = 'none';
+            uploadButton.style.display = 'block';
+        }
+    } else if (feedText.value !== "" && counter === 0) {
+        postButton.style.display = 'block';
+        uploadButton.style.display = 'none';
+    }
+})
 
 const editPost = async(event) => {
     const postid = event.currentTarget.id;
@@ -473,30 +468,29 @@ function updateImageDisplay() {
 
 postButton.addEventListener('click', async() => {
     //message div 
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('confirmation-message');
-    messageDiv.innerHTML = `
+    if (checker === 1 || imageToUpload.length === 0) {
+        await modifyImageUrl();
+        addPost();
+    } else {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('confirmation-message');
+        messageDiv.innerHTML = `
         <div class="icon1"><i class="fas fa-exclamation"></i></div>
         <div class="icon2"><i class="fas fa-check"></i></div>
         <div class="request-message">Connecting To Server ...</div>`;
-    messageContainer.appendChild(messageDiv);
-    messageDiv.style.opacity = '1';
-    const message = messageDiv.children[2];
-    const success = messageDiv.children[1];
-    const error = messageDiv.children[0];
-    if (checker === 1 || imageToUpload.length === 0) {
-        await modifyImageUrl();
-        console.log(postImage, imageUrl);
-        addPost();
-    } else {
+        messageContainer.appendChild(messageDiv);
+        messageDiv.style.opacity = '1';
+        const message = messageDiv.children[2];
+        const success = messageDiv.children[1];
+        const error = messageDiv.children[0];
         messageDiv.removeChild(success);
         message.textContent = 'First Upload Images';
         success.style.opacity = 1;
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            messageContainer.removeChild(messageDiv);
+        }, 2000);
     }
-    setTimeout(() => {
-        messageDiv.style.opacity = '0';
-        messageContainer.removeChild(messageDiv);
-    }, 2000);
 });
 
 const modifyImageUrl = () => {
@@ -511,6 +505,11 @@ uploadButton.addEventListener('click', () => {
 })
 
 function uploadImageToFirebase() {
+    if (imageToUpload.length === 0) {
+        postButton.style.display = 'block';
+        uploadButton.style.display = 'none';
+        return;
+    }
     containerForPost.style.display = 'none';
     loadingEffect.style.display = 'block';
     for (let i = 0; i < imageToUpload.length; i++) {
@@ -599,6 +598,7 @@ async function addPost() {
             });
             if (res.status === 200) {
                 const data = await res.json();
+                console.log(data);
                 if (data.message === 'Post Updtaed') {
                     //inform the user oabout this
                     body.style.overflowY = 'scroll';
@@ -622,8 +622,7 @@ async function addPost() {
         setTimeout(() => {
             messageDiv.style.opacity = '0';
             messageContainer.removeChild(messageDiv);
+            location.reload();
         }, 2000);
     }
-
-
 }

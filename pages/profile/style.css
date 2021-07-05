@@ -170,6 +170,10 @@ main .container .top-part .pprofile-photo img {
     background: white;
 }
 
+.bottom-line {
+    margin-bottom: 3em;
+}
+
 .posts-header {
     color: #ffffff;
     margin: 0;
