@@ -9,6 +9,8 @@ const url = "http://localhost:8000";
 // const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 const frontendUrl = `http://localhost:5500`;
 
+const currUrl = new URLSearchParams(window.location.search);
+const username = currUrl.get("username");
 
 const name = document.querySelector('.name');
 const email = document.querySelector('.email');
@@ -19,7 +21,8 @@ const likeCount = document.querySelector('.likeCount');
 const about = document.querySelector('.about');
 
 
-window.addEventListener('load', () => {
+window.onload = () => {
+
     if (userToken) {
         fetch(`${url}/user/getUserinfo`, {
                 method: "POST",
@@ -30,18 +33,26 @@ window.addEventListener('load', () => {
             })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+                console.log("hi");
+                console.log(data.userData);
+                Name=data.name;
+                email=data.email;
+                postCount=data.posts;
+                followerCount=data.followers;
+                followingCount=data.following;
+                likeCount=data.likes;
+                about=data.about;
             })
             .catch((err) => {
                 console.log(err);
             });
     }
-});
+};
 
 
 
 homeButton.addEventListener('click', () => {
-    location.href = `${frontendUrl}/pages/dashboard/index.html}`;
+    location.href = `${frontendUrl}/pages/dashboard/dashboard.html`;
 });
 
 logoutButton.addEventListener('click', () => {
