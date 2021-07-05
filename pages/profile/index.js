@@ -85,7 +85,31 @@ const fetchUserDetails = async() => {
         console.log(error);
     }
 
-}
+    if (userToken) {
+        fetch(`${url}/user/getUserinfo`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("hi");
+                console.log(data.userData);
+                Name.innerHTML = data.name;
+                email.innerHTML = data.email;
+                postCount.innerHTML = data.posts;
+                followerCount.innerHTML = data.followers;
+                followingCount.innerHTML = data.following;
+                likeCount.innerHTML = data.likes;
+                about.innerHTML = data.about;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+};
 
 
 homeButton.addEventListener('click', () => {
