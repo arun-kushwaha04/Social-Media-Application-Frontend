@@ -10,7 +10,7 @@ body {
 }
 
 body::-webkit-scrollbar,
-main::-webkit-scrollbar,
+section::-webkit-scrollbar,
 container::-webkit-scrollbar {
     display: none;
 }
@@ -88,7 +88,7 @@ html {
     font-weight: bold;
 }
 
-main {
+section {
     /* background: pink; */
     background-color: #1859dbe7;
     /* background: rgba(255, 255, 255, 0.411); */
@@ -102,7 +102,7 @@ main {
     scroll-behavior: smooth;
 }
 
-main .container {
+section .container {
     display: flex;
     flex-direction: column;
     max-width: 45rem;
@@ -117,46 +117,46 @@ main .container {
     min-width: 50%;
 }
 
-main .container .top-part {
+section .container .top-part {
     /* background-color: silver; */
     padding: 1rem;
     display: flex;
     gap: 100px;
 }
 
-main .container .top-part .pright-side {
+section .container .top-part .pright-side {
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
-main .container .top-part .pright-side .pdetails {
+section .container .top-part .pright-side .pdetails {
     display: flex;
     align-items: center;
     gap: 10%;
 }
 
-main .container .top-part .pright-side .pdetails .paccount .username {
+section .container .top-part .pright-side .pdetails .paccount .username {
     font-size: 1.5rem;
 }
 
-main .container .top-part .pright-side .overview-sections {
+section .container .top-part .pright-side .overview-sections {
     display: flex;
     gap: 5%;
 }
 
-main .container .top-part .pright-side .overview-sections .section {
+section .container .top-part .pright-side .overview-sections .section {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-main .container .top-part .pprofile-photo {
+section .container .top-part .pprofile-photo {
     padding-left: 50px;
 }
 
-main .container .top-part .pprofile-photo img {
+section .container .top-part .pprofile-photo img {
     width: 9rem;
     height: 9rem;
     border-radius: 50%;
@@ -182,7 +182,7 @@ main .container .top-part .pprofile-photo img {
     align-self: center;
 }
 
-main .container .posts-container {
+section .container .posts-container {
     /* background: white; */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
@@ -192,7 +192,7 @@ main .container .posts-container {
     text-align: center;
 }
 
-main .container .posts-container .posts .image img {
+section .container .posts-container .posts .image img {
     width: 220px;
     height: 220px;
 }
@@ -303,7 +303,7 @@ main .container .posts-container .posts .image img {
 /* MEDIA QUERIES */
 
 @media (max-width: 770px) {
-    main .container .top-part .profile-photo img {
+    section .container .top-part .profile-photo img {
         width: 8rem;
         height: 8rem;
         border-radius: 50%;
@@ -331,30 +331,30 @@ main .container .posts-container .posts .image img {
         width: 23px;
         height: 23px;
     }
-    main .container {
+    section .container {
         width: 100vw;
     }
-    main .container .top-part .profile-photo {
+    section .container .top-part .profile-photo {
         padding-left: 0;
     }
-    main .container .top-part {
+    section .container .top-part {
         padding: 1rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 0;
     }
-    main .container .top-part .right-side .details {
+    section .container .top-part .right-side .details {
         flex-direction: column;
         gap: 25px;
     }
-    main .container .top-part .right-side .details .account {
+    section .container .top-part .right-side .details .account {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
-    main .container .top-part .right-side .overview-sections {
+    section .container .top-part .right-side .overview-sections {
         justify-content: center;
     }
     .line2 {

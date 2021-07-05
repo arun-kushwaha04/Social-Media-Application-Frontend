@@ -111,7 +111,7 @@ a {
     margin-bottom: 0;
 }
 
-.sec .main-container .home-page .feed-section .user-posts .Posts header {
+.sec .user-posts .Posts header {
     margin-bottom: 1rem;
     font-weight: bold;
 }
@@ -1422,7 +1422,7 @@ section.dark .main-container {
     background: rgba(255, 255, 255, 0.336);
 }
 
-section.dark .main-container .home-page .feed-section .user-posts .Posts {
+section.dark .user-posts .Posts {
     color: white;
     background-color: #2f2660;
     box-shadow: -15px 15px 20px black;
@@ -1466,11 +1466,11 @@ section.dark .main-container .home-page .feed-section .add-user-feed {
     box-shadow: -15px 15px 20px black;
 }
 
-section.dark .main-container .home-page .feed-section .add-user-feed .underline-feed {
+section.dark .add-user-feed .underline-feed {
     background-color: #d1d1d149;
 }
 
-section.dark .main-container .home-page .feed-section .add-user-feed .add-photo-feed {
+section.dark .add-user-feed .add-photo-feed {
     color: rgb(255, 255, 255, 0.9);
     background-color: #2d2666d3;
 }
@@ -1480,12 +1480,12 @@ section.dark .image-selector .add-photo-feed {
     background-color: #2d2666d3;
 }
 
-section.dark .main-container .home-page .feed-section .add-feed-after-click .post-container {
+section.dark .add-feed-after-click .post-container {
     background-color: rgb(123, 93, 255);
     /* box-shadow: -7px 7px 15px black; */
 }
 
-section.dark .main-container .home-page .feed-section .add-feed-after-click .post-container .container-for-post .post-section textarea {
+section.dark textarea {
     background-color: transparent;
 }
 

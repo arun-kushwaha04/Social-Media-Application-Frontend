@@ -119,10 +119,14 @@ editProfileButtton.addEventListener('click', () => {
 });
 
 let theme = localStorage.getItem("theme");
-
+const nav2 = document.querySelector('.pnav');
+const sec = document.querySelector(".sec");
 const changeThemeButton = document.querySelector(".theme-changer");
 
-changeThemeButton.addEventListener('click', () => themeSlector());
+changeThemeButton.addEventListener('click', () => {
+    console.log('hi');
+    themeSlector()
+});
 
 function themeSlector() {
     nav2.style.background = "#0c033a";
@@ -174,6 +178,7 @@ async function getUserPosts() {
     }
 }
 
+//viewing the user post
 function addUserPost(element) {
     let originalpostid = element.originalpostid;
     if (originalpostid === null) {
@@ -184,12 +189,19 @@ function addUserPost(element) {
     const div = document.createElement("div");
     div.classList = "Posts";
     div.setAttribute('id', element.postid);
+    let heading = `${element.username}`;
+    if (element.userid != element.originaluserid) {
+        heading = ` 
+            ${element.username}</a>&nbsp; Shared Post Of &nbsp;
+            ${element.originalusername}
+        `
+    }
     div.innerHTML = `
     
         <header class="post-user-info">
             <img class="profile-photo-feed-insert" src="${element.profilephoto}" />
             <div class="user-name-feed">
-                ${element.username}
+                ${heading}
                 <div class="time">${element.datetime}</div>
             </div>
             <div class="update-post">
@@ -229,6 +241,7 @@ function addUserPost(element) {
     addPostImage(element.images, element.postid);
 }
 
+//function to display image to preview
 function addPostImage(ImageArray, postId, divElement) {
     const id = `preview${postId}`;
     let preview = document.querySelector(`#${id}`);
@@ -275,6 +288,7 @@ function addPostImage(ImageArray, postId, divElement) {
     })
 }
 
+//function to open comment section
 async function openCommentSection(event) {
     const commentSection = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[1];
     commentSection.classList.toggle('comment-section-open');
@@ -289,6 +303,7 @@ async function openCommentSection(event) {
     getAllComment(commentSection, userData);
 }
 
+//function to get comments of a post
 async function getAllComment(commentSection, userData) {
     commentSection.innerHTML = " ";
     while (commentSection.children.length > 1) {
@@ -362,6 +377,7 @@ feedText.addEventListener('input', () => {
     }
 })
 
+//opening the post div for editing
 const editPost = async(event) => {
     const postid = event.currentTarget.id;
     postId = postid;
@@ -404,7 +420,7 @@ closeEditPostDiv.addEventListener('click', () => {
 })
 
 
-//uploading image to firebase 
+//selecting various buttons
 const imageButton = document.querySelector('#img');
 const imageSelector = document.querySelector('.image-selector');
 const preview = document.querySelector('#feed-preview');
@@ -417,6 +433,7 @@ imageButton.addEventListener('change', (event) => {
     updateImageDisplay();
 })
 
+//function to display selected image to view
 function updateImageDisplay() {
     const curFiles = imageButton.files;
     if (curFiles.length !== 0 && counter < 5) {
@@ -465,7 +482,6 @@ function updateImageDisplay() {
 }
 
 //upload image to firebase storage then add th post to the database
-
 postButton.addEventListener('click', async() => {
     //message div 
     if (checker === 1 || imageToUpload.length === 0) {
@@ -504,6 +520,7 @@ uploadButton.addEventListener('click', () => {
     uploadImageToFirebase();
 })
 
+//a function to uplaoad image to firebase
 function uploadImageToFirebase() {
     if (imageToUpload.length === 0) {
         postButton.style.display = 'block';
@@ -550,7 +567,7 @@ function uploadImageToFirebase() {
     uploadButton.style.display = 'none';
 }
 
-//adding to post 
+//updating the post 
 async function addPost() {
     console.log('hi');
     containerForPost.style.display = 'block';
