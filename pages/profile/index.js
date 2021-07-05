@@ -151,9 +151,12 @@ function themeSlector() {
 //post on hover
 //function to get all user post
 async function getUserPosts() {
+    let userData = { username };
+    userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/feed/getUserPost`, {
-            method: "GET",
+            method: "POST",
+            body: userData,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `${localStorage.getItem("userToken")}`,
@@ -239,6 +242,63 @@ function addUserPost(element) {
     divContainer.appendChild(div2);
     container.appendChild(divContainer);
     addPostImage(element.images, element.postid);
+}
+
+//function to delete the post 
+const deletePost = async(event) => {
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+
+    const postId = event.currentTarget.id;
+    const post = event.target.parentElement.parentElement.parentElement;
+    let userData = { postId };
+    userData = JSON.stringify(userData);
+
+    try {
+        const res = await fetch(`${url}/feed/deleteUserPost`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        })
+
+        if (res.status === 200) {
+            const data = await res.json();
+            if (data.message === "Post Deleted") {
+                messageDiv.removeChild(error);
+                message.textContent = data.message;
+                success.style.opacity = 1;
+                post.parentElement.removeChild(post);
+            } else if (data.message === "Your Not Authoriized To Delete This Post") {
+                messageDiv.removeChild(success);
+                message.textContent = data.message;
+                error.style.opacity = 1;
+            }
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
+
+
 }
 
 //function to display image to preview
@@ -488,6 +548,10 @@ postButton.addEventListener('click', async() => {
         await modifyImageUrl();
         addPost();
     } else {
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);;
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('confirmation-message');
         messageDiv.innerHTML = `
@@ -573,6 +637,10 @@ async function addPost() {
     containerForPost.style.display = 'block';
     loadingEffect.style.display = 'none';
     //message div 
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);;
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `

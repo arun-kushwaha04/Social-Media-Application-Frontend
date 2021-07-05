@@ -84,6 +84,12 @@ html {
     height: 27px;
 }
 
+.phome,
+.pedit,
+.plogout {
+    cursor: pointer;
+}
+
 .bold {
     font-weight: bold;
 }
@@ -263,14 +269,14 @@ section .container .posts-container .posts .image img {
 }
 
 .fa-trash-alt {
-    color: red;
+    color: rgb(255, 129, 129);
     font-size: 1.5rem;
     cursor: pointer;
     margin-right: 1rem;
 }
 
 .fa-pen-square {
-    color: blue;
+    color: #b5ceff;
     font-size: 1.7rem;
     cursor: pointer;
     margin-left: 1rem;
@@ -413,4 +419,12 @@ section .container .posts-container .posts .image img {
     padding: 0.25rem;
     border-radius: 10px;
     color: #ffffffcc;
+}
+
+.dark .fa-pen-square {
+    color: rgb(103, 103, 255);
+}
+
+.dark .fa-trash-alt {
+    color: red;
 }

@@ -277,10 +277,11 @@ addPhoto.addEventListener('click', () => {
 
 closeAddFeed.addEventListener('click', () => {
     let i = 0;
-    while (preview.firstChild) {
+    imageUrl.forEach(element => {
         let ref = firebase.storage().refFromURL(imageUrl[i]);
         ref.delete();
-        i++;
+    })
+    while (preview.firstChild) {
         preview.removeChild(preview.firstChild);
     }
     counter = 0;
@@ -385,28 +386,28 @@ function updateImageDisplay() {
 //upload image to firebase storage then add th post to the database
 
 postButton.addEventListener('click', () => {
-    //message div 
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('confirmation-message');
-    messageDiv.innerHTML = `
-        <div class="icon1"><i class="fas fa-exclamation"></i></div>
-        <div class="icon2"><i class="fas fa-check"></i></div>
-        <div class="request-message">Connecting To Server ...</div>`;
-    messageContainer.appendChild(messageDiv);
-    messageDiv.style.opacity = '1';
-    const message = messageDiv.children[2];
-    const success = messageDiv.children[1];
-    const error = messageDiv.children[0];
     if (checker === 1 || imageToUpload.length === 0) addPost();
     else {
+        //message div 
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('confirmation-message');
+        messageDiv.innerHTML = `
+            <div class="icon1"><i class="fas fa-exclamation"></i></div>
+            <div class="icon2"><i class="fas fa-check"></i></div>
+            <div class="request-message">Connecting To Server ...</div>`;
+        messageContainer.appendChild(messageDiv);
+        messageDiv.style.opacity = '1';
+        const message = messageDiv.children[2];
+        const success = messageDiv.children[1];
+        const error = messageDiv.children[0];
         messageDiv.removeChild(success);
         message.textContent = 'First Upload Images';
         success.style.opacity = 1;
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            messageContainer.removeChild(messageDiv);
+        }, 2000);
     }
-    setTimeout(() => {
-        messageDiv.style.opacity = '0';
-        messageContainer.removeChild(messageDiv);
-    }, 2000);
 });
 
 uploadButton.addEventListener('click', () => {
@@ -441,7 +442,7 @@ function uploadImageToFirebase() {
                             imageUrl.push(downloadURL);
                         });
                 containerForPost.style.display = 'block';
-                loadingEffect.style.display = 'none';
+                setTimeout(() => { loadingEffect.style.display = 'none'; }, 2000);
                 // console.log(imageUrl);
             }
         )
