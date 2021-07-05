@@ -185,10 +185,30 @@ video.addEventListener("click", () => {
 })
 
 const profile = document.querySelector('.toProfile');
+const tocovidInfo = document.querySelector('.toCovidInfo');
+const toStory = document.querySelector('.toStory');
+const toVideo = document.querySelector('.toVideo');
+const toTrending = document.querySelector('.toTrending');
 const profile2 = document.querySelector('.toProfileInFeed');
-profile.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
-profile2.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+profile.addEventListener("click", () => {
+    location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+})
+// profile.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+// profile2.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
 
+
+toTrending.addEventListener("click", () => {
+    location.href = "https://trends.google.com/trends/";
+})
+toStory.addEventListener("click", () => {
+    location.href = `${frontendUrl}/pages/story/index.html`;
+})
+tocovidInfo.addEventListener("click", () => {
+    location.href = "https://www.who.int/emergencies/diseases/novel-coronavirus-2019";
+})
+toVideo.addEventListener("click", () => {
+    location.href = "https://www.youtube.com/";
+})
 
 //a function to fetch firebase credentials from backend
 async function fetchCredentials() {

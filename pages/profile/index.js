@@ -58,9 +58,8 @@ const fetchUserDetails = async() => {
 }
 
 
-
 homeButton.addEventListener('click', () => {
-    location.href = `${frontendUrl}/pages/dashboard/index.html}`;
+    location.href = `${frontendUrl}/pages/dashboard/dashboard.html`;
 });
 
 logoutButton.addEventListener('click', () => {
