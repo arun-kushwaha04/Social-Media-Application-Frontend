@@ -6,10 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../dashboard/dashboard.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
     <title>Dubify | Profile</title>
 </head>
 
@@ -17,27 +20,28 @@
     <div class="theme-changer" id="theme-button">
         <img src="../../assets/darkTheme.svg" alt="" />
     </div>
-    <nav>
+    <nav class="pnav">
         <p>Dubify</p>
         <div class="options">
-            <div class="home"><img src="../../assets/Home.svg" alt="Home" /></div>
-            <div class="edit">
+            <div class="phome"><img src="../../assets/Home.svg" alt="Home" /></div>
+            <div class="pedit">
+                <!-- <i class="fas fa-user-edit"></i> -->
                 <img src="../../assets/editProfile.svg" alt="Edit" />
             </div>
-            <div class="logout">
+            <div class="plogout">
                 <img src="../../assets/logout.svg" alt="Logout" />
             </div>
         </div>
     </nav>
-    <main>
+    <main class="sec">
         <div class="container">
             <div class="top-part">
-                <div class="profile-photo">
+                <div class="pprofile-photo">
                     <img src="../../assets/User3ProfilePhoto.jpg" alt="" class="user-image" />
                 </div>
-                <div class="right-side">
-                    <div class="details">
-                        <div class="account">
+                <div class="pright-side">
+                    <div class="pdetails">
+                        <div class="paccount">
                             <div class="username">Dawn_89</div>
                             <div class="name">Aliana</div>
                             <div class="email">aliana@gmail.com</div>
@@ -68,182 +72,111 @@
                 </div>
             </div>
             <!-- <div class="about-container">
-                ABOUT
-                <div class="underline"></div>
-                <div class="about-body about">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum eveniet optio, sint maiores officia cumque doloremque ratione animi dicta unde saepe? Accusantium recusandae inventore ut odit ratione dicta fugiat expedita quis voluptatum, laboriosam, eius
-                    architecto temporibus mollitia fuga quae atque.
-                </div>
-            </div> -->
+              ABOUT
+              <div class="underline"></div>
+              <div class="about-body about">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum eveniet optio, sint maiores officia cumque doloremque ratione animi dicta unde saepe? Accusantium recusandae inventore ut odit ratione dicta fugiat expedita quis voluptatum, laboriosam, eius
+                  architecto temporibus mollitia fuga quae atque.
+              </div>
+          </div> -->
             <div class="line"></div>
             <div class="posts-header bold">My Posts</div>
             <div class="line"></div>
-            <div class="posts-container">
-                <div class="posts">
-                    <div class="image">
-                        <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-                    </div>
-                    <!-- <div class="engageButtons">
-              <div class="like-button">
-                <img src="../../assets/LikeButton.svg" class="crazy-button" />
-                <span class="likes">2</span>
-              </div>
-              <div class="comment-button">
-                <img src="../../assets/Comment.svg" class="crazy-button" />
-                <span class="comments">2</span>
-              </div>
-              <div class="share-button">
-                <img src="../../assets/Share.svg" class="crazy-button" />
-                <span class="share">2</span>
-              </div>
-            </div> -->
-                </div>
-                <div class="posts">
-                    <div class="image">
-                        <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-                    </div>
-                    <!-- <div class="engageButtons">
-              <div class="like-button">
-                <img src="../../assets/LikeButton.svg" class="crazy-button" />
-                <span class="likes">2</span>
-              </div>
-              <div class="comment-button">
-                <img src="../../assets/Comment.svg" class="crazy-button" />
-                <span class="comments">2</span>
-              </div>
-              <div class="share-button">
-                <img src="../../assets/Share.svg" class="crazy-button" />
-                <span class="share">2</span>
-              </div>
-            </div> -->
-                </div>
-                <div class="posts">
-                    <div class="image">
-                        <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-                    </div>
-                    <!-- <div class="engageButtons">
-              <div class="like-button">
-                <img src="../../assets/LikeButton.svg" class="crazy-button" />
-                <span class="likes">2</span>
-              </div>
-              <div class="comment-button">
-                <img src="../../assets/Comment.svg" class="crazy-button" />
-                <span class="comments">2</span>
-              </div>
-              <div class="share-button">
-                <img src="../../assets/Share.svg" class="crazy-button" />
-                <span class="share">2</span>
-              </div>
-            </div> -->
-                </div>
-                <div class="posts">
-                    <div class="image">
-                        <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-                    </div>
-                    <!-- <div class="engageButtons">
-              <div class="like-button">
-                <img src="../../assets/LikeButton.svg" class="crazy-button" />
-                <span class="likes">2</span>
-              </div>
-              <div class="comment-button">
-                <img src="../../assets/Comment.svg" class="crazy-button" />
-                <span class="comments">2</span>
-              </div>
-              <div class="share-button">
-                <img src="../../assets/Share.svg" class="crazy-button" />
-                <span class="share">2</span>
-              </div>
-            </div> -->
-                </div>
-                <div class="posts">
-                    <div class="image">
-                        <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-                    </div>
-                    <!-- <div class="engageButtons">
-              <div class="like-button">
-                <img src="../../assets/LikeButton.svg" class="crazy-button" />
-                <span class="likes">2</span>
-              </div>
-              <div class="comment-button">
-                <img src="../../assets/Comment.svg" class="crazy-button" />
-                <span class="comments">2</span>
-              </div>
-              <div class="share-button">
-                <img src="../../assets/Share.svg" class="crazy-button" />
-                <span class="share">2</span>
-              </div>
-            </div> -->
-                </div>
-                <div class="posts">
-                    <div class="image">
-                        <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
-                    </div>
-                    <!-- <div class="engageButtons">
-              <div class="like-button">
-                <img src="../../assets/LikeButton.svg" class="crazy-button" />
-                <span class="likes">2</span>
-              </div>
-              <div class="comment-button">
-                <img src="../../assets/Comment.svg" class="crazy-button" />
-                <span class="comments">2</span>
-              </div>
-              <div class="share-button">
-                <img src="../../assets/Share.svg" class="crazy-button" />
-                <span class="share">2</span>
-              </div>
-            </div> -->
-                </div>
-            </div>
-        </div>
-        <!-- <div class="container">
-        <div class="right-container">
-          <div class="profile-container">
-            <div class="user-info">
-              <div class="profile-pic">
-                <img src="../../assets/User3ProfilePhoto.jpg" alt="" />
-              </div>
-              <div class="description">
-                <div class="name bold">Aliana</div>
-                <div class="email">aliana@gmail.com</div>
-              </div>
-            </div>
-            <div class="edit-button">Edit Profile</div>
-          </div>
 
-          <div class="overview-container">
-            <div class="overview-head bold">Overview</div>
-            <div class="overview-sections">
-              <div class="section">
-                <div class="section-head">Posts</div>
-                <div class="section-value postCount">14</div>
-              </div>
-              <div class="section">
-                <div class="section-head">Followers</div>
-                <div class="section-value followerCount">250</div>
-              </div>
-              <div class="section">
-                <div class="section-head">Following</div>
-                <div class="section-value followingCount">125</div>
-              </div>
-              <div class="section">
-                <div class="section-head">Likes</div>
-                <div class="section-value likeCount">550</div>
-              </div>
-            </div>
-          </div>
+            <!-- user Posts -->
+            <div class="user-posts">
+                <!-- <div>
+                    <div class="Posts">
+                        <header class="post-user-info">
+                            <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
+                            <div class="user-name-feed">
+                                Admin_1
+                                <div class="time">12.04.2020</div>
+                            </div>
+                            <div class="update-post">
+                                <i class="fas fa-trash-alt"></i>
+                                <i class="fas fa-pen-square"></i>
+                            </div>
+                        </header>
+                        <div class="content">
+                            <p>
+                                Time Waster
+                            </p>
+                            <div class="preview">
 
-          <div class="about-container">
-            <div class="about-head bold">About</div>
-            <div class="about-body">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
-              eveniet optio, sint maiores officia cumque doloremque ratione
-              animi dicta unde saepe? Accusantium recusandae inventore ut odit
-              ratione dicta fugiat expedita quis voluptatum, laboriosam, eius
-              architecto temporibus mollitia fuga quae atque.
+                            </div>
+                            <div class="engageButtons">
+                                <div class="like-button">
+                                    <i class="fas fa-heart crazy-button" onClick=""></i>
+                                    <span class="likes">2</span>
+                                </div>
+                                <div class="comment-button">
+                                    <i class="fas fa-comment-alt crazy-button" onClick=""></i>
+                                    <span class="comments">2</span>
+                                </div>
+                                <div class="share-button">
+                                    <i class="fas fa-share crazy-button"></i>
+                                    <span class="share">2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                <!-- <div class="comment-section"> -->
+                <!-- <div class="comment">
+                            <img class="profile-photo" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
+                            <div class="comment-box">
+                                <div class="comment-details">
+                                    <div class="comment-user-name">Arun Kushwaha</div>
+                                    <div class="comment-message">Nice Bro</div>
+                                </div>
+                                <div class="time">23 June 2021 17:22</div>
+                            </div>
+                        </div> -->
+                <!-- </div> -->
+
             </div>
-          </div>
+
         </div>
-      </div> -->
+
+        </div>
+
+        <div class="add-feed-after-click">
+            <article class="post-container">
+                <div class="container-for-post">
+                    <div class="heading">Create Post</div>
+                    <div class="underline-feed"></div>
+                    <div class="close-feed">
+                        <img class="profile-photo-close" src="../../assets/close.svg" alt="" />
+                    </div>
+                    <header class="post-user-info">
+                        <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
+                        <div class="user-name-feed">User Name</div>
+                    </header>
+
+                    <div class="post-section">
+                        <textarea class="feed-text" placeholder="What's In Your Crazy Mind" rows="4" cols="10"></textarea>
+                        <div class="preview"></div>
+                    </div>
+                    <input type="file" id="img" accept="image/*" data-max-total-files="4" data-max-file-size="3MB" />
+                    <label for="img" class="image-selector">
+                    <div class="add-photo-feed">
+                      <img
+                        class="add-photo-icon"
+                        src="../../assets/AddPhoto.svg"
+                        alt=""
+                      />Add Photo
+                    </div>
+                  </label>
+                    <div class="btn upload-button">Upload Images</div>
+                    <div class="btn post-button">Post</div>
+                </div>
+                <div class="loading-effect">
+                    <h3>Uploading...</h3>
+                    <progress class="loader" value="0" max="100">0%</progress>
+                </div>
+            </article>
+        </div>
+
     </main>
 </body>
 <script src="index.js"></script>

@@ -1,10 +1,10 @@
 //url 
-const url = "https://sheltered-citadel-84490.herokuapp.com";
-// const url = "http://localhost:8000";
+// const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = "http://localhost:8000";
 
 //fortend url
-const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-// const frontendUrl = `http://localhost:5500`;
+// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+const frontendUrl = `http://localhost:5500`;
 
 //message showing
 const messageContainer = document.querySelector('.message-container');
@@ -27,7 +27,7 @@ console.log(window.innerWidth);
 
 const myProfile = document.querySelector(".profile-photo-feed");
 myProfile.addEventListener("click", () => {
-    location.href = "/pages/profile/index.html"
+    location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
 })
 
 const sec = document.querySelector(".sec");
@@ -191,10 +191,10 @@ const toVideo = document.querySelector('.toVideo');
 const toTrending = document.querySelector('.toTrending');
 const profile2 = document.querySelector('.toProfileInFeed');
 profile.addEventListener("click", () => {
-    location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
-})
-// profile.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
-// profile2.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+        location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+    })
+    // profile.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+profile2.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
 
 
 toTrending.addEventListener("click", () => {
