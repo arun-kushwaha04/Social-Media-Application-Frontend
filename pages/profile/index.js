@@ -14,11 +14,11 @@ const editProfileButtton = document.querySelector('.pedit > img');
 const logoutButton = document.querySelector('.plogout > img');
 const userToken = localStorage.getItem("userToken");
 
-// const url = "https://sheltered-citadel-84490.herokuapp.com";
-const url = "http://localhost:8000";
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
 
-// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-const frontendUrl = `http://localhost:5500`;
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
 
 const currUrl = new URLSearchParams(window.location.search);
 const username = currUrl.get("username");
@@ -199,6 +199,11 @@ function addUserPost(element) {
             ${element.originalusername}
         `
     }
+    let buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>
+    <i class="fas fa-pen-square" id = "${element.postid}" onClick="editPost(event)"></i>`
+    if (username != localStorage.getItem("username")) {
+        buttons = '';
+    }
     div.innerHTML = `
     
         <header class="post-user-info">
@@ -208,8 +213,7 @@ function addUserPost(element) {
                 <div class="time">${element.datetime}</div>
             </div>
             <div class="update-post">
-                <i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>
-                <i class="fas fa-pen-square" id = "${element.postid}" onClick="editPost(event)"></i>
+                ${buttons}
             </div>
         </header>
         <div class="content">
