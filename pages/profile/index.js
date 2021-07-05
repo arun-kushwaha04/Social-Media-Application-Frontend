@@ -3,40 +3,59 @@ const editProfileButtton = document.querySelector('.edit > img');
 const logoutButton = document.querySelector('.logout > img');
 const userToken = localStorage.getItem("userToken");
 
-// const url = "https://sheltered-citadel-84490.herokuapp.com";
-const url = "http://localhost:8000";
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
 
-// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-const frontendUrl = `http://localhost:5500`;
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
 
+const currUrl = new URLSearchParams(window.location.search);
+const username = currUrl.get("username");
 
-const name = document.querySelector('.name');
+const name_ = document.querySelector('.name');
+const username_ = document.querySelector('.username');
 const email = document.querySelector('.email');
 const postCount = document.querySelector('.postCount');
 const followerCount = document.querySelector('.followerCount');
 const followingCount = document.querySelector('.followingCount');
 const likeCount = document.querySelector('.likeCount');
 const about = document.querySelector('.about');
+const photo = document.querySelector('.user-image');
 
+window.onload = () => {
+    fetchUserDetails();
+};
 
-window.addEventListener('load', () => {
-    if (userToken) {
-        fetch(`${url}/user/getUserinfo`, {
-                method: "POST",
-                headers: {
-                    "Authorization": `${localStorage.getItem("userToken")}`,
-                    "Content-Type": "application/json",
-                },
-            })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+// function to fetch user details
+const fetchUserDetails = async() => {
+    let userData = { username };
+    userData = JSON.stringify(userData);
+    try {
+        const res = await fetch(`${url}/user/getUserinfo`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Authorization": `${localStorage.getItem("userToken")}`,
+                "Content-Type": "application/json",
+            },
+        })
+        if (res.status === 200) {
+            const data = await res.json();
+            username_.innerHTML = username;
+            name_.innerHTML = data.userData.name;
+            email.innerHTML = data.userData.email;
+            postCount.innerHTML = data.userData.posts;
+            followerCount.innerHTML = data.userData.followers;
+            followingCount.innerHTML = data.userData.following;
+            likeCount.innerHTML = data.userData.likes;
+            // about.innerHTML = data.userData.about;            
+            photo.src = `${localStorage.getItem('profilePhoto')}`;
+        }
+    } catch (error) {
+        console.log(error);
     }
-});
+
+}
 
 
 
