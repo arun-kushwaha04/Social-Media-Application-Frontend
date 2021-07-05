@@ -284,6 +284,17 @@ main .container .posts-container .posts .image img {
     z-index: 100;
 }
 
+.psec .add-feed-after-click {
+    visibility: visible;
+    display: none;
+}
+
+.preview .close-image {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
 
 /* MEDIA QUERIES */
 

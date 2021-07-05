@@ -1,3 +1,14 @@
+let counter = 0;
+let count = 4;
+let checker = 0;
+let images = [];
+let imageToUpload = [];
+let imageUrl = [];
+let postImage = [];
+let postId;
+//message showing
+const messageContainer = document.querySelector('.message-container');
+const body = document.querySelector('body');
 const homeButton = document.querySelector('.phome > img');
 const editProfileButtton = document.querySelector('.pedit > img');
 const logoutButton = document.querySelector('.plogout > img');
@@ -22,10 +33,27 @@ const likeCount = document.querySelector('.likeCount');
 const about = document.querySelector('.about');
 const photo = document.querySelector('.user-image');
 
+
+let firebaseConfig;
 window.onload = () => {
+    fetchCredentials();
     fetchUserDetails();
     getUserPosts();
 };
+
+//get firebase credentials
+async function fetchCredentials() {
+    const response = await fetch(`${url}/uploadImage/addFeed`, {
+        method: "GET",
+    });
+    const credentials = await response.json();
+    if (response.ok) {
+        firebaseConfig = credentials.firebaseConfig;
+        firebase.initializeApp(firebaseConfig);
+    } else {
+        return Promise.reject(response);
+    }
+}
 
 // function to fetch user details
 const fetchUserDetails = async() => {
@@ -202,13 +230,45 @@ function addUserPost(element) {
     addPostImage(element.images, element.postid);
 }
 
-function addPostImage(ImageArray, postId) {
+function addPostImage(ImageArray, postId, divElement) {
     const id = `preview${postId}`;
-    const preview = document.querySelector(`#${id}`);
+    let preview = document.querySelector(`#${id}`);
+    if (divElement) preview = divElement;
+    let i = 0;
     ImageArray.forEach(element => {
         const div = document.createElement('div');
+        div.style.position = 'relative';
         const img = document.createElement('img');
         img.classList.add('feed-image');
+        if (divElement) {
+            const closeImageDiv = document.createElement('div');
+            closeImageDiv.classList.add('close-image');
+            closeImageDiv.onclick = function(event) {
+                const parent = this.parentElement;
+                this.parentElement.parentElement.removeChild(parent);
+                const id = parseInt(this.children[0].id);
+                const toRemoveImage = postImage[id];
+                postImage[id] = null;
+                let ref = firebase.storage().refFromURL(toRemoveImage);
+                ref.delete();
+                counter--;
+                if (counter <= 3) {
+                    imageSelector.style.display = 'block';
+                }
+                if (counter === 0) {
+                    uploadButton.style.display = 'none';
+                    postButton.style.display = 'none';
+                }
+            };
+            const closeImage = document.createElement('img');
+            closeImage.src = '../../assets/close.svg';
+            closeImage.setAttribute('id', `${i}`);
+            closeImage.classList.add('profile-photo-close');
+            closeImage.classList.add('image-photo-close');
+            closeImageDiv.appendChild(closeImage);
+            div.appendChild(closeImageDiv);
+            i++;
+        }
         img.src = element;
         div.appendChild(img);
         preview.appendChild(div);
@@ -269,4 +329,277 @@ async function getAllComment(commentSection, userData) {
     } else {
         console.log('error');
     }
+}
+
+
+//Edit The Post
+const editPostDiv = document.querySelector('.add-feed-after-click');
+const closeEditPostDiv = document.querySelector('.close-feed');
+const userInfo = document.querySelector('.post-user-info');
+const description = document.querySelector('.feed-text');
+const feedPreview = document.querySelector('#feed-preview');
+
+const postButton = document.querySelector('.post-button');
+const uploadButton = document.querySelector('.upload-button');
+const feedText = document.querySelector('.feed-text');
+
+const editPost = async(event) => {
+    const postid = event.currentTarget.id;
+    postId = postid;
+    editPostDiv.style.display = 'block';
+    editPostDiv.scrollIntoView();
+    feedPreview.innerHTML = '';
+    let userData = { postid };
+    userData = JSON.stringify(userData);
+    try {
+        const res = await fetch(`${url}/feed/getPostById`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            userInfo.children[0].src = data.post.profilephoto;
+            userInfo.children[1].innerHTML = data.post.username;
+            description.innerHTML = data.post.description;
+            counter = data.post.images.length;
+            if (counter <= 3) {
+                console.log('displaying image selector')
+                imageSelector.style.display = 'block';
+            }
+            postImage = data.post.images;
+            body.style.overflowY = 'hidden';
+            addPostImage(data.post.images, null, feedPreview);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+closeEditPostDiv.addEventListener('click', () => {
+    editPostDiv.style.display = 'none';
+    body.style.overflowY = 'auto';
+})
+
+
+//uploading image to firebase 
+const imageButton = document.querySelector('#img');
+const imageSelector = document.querySelector('.image-selector');
+const preview = document.querySelector('#feed-preview');
+const containerForPost = document.querySelector('.container-for-post');
+const loadingEffect = document.querySelector('.loading-effect');
+const loader = document.querySelector('.loader');
+
+imageButton.addEventListener('change', (event) => {
+    imageToUpload.push(event.target.files[0]);
+    updateImageDisplay();
+})
+
+function updateImageDisplay() {
+    const curFiles = imageButton.files;
+    if (curFiles.length !== 0 && counter < 5) {
+        uploadButton.style.display = 'block';
+        postButton.style.display = 'none';
+        counter++;
+        const div = document.createElement('div');
+        div.style.position = 'relative';
+        const img = document.createElement('img');
+        img.classList.add('feed-image');
+        imageSelector.style.display = 'block';
+        for (const file of curFiles) {
+            // para.textContent = `File name ${file.name}, file size ${returnFileSize(file.size)}.`;
+            const closeImageDiv = document.createElement('div');
+            closeImageDiv.classList.add('close-image');
+            closeImageDiv.onclick = function(event) {
+                const parent = this.parentElement;
+                this.parentElement.parentElement.removeChild(parent);
+                imageToUpload.splice(event.target.id - 4, 1);
+                count++;
+                counter--;
+                if (counter <= 3) {
+                    imageSelector.style.display = 'block';
+                }
+                if (counter === 0) {
+                    uploadButton.style.display = 'none';
+                    postButton.style.display = 'none';
+                }
+            };
+            const closeImage = document.createElement('img');
+            closeImage.src = '../../assets/close.svg';
+            closeImage.setAttribute('id', `${count-1}`);
+            closeImage.classList.add('profile-photo-close');
+            closeImage.classList.add('image-photo-close');
+            closeImageDiv.appendChild(closeImage);
+            img.src = URL.createObjectURL(file);
+            div.appendChild(closeImageDiv);
+            div.appendChild(img);
+            preview.appendChild(div);
+        }
+    }
+    if (counter > 3) {
+        imageSelector.style.display = 'none';
+        return;
+    }
+}
+
+//upload image to firebase storage then add th post to the database
+
+postButton.addEventListener('click', async() => {
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+    if (checker === 1 || imageToUpload.length === 0) {
+        await modifyImageUrl();
+        console.log(postImage, imageUrl);
+        addPost();
+    } else {
+        messageDiv.removeChild(success);
+        message.textContent = 'First Upload Images';
+        success.style.opacity = 1;
+    }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
+});
+
+const modifyImageUrl = () => {
+    for (let i = postImage.length; i >= 0; i--) {
+        if (postImage[i] === null || postImage[i] === undefined) continue;
+        else imageUrl.unshift(postImage[i]);
+    }
+}
+
+uploadButton.addEventListener('click', () => {
+    uploadImageToFirebase();
+})
+
+function uploadImageToFirebase() {
+    containerForPost.style.display = 'none';
+    loadingEffect.style.display = 'block';
+    for (let i = 0; i < imageToUpload.length; i++) {
+        let today = new Date();
+        let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let dateTime = date + ' ' + time;
+        const element = imageToUpload[i];
+        let ans = Math.random().toString(36).slice(2);
+        const refVar = firebase.storage().ref('feeds/' + ans + element.lastModified + dateTime + element.name);
+        let task = refVar.put(element);
+        task.on('state_changed',
+            function progress(snapshot) {
+                var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                loader.value = percentage;
+            },
+            function error(err) {
+                console.log(err);
+            },
+            function complete() {
+                task.snapshot.ref.getDownloadURL()
+                    .then(
+                        function(downloadURL) {
+                            //we got the url of the image 
+                            imageUrl.push(downloadURL);
+                        });
+                containerForPost.style.display = 'block';
+                loadingEffect.style.display = 'none';
+                // console.log(imageUrl);
+            }
+        )
+    }
+    checker = 1;
+    document.querySelectorAll('.close-image').forEach(element => {
+        element.style.display = 'none';
+    })
+    postButton.style.display = 'block';
+    uploadButton.style.display = 'none';
+}
+
+//adding to post 
+async function addPost() {
+    console.log('hi');
+    containerForPost.style.display = 'block';
+    loadingEffect.style.display = 'none';
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+
+    if (feedText.value.length > 40) {
+        messageDiv.removeChild(success);
+        message.textContent = '40 Characters At Max In Posts';
+        error.style.opacity = 1;
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            messageContainer.removeChild(messageDiv);
+        }, 2000);
+        return;
+    } else {
+
+        let userData = {
+            image: imageUrl,
+            description: feedText.value,
+            postId,
+        }
+        userData = JSON.stringify(userData);
+        imageToUpload = [];
+        imageUrl = [];
+        try {
+            const res = await fetch(`${url}/feed/editUserPost`, {
+                method: "POST",
+                body: userData,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                },
+            });
+            if (res.status === 200) {
+                const data = await res.json();
+                if (data.message === 'Post Updtaed') {
+                    //inform the user oabout this
+                    body.style.overflowY = 'scroll';
+                    editPostDiv.style.visibility = 'hidden';
+                    messageDiv.removeChild(error);
+                    message.textContent = data.message;
+                    success.style.opacity = 1;
+                } else {
+                    //error handling to be done
+                    messageDiv.removeChild(success);
+                    message.textContent = 'Internal Server Error';
+                    success.style.opacity = 1;
+                }
+            }
+        } catch (error) {
+            console.log(error);
+            messageDiv.removeChild(success);
+            message.textContent = 'Internal Server Error';
+            success.style.opacity = 1;
+        }
+        setTimeout(() => {
+            messageDiv.style.opacity = '0';
+            messageContainer.removeChild(messageDiv);
+        }, 2000);
+    }
+
+
 }

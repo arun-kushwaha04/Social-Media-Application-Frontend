@@ -33,7 +33,7 @@
             </div>
         </div>
     </nav>
-    <main class="sec">
+    <main class="sec psec">
         <div class="container">
             <div class="top-part">
                 <div class="pprofile-photo">
@@ -143,19 +143,19 @@
         <div class="add-feed-after-click">
             <article class="post-container">
                 <div class="container-for-post">
-                    <div class="heading">Create Post</div>
+                    <div class="heading">Edit Post</div>
                     <div class="underline-feed"></div>
                     <div class="close-feed">
                         <img class="profile-photo-close" src="../../assets/close.svg" alt="" />
                     </div>
                     <header class="post-user-info">
-                        <img class="profile-photo-feed-insert" src="https://avatars.githubusercontent.com/u/73020364?s=400&u=13c167fc6df89577fba90d5cfa361131df588266&v=4" />
+                        <img class="profile-photo-feed-insert" src="" />
                         <div class="user-name-feed">User Name</div>
                     </header>
 
                     <div class="post-section">
                         <textarea class="feed-text" placeholder="What's In Your Crazy Mind" rows="4" cols="10"></textarea>
-                        <div class="preview"></div>
+                        <div class="preview" id="feed-preview"></div>
                     </div>
                     <input type="file" id="img" accept="image/*" data-max-total-files="4" data-max-file-size="3MB" />
                     <label for="img" class="image-selector">
@@ -168,7 +168,7 @@
                     </div>
                   </label>
                     <div class="btn upload-button">Upload Images</div>
-                    <div class="btn post-button">Post</div>
+                    <div class="btn post-button">Edit Post</div>
                 </div>
                 <div class="loading-effect">
                     <h3>Uploading...</h3>
@@ -178,7 +178,18 @@
         </div>
 
     </main>
+    <div class="message-container">
+        <!--<div class="confirmation-message">
+        <div class="icon1 "><i class="fas fa-exclamation"></i></div>
+        <div class="icon2 "><i class="fas fa-check"></i></div>
+        <div class="request-message">
+        Post Created Successfully</div>
+      </div>-->
+    </div>
 </body>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
 <script src="index.js"></script>
 
 </html>
