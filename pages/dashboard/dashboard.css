@@ -736,6 +736,7 @@ section {
   height: 4rem;
   gap: 4px;
   padding: 10px 7px;
+  cursor: pointer;
 }
 
 .sec .left-section .lower .feature a {
@@ -1396,67 +1397,6 @@ section {
     margin-bottom: 5rem;
   }
 }
-
-/* DARK THEME */
-
-/* .sec .main-container-dark {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.sec .main-container .home-page .feed-section .user-posts .Posts-dark {
-  background-color: rgba(0, 0, 0, 0.06);
-  box-shadow: -15px 15px 20px black;
-}
-
-.sec .right-section .events-block .events-table .event-dark > h3 {
-  color: rgba(90, 181, 255, 0.897);
-}
-
-.sec .right-section .events-block .events-table .event-dark {
-  background-color: rgba(0, 0, 0, 0.06);
-  box-shadow: -7px 7px 15px black;
-}
-
-.sec .right-section .events-block-dark > h2,
-.suggestions-dark > h2 {
-  font-size: 1.75em;
-  color: rgba(120, 96, 231, 0.897);
-}
-
-.nav-dark {
-  background-color: #0c033a;
-  border-bottom: 2px solid rgb(251, 122, 201);
-}
-
-.confirmation-message-dark {
-  background-color: rgb(251, 122, 201);
-}
-
-.sec .left-section .lower .feature-dark a {
-  color: rgba(255, 255, 255, 0.8);
-  align-self: center;
-}
-
-.sec .left-section .lower .feature-dark:hover {
-  background-color: rgba(123, 93, 255, 0.897);
-}
-.sec .left-section .lower .feature-dark a:hover {
-  color: white;
-}
-
-.sec .main-container .home-page .feed-section .add-user-feed-dark {
-  background-color: rgba(123, 93, 255, 0.897);
-  box-shadow: -15px 15px 20px black;
-}
-
-.sec .main-container .home-page .feed-section .add-user-feed .underline-feed-dark {
-  background-color: #d1d1d149;
-}
-
-.sec .main-container .home-page .feed-section .add-user-feed .add-photo-feed-dark {
-  color: rgb(255, 255, 255, 0.9);
-  background-color: #2d2666d3;
-} */
 
 /*DARK THEME  */
 
