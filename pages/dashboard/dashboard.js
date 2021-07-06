@@ -14,20 +14,21 @@ let users;
 let firebaseConfig;
 let following;
 
-
-window.onload = () => {
-    getUserList();
-    fetchCredentials();
-    getUserPosts();
-    getFollowing();
-    getSuggestionList();
-}
+getUserList();
+fetchCredentials();
+getUserPosts();
+getFollowing();
+getSuggestionList();
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.loader-animation');
+    loader.classList.add('loader-end');
+})
 
 console.log(window.innerWidth);
 
 const myProfile = document.querySelector(".profile-photo-feed");
 myProfile.addEventListener("click", () => {
-    location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+    location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}&userId=${localStorage.getItem("userId")}`;
 })
 
 const sec = document.querySelector(".sec");
@@ -79,11 +80,11 @@ const populateSearchResults = (users) => {
         div.classList.add('search-result-section');
         div.innerHTML = `
         
-        <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img src="${element.profilephoto}" class="profile-photo" id="${element.username}"></a>
+        <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}"><img src="${element.profilephoto}" class="profile-photo" id="${element.username}"></a>
         <div class="search-details">
-            <div class="search-username"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}" target='_blank'>${element.username}</a></div>
-            <span class="search-name"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}" target='_blank'>${element.name}</a></span>&nbsp;&nbsp;
-            <span class="search-email"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}" target='_blank'>${element.email}</a></span>
+            <div class="search-username"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}" target='_blank'>${element.username}</a></div>
+            <span class="search-name"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}" target='_blank'>${element.name}</a></span>&nbsp;&nbsp;
+            <span class="search-email"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}" target='_blank'>${element.email}</a></span>
         </div>
         
         `
@@ -159,15 +160,18 @@ async function getSuggestionList() {
 }
 const suggestionsTable = document.querySelector('.users-table-suggestion')
 
+console.log = function() {}
 
 function populateSuggestion(suggestion) {
     suggestionsTable.innerHTML = " ";
-    suggestion.forEach(element => {
+    for (let i = 0; i < suggestion.length; i++) {
+        if (i >= 10) break;
+        element = suggestion[i];
         const div = document.createElement('div');
         div.classList.add('user');
         div.innerHTML = `
-            <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img src="${element.profilephoto}" class="profile-photo" /></a>
-            <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">${element.username}</a></span>
+            <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}"><img src="${element.profilephoto}" class="profile-photo" /></a>
+            <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}">${element.username}</a></span>
             <div class="follow-btn"><i class="fas fa-user-plus" id='${element.id}' ></i></div>
         `;
         suggestionsTable.appendChild(div);
@@ -175,7 +179,7 @@ function populateSuggestion(suggestion) {
             followUser(event);
         })
         setRightSectionHeight();
-    })
+    }
 }
 
 
@@ -196,10 +200,10 @@ const toVideo = document.querySelector('.toVideo');
 const toTrending = document.querySelector('.toTrending');
 const profile2 = document.querySelector('.toProfileInFeed');
 profile.addEventListener("click", () => {
-        location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+        location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}&userId=${localStorage.getItem("userId")}`;
     })
     // profile.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
-profile2.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+profile2.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}&userId=${localStorage.getItem("userId")}`;
 
 
 toTrending.addEventListener("click", () => {
@@ -283,13 +287,14 @@ addPhoto.addEventListener('click', () => {
 closeAddFeed.addEventListener('click', () => {
     let i = 0;
     imageUrl.forEach(element => {
-        let ref = firebase.storage().refFromURL(imageUrl[i]);
+        let ref = firebase.storage().refFromURL(element);
         ref.delete();
     })
     while (preview.firstChild) {
         preview.removeChild(preview.firstChild);
     }
     counter = 0;
+    feedText.value = '';
     postButton.style.display = 'none';
     uploadButton.style.display = 'none';
     body.style.overflowY = 'scroll';
@@ -419,6 +424,8 @@ uploadButton.addEventListener('click', () => {
     uploadImageToFirebase();
 })
 
+let imageUploadCounter = 0;
+
 function uploadImageToFirebase() {
     containerForPost.style.display = 'none';
     loadingEffect.style.display = 'block';
@@ -446,8 +453,15 @@ function uploadImageToFirebase() {
                             //we got the url of the image 
                             imageUrl.push(downloadURL);
                         });
-                containerForPost.style.display = 'block';
-                setTimeout(() => { loadingEffect.style.display = 'none'; }, 2000);
+                imageUploadCounter++;
+                if (imageUploadCounter === imageToUpload.length) {
+                    containerForPost.style.display = 'block';
+                    loadingEffect.style.display = 'none';
+                    // setTimeout(() => {
+                    //     containerForPost.style.display = 'block';
+                    //     loadingEffect.style.display = 'none';
+                    // }, 2000);
+                }
                 // console.log(imageUrl);
             }
         )
@@ -546,9 +560,9 @@ function isLiked(element, div, container, divContainer) {
 
             if (element.userid != element.originaluserid) {
                 heading = ` <div class="user-name-feed">
-                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">
+                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.userid}">
                     ${element.username}</a>&nbsp; Shared Post Of &nbsp;
-                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.originalusername}">
+                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.originalusername}&userId=${element.originaluserid}">
                     ${element.originalusername}</a>
                     <div class="time">${element.datetime}</div>
                 </div>`
@@ -734,8 +748,8 @@ function renderFollowingList(following) {
         const div = document.createElement('div');
         div.classList.add('user');
         div.innerHTML = `
-            <a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}"><img src="${element.profilephoto}" class="profile-photo" id="${element.following}"/></a>
-            <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}">${element.followingrusername}</a></span>
+            <a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}&userId=${element.following}"><img src="${element.profilephoto}" class="profile-photo" id="${element.following}"/></a>
+            <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}&userId=${element.following}">${element.followingrusername}</a></span>
             <div class="follow-btn"><i class="fas fa-user-minus" id='${element.following}'></i></div>
         `;
         div.children[2].addEventListener('click', (event) => {

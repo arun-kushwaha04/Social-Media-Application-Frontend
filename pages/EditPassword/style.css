@@ -21,6 +21,8 @@ body {
     background-color: #fff;
     font-size: 1.6rem;
     padding: 1.4em;
+    min-height: 5rem;
+    min-width: 50vw;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
     width: 47.5rem;
 }
@@ -136,4 +138,31 @@ body {
     border-radius: 0.5em;
     display: none;
     /* display: 'none'; */
+}
+
+@media (max-width: 500px) {
+    html {
+        font-size: 5px;
+    }
+    .container {
+        width: 90vw;
+    }
+}
+
+@media (min-width:501px) and (max-width: 768px) {
+    html {
+        font-size: 7px;
+    }
+    .container {
+        width: 80vw;
+    }
+}
+
+@media (min-width:769px) and (max-width: 1024px) {
+    html {
+        font-size: 10px;
+    }
+    .container {
+        width: 70vw;
+    }
 }

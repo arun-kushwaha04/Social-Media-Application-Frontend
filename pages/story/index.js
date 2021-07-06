@@ -25,18 +25,14 @@ const url = "https://sheltered-citadel-84490.herokuapp.com";
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 // const frontendUrl = `http://localhost:5500`;
 
+
 //message showing
 const messageContainer = document.querySelector('.message-container');
 
 let firebaseConfig;
 
 
-window.onload = () => {
-    fetchCredentials();
-    getFollowing();
-    getUserStory(localStorage.getItem('userId'), 1);
-}
-
+window.onload = () => {}
 document.querySelector('.user-story-div').src = localStorage.getItem('profilePhoto');
 
 //a function to fetch firebase credentials from backend
@@ -103,13 +99,15 @@ const getUserStory = async(userId, arg, arg2) => {
                     if (arg2) renderUserStory();
                 }
             } else {
-                //error handling
+                console.log(error);
             }
         } catch (error) {
             console.log(error);
         }
     }
     //getting the following users
+
+console.log = function() {}
 async function getFollowing() {
     try {
         const res = await fetch(`${url}/story/getStoryList`, {
@@ -229,12 +227,11 @@ const renderFollowingList = (following) => {
         div.addEventListener("click", (event) => {
             chk = 0;
             const id = event.currentTarget.id;
-            console.log(id);
             if (id) {
                 if (window.innerWidth <= 1170) {
-                    console.log('calling function')
                     showRightContainer();
                 }
+                document.querySelector('.like-story-div').style.display = 'block';
                 updateViewStory(element.storyid);
                 image = followingStory[id];
                 renderUserStory();
@@ -388,10 +385,11 @@ viewStoryButtonDiv.addEventListener('click', () => {
     document.querySelector('.story-likes').innerHTML = `${element.likes}`;
     document.querySelector('.story-views').innerHTML = `${element.views}`;
     nav.style.visibility = 'visible';
+    document.querySelector('.like-story-div').style.display = 'none';
     renderUserStory();
 })
 
-//updating  view on a story
+//updating view on a story
 const updateViewStory = async(storyId) => {
     try {
         let userData = {
@@ -416,7 +414,8 @@ const updateViewStory = async(storyId) => {
 //logic for liking a image in a story
 const likeButton = document.querySelector('.crazy-button');
 
-currentImage.addEventListener('mouseover', (event) => {
+currentImage.addEventListener('mouseover', (e) => {
+    e.preventDefault();
     const id = currentImage.id;
     const storyId = currentImage.children[0].id;
     if (id && storyId && chk === 0) {
@@ -512,8 +511,6 @@ nextButton.addEventListener("click", () => nextButtonClick());
 previousButton.addEventListener("click", () => previousButtonClick());
 
 
-
-
 //providing user to add the story 
 const addStory = document.querySelector('.add-user-story');
 const addStoryDiv = document.querySelector('.add-story-to-screen');
@@ -537,3 +534,8 @@ addStory.addEventListener("click", () => {
     renderMainContainerBackground();
 
 })
+
+
+fetchCredentials();
+getFollowing();
+getUserStory(localStorage.getItem('userId'), 1);

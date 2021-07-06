@@ -1,14 +1,13 @@
 const url = "https://sheltered-citadel-84490.herokuapp.com";
 // const url = "http://localhost:8000";
 
+//fortend url
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
+
 
 // particle js configuration
 particlesJS.load("particles-js", "particlesjs-config.json");
-
-//fortend url
-// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-const frontendUrl = `http://localhost:5500`;
-
 const register = document.querySelector(".register");
 //changing sign and login page
 
@@ -275,7 +274,11 @@ const registerUser = async(userData, email) => {
 }
 
 //logging in the user
+const loading = document.querySelector('.loadingGIF');
 async function loginUser(userData) {
+    loading.scrollIntoView();
+    loading.style.opacity = 1;
+
     try {
         const res = await fetch(`${url}/auth/login`, {
             method: 'POST',
@@ -311,7 +314,10 @@ async function loginUser(userData) {
             localStorage.setItem("theme", 0);
             console.log(data);
             location.replace("./pages/dashboard/dashboard.html");
+            return;
         }
+        loading.style.opacity = 0;
+        login.scrollIntoView();
     } catch (err) {
         console.log(err);
         //Error to be shown of server down

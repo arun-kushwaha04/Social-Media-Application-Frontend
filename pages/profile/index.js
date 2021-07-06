@@ -4,24 +4,31 @@ let checker = 0;
 let images = [];
 let imageToUpload = [];
 let imageUrl = [];
+let imageToDelete = [];
 let postImage = [];
+let post;
 let postId;
+
 //message showing
 const messageContainer = document.querySelector('.message-container');
 const body = document.querySelector('body');
 const homeButton = document.querySelector('.phome > img');
-const editProfileButtton = document.querySelector('.pedit > img');
+const editProfileButtton = document.querySelector('.pedit');
+const dropDownList = document.querySelector('#myDropdown');
 const logoutButton = document.querySelector('.plogout > img');
 const userToken = localStorage.getItem("userToken");
 
 const url = "https://sheltered-citadel-84490.herokuapp.com";
 // const url = "http://localhost:8000";
 
+//fortend url
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 // const frontendUrl = `http://localhost:5500`;
 
+
 const currUrl = new URLSearchParams(window.location.search);
 const username = currUrl.get("username");
+const userId = currUrl.get("userId");
 
 const name_ = document.querySelector('.name');
 const username_ = document.querySelector('.username');
@@ -38,8 +45,25 @@ let firebaseConfig;
 window.onload = () => {
     fetchCredentials();
     fetchUserDetails();
+    if (username != localStorage.getItem('username')) isUserFollowing();
     getUserPosts();
 };
+
+
+//drop down menu items
+if (username != localStorage.getItem('username')) {
+    editProfileButtton.style.display = 'none';
+}
+editProfileButtton.addEventListener('click', () => {
+    if (username === localStorage.getItem('username')) dropDownList.classList.toggle('show');
+});
+
+//setting href for various edit functions
+const editName = document.querySelector('.update-name');
+const editPassword = document.querySelector('.update-password');
+editName.href = `../EditName/index.html`;
+editPassword.href = `../EditPassword/index.html`
+
 
 //get firebase credentials
 async function fetchCredentials() {
@@ -114,9 +138,7 @@ logoutButton.addEventListener('click', () => {
     localStorage.removeItem('userId');
 });
 
-editProfileButtton.addEventListener('click', () => {
-    location.href = "";
-});
+
 
 let theme = localStorage.getItem("theme");
 const nav2 = document.querySelector('.pnav');
@@ -165,7 +187,7 @@ async function getUserPosts() {
         if (res.status === 200) {
             const data = await res.json();
             //we have to load the post of user.
-            const post = data.post;
+            post = data.post;
             console.log(post);
             for (let i = 0; i < post.length; i++) {
                 addUserPost(post[i]);
@@ -203,6 +225,9 @@ function addUserPost(element) {
     <i class="fas fa-pen-square" id = "${element.postid}" onClick="editPost(event)"></i>`
     if (username != localStorage.getItem("username")) {
         buttons = '';
+    }
+    if (element.userid != element.originaluserid) {
+        buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>`;
     }
     div.innerHTML = `
     
@@ -283,7 +308,8 @@ const deletePost = async(event) => {
 
         if (res.status === 200) {
             const data = await res.json();
-            if (data.message === "Post Deleted") {
+            if (data.message === "Post Deleted" || data.message === "Post And All Shared Links Deleted") {
+                delteImagesFromFirebase(postId);
                 messageDiv.removeChild(error);
                 message.textContent = data.message;
                 success.style.opacity = 1;
@@ -303,6 +329,23 @@ const deletePost = async(event) => {
     }, 2000);
 
 
+}
+
+//function to delte images from firebase
+const delteImagesFromFirebase = async(postId) => {
+    imageToDelete = [];
+    for (let i = 0; i < post.length; i++) {
+        element = post[i];
+        console.log(element);
+        if (element.postid == postId) {
+            imageToDelete = element.images;
+            break;
+        }
+    }
+    imageToDelete.forEach(element => {
+        const ref = firebase.storage().refFromURL(element);
+        ref.delete();
+    })
 }
 
 //function to display image to preview
@@ -326,15 +369,15 @@ function addPostImage(ImageArray, postId, divElement) {
                 const toRemoveImage = postImage[id];
                 postImage[id] = null;
                 let ref = firebase.storage().refFromURL(toRemoveImage);
-                ref.delete();
+                imageToDelete.push(ref);
                 counter--;
-                postButton.style.display = 'block';
-                if (counter <= 3) {
+                if (count === 4) {
+                    postButton.style.display = 'block';
+                } else if (counter <= 3) {
                     imageSelector.style.display = 'block';
-                }
-                if (counter === 0) {
+                } else if (counter === 0) {
                     uploadButton.style.display = 'none';
-                    // postButton.style.display = 'none';
+                    postButton.style.display = 'none';
                 }
             };
             const closeImage = document.createElement('img');
@@ -588,6 +631,7 @@ uploadButton.addEventListener('click', () => {
     uploadImageToFirebase();
 })
 
+let imageUploadCounter = 0;
 //a function to uplaoad image to firebase
 function uploadImageToFirebase() {
     if (imageToUpload.length === 0) {
@@ -621,8 +665,11 @@ function uploadImageToFirebase() {
                             //we got the url of the image 
                             imageUrl.push(downloadURL);
                         });
-                containerForPost.style.display = 'block';
-                loadingEffect.style.display = 'none';
+                imageUploadCounter++;
+                if (imageUploadCounter === imageToUpload.length) {
+                    containerForPost.style.display = 'block';
+                    loadingEffect.style.display = 'none';
+                }
                 // console.log(imageUrl);
             }
         )
@@ -695,6 +742,9 @@ async function addPost() {
                     messageDiv.removeChild(error);
                     message.textContent = data.message;
                     success.style.opacity = 1;
+                    imageToDelete.forEach(element => {
+                        element.delete();
+                    })
                 } else {
                     //error handling to be done
                     messageDiv.removeChild(success);
@@ -714,4 +764,252 @@ async function addPost() {
             location.reload();
         }, 2000);
     }
+}
+
+//profile photo update 
+
+const profilePhotoDiv = document.querySelector('.pprofile-photo');
+const updateProfilePhotoDiv = document.querySelector('.pprofile-photo-over');
+const newProfilePhoto = document.querySelector('#img-profile-photo');
+
+profilePhotoDiv.addEventListener('mouseover', () => {
+    if (username === localStorage.getItem('username')) updateProfilePhotoDiv.style.opacity = 1;
+}, false);
+profilePhotoDiv.addEventListener('mouseout', () => {
+    updateProfilePhotoDiv.style.opacity = 0;
+}, false);
+newProfilePhoto.addEventListener('change', (event) => {
+    alert('hi');
+    console.log('hi form clicked');
+    const file = event.target.files[0];
+    const currentProfilePhoto = localStorage.getItem('profilePhoto');
+    uploadProfilePhotoToFirebase(file, currentProfilePhoto);
+})
+
+const uploadProfilePhotoToFirebase = (file, currentProfilePhoto) => {
+    console.log('hi form firebase');
+    let today = new Date();
+    let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + ' ' + time;
+    const element = file;
+    let ans = Math.random().toString(36).slice(2);
+    const refVar = firebase.storage().ref('Profile-Photos/' + ans + element.lastModified + dateTime + element.name);
+    let task = refVar.put(element);
+    task.on('state_changed',
+        function progress(snapshot) {
+            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        },
+        function error(err) {
+            console.log(err);
+        },
+        function complete() {
+            task.snapshot.ref.getDownloadURL()
+                .then(
+                    function(downloadURL) {
+                        updateProfilePhotoToDataBase(downloadURL, currentProfilePhoto);
+                    });
+        }
+    )
+}
+const updateProfilePhotoToDataBase = async(downloadURL, currentProfilePhoto) => {
+    console.log('hi');
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+    let userData = {
+        profilePhoto: downloadURL,
+    };
+    userData = JSON.stringify(userData);
+    try {
+        const res = await fetch(`${url}/user/updateProfilePhoto`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+            body: userData,
+        })
+        if (res.status === 200) {
+            const data = await res.json();
+            localStorage.setItem("profilePhoto", downloadURL);
+            const profilePhotoUrl = 'https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Profile-Photos%2F51f6fb256629fc755b8870c801092942.png?alt=media&token=f67200e6-85c6-49a8-afe1-9ebd06a298c5';
+            if (currentProfilePhoto != profilePhotoUrl) {
+                const ref = firebase.storage().refFromURL(currentProfilePhoto);
+                ref.delete();
+            }
+            profilePhotoDiv.src = downloadURL;
+            messageDiv.removeChild(error);
+            message.textContent = 'Profile Photo Updated';
+            success.style.opacity = 1;
+        }
+
+    } catch (error) {
+        console.log(error);
+        messageDiv.removeChild(success);
+        message.textContent = 'Internal Server Error';
+        error.style.opacity = 1;
+    }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+        location.reload();
+    }, 2000);
+}
+
+//follow or unfollow the user
+const followButton = document.querySelector('.follow');
+const unFollowerButton = document.querySelector('.unfollow');
+const isUserFollowing = async() => {
+    let userData = { username };
+    userData = JSON.stringify(userData);
+
+    try {
+        const res = await fetch(`${url}/friend/isUserFollowing`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+            body: userData,
+        })
+        if (res.status === 200) {
+            const data = await res.json();
+            if (data.value === 0) {
+                unFollowerButton.style.display = "none";
+                followButton.style.display = 'block';
+            } else {
+                unFollowerButton.style.display = "block";
+                followButton.style.display = 'none';
+            }
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function followUser() {
+    console.log('follow');
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+         <div class="icon1"><i class="fas fa-exclamation"></i></div>
+         <div class="icon2"><i class="fas fa-check"></i></div>
+         <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+
+
+    const following = userId;
+    const followingrusername = username;
+    let userData = {
+        following,
+        followingrusername,
+    }
+    userData = JSON.stringify(userData);
+
+    try {
+        const res = await fetch(`${url}/friend/addFollowing`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        })
+
+        if (res.status === 200) {
+            const data = await res.json();
+            messageDiv.removeChild(error);
+            message.textContent = data.message;
+            success.style.opacity = 1;
+            unFollowerButton.style.display = "block";
+            followButton.style.display = 'none';
+        } else {
+            messageDiv.removeChild(success);
+            message.textContent = 'Internal Server Error';
+            error.style.opacity = 1;
+        }
+    } catch (error) {
+        console.log(error);
+        messageDiv.removeChild(success);
+        message.textContent = 'Internal Server Error';
+        error.style.opacity = 1;
+    }
+
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
+}
+
+async function unfollowUser() {
+    console.log('Unfollow');
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+         <div class="icon1"><i class="fas fa-exclamation"></i></div>
+         <div class="icon2"><i class="fas fa-check"></i></div>
+         <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+
+    const following = userId;
+    const followingrusername = username;
+    let userData = {
+        following,
+        followingrusername,
+    }
+    userData = JSON.stringify(userData);
+
+    try {
+        const res = await fetch(`${url}/friend/removeFollowing`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        })
+
+        if (res.status === 200) {
+            const data = await res.json();
+            messageDiv.removeChild(error);
+            message.textContent = data.message;
+            success.style.opacity = 1;
+            unFollowerButton.style.display = "none";
+            followButton.style.display = 'block';
+        } else {
+            messageDiv.removeChild(success);
+            message.textContent = 'Internal Server Error';
+            error.style.opacity = 1;
+        }
+    } catch (error) {
+        console.log(error);
+        messageDiv.removeChild(success);
+        message.textContent = 'Internal Server Error';
+        error.style.opacity = 1;
+    }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
 }

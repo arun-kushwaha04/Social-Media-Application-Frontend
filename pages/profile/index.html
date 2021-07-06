@@ -21,12 +21,15 @@
         <img src="../../assets/darkTheme.svg" alt="" />
     </div>
     <nav class="pnav">
-        <p>Dubify</p>
+        <div class="heading">Dubify</div>
         <div class="options">
             <div class="phome"><img src="../../assets/Home.svg" alt="Home" /></div>
             <div class="pedit">
-                <!-- <i class="fas fa-user-edit"></i> -->
                 <img src="../../assets/editProfile.svg" alt="Edit" />
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="" class='update-name' target="_blank">Update Name</a>
+                    <a href="" class='update-password' target="_blank">Update Password</a>
+                </div>
             </div>
             <div class="plogout">
                 <img src="../../assets/logout.svg" alt="Logout" />
@@ -37,6 +40,14 @@
         <div class="container">
             <div class="top-part">
                 <div class="pprofile-photo">
+                    <div class="pprofile-photo-over">
+                        <input type="file" id="img-profile-photo" accept="image/*" data-max-total-files="4" data-max-file-size="3MB" />
+                        <label for="img-profile-photo" class="image-selector">
+                        <div>
+                                <i class="fas fa-user-edit"></i>
+                            </div>
+                        </label>
+                    </div>
                     <img src="../../assets/User3ProfilePhoto.jpg" alt="" class="user-image" />
                 </div>
                 <div class="pright-side">
@@ -46,7 +57,6 @@
                             <div class="name">Aliana</div>
                             <div class="email">aliana@gmail.com</div>
                         </div>
-                        <!-- <div class="edit-button bold">Edit Profile</div> -->
                     </div>
                     <div class="overview-sections">
                         <div class="section">
@@ -64,12 +74,18 @@
                             <div class="section-head">Following</div>
                         </div>
                         <div class="line2"></div>
-                        <div class="section">
+                        <div class="section like-section">
                             <div class="section-value bold likeCount">550</div>
                             <div class="section-head">Likes</div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="follow-btn-user follow" onClick='followUser()'>
+                <div>Follow</div>
+            </div>
+            <div class="follow-btn-user unfollow" onClick='unfollowUser()'>
+                <div>UnFollow</div>
             </div>
             <!-- <div class="about-container">
               ABOUT
