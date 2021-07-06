@@ -314,7 +314,10 @@ async function loginUser(userData) {
             localStorage.setItem("theme", 0);
             console.log(data);
             location.replace("./pages/dashboard/dashboard.html");
+            return;
         }
+        loading.style.opacity = 0;
+        login.scrollIntoView();
     } catch (err) {
         console.log(err);
         //Error to be shown of server down
