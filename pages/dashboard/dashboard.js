@@ -14,16 +14,15 @@ let users;
 let firebaseConfig;
 let following;
 
-window.addEventListener('load', () => {
-    const loader = document.querySelector('.loader-animation');
-    loader.classList.add('loader-end');
-})
-
 getUserList();
 fetchCredentials();
 getUserPosts();
 getFollowing();
 getSuggestionList();
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.loader-animation');
+    loader.classList.add('loader-end');
+})
 
 console.log(window.innerWidth);
 
@@ -156,6 +155,7 @@ async function getSuggestionList() {
 }
 const suggestionsTable = document.querySelector('.users-table-suggestion')
 
+console.log = function() {}
 
 function populateSuggestion(suggestion) {
     suggestionsTable.innerHTML = " ";
