@@ -157,7 +157,9 @@ const suggestionsTable = document.querySelector('.users-table-suggestion')
 
 function populateSuggestion(suggestion) {
     suggestionsTable.innerHTML = " ";
-    suggestion.forEach(element => {
+    for (let i = 0; i < suggestion.length; i++) {
+        if (i >= 10) break;
+        element = suggestion[i];
         const div = document.createElement('div');
         div.classList.add('user');
         div.innerHTML = `
@@ -170,7 +172,7 @@ function populateSuggestion(suggestion) {
             followUser(event);
         })
         setRightSectionHeight();
-    })
+    }
 }
 
 
