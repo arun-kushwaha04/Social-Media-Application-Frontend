@@ -4,6 +4,7 @@ let checker = 0;
 let images = [];
 let imageToUpload = [];
 let imageUrl = [];
+let imageToDelete = [];
 let postImage = [];
 let postId;
 //message showing
@@ -329,15 +330,15 @@ function addPostImage(ImageArray, postId, divElement) {
                 const toRemoveImage = postImage[id];
                 postImage[id] = null;
                 let ref = firebase.storage().refFromURL(toRemoveImage);
-                ref.delete();
+                imageToDelete.push(ref);
                 counter--;
-                postButton.style.display = 'block';
-                if (counter <= 3) {
+                if (count === 4) {
+                    postButton.style.display = 'block';
+                } else if (counter <= 3) {
                     imageSelector.style.display = 'block';
-                }
-                if (counter === 0) {
+                } else if (counter === 0) {
                     uploadButton.style.display = 'none';
-                    // postButton.style.display = 'none';
+                    postButton.style.display = 'none';
                 }
             };
             const closeImage = document.createElement('img');
@@ -591,6 +592,7 @@ uploadButton.addEventListener('click', () => {
     uploadImageToFirebase();
 })
 
+let imageUploadCounter = 0;
 //a function to uplaoad image to firebase
 function uploadImageToFirebase() {
     if (imageToUpload.length === 0) {
@@ -624,8 +626,11 @@ function uploadImageToFirebase() {
                             //we got the url of the image 
                             imageUrl.push(downloadURL);
                         });
-                containerForPost.style.display = 'block';
-                loadingEffect.style.display = 'none';
+                imageUploadCounter++;
+                if (imageUploadCounter === imageToUpload.length) {
+                    containerForPost.style.display = 'block';
+                    loadingEffect.style.display = 'none';
+                }
                 // console.log(imageUrl);
             }
         )
@@ -698,6 +703,9 @@ async function addPost() {
                     messageDiv.removeChild(error);
                     message.textContent = data.message;
                     success.style.opacity = 1;
+                    imageToDelete.forEach(element => {
+                        element.delete();
+                    })
                 } else {
                     //error handling to be done
                     messageDiv.removeChild(success);
