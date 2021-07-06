@@ -275,7 +275,11 @@ const registerUser = async(userData, email) => {
 }
 
 //logging in the user
+const loading = document.querySelector('.loadingGIF');
 async function loginUser(userData) {
+    loading.scrollIntoView();
+    loading.style.opacity = 1;
+
     try {
         const res = await fetch(`${url}/auth/login`, {
             method: 'POST',
