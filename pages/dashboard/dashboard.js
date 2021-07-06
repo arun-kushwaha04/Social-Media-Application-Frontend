@@ -278,13 +278,14 @@ addPhoto.addEventListener('click', () => {
 closeAddFeed.addEventListener('click', () => {
     let i = 0;
     imageUrl.forEach(element => {
-        let ref = firebase.storage().refFromURL(imageUrl[i]);
+        let ref = firebase.storage().refFromURL(element);
         ref.delete();
     })
     while (preview.firstChild) {
         preview.removeChild(preview.firstChild);
     }
     counter = 0;
+    feedText.value = '';
     postButton.style.display = 'none';
     uploadButton.style.display = 'none';
     body.style.overflowY = 'scroll';
@@ -414,6 +415,8 @@ uploadButton.addEventListener('click', () => {
     uploadImageToFirebase();
 })
 
+let imageUploadCounter = 0;
+
 function uploadImageToFirebase() {
     containerForPost.style.display = 'none';
     loadingEffect.style.display = 'block';
@@ -441,8 +444,15 @@ function uploadImageToFirebase() {
                             //we got the url of the image 
                             imageUrl.push(downloadURL);
                         });
-                containerForPost.style.display = 'block';
-                setTimeout(() => { loadingEffect.style.display = 'none'; }, 2000);
+                imageUploadCounter++;
+                if (imageUploadCounter === imageToUpload.length) {
+                    containerForPost.style.display = 'block';
+                    loadingEffect.style.display = 'none';
+                    // setTimeout(() => {
+                    //     containerForPost.style.display = 'block';
+                    //     loadingEffect.style.display = 'none';
+                    // }, 2000);
+                }
                 // console.log(imageUrl);
             }
         )

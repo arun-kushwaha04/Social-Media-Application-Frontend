@@ -52,14 +52,14 @@ html {
     align-items: center;
     justify-content: space-evenly;
     width: 100vw;
-    height: 12vh;
+    min-height: 9vh;
     z-index: 10;
     color: #ffc947;
     border-bottom: 2px solid #2ef107;
 }
 
 .pnav .heading {
-    font-size: 2rem;
+    font-size: 1.65rem;
     font-family: "pacifico", cursive;
     width: 40%;
     display: flex;
@@ -77,18 +77,56 @@ html {
 .phome img,
 .pedit img,
 .plogout img {
-    width: 2rem;
-    height: 2rem;
+    width: 1.75rem;
+    height: 1.75rem;
 }
 
 .phome,
 .pedit,
 .plogout {
     cursor: pointer;
+    position: relative;
 }
 
 .bold {
     font-weight: bold;
+}
+
+.phome::after,
+.pedit::after,
+.plogout::after {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    content: "Hello";
+    position: absolute;
+    bottom: -3rem;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: rgba(0, 0, 0, 0.753);
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    text-align: center;
+    visibility: hidden;
+}
+
+.phome::after {
+    content: "Home";
+}
+
+.pedit::after {
+    content: "Edit";
+}
+
+.plogout::after {
+    content: "Logout";
+}
+
+.phome:hover::after,
+.pedit:hover::after,
+.plogout:hover::after {
+    visibility: visible;
 }
 
 section {

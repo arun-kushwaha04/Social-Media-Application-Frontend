@@ -6,7 +6,9 @@ let imageToUpload = [];
 let imageUrl = [];
 let imageToDelete = [];
 let postImage = [];
+let post;
 let postId;
+
 //message showing
 const messageContainer = document.querySelector('.message-container');
 const body = document.querySelector('body');
@@ -166,7 +168,7 @@ async function getUserPosts() {
         if (res.status === 200) {
             const data = await res.json();
             //we have to load the post of user.
-            const post = data.post;
+            post = data.post;
             console.log(post);
             for (let i = 0; i < post.length; i++) {
                 addUserPost(post[i]);
@@ -288,6 +290,7 @@ const deletePost = async(event) => {
         if (res.status === 200) {
             const data = await res.json();
             if (data.message === "Post Deleted" || data.message === "Post And All Shared Links Deleted") {
+                delteImagesFromFirebase(postId);
                 messageDiv.removeChild(error);
                 message.textContent = data.message;
                 success.style.opacity = 1;
@@ -307,6 +310,23 @@ const deletePost = async(event) => {
     }, 2000);
 
 
+}
+
+//function to delte images from firebase
+const delteImagesFromFirebase = async(postId) => {
+    imageToDelete = [];
+    for (let i = 0; i < post.length; i++) {
+        element = post[i];
+        console.log(element);
+        if (element.postid == postId) {
+            imageToDelete = element.images;
+            break;
+        }
+    }
+    imageToDelete.forEach(element => {
+        const ref = firebase.storage().refFromURL(element);
+        ref.delete();
+    })
 }
 
 //function to display image to preview
