@@ -26,6 +26,7 @@ const frontendUrl = `http://localhost:5500`;
 
 const currUrl = new URLSearchParams(window.location.search);
 const username = currUrl.get("username");
+const userId = currUrl.get("userId");
 
 const name_ = document.querySelector('.name');
 const username_ = document.querySelector('.username');
@@ -42,13 +43,17 @@ let firebaseConfig;
 window.onload = () => {
     fetchCredentials();
     fetchUserDetails();
+    if (username != localStorage.getItem('username')) isUserFollowing();
     getUserPosts();
 };
 
 
 //drop down menu items
+if (username != localStorage.getItem('username')) {
+    editProfileButtton.style.display = 'none';
+}
 editProfileButtton.addEventListener('click', () => {
-    dropDownList.classList.toggle('show');
+    if (username === localStorage.getItem('username')) dropDownList.classList.toggle('show');
 });
 
 //setting href for various edit functions
@@ -856,5 +861,153 @@ const updateProfilePhotoToDataBase = async(downloadURL, currentProfilePhoto) => 
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
         location.reload();
+    }, 2000);
+}
+
+//follow or unfollow the user
+const followButton = document.querySelector('.follow');
+const unFollowerButton = document.querySelector('.unfollow');
+const isUserFollowing = async() => {
+    let userData = { username };
+    userData = JSON.stringify(userData);
+
+    try {
+        const res = await fetch(`${url}/friend/isUserFollowing`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+            body: userData,
+        })
+        if (res.status === 200) {
+            const data = await res.json();
+            if (data.value === 0) {
+                unFollowerButton.style.display = "none";
+                followButton.style.display = 'block';
+            } else {
+                unFollowerButton.style.display = "block";
+                followButton.style.display = 'none';
+            }
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function followUser() {
+    console.log('follow');
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+         <div class="icon1"><i class="fas fa-exclamation"></i></div>
+         <div class="icon2"><i class="fas fa-check"></i></div>
+         <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+
+
+    const following = userId;
+    const followingrusername = username;
+    let userData = {
+        following,
+        followingrusername,
+    }
+    userData = JSON.stringify(userData);
+
+    try {
+        const res = await fetch(`${url}/friend/addFollowing`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        })
+
+        if (res.status === 200) {
+            const data = await res.json();
+            messageDiv.removeChild(error);
+            message.textContent = data.message;
+            success.style.opacity = 1;
+            unFollowerButton.style.display = "block";
+            followButton.style.display = 'none';
+        } else {
+            messageDiv.removeChild(success);
+            message.textContent = 'Internal Server Error';
+            error.style.opacity = 1;
+        }
+    } catch (error) {
+        console.log(error);
+        messageDiv.removeChild(success);
+        message.textContent = 'Internal Server Error';
+        error.style.opacity = 1;
+    }
+
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+    }, 2000);
+}
+
+async function unfollowUser() {
+    console.log('Unfollow');
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+         <div class="icon1"><i class="fas fa-exclamation"></i></div>
+         <div class="icon2"><i class="fas fa-check"></i></div>
+         <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+
+    const following = userId;
+    const followingrusername = username;
+    let userData = {
+        following,
+        followingrusername,
+    }
+    userData = JSON.stringify(userData);
+
+    try {
+        const res = await fetch(`${url}/friend/removeFollowing`, {
+            method: "POST",
+            body: userData,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        })
+
+        if (res.status === 200) {
+            const data = await res.json();
+            messageDiv.removeChild(error);
+            message.textContent = data.message;
+            success.style.opacity = 1;
+            unFollowerButton.style.display = "none";
+            followButton.style.display = 'block';
+        } else {
+            messageDiv.removeChild(success);
+            message.textContent = 'Internal Server Error';
+            error.style.opacity = 1;
+        }
+    } catch (error) {
+        console.log(error);
+        messageDiv.removeChild(success);
+        message.textContent = 'Internal Server Error';
+        error.style.opacity = 1;
+    }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
     }, 2000);
 }

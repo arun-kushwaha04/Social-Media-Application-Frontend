@@ -386,6 +386,27 @@ section .pprofile-photo img {
     right: 1rem;
 }
 
+.follow-btn-user {
+    align-self: center;
+    border-radius: 1rem;
+    background-color: rgb(105, 142, 245);
+    font-size: 0.8rem;
+    display: none;
+    /* margin-bottom: 1rem; */
+}
+
+.follow-btn-user div {
+    height: 3rem;
+    min-width: 7rem;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    word-spacing: 0.1rem;
+}
+
 
 /* MEDIA QUERIES */
 
@@ -495,6 +516,10 @@ section .pprofile-photo img {
 
 .dark .fa-trash-alt {
     color: red;
+}
+
+.dark .follow-btn-user {
+    background-color: #785DF3;
 }
 
 @media (hover: none),
