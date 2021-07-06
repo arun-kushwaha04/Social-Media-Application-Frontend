@@ -5,6 +5,8 @@ const url = "https://sheltered-citadel-84490.herokuapp.com";
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 // const frontendUrl = `http://localhost:5500`;
 
+const form = document.querySelector('body');
+const heading = document.querySelector('.heading');
 const newPassword = document.querySelector('.newPassword');
 const confirmPassword = document.querySelector('.confirmPassword');
 const password = document.querySelector('.password');
@@ -19,6 +21,9 @@ const confirmPasswordError = document.querySelector('.confirmPassword-error');
 const passwordError = document.querySelector('.password-error');
 const enterPassword = document.querySelector('.error-text');
 const button = document.querySelector('.btn');
+
+const currUrl = new URLSearchParams(window.location.search);
+const userToken = currUrl.get("userToken");
 
 let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 let chk1 = 0,
@@ -100,7 +105,7 @@ function check3() {
     }
 }
 
-button.addEventListener('click', () => {
+button.addEventListener('click', async() => {
     if (password.value === "") {
         password.style.borderColor = '#e74c3c';
         passwordIcon1.style.display = 'block';
@@ -113,30 +118,46 @@ button.addEventListener('click', () => {
         "password": `${password.value}`,
     }
     data = JSON.stringify(data);
-    fetch(`${url}/user/updatePassword`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `${localStorage.getItem("userToken")}`,
-        },
-        body: data,
-    }).then(res =>
-        res.json()
-    ).then(data => {
-        console.log(data);
-        if (data.message === "Invalid Password") {
-            password.style.borderColor = '#e74c3c';
-            passwordIcon1.style.display = 'block';
+    try {
+        const res = await fetch(`${url}/user/updatePassword`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+            body: data,
+        })
+        if (res.status === 200) {
+            const data = await res.json();
+            heading.textContent = 'Password Updated';
+            newPassword.style.display = 'none';
+            password.style.display = 'none';
+            newPasswordIcon1.style.display = 'none';
+            newPasswordIcon2.style.display = 'none';
+            confirmPasswordIcon1.style.display = 'none';
+            confirmPasswordIcon2.style.display = 'none';
+            passwordIcon1.style.display = 'none';
             passwordIcon2.style.display = 'none';
-            passwordError.style.display = 'block';
+            passwordError.style.display = 'none';
             enterPassword.style.display = 'none';
-            return;
+            newPasswordError.style.display = 'none';
+            confirmPasswordError.style.display = 'none';
         } else {
-            alert(data.message);
-            location.reload();
+            const data = await res.json();
+            if (data.message === 'Invalid password') {
+                password.style.borderColor = '#e74c3c';
+                passwordIcon1.style.display = 'block';
+                passwordIcon2.style.display = 'none';
+                passwordError.style.display = 'block';
+                enterPassword.style.display = 'none';
+                return;
+            } else {
+                heading.textContent = 'Internal Server Error';
+            }
         }
 
-    }).catch(err => {
-        console.log(err.message);
-    })
+    } catch (error) {
+        heading.textContent = 'Internal Server Error';
+        console.log(error);
+    }
 })

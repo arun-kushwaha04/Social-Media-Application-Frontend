@@ -19,6 +19,16 @@ html {
     font-size: 15px;
 }
 
+input,
+textarea,
+button,
+select,
+div,
+i,
+a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 .theme-changer {
     background: rgba(0, 0, 0, 0.644);
     /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
@@ -127,6 +137,33 @@ html {
 .pedit:hover::after,
 .plogout:hover::after {
     visibility: visible;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 10rem;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 3rem;
+}
+
+.dropdown-content a {
+    color: black;
+    font-size: 0.9rem;
+    padding: 0.7em 0.5em;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.show {
+    display: block;
 }
 
 section {
@@ -426,4 +463,29 @@ section .pprofile-photo img {
 
 .dark .fa-trash-alt {
     color: red;
+}
+
+@media (hover: none),
+(hover: on-demand) {
+    .crazy-button:hover {
+        transform: scale(1);
+    }
+    .page-button:hover::after {
+        display: none;
+    }
+    .page-button:hover {
+        border-bottom: none;
+    }
+    .feature:hover {
+        background-color: none;
+    }
+    .profile-photo-close:hover {
+        background-color: none;
+    }
+    .phome:hover::after,
+    .pedit:hover::after,
+    .plogout:hover::after {
+        visibility: visible;
+        background-color: none;
+    }
 }

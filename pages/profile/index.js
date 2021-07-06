@@ -13,7 +13,8 @@ let postId;
 const messageContainer = document.querySelector('.message-container');
 const body = document.querySelector('body');
 const homeButton = document.querySelector('.phome > img');
-const editProfileButtton = document.querySelector('.pedit > img');
+const editProfileButtton = document.querySelector('.pedit');
+const dropDownList = document.querySelector('#myDropdown');
 const logoutButton = document.querySelector('.plogout > img');
 const userToken = localStorage.getItem("userToken");
 
@@ -43,6 +44,19 @@ window.onload = () => {
     fetchUserDetails();
     getUserPosts();
 };
+
+
+//drop down menu items
+editProfileButtton.addEventListener('click', () => {
+    dropDownList.classList.toggle('show');
+});
+
+//setting href for various edit functions
+const editName = document.querySelector('.update-name');
+const editPassword = document.querySelector('.update-password');
+editName.href = `../EditName/index.html`;
+editPassword.href = `../EditPassword/index.html`
+
 
 //get firebase credentials
 async function fetchCredentials() {
@@ -117,9 +131,7 @@ logoutButton.addEventListener('click', () => {
     localStorage.removeItem('userId');
 });
 
-editProfileButtton.addEventListener('click', () => {
-    location.href = "";
-});
+
 
 let theme = localStorage.getItem("theme");
 const nav2 = document.querySelector('.pnav');

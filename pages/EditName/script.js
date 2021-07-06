@@ -1,11 +1,13 @@
-const url = "https://sheltered-citadel-84490.herokuapp.com";
-// const url = "http://localhost:8000";
+// const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = "http://localhost:8000";
 
 //fortend url
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 // const frontendUrl = `http://localhost:5500`;
 
 //selcting all the elements to be manipulated
+const form = document.querySelector('body');
+const heading = document.querySelector('.heading');
 const namea = document.querySelector('.name');
 const password = document.querySelector('.password');
 const nameIcon1 = document.querySelector('.name-icon1');
@@ -50,7 +52,7 @@ function check2() {
 }
 
 
-button.addEventListener('click', () => {
+button.addEventListener('click', async() => {
 
     //checking if name is empty
     if (namea.value === "") {
@@ -83,38 +85,45 @@ button.addEventListener('click', () => {
     }
     data = JSON.stringify(data);
 
-    //hitting the endpoint
-    fetch(`${url}/user/updateName`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `${localStorage.getItem("userToken")}`,
-        },
-        body: data,
-    }).then(res =>
-        res.json()
-    ).then(data => {
-        console.log(data);
-        if (data.message === "Invalid Password") {
-            //if password is invalid then showing an error to user
-            password.style.borderColor = '#e74c3c';
-            passwordIcon1.style.display = 'block';
+    try {
+        const res = await fetch(`${url}/user/updateName`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+            body: data,
+        })
+        if (res.status === 200) {
+            const data = await res.json();
+            console.log('hi');
+            heading.innerHTML = 'Name Updated';
+            localStorage.setItem("userToken", data.userToken);
+            namea.style.display = 'none';
+            password.style.display = 'none';
+            nameIcon1.style.display = 'none';
+            nameIcon2.style.display = 'none';
+            passwordIcon1.style.display = 'none';
             passwordIcon2.style.display = 'none';
-            passwordError.style.display = 'block';
+            nameError.style.display = 'none';
+            passwordError.style.display = 'none';
             enterPassword.style.display = 'none';
-            return;
-        } else if (data.userToken) {
-            //storing new token in database
-            localStorage.setItem('userToken', data.userToken);
-            alert(data.message);
         } else {
-            //if token undefined showing error
-            alert("Error Occured");
+            const data = await res.json();
+            if (data.message === 'Invalid password') {
+                password.style.borderColor = '#e74c3c';
+                passwordIcon1.style.display = 'block';
+                passwordIcon2.style.display = 'none';
+                passwordError.style.display = 'block';
+                enterPassword.style.display = 'none';
+                return;
+            } else {
+                heading.textContent = 'Internal Server Error';
+            }
         }
 
-    }).catch(err => {
-        //if any error occured showing it to user
-        alert("Can't Connect To Server");
-        console.log(err.message);
-    })
+    } catch (error) {
+        heading.textContent = 'Internal Server Error';
+        console.log(error);
+    }
 })
