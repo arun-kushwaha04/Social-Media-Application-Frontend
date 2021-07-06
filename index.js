@@ -1,14 +1,13 @@
 const url = "https://sheltered-citadel-84490.herokuapp.com";
 // const url = "http://localhost:8000";
 
+//fortend url
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
+
 
 // particle js configuration
 particlesJS.load("particles-js", "particlesjs-config.json");
-
-//fortend url
-// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-const frontendUrl = `http://localhost:5500`;
-
 const register = document.querySelector(".register");
 //changing sign and login page
 

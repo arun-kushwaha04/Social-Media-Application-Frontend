@@ -18,11 +18,13 @@ const dropDownList = document.querySelector('#myDropdown');
 const logoutButton = document.querySelector('.plogout > img');
 const userToken = localStorage.getItem("userToken");
 
-// const url = "https://sheltered-citadel-84490.herokuapp.com";
-const url = "http://localhost:8000";
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
 
-// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-const frontendUrl = `http://localhost:5500`;
+//fortend url
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
+
 
 const currUrl = new URLSearchParams(window.location.search);
 const username = currUrl.get("username");

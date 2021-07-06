@@ -18,12 +18,13 @@ const leftContainer = document.querySelector('.left-container');
 const rightContainer = document.querySelector('.right-container');
 const hamburger = document.querySelector('.hamburger-div');
 
-// const url = "https://sheltered-citadel-84490.herokuapp.com";
-const url = "http://localhost:8000";
+const url = "https://sheltered-citadel-84490.herokuapp.com";
+// const url = "http://localhost:8000";
 
 //fortend url
-// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-const frontendUrl = `http://localhost:5500`;
+const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+// const frontendUrl = `http://localhost:5500`;
+
 
 //message showing
 const messageContainer = document.querySelector('.message-container');
