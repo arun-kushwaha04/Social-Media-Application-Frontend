@@ -55,6 +55,11 @@ function themeSlector() {
     }
 }
 
+VanillaTilt.init(document.querySelectorAll(".event"), {
+    max: 15,
+    speed: 300
+});
+
 async function getUserList() {
     try {
         const res = await fetch(`${url}/friend/getUserList`);
