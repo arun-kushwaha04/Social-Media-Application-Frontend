@@ -243,6 +243,38 @@ section .pprofile-photo img {
     border-radius: 50%;
 }
 
+.pprofile-photo {
+    position: relative;
+    width: 9rem;
+    height: 9rem;
+    border-radius: 50%;
+}
+
+.pprofile-photo-over {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba( 255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
+    backdrop-filter: blur( 0.0px);
+    -webkit-backdrop-filter: blur( 0.0px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.pprofile-photo-over div {
+    height: 2rem;
+    width: 2rem;
+}
+
+.fa-user-edit {
+    font-size: 2rem;
+}
+
 .line {
     margin: 1rem 0;
     align-self: center;

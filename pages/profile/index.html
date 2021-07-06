@@ -25,7 +25,6 @@
         <div class="options">
             <div class="phome"><img src="../../assets/Home.svg" alt="Home" /></div>
             <div class="pedit">
-                <!-- <i class="fas fa-user-edit"></i> -->
                 <img src="../../assets/editProfile.svg" alt="Edit" />
                 <div id="myDropdown" class="dropdown-content">
                     <a href="" class='update-name' target="_blank">Update Name</a>
@@ -41,6 +40,14 @@
         <div class="container">
             <div class="top-part">
                 <div class="pprofile-photo">
+                    <div class="pprofile-photo-over">
+                        <input type="file" id="img-profile-photo" accept="image/*" data-max-total-files="4" data-max-file-size="3MB" />
+                        <label for="img-profile-photo" class="image-selector">
+                        <div>
+                                <i class="fas fa-user-edit"></i>
+                            </div>
+                        </label>
+                    </div>
                     <img src="../../assets/User3ProfilePhoto.jpg" alt="" class="user-image" />
                 </div>
                 <div class="pright-side">

@@ -758,3 +758,103 @@ async function addPost() {
         }, 2000);
     }
 }
+
+//profile photo update 
+
+const profilePhotoDiv = document.querySelector('.pprofile-photo');
+const updateProfilePhotoDiv = document.querySelector('.pprofile-photo-over');
+const newProfilePhoto = document.querySelector('#img-profile-photo');
+
+profilePhotoDiv.addEventListener('mouseover', () => {
+    if (username === localStorage.getItem('username')) updateProfilePhotoDiv.style.opacity = 1;
+}, false);
+profilePhotoDiv.addEventListener('mouseout', () => {
+    updateProfilePhotoDiv.style.opacity = 0;
+}, false);
+newProfilePhoto.addEventListener('change', (event) => {
+    alert('hi');
+    console.log('hi form clicked');
+    const file = event.target.files[0];
+    const currentProfilePhoto = localStorage.getItem('profilePhoto');
+    uploadProfilePhotoToFirebase(file, currentProfilePhoto);
+})
+
+const uploadProfilePhotoToFirebase = (file, currentProfilePhoto) => {
+    console.log('hi form firebase');
+    let today = new Date();
+    let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTime = date + ' ' + time;
+    const element = file;
+    let ans = Math.random().toString(36).slice(2);
+    const refVar = firebase.storage().ref('Profile-Photos/' + ans + element.lastModified + dateTime + element.name);
+    let task = refVar.put(element);
+    task.on('state_changed',
+        function progress(snapshot) {
+            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        },
+        function error(err) {
+            console.log(err);
+        },
+        function complete() {
+            task.snapshot.ref.getDownloadURL()
+                .then(
+                    function(downloadURL) {
+                        updateProfilePhotoToDataBase(downloadURL, currentProfilePhoto);
+                    });
+        }
+    )
+}
+const updateProfilePhotoToDataBase = async(downloadURL, currentProfilePhoto) => {
+    console.log('hi');
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
+    let userData = {
+        profilePhoto: downloadURL,
+    };
+    userData = JSON.stringify(userData);
+    try {
+        const res = await fetch(`${url}/user/updateProfilePhoto`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+            body: userData,
+        })
+        if (res.status === 200) {
+            const data = await res.json();
+            localStorage.setItem("profilePhoto", downloadURL);
+            const profilePhotoUrl = 'https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Profile-Photos%2F51f6fb256629fc755b8870c801092942.png?alt=media&token=f67200e6-85c6-49a8-afe1-9ebd06a298c5';
+            if (currentProfilePhoto != profilePhotoUrl) {
+                const ref = firebase.storage().refFromURL(currentProfilePhoto);
+                ref.delete();
+            }
+            profilePhotoDiv.src = downloadURL;
+            messageDiv.removeChild(error);
+            message.textContent = 'Profile Photo Updated';
+            success.style.opacity = 1;
+        }
+
+    } catch (error) {
+        console.log(error);
+        messageDiv.removeChild(success);
+        message.textContent = 'Internal Server Error';
+        error.style.opacity = 1;
+    }
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageContainer.removeChild(messageDiv);
+        location.reload();
+    }, 2000);
+}
