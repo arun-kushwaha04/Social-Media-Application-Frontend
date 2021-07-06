@@ -43,45 +43,42 @@ html {
 }
 
 .pnav {
-    font-family: "pacifico", cursive;
-    font-weight: none;
-    font-size: 1.6rem;
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
     background: rgb(12, 3, 58);
-    position: sticky;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    gap: 60%;
-    width: 100%;
-    height: 9vh;
+    width: 100vw;
+    height: 10vh;
     z-index: 10;
     color: #ffc947;
     border-bottom: 2px solid #2ef107;
 }
 
-
-/* nav p {
-  transform: translateX(23px);
-} */
+.pnav .heading {
+    font-size: 2rem;
+    font-family: "pacifico", cursive;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .pnav .options {
-    /* transform: translateX(-200px); */
-    transform: translate(-50%, 0);
     display: flex;
-    gap: 100%;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    width: 40%;
 }
 
 .phome img,
 .pedit img,
 .plogout img {
-    width: 27px;
-    height: 27px;
+    width: 2rem;
+    height: 2rem;
 }
 
 .phome,
@@ -188,32 +185,6 @@ section .container .top-part .pprofile-photo img {
     align-self: center;
 }
 
-section .container .posts-container {
-    /* background: white; */
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
-    margin-top: 0.25rem;
-    /* align-self: center; */
-    /* justify-self: center; */
-    text-align: center;
-}
-
-section .container .posts-container .posts .image img {
-    width: 220px;
-    height: 220px;
-}
-
-.edit-button {
-    background-color: #0000009a;
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    width: 95px;
-    padding: 0.25rem;
-    border-radius: 10px;
-    color: #ffffffcc;
-}
-
 .about-container {
     display: block;
     font-weight: bold;
@@ -308,78 +279,26 @@ section .container .posts-container .posts .image img {
 
 /* MEDIA QUERIES */
 
-@media (max-width: 770px) {
-    section .container .top-part .profile-photo img {
-        width: 8rem;
-        height: 8rem;
-        border-radius: 50%;
+@media (max-width: 500px) {
+    html {
+        font-size: 7px;
     }
-}
-
-@media (max-width: 730px) {
-    nav {
-        font-size: 1.4rem;
-        padding: 0;
-        gap: 30%;
-        justify-content: space-around;
-    }
-    nav .options {
-        /* transform: translateX(-200px); */
-        transform: translate(-50%, 0);
-        display: flex;
-        gap: 50%;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .home img,
-    .edit img,
-    .logout img {
-        width: 23px;
-        height: 23px;
-    }
-    section .container {
-        width: 100vw;
-    }
-    section .container .top-part .profile-photo {
-        padding-left: 0;
-    }
-    section .container .top-part {
-        padding: 1rem;
+    .pnav {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 0;
-    }
-    section .container .top-part .right-side .details {
-        flex-direction: column;
-        gap: 25px;
-    }
-    section .container .top-part .right-side .details .account {
-        display: flex;
-        flex-direction: column;
         justify-content: center;
-        align-items: center;
+        height: 11vh;
+        padding: 0.5rem;
     }
-    section .container .top-part .right-side .overview-sections {
-        justify-content: center;
+    .pnav .heading {
+        width: 100%;
+        height: 4vh;
+        margin-bottom: 0.5rem;
     }
-    .line2 {
-        width: 1px;
-        background-color: #ffffffcc;
-        height: 50px;
-    }
-    .about-body {
-        padding: 15px;
-        text-align: center;
-    }
-}
-
-@media (max-width: 450px) {
-    nav {
-        font-size: 1.4rem;
-        padding: 0;
-        gap: 10%;
-        justify-content: space-around;
+    .pnav .options {
+        width: 100%;
+        height: 4vh;
     }
 }
 
