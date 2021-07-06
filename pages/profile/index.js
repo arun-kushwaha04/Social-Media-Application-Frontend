@@ -14,11 +14,11 @@ const editProfileButtton = document.querySelector('.pedit > img');
 const logoutButton = document.querySelector('.plogout > img');
 const userToken = localStorage.getItem("userToken");
 
-const url = "https://sheltered-citadel-84490.herokuapp.com";
-// const url = "http://localhost:8000";
+// const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = "http://localhost:8000";
 
-const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
-// const frontendUrl = `http://localhost:5500`;
+// const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
+const frontendUrl = `http://localhost:5500`;
 
 const currUrl = new URLSearchParams(window.location.search);
 const username = currUrl.get("username");
@@ -204,6 +204,9 @@ function addUserPost(element) {
     if (username != localStorage.getItem("username")) {
         buttons = '';
     }
+    if (element.userid != element.originaluserid) {
+        buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>`;
+    }
     div.innerHTML = `
     
         <header class="post-user-info">
@@ -283,7 +286,7 @@ const deletePost = async(event) => {
 
         if (res.status === 200) {
             const data = await res.json();
-            if (data.message === "Post Deleted") {
+            if (data.message === "Post Deleted" || data.message === "Post And All Shared Links Deleted") {
                 messageDiv.removeChild(error);
                 message.textContent = data.message;
                 success.style.opacity = 1;
