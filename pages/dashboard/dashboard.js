@@ -14,14 +14,16 @@ let users;
 let firebaseConfig;
 let following;
 
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.loader-animation');
+    loader.classList.add('loader-end');
+})
 
-window.onload = () => {
-    getUserList();
-    fetchCredentials();
-    getUserPosts();
-    getFollowing();
-    getSuggestionList();
-}
+getUserList();
+fetchCredentials();
+getUserPosts();
+getFollowing();
+getSuggestionList();
 
 console.log(window.innerWidth);
 
