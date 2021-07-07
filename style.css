@@ -38,6 +38,7 @@ body {
     font-family: sans-serif;
     scroll-behavior: smooth;
     position: relative;
+    overflow: hidden;
 }
 
 a {
@@ -110,6 +111,7 @@ header::before {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .container {
@@ -386,6 +388,12 @@ body {
     justify-content: center;
     background-color: #2C294F;
     /* background-color: black; */
+    z-index: -10000;
+}
+
+.loadingGIF-class {
+    opacity: 1;
+    z-index: 10000;
 }
 
 .centerBike {
@@ -462,4 +470,57 @@ body {
         transform: rotate(-360deg);
         opacity: 0;
     }
+}
+
+
+/* preloader */
+
+#animationWindow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    background-color: black;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.loader-end {
+    z-index: -10000;
+    pointer-events: none;
+    opacity: 0;
+}
+
+svg {
+    position: absolute;
+}
+
+circle:nth-of-type(1) {
+    fill: #ffffff;
+}
+
+circle:nth-of-type(2) {
+    fill: #fcd837;
+}
+
+circle:nth-of-type(3) {
+    fill: #f9a11f;
+}
+
+circle:nth-of-type(4) {
+    fill: #f27c21;
+}
+
+#clackers {
+    /*   border: 1px solid white; */
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

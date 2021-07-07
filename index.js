@@ -27,6 +27,14 @@ toSignUp.addEventListener('click', () => {
     loginPage.style.display = 'none';
 })
 
+//preloader animation
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        const loader = document.querySelector('#animationWindow');
+        document.querySelector('body').style.overflow = 'scroll';
+        loader.classList.add('loader-end');
+    }, 2000);
+})
 
 
 //username
@@ -277,7 +285,7 @@ const registerUser = async(userData, email) => {
 const loading = document.querySelector('.loadingGIF');
 async function loginUser(userData) {
     loading.scrollIntoView();
-    loading.style.opacity = 1;
+    loading.classList.add('loadingGIF-class');
 
     try {
         const res = await fetch(`${url}/auth/login`, {
@@ -316,7 +324,7 @@ async function loginUser(userData) {
             location.replace("./pages/dashboard/dashboard.html");
             return;
         }
-        loading.style.opacity = 0;
+        loading.classList.remove('loadingGIF-class');
         login.scrollIntoView();
     } catch (err) {
         console.log(err);
