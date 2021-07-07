@@ -39,7 +39,7 @@ const tokenVerifier = async() => {
             })
             const data = await res.json();
             if (data.message === "Token Expired") {
-                location.replace(`${frontendUrl}`);
+                //do nothing then
             }
             if (data.message === "Valid token") {
                 location.replace(`/pages/dashboard/dashboard.html`);
@@ -407,6 +407,7 @@ async function forgotPasswordEmail(email, domain, key, userToken) {
         if (message) {
             console.log('mail sent successfully');
             loading.classList.remove('loadingGIF-class');
+            alert('Reset Password Mail Sent');
         }
     } catch (err) {
         console.log(err);
@@ -437,6 +438,7 @@ async function verifyEmail(email, domain, key, userToken) {
         if (message) {
             console.log('mail sent successfully');
             loading.classList.remove('loadingGIF-class');
+            alert('Verify Your Email To Login');
         }
     } catch (err) {
         console.log(err);

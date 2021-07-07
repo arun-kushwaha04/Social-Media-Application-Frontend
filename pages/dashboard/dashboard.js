@@ -33,15 +33,16 @@ const changeThemeButton = document.querySelector(".theme-changer");
 changeThemeButton.addEventListener('click', () => themeSlector());
 
 function themeSlector() {
-    nav2.style.background = "#0c033a";
     if (theme === 1) {
         localStorage.setItem("theme", 0);
+        nav2.style.background = "#0a1931";
         sec.classList.remove('dark');
         changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
         theme = 0;
         nav2.style.borderBottom = "2px solid greenyellow";
         return;
     } else {
+        nav2.style.background = "#0c033a";
         localStorage.setItem("theme", 1);
         sec.classList.add('dark');
         changeThemeButton.innerHTML = ` <img src="../../assets/lightTheme.svg" alt="">`;
