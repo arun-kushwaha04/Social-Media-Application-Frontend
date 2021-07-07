@@ -41,6 +41,16 @@ body {
     overflow: hidden;
 }
 
+input,
+textarea,
+button,
+select,
+div,
+i,
+a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 a {
     cursor: pointer;
 }

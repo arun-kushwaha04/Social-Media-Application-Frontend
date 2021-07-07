@@ -164,7 +164,7 @@ a {
     padding: 1rem;
     max-height: 20rem;
     overflow-y: auto;
-    background-color: rgb(156, 197, 235);
+    background: #496BF2;
     margin-bottom: 2rem;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
@@ -236,7 +236,8 @@ a {
 }
 
 .comment-details {
-    background-color: #0080ff;
+    background-color: #A9B9FF;
+    /* background: #496BF2; */
     border-radius: 0.5rem;
     padding: 0.5em 1em;
     margin-bottom: 0.3rem;
@@ -247,7 +248,11 @@ a {
 }
 
 .comment-user-name a {
-    color: #b5dbff;
+    color: black;
+}
+
+section.dark .comment-user-name a {
+    color: white;
 }
 
 .comment-message {

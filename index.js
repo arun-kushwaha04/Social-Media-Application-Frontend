@@ -50,7 +50,7 @@ const tokenVerifier = async() => {
         }
     }
     //function calls
-if (localStorage.getItem("userToken") != undefined) tokenVerifier();
+if (localStorage.getItem("userToken") != undefined && localStorage.getItem("userToken") != null) tokenVerifier();
 
 //preloader animation
 window.addEventListener('load', () => {
@@ -252,6 +252,8 @@ register.addEventListener('click', () => {
     if (chk1 !== 1 && chk2 !== 1 && chk3 !== 1 && chk4 !== 1 && chk5 !== 1) {
         return;
     }
+    document.querySelector('header').scrollIntoView();
+    loading.classList.add('loadingGIF-class');
     let userData = {
         username: username.value,
         name: _name.value,
@@ -266,6 +268,14 @@ register.addEventListener('click', () => {
 
 login.addEventListener('click', (event) => {
     event.preventDefault();
+    // if ('scrollRestoration' in history) {
+    //     history.scrollRestoration = 'manual';
+    // }
+    // window.scrollTo(0, 0);
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelector('header').scrollIntoView();
+    loading.classList.add('loadingGIF-class');
+
     let userData = {
         email: email.value,
         password: password.value,
@@ -279,6 +289,8 @@ const forgotPasswordButton = document.querySelector('.forgetPassword');
 
 forgotPasswordButton.addEventListener('click', () => {
     if (email.value === "") { return; }
+    document.querySelector('header').scrollIntoView();
+    loading.classList.add('loadingGIF-class');
     let userData = {
         email: email.value,
     }
@@ -287,13 +299,9 @@ forgotPasswordButton.addEventListener('click', () => {
 })
 
 
+const loading = document.querySelector('.loadingGIF');
 //registering the user
 const registerUser = async(userData, email) => {
-    if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-    }
-    window.scrollTo(0, 0);
-    loading.classList.add('loadingGIF-class');
     try {
         const res = await fetch(`${url}/auth/signUp`, {
             method: 'POST',
@@ -302,9 +310,18 @@ const registerUser = async(userData, email) => {
                 "Content-Type": "application/json",
             },
         });
-        if (res.status === 200) {
-            const data = await res.json();
+        const data = await res.json();
+        if (data.message === 'Accounting Creation Pending, Verify Email to Complete Account Creation Process.') {
             verifyEmail(email, data.domain, data.key, data.userToken);
+        } else if (data.message === 'Username already In Use') {
+            alert('Username Or Email already In Use');
+            loading.classList.remove('loadingGIF-class');
+        } else if (data.message === 'Email Already Registered, Try to Login') {
+            alert('Email Already Registered, Try to Login');
+            loading.classList.remove('loadingGIF-class');
+        } else {
+            alert('Error Occured');
+            loading.classList.remove('loadingGIF-class');
         }
     } catch (err) {
         console.log(err);
@@ -312,14 +329,7 @@ const registerUser = async(userData, email) => {
 }
 
 //logging in the user
-const loading = document.querySelector('.loadingGIF');
 async function loginUser(userData) {
-    if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-    }
-    window.scrollTo(0, 0);
-    loading.classList.add('loadingGIF-class');
-
     try {
         const res = await fetch(`${url}/auth/login`, {
             method: 'POST',
@@ -336,24 +346,27 @@ async function loginUser(userData) {
             emailIcon1.style.display = 'block';
             emailError.textContent = 'Email Not Verified';
             emailError.style.display = 'block';
+            loading.classList.remove('loadingGIF-class');
         } else if (data.message === 'You Are Logged In Other Device Please Log Out') {
             //error to be show when the user is already logged in
             emailIcon1.style.display = 'block';
             emailError.textContent = 'Logged In Ohter Device Please Log Out';
             emailError.style.display = 'block';
+            loading.classList.remove('loadingGIF-class');
         } else if (data.message === 'Invalid Password') {
             passwordIcon1.style.display = 'block';
             passwordError.textContent = 'Invalid Password';
             passwordError.style.display = 'block';
+            loading.classList.remove('loadingGIF-class');
         } else if (data.message === 'No Such User Exists Try Registering Yourself') {
-            //error to be shown when user is not registered
+            alert('No Such Email Or Username Registered');
+            loading.classList.remove('loadingGIF-class');
         } else {
             localStorage.setItem("userToken", data.userToken);
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("username", data.username);
             localStorage.setItem("profilePhoto", data.profilePhoto);
             localStorage.setItem("theme", 0);
-            console.log(data);
             location.replace("./pages/dashboard/dashboard.html");
             return;
         }
@@ -375,9 +388,15 @@ const forgotPassword = async(userData, email) => {
                 "Content-Type": "application/json",
             },
         });
-        if (res.status === 200) {
-            const data = await res.json();
-            forgotPasswordEmail(email, data.domain, data.key, data.userToken);
+        const data = await res.json();
+        console.log(data);
+        if (data.message === 'Reset Password Has Been Email Sent') {
+            forgotPasswordEmail(data.email, data.domain, data.key, data.userToken);
+            return;
+        } else if (data.message === 'No Such User Exists Try Registering Yourself') {
+            alert('No Such Email Or Username Exists');
+        } else {
+            alert('Error');
         }
     } catch (err) {
         console.log(err);
@@ -408,6 +427,8 @@ async function forgotPasswordEmail(email, domain, key, userToken) {
             console.log('mail sent successfully');
             loading.classList.remove('loadingGIF-class');
             alert('Reset Password Mail Sent');
+        } else {
+            alert('error');
         }
     } catch (err) {
         console.log(err);
@@ -436,13 +457,14 @@ async function verifyEmail(email, domain, key, userToken) {
             })
             //handling the errors
         if (message) {
-            console.log('mail sent successfully');
             loading.classList.remove('loadingGIF-class');
             alert('Verify Your Email To Login');
+        } else {
+            alert('An error occurred')
         }
     } catch (err) {
         console.log(err);
-        //displaying the error
-        setTimeout(() => { location.reload(); }, 10000);
+        alert('Error Occured In Sending Verification Mail');
+        setTimeout(() => { location.reload(); }, 1000);
     };
 }
