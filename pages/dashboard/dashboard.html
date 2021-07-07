@@ -76,23 +76,28 @@
         <div class="left-section">
             <div class="lower">
                 <div class="feature toProfile">
+                    <span class="hover-effect"></span>
                     <img class="symbol" src="../../assets/Friends.svg" />
                     <a><span>Profile</span></a>
                 </div>
                 <div class="feature toStory">
+                    <span class="hover-effect"></span>
                     <img class="symbol" src="../../assets/Friends.svg" />
                     <a href="../story/index.html"><span>Story</span></a>
                 </div>
                 <div class="feature toCovidInfo">
+                    <span class="hover-effect"></span>
                     <img src="../../assets/Covid_Info.svg" />
                     <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank"><span>Covid-19 Information</span></a>
                 </div>
                 <div class="feature toVideo">
+                    <span class="hover-effect"></span>
                     <img src="../../assets/Video2.svg" />
                     <a href="https://www.youtube.com/" target="_blank"><span>Videos</span></a
             >
           </div>
           <div class="feature toTrending">
+            <span class="hover-effect"></span>
             <img src="../../assets/Trending.svg" />
             <a href="https://trends.google.com/trends/" target="_blank"
               ><span>Trending</span></a
@@ -296,6 +301,21 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
 <script src="vanilla-tilt.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function (e) {
+        $(".feature").on("mouseenter", function (e) {
+          x = e.pageX - $(this).offset().left;
+          y = e.pageY - $(this).offset().top;
+          $(this).find(".hover-effect").css({ top: y, left: x });
+        });
+        $(".feature").on("mouseout", function (e) {
+          x = e.pageX - $(this).offset().left;
+          y = e.pageY - $(this).offset().top;
+          $(this).find(".hover-effect").css({ top: y, left: x });
+        });
+      });
+    </script>
 <script src="./dashboard.js"></script>
 
 </html>
