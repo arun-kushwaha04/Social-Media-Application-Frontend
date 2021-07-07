@@ -14,11 +14,6 @@ let users;
 let firebaseConfig;
 let following;
 
-getUserList();
-fetchCredentials();
-getUserPosts();
-getFollowing();
-getSuggestionList();
 window.addEventListener('load', () => {
     const loader = document.querySelector('.loader-animation');
     loader.classList.add('loader-end');
@@ -38,15 +33,16 @@ const changeThemeButton = document.querySelector(".theme-changer");
 changeThemeButton.addEventListener('click', () => themeSlector());
 
 function themeSlector() {
-    nav2.style.background = "#0c033a";
     if (theme === 1) {
         localStorage.setItem("theme", 0);
+        nav2.style.background = "#0a1931";
         sec.classList.remove('dark');
         changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
         theme = 0;
         nav2.style.borderBottom = "2px solid greenyellow";
         return;
     } else {
+        nav2.style.background = "#0c033a";
         localStorage.setItem("theme", 1);
         sec.classList.add('dark');
         changeThemeButton.innerHTML = ` <img src="../../assets/lightTheme.svg" alt="">`;
@@ -82,9 +78,9 @@ const populateSearchResults = (users) => {
         
         <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}"><img src="${element.profilephoto}" class="profile-photo" id="${element.username}"></a>
         <div class="search-details">
-            <div class="search-username"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}" target='_blank'>${element.username}</a></div>
-            <span class="search-name"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}" target='_blank'>${element.name}</a></span>&nbsp;&nbsp;
-            <span class="search-email"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}" target='_blank'>${element.email}</a></span>
+        <div class="search-username"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}" target='_blank'>${element.username}</a></div>
+        <span class="search-name"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}" target='_blank'>${element.name}</a></span>&nbsp;&nbsp;
+        <span class="search-email"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}" target='_blank'>${element.email}</a></span>
         </div>
         
         `
@@ -170,10 +166,10 @@ function populateSuggestion(suggestion) {
         const div = document.createElement('div');
         div.classList.add('user');
         div.innerHTML = `
-            <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}"><img src="${element.profilephoto}" class="profile-photo" /></a>
-            <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}">${element.username}</a></span>
-            <div class="follow-btn"><i class="fas fa-user-plus" id='${element.id}' ></i></div>
-        `;
+                <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}"><img src="${element.profilephoto}" class="profile-photo" /></a>
+                <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}">${element.username}</a></span>
+                <div class="follow-btn"><i class="fas fa-user-plus" id='${element.id}' ></i></div>
+                `;
         suggestionsTable.appendChild(div);
         div.children[2].addEventListener('click', (event) => {
             followUser(event);
@@ -402,9 +398,9 @@ postButton.addEventListener('click', () => {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('confirmation-message');
         messageDiv.innerHTML = `
-            <div class="icon1"><i class="fas fa-exclamation"></i></div>
-            <div class="icon2"><i class="fas fa-check"></i></div>
-            <div class="request-message">Connecting To Server ...</div>`;
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
         messageContainer.appendChild(messageDiv);
         messageDiv.style.opacity = '1';
         const message = messageDiv.children[2];
@@ -553,49 +549,49 @@ function isLiked(element, div, container, divContainer) {
                 message.textContent = 'Internal Server Error';
             }
             let heading = ` <div class="user-name-feed">
-                <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">
-                ${element.username} </a>
-                <div class="time">${element.datetime}</div>
-            </div>`
+        <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">
+        ${element.username} </a>
+        <div class="time">${element.datetime}</div>
+        </div>`
 
             if (element.userid != element.originaluserid) {
                 heading = ` <div class="user-name-feed">
-                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.userid}">
-                    ${element.username}</a>&nbsp; Shared Post Of &nbsp;
-                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.originalusername}&userId=${element.originaluserid}">
-                    ${element.originalusername}</a>
-                    <div class="time">${element.datetime}</div>
-                </div>`
+            <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.userid}">
+            ${element.username}</a>&nbsp; Shared Post Of &nbsp;
+            <a href="${frontendUrl}/pages/profile/index.html?username=${element.originalusername}&userId=${element.originaluserid}">
+            ${element.originalusername}</a>
+            <div class="time">${element.datetime}</div>
+            </div>`
             }
 
             if (html) {
                 div.innerHTML = `
-                    <header class="post-user-info">
-                    <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img class="profile-photo-feed-insert" src="${element.profilephoto}" /></a>
-                        ${heading}
-                        
-                    </header>
-                    <div class="content">
-                        <p>
-                            ${element.description}
-                        </p>
-                        <div class="preview" id="preview${element.postid}">
-
-                        </div>
-                        <div class="engageButtons" id = ${element.originaluserid}>
+            <header class="post-user-info">
+            <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img class="profile-photo-feed-insert" src="${element.profilephoto}" /></a>
+            ${heading}
+            
+            </header>
+            <div class="content">
+            <p>
+            ${element.description}
+            </p>
+            <div class="preview" id="preview${element.postid}">
+            
+            </div>
+            <div class="engageButtons" id = ${element.originaluserid}>
                             <div class="like-button" id = ${element.userid}>
-                                ${html}
+                            ${html}
                             </div>
                             <div class="comment-button" id = ${element.userid}>
-                                <i class="far fa-comment-alt crazy-button" onClick = "openCommentSection(event)" id=${originalpostid}></i>
-                                <span class="comments">${element.postcomments}</span>
+                            <i class="far fa-comment-alt crazy-button" onClick = "openCommentSection(event)" id=${originalpostid}></i>
+                            <span class="comments">${element.postcomments}</span>
                             </div>
                             <div class="share-button" id = ${element.userid}>
-                                <i class="fas fa-share crazy-button" onClick = "sharePostClick(event)" id=${originalpostid}></i>
-                                <span class="share">${element.postshare}</span>
+                            <i class="fas fa-share crazy-button" onClick = "sharePostClick(event)" id=${originalpostid}></i>
+                            <span class="share">${element.postshare}</span>
                             </div>
-                        </div>
-                    </div>                                                                    
+                            </div>
+                            </div>                                                                    
                     `;
                 const div2 = document.createElement('div');
                 div2.classList.add('comment-section');
@@ -643,9 +639,9 @@ async function addPost() {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
-        <div class="icon1"><i class="fas fa-exclamation"></i></div>
-        <div class="icon2"><i class="fas fa-check"></i></div>
-        <div class="request-message">Connecting To Server ...</div>`;
+            <div class="icon1"><i class="fas fa-exclamation"></i></div>
+            <div class="icon2"><i class="fas fa-check"></i></div>
+            <div class="request-message">Connecting To Server ...</div>`;
     messageContainer.appendChild(messageDiv);
     messageDiv.style.opacity = '1';
     const message = messageDiv.children[2];
@@ -748,9 +744,9 @@ function renderFollowingList(following) {
         const div = document.createElement('div');
         div.classList.add('user');
         div.innerHTML = `
-            <a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}&userId=${element.following}"><img src="${element.profilephoto}" class="profile-photo" id="${element.following}"/></a>
-            <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}&userId=${element.following}">${element.followingrusername}</a></span>
-            <div class="follow-btn"><i class="fas fa-user-minus" id='${element.following}'></i></div>
+        <a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}&userId=${element.following}"><img src="${element.profilephoto}" class="profile-photo" id="${element.following}"/></a>
+        <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}&userId=${element.following}">${element.followingrusername}</a></span>
+        <div class="follow-btn"><i class="fas fa-user-minus" id='${element.following}'></i></div>
         `;
         div.children[2].addEventListener('click', (event) => {
             unfollowUser(event);
@@ -766,9 +762,9 @@ async function updateLike(event) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
-        <div class="icon1"><i class="fas fa-exclamation"></i></div>
-        <div class="icon2"><i class="fas fa-check"></i></div>
-        <div class="request-message">Connecting To Server ...</div>`;
+    <div class="icon1"><i class="fas fa-exclamation"></i></div>
+    <div class="icon2"><i class="fas fa-check"></i></div>
+    <div class="request-message">Connecting To Server ...</div>`;
     messageContainer.appendChild(messageDiv);
     messageDiv.style.opacity = '1';
     const message = messageDiv.children[2];
@@ -853,9 +849,9 @@ function commentButtonClick(event) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
-        <div class="icon1"><i class="fas fa-exclamation"></i></div>
-        <div class="icon2"><i class="fas fa-check"></i></div>
-        <div class="request-message">Connecting To Server ...</div>`;
+    <div class="icon1"><i class="fas fa-exclamation"></i></div>
+    <div class="icon2"><i class="fas fa-check"></i></div>
+    <div class="request-message">Connecting To Server ...</div>`;
     messageContainer.appendChild(messageDiv);
     messageDiv.style.opacity = '1';
     const message = messageDiv.children[2];
@@ -916,9 +912,9 @@ async function addComment(userData, commentCounter, commentText, commentSection)
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
-        <div class="icon1"><i class="fas fa-exclamation"></i></div>
-        <div class="icon2"><i class="fas fa-check"></i></div>
-        <div class="request-message">Connecting To Server ...</div>`;
+    <div class="icon1"><i class="fas fa-exclamation"></i></div>
+    <div class="icon2"><i class="fas fa-check"></i></div>
+    <div class="request-message">Connecting To Server ...</div>`;
     messageContainer.appendChild(messageDiv);
     messageDiv.style.opacity = '1';
     const message = messageDiv.children[2];
@@ -946,14 +942,14 @@ async function addComment(userData, commentCounter, commentText, commentSection)
             div.classList.add('comment');
             div.innerHTML = `
             <div class="comment">
-                <a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}"><img class="profile-photo" src="${localStorage.getItem("profilePhoto")}" /></a>
-                <div class="comment-box">
-                <div class="comment-details">
-                    <div class="comment-user-name"><a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}">${localStorage.getItem("username")}</a></div>
-                    <div class="comment-message">${userData.comment}</div>
-                </div>
-                <div class="time">${userData.dateTime}</div>
-                </div>                    
+            <a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}"><img class="profile-photo" src="${localStorage.getItem("profilePhoto")}" /></a>
+            <div class="comment-box">
+            <div class="comment-details">
+            <div class="comment-user-name"><a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}">${localStorage.getItem("username")}</a></div>
+            <div class="comment-message">${userData.comment}</div>
+            </div>
+            <div class="time">${userData.dateTime}</div>
+            </div>                    
             </div>`;
             commentSection.prepend(div);
         } else {
@@ -1007,14 +1003,14 @@ async function getAllComment(commentSection, userData) {
             div.classList.add('comment');
             div.innerHTML = `
             <div class="comment">
-                <a href="${frontendUrl}/pages/profile/index.html?username=${comment.username}"><img class="profile-photo" src="${comment.profilephoto}" /></a>
-                <div class="comment-box">
-                <div class="comment-details">
-                    <div class="comment-user-name"><a href="${frontendUrl}/pages/profile/index.html?username=${comment.username}">${comment.username}</a></div>
-                    <div class="comment-message">${comment.comment}</div>
-                </div>
-                <div class="time">${comment.datetime}</div>
-                </div>                    
+            <a href="${frontendUrl}/pages/profile/index.html?username=${comment.username}"><img class="profile-photo" src="${comment.profilephoto}" /></a>
+            <div class="comment-box">
+            <div class="comment-details">
+            <div class="comment-user-name"><a href="${frontendUrl}/pages/profile/index.html?username=${comment.username}">${comment.username}</a></div>
+            <div class="comment-message">${comment.comment}</div>
+            </div>
+            <div class="time">${comment.datetime}</div>
+            </div>                    
             </div>`;
             commentSection.prepend(div);
         }
@@ -1050,9 +1046,9 @@ async function sharePost(userData, shareCounter, originaluserid) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
-        <div class="icon1"><i class="fas fa-exclamation"></i></div>
-        <div class="icon2"><i class="fas fa-check"></i></div>
-        <div class="request-message">Connecting To Server ...</div>`;
+    <div class="icon1"><i class="fas fa-exclamation"></i></div>
+    <div class="icon2"><i class="fas fa-check"></i></div>
+    <div class="request-message">Connecting To Server ...</div>`;
     messageContainer.appendChild(messageDiv);
     messageDiv.style.opacity = '1';
     const message = messageDiv.children[2];
@@ -1112,9 +1108,9 @@ async function followUser(event) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
-         <div class="icon1"><i class="fas fa-exclamation"></i></div>
-         <div class="icon2"><i class="fas fa-check"></i></div>
-         <div class="request-message">Connecting To Server ...</div>`;
+    <div class="icon1"><i class="fas fa-exclamation"></i></div>
+    <div class="icon2"><i class="fas fa-check"></i></div>
+    <div class="request-message">Connecting To Server ...</div>`;
     messageContainer.appendChild(messageDiv);
     messageDiv.style.opacity = '1';
     const message = messageDiv.children[2];
@@ -1171,9 +1167,9 @@ async function unfollowUser(event) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
-         <div class="icon1"><i class="fas fa-exclamation"></i></div>
-         <div class="icon2"><i class="fas fa-check"></i></div>
-         <div class="request-message">Connecting To Server ...</div>`;
+    <div class="icon1"><i class="fas fa-exclamation"></i></div>
+    <div class="icon2"><i class="fas fa-check"></i></div>
+    <div class="request-message">Connecting To Server ...</div>`;
     messageContainer.appendChild(messageDiv);
     messageDiv.style.opacity = '1';
     const message = messageDiv.children[2];
@@ -1224,3 +1220,28 @@ async function unfollowUser(event) {
     getFollowing();
     getSuggestionList();
 }
+const tokenVerifier = async() => {
+        try {
+            const res = await fetch(`${url}/auth/tokenVerifier`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                },
+            })
+            const data = await res.json();
+            if (data.message === "Token Expired") {
+                location.replace(`${frontendUrl}`);
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    //function calls
+tokenVerifier();
+getUserList();
+fetchCredentials();
+getUserPosts();
+getFollowing();
+getSuggestionList();

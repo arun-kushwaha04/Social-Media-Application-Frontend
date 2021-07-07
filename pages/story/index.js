@@ -535,6 +535,27 @@ addStory.addEventListener("click", () => {
 
 })
 
+const tokenVerifier = async() => {
+        try {
+            const res = await fetch(`${url}/auth/tokenVerifier`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                },
+            })
+            const data = await res.json();
+            if (data.message === "Token Expired") {
+
+                location.replace(`${frontendUrl}`);
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    //function calls
+tokenVerifier();
 
 fetchCredentials();
 getFollowing();
