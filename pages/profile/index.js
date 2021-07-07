@@ -26,6 +26,11 @@ const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 // const frontendUrl = `http://localhost:5500`;
 
 
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.loader-animation');
+    loader.classList.add('loader-end');
+})
+
 const currUrl = new URLSearchParams(window.location.search);
 const username = currUrl.get("username");
 const userId = currUrl.get("userId");
@@ -780,6 +785,18 @@ newProfilePhoto.addEventListener('change', (event) => {
 })
 
 const uploadProfilePhotoToFirebase = (file, currentProfilePhoto) => {
+    //message div 
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('confirmation-message');
+    messageDiv.innerHTML = `
+        <div class="icon1"><i class="fas fa-exclamation"></i></div>
+        <div class="icon2"><i class="fas fa-check"></i></div>
+        <div class="request-message">Connecting To Server ...</div>`;
+    messageContainer.appendChild(messageDiv);
+    messageDiv.style.opacity = '1';
+    const message = messageDiv.children[2];
+    const success = messageDiv.children[1];
+    const error = messageDiv.children[0];
     let today = new Date();
     let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -799,25 +816,13 @@ const uploadProfilePhotoToFirebase = (file, currentProfilePhoto) => {
             task.snapshot.ref.getDownloadURL()
                 .then(
                     function(downloadURL) {
-                        updateProfilePhotoToDataBase(downloadURL, currentProfilePhoto);
+                        updateProfilePhotoToDataBase(messageDiv, message, success, error, downloadURL, currentProfilePhoto);
                     });
         }
     )
 }
-const updateProfilePhotoToDataBase = async(downloadURL, currentProfilePhoto) => {
+const updateProfilePhotoToDataBase = async(messageDiv, message, success, error, downloadURL, currentProfilePhoto) => {
     console.log('hi');
-    //message div 
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('confirmation-message');
-    messageDiv.innerHTML = `
-        <div class="icon1"><i class="fas fa-exclamation"></i></div>
-        <div class="icon2"><i class="fas fa-check"></i></div>
-        <div class="request-message">Connecting To Server ...</div>`;
-    messageContainer.appendChild(messageDiv);
-    messageDiv.style.opacity = '1';
-    const message = messageDiv.children[2];
-    const success = messageDiv.children[1];
-    const error = messageDiv.children[0];
     let userData = {
         profilePhoto: downloadURL,
     };

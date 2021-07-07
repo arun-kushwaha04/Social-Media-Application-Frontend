@@ -18,6 +18,10 @@ const leftContainer = document.querySelector('.left-container');
 const rightContainer = document.querySelector('.right-container');
 const hamburger = document.querySelector('.hamburger-div');
 
+//Loader
+const storyLoader = document.querySelector('.story-loader');
+const storyLoaderEnd = document.querySelector('.story-loader-end');
+
 const url = "https://sheltered-citadel-84490.herokuapp.com";
 // const url = "http://localhost:8000";
 
@@ -25,6 +29,10 @@ const url = "https://sheltered-citadel-84490.herokuapp.com";
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 // const frontendUrl = `http://localhost:5500`;
 
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.loader-animation');
+    loader.classList.add('loader-end');
+})
 
 //message showing
 const messageContainer = document.querySelector('.message-container');
@@ -107,7 +115,7 @@ const getUserStory = async(userId, arg, arg2) => {
     }
     //getting the following users
 
-console.log = function() {}
+// console.log = function() {}
 async function getFollowing() {
     try {
         const res = await fetch(`${url}/story/getStoryList`, {
@@ -138,8 +146,19 @@ const renderMainContainerBackground = () => {
 
 //setting the fetched image to display
 const renderUserStory = (arg) => {
+    console.log('hi');
     previousButton.style.visibility = 'hidden';
     nextButton.style.visibility = 'visible';
+
+    // var downloadingImage = new Image();
+    // downloadingImage.onload = function() {
+    //     currentImage.children[1].src = this.src;
+    //     currentImage.setAttribute('id', 0);
+    //     renderMainContainerBackground();
+    //     storyLoader.style.opacity = 0;
+    //     storyLoader.style.zIndex = -100000;
+    // }
+    // downloadingImage.src = image[0];
     currentImage.children[1].src = image[0];
     currentImage.setAttribute('id', 0);
     renderMainContainerBackground();
@@ -224,22 +243,22 @@ const renderFollowingList = (following) => {
         const div = document.createElement('div');
         div.classList.add('story-item');
         div.setAttribute('id', `${i}`);
-        div.addEventListener("click", (event) => {
+        div.addEventListener("click", async(event) => {
             chk = 0;
             const id = event.currentTarget.id;
             if (id) {
+                storyLoader.style.opacity = 1;
+                storyLoader.style.zIndex = 100000;
                 if (window.innerWidth <= 1170) {
                     showRightContainer();
                 }
                 document.querySelector('.like-story-div').style.display = 'block';
-                updateViewStory(element.storyid);
-                image = followingStory[id];
-                renderUserStory();
+                let image2 = followingStory[id];
+                preloadImages(image2);
                 currentImage.children[0].setAttribute('id', `${element.storyid}`);
                 document.querySelector('.story-creator').innerHTML = `${element.username}`;
                 document.querySelector('.story-likes').innerHTML = `${element.likes}`;
                 document.querySelector('.story-views').innerHTML = `${element.views}`;
-                nav.style.visibility = 'visible';
             }
         })
         div.innerHTML = `    
@@ -253,6 +272,33 @@ const renderFollowingList = (following) => {
         i++;
     })
     console.log('end');
+}
+
+//function to preload all images
+const preloadImages = (image2) => {
+    var imageCount = image2.length;
+    var imagesLoaded = 0;
+    image = [];
+    //function to load all image before viewing to users
+    for (let i = 0; i < image2.length; i++) {
+        var downloadingImage = new Image();
+        downloadingImage.onload = function() {
+            imagesLoaded++;
+            image.push(this.src);
+            if (imagesLoaded === imageCount) {
+                allLoaded()
+            }
+        }
+        downloadingImage.src = image2[i];
+    }
+}
+
+function allLoaded() {
+    nav.style.visibility = 'visible';
+    storyLoader.style.opacity = 0;
+    storyLoader.style.zIndex = -100000;
+    updateViewStory(element.storyid);
+    renderUserStory();
 }
 
 //swithching display on hamburger click
@@ -363,6 +409,7 @@ const addStoryTOServer = async() => {
         success.style.opacity = 1;
         addStoryButtonDiv.style.display = 'none';
         viewStoryButtonDiv.style.display = 'block';
+        location.reload();
     } else {
         messageDiv.removeChild(success);
         message.textContent = 'Error Ocurred In Adding Story';

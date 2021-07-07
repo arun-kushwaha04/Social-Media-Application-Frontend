@@ -128,6 +128,39 @@ main {
     gap: 1rem;
 }
 
+.story-loader {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: lightblue;
+    z-index: 200;
+    opacity: 0;
+    /* display: none; */
+    transition: opacity 0.5s ease-in-out;
+}
+
+.story-loader-end {
+    opacity: 0;
+    pointer-events: none;
+    z-index: -200;
+}
+
+.story-loader div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-loader div p {
+    color: black;
+    font-size: 2rem;
+}
+
 .current-background {
     position: absolute;
     top: 0;
@@ -545,4 +578,76 @@ nav {
     .profile-photo-close:hover {
         background-color: none;
     }
+}
+
+
+/* loading animation  */
+
+.loader-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    min-height: 100vh;
+    top: 0rem;
+    left: 0;
+    background: #2c294f;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 10000;
+}
+
+.loader-end {
+    z-index: -10000;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.loader-animation div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Loader circles */
+
+.loader-animation div span {
+    background: #fad000;
+    border-radius: 50%;
+    margin: 5rem 0.5rem;
+    animation: bouncingLoader 0.6s infinite alternate;
+}
+
+.loader-animation .second {
+    animation-delay: 0.2s;
+}
+
+.loader-animation .third {
+    animation-delay: 0.4s;
+}
+
+
+/* Define the animation called bouncingLoader. */
+
+@keyframes bouncingLoader {
+    from {
+        width: 0.1rem;
+        height: 0.1rem;
+        opacity: 1;
+        transform: translate3d(0);
+    }
+    to {
+        width: 1rem;
+        height: 1rem;
+        opacity: 0.1;
+        transform: translate3d(0, -1rem, 0);
+    }
+}
+
+.loader-animation p {
+    font-size: 2rem;
+    color: #a599e9;
+    text-align: center;
 }
