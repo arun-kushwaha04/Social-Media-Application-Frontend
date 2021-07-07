@@ -268,14 +268,8 @@ register.addEventListener('click', () => {
 
 login.addEventListener('click', (event) => {
     event.preventDefault();
-    // if ('scrollRestoration' in history) {
-    //     history.scrollRestoration = 'manual';
-    // }
-    // window.scrollTo(0, 0);
-    // window.scrollTo({ top: 0, behavior: 'smooth' });
     document.querySelector('header').scrollIntoView();
     loading.classList.add('loadingGIF-class');
-
     let userData = {
         email: email.value,
         password: password.value,
