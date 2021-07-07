@@ -27,6 +27,31 @@ toSignUp.addEventListener('click', () => {
     loginPage.style.display = 'none';
 })
 
+//if a token exists
+const tokenVerifier = async() => {
+        try {
+            const res = await fetch(`${url}/auth/tokenVerifier`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `${localStorage.getItem("userToken")}`,
+                },
+            })
+            const data = await res.json();
+            if (data.message === "Token Expired") {
+                location.replace(`${frontendUrl}`);
+            }
+            if (data.message === "Valid token") {
+                location.replace(`/pages/dashboard/dashboard.html`);
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    //function calls
+if (localStorage.getItem("userToken") != undefined) tokenVerifier();
+
 //preloader animation
 window.addEventListener('load', () => {
     setTimeout(() => {
@@ -264,6 +289,11 @@ forgotPasswordButton.addEventListener('click', () => {
 
 //registering the user
 const registerUser = async(userData, email) => {
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    loading.classList.add('loadingGIF-class');
     try {
         const res = await fetch(`${url}/auth/signUp`, {
             method: 'POST',
@@ -284,7 +314,10 @@ const registerUser = async(userData, email) => {
 //logging in the user
 const loading = document.querySelector('.loadingGIF');
 async function loginUser(userData) {
-    loading.scrollIntoView();
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
     loading.classList.add('loadingGIF-class');
 
     try {
@@ -373,6 +406,7 @@ async function forgotPasswordEmail(email, domain, key, userToken) {
             //displaying the send message
         if (message) {
             console.log('mail sent successfully');
+            loading.classList.remove('loadingGIF-class');
         }
     } catch (err) {
         console.log(err);
@@ -402,6 +436,7 @@ async function verifyEmail(email, domain, key, userToken) {
             //handling the errors
         if (message) {
             console.log('mail sent successfully');
+            loading.classList.remove('loadingGIF-class');
         }
     } catch (err) {
         console.log(err);

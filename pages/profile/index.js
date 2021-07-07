@@ -42,12 +42,7 @@ const photo = document.querySelector('.user-image');
 
 
 let firebaseConfig;
-window.onload = () => {
-    fetchCredentials();
-    fetchUserDetails();
-    if (username != localStorage.getItem('username')) isUserFollowing();
-    getUserPosts();
-};
+window.onload = () => {};
 
 
 //drop down menu items
@@ -779,15 +774,12 @@ profilePhotoDiv.addEventListener('mouseout', () => {
     updateProfilePhotoDiv.style.opacity = 0;
 }, false);
 newProfilePhoto.addEventListener('change', (event) => {
-    alert('hi');
-    console.log('hi form clicked');
     const file = event.target.files[0];
     const currentProfilePhoto = localStorage.getItem('profilePhoto');
     uploadProfilePhotoToFirebase(file, currentProfilePhoto);
 })
 
 const uploadProfilePhotoToFirebase = (file, currentProfilePhoto) => {
-    console.log('hi form firebase');
     let today = new Date();
     let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -1013,3 +1005,29 @@ async function unfollowUser() {
         messageContainer.removeChild(messageDiv);
     }, 2000);
 }
+
+const tokenVerifier = async() => {
+    try {
+        const res = await fetch(`${url}/auth/tokenVerifier`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        })
+        const data = await res.json();
+        if (data.message === "Token Expired") {
+            location.replace(`${frontendUrl}`);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+//function calls
+tokenVerifier();
+fetchCredentials();
+fetchUserDetails();
+if (username != localStorage.getItem('username')) isUserFollowing();
+getUserPosts();
