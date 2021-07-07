@@ -1,192 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Landing Page</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
 
     <script type="text/javascript">
-      history.pushState(null, null, location.href);
-      history.back();
-      history.forward();
-      window.onpopstate = function () {
-        history.go(1);
-      };
+        history.pushState(null, null, location.href);
+        history.back();
+        history.forward();
+        window.onpopstate = function() {
+            history.go(1);
+        };
     </script>
-  </head>
-  <div class="master">
+</head>
+<div class="master">
+
     <body>
-      <header>
-        <div class="heading">
-          <h1>Dubify</h1>
-          <p>Time to be Social, Go social.</p>
-          <a href="#container"
-            ><img
-              src="../../assets/scroll_downward.svg"
-              id="scroll-button"
-              class="scroll_downward"
-            />
-          </a>
+        <header>
+            <div class="heading">
+                <h1>Dubify</h1>
+                <p>Time to be Social, Go social.</p>
+                <a href="#container"><img src="../../assets/scroll_downward.svg" id="scroll-button" class="scroll_downward" />
+                </a>
+            </div>
+        </header>
+
+        <div class="container" id="container">
+            <div class="page" id="login">
+                <div class="title">dubify</div>
+                <form>
+                    <div class="field">
+                        <input type="text" placeholder="Username or email" class="email" onkeyup="check6()" />
+                        <div class="icon">
+                            <span class="email-icon1 icon1 fas fa-exclamation"></span>
+                            <span class="email-icon2 icon2 fas fa-check"></span>
+                        </div>
+                    </div>
+                    <div class="error email-error">Invalid Email</div>
+                    <div class="field">
+                        <input type="password" placeholder="Password" class="password" onkeyup="check6()" />
+                        <div class="icon">
+                            <span class="password-icon1 icon1 fas fa-exclamation"></span>
+                            <span class="password-icon2 icon2 fas fa-check"></span>
+                        </div>
+                    </div>
+                    <div class="error password-error">Inavlid Password</div>
+                    <button class="login">Log in</button>
+                    <div class="option">OR</div>
+                </form>
+                <div class="forgetPassword">
+                    <a>Forget password?</a>
+                </div>
+                <div class="signup">
+                    <p>Don't have an account?<a class="toSignUp">Sign up</a></p>
+                </div>
+                <!-- <div id="particles-js"></div> -->
+            </div>
+
+            <div class="page" id="signup">
+                <div class="title">dubify</div>
+                <form>
+                    <div class="field">
+                        <input type="text" placeholder="Username" class="username" onkeyup="check1()" />
+                        <div class="icon">
+                            <span class="username-icon1 icon1 fas fa-exclamation"></span>
+                            <span class="username-icon2 icon2 fas fa-check"></span>
+                        </div>
+                    </div>
+                    <div class="error username-error">
+                        Username Should Have Atmost 10 Characters
+                    </div>
+
+                    <div class="field">
+                        <input type="text" placeholder="Name" class="name" onkeyup="check2()" />
+                        <div class="icon">
+                            <span class="name-icon1 icon1 fas fa-exclamation"></span>
+                            <span class="name-icon2 icon2 fas fa-check"></span>
+                        </div>
+                    </div>
+                    <div class="error name-error">
+                        Name Should Have Atmost 20 Characters
+                    </div>
+
+                    <div class="field">
+                        <input type="text" placeholder="Email" class="signUpEmail" onkeyup="check3()" />
+                        <div class="icon">
+                            <span class="signUpEmail-icon1 icon1 fas fa-exclamation"></span>
+                            <span class="signUpEmail-icon2 icon2 fas fa-check"></span>
+                        </div>
+                    </div>
+                    <div class="error signUpEmail-error">Invalid Email</div>
+
+                    <div class="field">
+                        <input type="password" placeholder="Password" class="signUpPassword" onkeyup="check4()" />
+                        <div class="icon">
+                            <span class="signUpPassword-icon1 icon1 fas fa-exclamation"></span>
+                            <span class="signUpPassword-icon2 icon2 fas fa-check"></span>
+                        </div>
+                    </div>
+                    <div class="error signUpPassword-error">
+                        Atleast 8 Characters Including Uppercase, Lowercase, Numbers And Symbols
+                    </div>
+
+                    <div class="field">
+                        <input type="password" placeholder="Confirm Password" class="confirm-password" onkeyup="check5()" />
+                        <div class="icon">
+                            <span class="confirm-password-icon1 icon1 fas fa-exclamation"></span>
+                            <span class="confirm-password-icon2 icon2 fas fa-check"></span>
+                        </div>
+                    </div>
+                    <div class="error confirm-password-error">
+                        Confirm Password And Password Should Match
+                    </div>
+                    <button class="register">Sign Up</button>
+                </form>
+                <div class="signup">
+                    <p>Already Have A Account?<a class="toLogin">Login</a></p>
+                </div>
+                <!-- <div id="particles-js"></div> -->
+            </div>
         </div>
-      </header>
 
-      <div class="container" id="container">
-        <div class="page" id="login">
-          <div class="title">dubify</div>
-          <form>
-            <div class="field">
-              <input
-                type="text"
-                placeholder="Username or email"
-                class="email"
-                onkeyup="check6()"
-              />
-              <div class="icon">
-                <span class="email-icon1 icon1 fas fa-exclamation"></span>
-                <span class="email-icon2 icon2 fas fa-check"></span>
-              </div>
-            </div>
-            <div class="error email-error">Invalid Email</div>
-            <div class="field">
-              <input
-                type="password"
-                placeholder="Password"
-                class="password"
-                onkeyup="check6()"
-              />
-              <div class="icon">
-                <span class="password-icon1 icon1 fas fa-exclamation"></span>
-                <span class="password-icon2 icon2 fas fa-check"></span>
-              </div>
-            </div>
-            <div class="error password-error">Inavlid Password</div>
-            <button class="login">Log in</button>
-            <div class="option">OR</div>
-          </form>
-          <div class="forgetPassword">
-            <a>Forget password?</a>
-          </div>
-          <div class="signup">
-            <p>Don't have an account?<a class="toSignUp">Sign up</a></p>
-          </div>
-          <!-- <div id="particles-js"></div> -->
-        </div>
-
-        <div class="page" id="signup">
-          <div class="title">dubify</div>
-          <form>
-            <div class="field">
-              <input
-                type="text"
-                placeholder="Username"
-                class="username"
-                onkeyup="check1()"
-              />
-              <div class="icon">
-                <span class="username-icon1 icon1 fas fa-exclamation"></span>
-                <span class="username-icon2 icon2 fas fa-check"></span>
-              </div>
-            </div>
-            <div class="error username-error">
-              Username Should Have Atmost 10 Characters
-            </div>
-
-            <div class="field">
-              <input
-                type="text"
-                placeholder="Name"
-                class="name"
-                onkeyup="check2()"
-              />
-              <div class="icon">
-                <span class="name-icon1 icon1 fas fa-exclamation"></span>
-                <span class="name-icon2 icon2 fas fa-check"></span>
-              </div>
-            </div>
-            <div class="error name-error">
-              Name Should Have Atmost 20 Characters
-            </div>
-
-            <div class="field">
-              <input
-                type="text"
-                placeholder="Email"
-                class="signUpEmail"
-                onkeyup="check3()"
-              />
-              <div class="icon">
-                <span class="signUpEmail-icon1 icon1 fas fa-exclamation"></span>
-                <span class="signUpEmail-icon2 icon2 fas fa-check"></span>
-              </div>
-            </div>
-            <div class="error signUpEmail-error">Invalid Email</div>
-
-            <div class="field">
-              <input
-                type="password"
-                placeholder="Password"
-                class="signUpPassword"
-                onkeyup="check4()"
-              />
-              <div class="icon">
-                <span
-                  class="signUpPassword-icon1 icon1 fas fa-exclamation"
-                ></span>
-                <span class="signUpPassword-icon2 icon2 fas fa-check"></span>
-              </div>
-            </div>
-            <div class="error signUpPassword-error">
-              Atleast 8 Characters Including Uppercase, Lowercase, Numbers And
-              Symbols
-            </div>
-
-            <div class="field">
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                class="confirm-password"
-                onkeyup="check5()"
-              />
-              <div class="icon">
-                <span
-                  class="confirm-password-icon1 icon1 fas fa-exclamation"
-                ></span>
-                <span class="confirm-password-icon2 icon2 fas fa-check"></span>
-              </div>
-            </div>
-            <div class="error confirm-password-error">
-              Confirm Password And Password Should Match
-            </div>
-            <button class="register">Sign Up</button>
-          </form>
-          <div class="signup">
-            <p>Already Have A Account?<a class="toLogin">Login</a></p>
-          </div>
-          <!-- <div id="particles-js"></div> -->
-        </div>
-      </div>
-
-      <div class="loadingGIF">
+        <!-- <div class="loadingGIF">
         <img src="../../assets/loadingBlue.gif" />
-      </div>
-      
-      <div id="particles-js"></div>
+      </div> -->
+        <div class="loadingGIF">
+            <div id="loop" class="center">
+
+            </div>
+            <div id="bike-wrapper" class="center">
+                <div id="bike" class="centerBike"></div>
+            </div>
+            <!-- <div class="center">Connecting To Server</div> -->
+        </div>
+
+        <div id="particles-js"></div>
     </body>
-  </div>
-  <script src="particles.js"></script>
-  <script src="https://smtpjs.com/v3/smtp.js"></script>
-  <script src="./index.js"></script>
+</div>
+<script src="particles.js"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script src="./index.js"></script>
+
 </html>
