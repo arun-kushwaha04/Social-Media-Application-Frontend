@@ -53,7 +53,7 @@ function themeSlector() {
 }
 
 VanillaTilt.init(document.querySelectorAll(".event"), {
-    max: 15,
+    max: 10,
     speed: 300
 });
 
