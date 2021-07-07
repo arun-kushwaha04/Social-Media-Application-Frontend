@@ -423,17 +423,17 @@ const addStoryTOServer = async() => {
 
 //function to view user it own story
 viewStoryButtonDiv.addEventListener('click', () => {
+    storyLoader.style.opacity = 1;
+    storyLoader.style.zIndex = 100000;
     if (window.innerWidth <= 1170) {
         showRightContainer();
     }
     chk = 0;
-    image = userStory;
+    preloadImages(userStory);
     document.querySelector('.story-creator').innerHTML = `${element.username}`;
     document.querySelector('.story-likes').innerHTML = `${element.likes}`;
     document.querySelector('.story-views').innerHTML = `${element.views}`;
-    nav.style.visibility = 'visible';
     document.querySelector('.like-story-div').style.display = 'none';
-    renderUserStory();
 })
 
 //updating view on a story
