@@ -603,7 +603,6 @@ const tokenVerifier = async() => {
     }
     //function calls
 tokenVerifier();
-
 fetchCredentials();
 getFollowing();
 getUserStory(localStorage.getItem('userId'), 1);
