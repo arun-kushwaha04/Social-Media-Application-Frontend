@@ -234,8 +234,8 @@ function updateImageDisplay(event) {
     event.target.parentElement.style.display = 'none';
     event.target.parentElement.parentElement.children[1].style.display = 'block';
 }
-
-//a function to render all following users
+console.log = function() {}
+    //a function to render all following users
 const renderFollowingList = (following) => {
     const container = document.querySelector('.stories-list');
     let i = 0;

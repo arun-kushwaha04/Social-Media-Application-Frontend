@@ -188,7 +188,7 @@ function populateSuggestion(suggestion) {
                 <div class="follow-btn"><i class="fas fa-user-plus" id='${element.id}' ></i></div>
                 `;
         suggestionsTable.appendChild(div);
-        div.children[2].addEventListener('click', (event) => {
+        div.children[2].children[0].addEventListener('click', (event) => {
             followUser(event);
         })
         setRightSectionHeight();
@@ -766,7 +766,7 @@ function renderFollowingList(following) {
         <span><a href="${frontendUrl}/pages/profile/index.html?username=${element.followingrusername}&userId=${element.following}">${element.followingrusername}</a></span>
         <div class="follow-btn"><i class="fas fa-user-minus" id='${element.following}'></i></div>
         `;
-        div.children[2].addEventListener('click', (event) => {
+        div.children[2].children[0].addEventListener('click', (event) => {
             unfollowUser(event);
         })
         table.appendChild(div);
@@ -1122,6 +1122,7 @@ async function sharePost(userData, shareCounter, originaluserid) {
 
 async function followUser(event) {
     console.log('hi');
+    event.preventDefault();
     //message div 
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
@@ -1138,6 +1139,8 @@ async function followUser(event) {
 
     const following = event.target.id;
     const followingrusername = event.target.parentElement.parentElement.children[1].children[0].innerHTML;
+    console.log(event.target.parentElement.parentElement.children[1].children[0].innerHTML);
+    console.log(event.target.parentElement.parentElement.children[1].children[0]);
     const user = event.target.parentElement.parentElement;
     let userData = {
         following,
@@ -1181,6 +1184,7 @@ async function followUser(event) {
 }
 
 async function unfollowUser(event) {
+    event.preventDefault();
     //message div 
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
@@ -1197,6 +1201,8 @@ async function unfollowUser(event) {
     const following = event.target.id;
     const user = event.target.parentElement.parentElement;
     const followingrusername = event.target.parentElement.parentElement.children[1].children[0].innerHTML;
+    console.log(event.target.parentElement.parentElement.children[1].children[0].innerHTML);
+    console.log(event.target.parentElement.parentElement.children[1].children[0]);
     let userData = {
         following,
         followingrusername,
