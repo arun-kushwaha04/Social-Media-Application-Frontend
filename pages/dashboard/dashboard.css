@@ -1586,7 +1586,7 @@ section.dark {
 }
 
 section.dark .dsec {
-    background: #928EAE;
+    background: #2f26606e;
 }
 
 section.dark body {
@@ -1594,7 +1594,8 @@ section.dark body {
 }
 
 section.dark .main-container {
-    background: rgba(255, 255, 255, 0.336);
+    /* background: rgba(255, 255, 255, 0.336); */
+    background: #67618C;
 }
 
 section.dark .user-posts .Posts {
