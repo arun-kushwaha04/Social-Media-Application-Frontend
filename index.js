@@ -195,8 +195,13 @@ function check4() {
         signUpPasswordIcon2.style.display = 'none';
         signUpPasswordError.style.display = 'none';
         chk4 = 0;
+        confirmPassword.style.borderColor = 'lightgray';
+        confirmPasswordIcon1.style.display = 'none';
+        confirmPasswordIcon2.style.display = 'none';
+        confirmPasswordError.style.display = 'none';
+        chk5 = 0;
     }
-    if (confirmPassword.value === signUpPassword.value) {
+    if (confirmPassword.value === signUpPassword.value && confirmPassword.value != "") {
         confirmPassword.style.borderColor = '#27ae60';
         confirmPasswordIcon1.style.display = 'none';
         confirmPasswordIcon2.style.display = 'block';
