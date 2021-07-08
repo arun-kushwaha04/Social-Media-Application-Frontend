@@ -491,8 +491,9 @@ async function getUserPosts() {
             }
         } else {
             const data = await res.json();
-            //show the error of from the response.
-
+            //show the error of from the response.]
+            console.log('error');
+            setTimeout(() => { location.reload() }, 5000);
         }
     } catch (e) {
         console.log(e);

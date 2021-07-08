@@ -720,7 +720,7 @@ section {
     font-size: 1rem;
     align-items: space-between;
     /* background: linear-gradient(to right, #a1fff7, #ffa6b5); */
-    background-color: #5a71d7;
+    background-color: #A8B8FE;
     box-sizing: border-box;
     width: 100%;
     min-height: 100vh;
@@ -1153,7 +1153,6 @@ section {
         font-size: 1px;
         width: 100vw;
         overflow-x: hidden;
-        min-height: 200vh;
         background-color: #0A1931;
     }
     .nav {
@@ -1268,7 +1267,6 @@ section {
         font-size: 3px;
         width: 100vw;
         overflow-x: hidden;
-        min-height: 200vh;
         background-color: #0A1931;
     }
     .theme-changer {
@@ -1580,7 +1578,8 @@ section.dark {
     display: flex;
     font-size: 1rem;
     align-items: space-between;
-    background: linear-gradient(to right, #170346, #0a034d);
+    /* background: linear-gradient(to right, #170346, #0a034d); */
+    background: #5C5787;
     box-sizing: border-box;
     width: 100%;
     height: 90%;
