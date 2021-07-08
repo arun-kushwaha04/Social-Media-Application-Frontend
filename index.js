@@ -57,7 +57,7 @@ window.addEventListener('load', () => {
         const loader = document.querySelector('#animationWindow');
         document.querySelector('body').style.overflow = 'scroll';
         loader.classList.add('loader-end');
-    }, 2000);
+    }, 4000);
 })
 
 

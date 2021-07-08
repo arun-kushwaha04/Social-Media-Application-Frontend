@@ -9,7 +9,6 @@ const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 //message showing
 const messageContainer = document.querySelector('.message-container');
 
-let theme = localStorage.getItem("theme");
 let users;
 let firebaseConfig;
 let following;
@@ -32,25 +31,43 @@ const changeThemeButton = document.querySelector(".theme-changer");
 
 changeThemeButton.addEventListener('click', () => themeSlector());
 
+
+//1 for dark and 0 for light
 function themeSlector() {
-    if (theme === 1) {
-        localStorage.setItem("theme", 0);
+    let theme = localStorage.getItem("theme");
+    if (theme == 1) {
         nav2.style.background = "#0a1931";
-        sec.classList.remove('dark');
-        changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
-        theme = 0;
         nav2.style.borderBottom = "2px solid greenyellow";
+        sec.classList.remove('dark');
+        localStorage.setItem('theme', '0');
+        changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
         return;
     } else {
         nav2.style.background = "#0c033a";
-        localStorage.setItem("theme", 1);
         sec.classList.add('dark');
+        nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
         changeThemeButton.innerHTML = ` <img src="../../assets/lightTheme.svg" alt="">`;
-        theme = 1;
+        localStorage.setItem("theme", 1);
+        return;
+    }
+}
+
+
+function themeLoader() {
+    let theme = localStorage.getItem("theme");
+    if (theme == 0) {
+        nav2.style.background = "#0a1931";
+        nav2.style.borderBottom = "2px solid greenyellow";
+        sec.classList.remove('dark');
+        return;
+    } else {
+        nav2.style.background = "#0c033a";
+        sec.classList.add('dark');
         nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
         return;
     }
 }
+themeLoader();
 
 VanillaTilt.init(document.querySelectorAll(".event"), {
     max: 15,

@@ -99,7 +99,7 @@ header:before {
     background: 50% 50% / cover;
 }
 
-header::before {
+.main-header::before {
     content: "";
     position: absolute;
     top: 0;
@@ -342,30 +342,6 @@ form .option:after {
     display: none;
 }
 
-@media (max-width: 1300px) {
-    .page {
-        width: 40%;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1000px) {
-    .page {
-        width: 50%;
-    }
-}
-
-@media (min-width: 500px) and (max-width: 768px) {
-    .page {
-        width: 75%;
-    }
-}
-
-@media (max-width: 500px) {
-    .page {
-        width: 90%;
-    }
-}
-
 
 /* .ladingGIF img {
   width: 30rem;
@@ -506,7 +482,7 @@ body {
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    z-index: 10;
+    z-index: 10000;
     background-color: black;
     pointer-events: none;
     overflow: hidden;
@@ -518,31 +494,86 @@ body {
     opacity: 0;
 }
 
-svg {
+#animationWindow {
+    background: black;
+}
+
+.bottom-header {
+    position: relative;
+}
+
+.bottom-header::before {
+    content: "";
     position: absolute;
-}
-
-circle:nth-of-type(1) {
-    fill: #ffffff;
-}
-
-circle:nth-of-type(2) {
-    fill: #fcd837;
-}
-
-circle:nth-of-type(3) {
-    fill: #f9a11f;
-}
-
-circle:nth-of-type(4) {
-    fill: #f27c21;
-}
-
-#clackers {
-    /*   border: 1px solid white; */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* background: url(../../assets/blueBackground.jpg); */
+    background-color: black;
+    background-size: cover;
+    transform-origin: center center 0;
+    transform: translateZ(-1px) scale(2);
+    z-index: -1;
+    min-height: 100vh;
+}
+
+.loader {
+    font-family: 'ZCOOL KuaiLe', cursive;
+    width: 100vw;
+    font-size: 2rem;
+    color: white;
+}
+
+.loader::after {
+    content: '.....';
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    font-size: 4rem;
+    animation: dots steps(4, end) 2s infinite;
+    width: 0px;
+}
+
+@keyframes dots {
+    to {
+        width: 2em;
+    }
+}
+
+@media (max-width: 1300px) {
+    .page {
+        width: 40%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+    .page {
+        width: 50%;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 768px) {
+    .loader {
+        font-size: 1.5rem;
+    }
+    .loader::after {
+        font-size: 3rem;
+    }
+    .page {
+        width: 75%;
+    }
+}
+
+@media (max-width: 500px) {
+    .loader {
+        font-size: 1rem;
+    }
+    .loader::after {
+        font-size: 2rem;
+    }
+    .page {
+        width: 90%;
+    }
 }
