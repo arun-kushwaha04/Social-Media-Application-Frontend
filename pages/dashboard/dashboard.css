@@ -42,7 +42,10 @@ body {
 
 body::-webkit-scrollbar,
 .post-section::-webkit-scrollbar,
-.feed-text::-webkit-scrollbar {
+.feed-text::-webkit-scrollbar,
+.left-section::-webkit-scrollbar,
+.right-section::-webkit-scrollbar,
+section::-webkit-scrollbar {
     display: none;
 }
 

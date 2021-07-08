@@ -8,6 +8,7 @@ let imageToDelete = [];
 let postImage = [];
 let post;
 let postId;
+let loadCounter = 0;
 
 //message showing
 const messageContainer = document.querySelector('.message-container');
@@ -25,11 +26,6 @@ const url = "https://sheltered-citadel-84490.herokuapp.com";
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 // const frontendUrl = `http://localhost:5500`;
 
-
-window.addEventListener('load', () => {
-    const loader = document.querySelector('.loader-animation');
-    loader.classList.add('loader-end');
-})
 
 const currUrl = new URLSearchParams(window.location.search);
 const username = currUrl.get("username");
@@ -1036,3 +1032,8 @@ fetchCredentials();
 fetchUserDetails();
 if (username != localStorage.getItem('username')) isUserFollowing();
 getUserPosts();
+
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.ploader-animation');
+    setTimeout(() => { loader.classList.add('ploader-end'); }, 2000);
+})

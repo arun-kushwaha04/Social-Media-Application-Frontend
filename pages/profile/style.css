@@ -5,6 +5,7 @@ body {
     font-family: "Poppins", sans-serif;
     font-weight: 500;
     scroll-behavior: smooth;
+    position: relative;
     /* background-color: #185adb; */
     /* background: rgba(18, 87, 224, 0.753); */
 }
@@ -545,4 +546,55 @@ section .pprofile-photo img {
         visibility: visible;
         background-color: none;
     }
+}
+
+.ploader-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    min-height: 100vh;
+    top: 0rem;
+    left: 0;
+    background: #2c294f;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 10000;
+}
+
+.ploader-end {
+    z-index: -10000;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.ploader-animation div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Loader circles */
+
+.ploader-animation div span {
+    background: #fad000;
+    border-radius: 50%;
+    margin: 5rem 0.5rem;
+    animation: bouncingLoader 0.6s infinite alternate;
+}
+
+.ploader-animation .second {
+    animation-delay: 0.2s;
+}
+
+.ploader-animation .third {
+    animation-delay: 0.4s;
+}
+
+.ploader-animation p {
+    font-size: 2rem;
+    color: #a599e9;
+    text-align: center;
 }
