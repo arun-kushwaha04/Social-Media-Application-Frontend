@@ -155,6 +155,7 @@
                     <div class="feed-input">What's In Your Crazy Mind...</div>
                     <div class="underline-feed"></div>
                     <div class="add-photo-feed">
+                        <div class="hover-effect"></div>
                         <img class="add-photo-icon" src="../../assets/AddPhoto.svg" alt="" /> Add Photo
                     </div>
                 </div>
@@ -179,6 +180,7 @@
                             <input type="file" id="img" accept="image/*" data-max-total-files="4" data-max-file-size="3MB" />
                             <label for="img" class="image-selector">
                               <div class="add-photo-feed">
+                                  <div class="hover-effect"></div>
                                 <img
                                   class="add-photo-icon"
                                   src="../../assets/AddPhoto.svg"
@@ -187,7 +189,8 @@
                               </div>
                             </label>
                             <div class="btn upload-button">Upload Images</div>
-                            <div class="btn post-button">Post</div>
+                            <div class="btn post-button">
+                                <div class="hover-effect"></div>Post</div>
                         </div>
                         <div class="loading-effect">
                             <h3>Uploading...</h3>
@@ -264,7 +267,7 @@
 
                     <div class="event">
                         <h3>Singing Competition</h3>
-                        <p>❖ Starts from 3 Aug 2021 <br>❖ Organized by TuneCore</p>
+                        <p>❖ Starting from 3 Aug 2021 <br>❖ Organized by TuneCore</p>
                     </div>
 
                     <div class="event">
@@ -314,6 +317,42 @@
             });
         });
         $(".feature").on("mouseout", function(e) {
+            x = e.pageX - $(this).offset().left;
+            y = e.pageY - $(this).offset().top;
+            $(this).find(".hover-effect").css({
+                top: y,
+                left: x
+            });
+        });
+    });
+    $(document).ready(function(e) {
+        $(".add-photo-feed").on("mouseenter", function(e) {
+            x = e.pageX - $(this).offset().left;
+            y = e.pageY - $(this).offset().top;
+            $(this).find(".hover-effect").css({
+                top: y,
+                left: x
+            });
+        });
+        $(".add-photo-feed").on("mouseout", function(e) {
+            x = e.pageX - $(this).offset().left;
+            y = e.pageY - $(this).offset().top;
+            $(this).find(".hover-effect").css({
+                top: y,
+                left: x
+            });
+        });
+    });
+    $(document).ready(function(e) {
+        $(".post-button").on("mouseenter", function(e) {
+            x = e.pageX - $(this).offset().left;
+            y = e.pageY - $(this).offset().top;
+            $(this).find(".hover-effect").css({
+                top: y,
+                left: x
+            });
+        });
+        $(".post-button").on("mouseout", function(e) {
             x = e.pageX - $(this).offset().left;
             y = e.pageY - $(this).offset().top;
             $(this).find(".hover-effect").css({
