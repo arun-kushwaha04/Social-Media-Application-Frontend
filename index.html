@@ -38,7 +38,7 @@
                 <div class="title">dubify</div>
                 <form>
                     <div class="field">
-                        <input type="text" placeholder="Username or email" class="email" onkeyup="check6()" />
+                        <input type="text" placeholder="Username or email" class="email" onkeyup="check6()" onkeypress="return AvoidSpace(event)" />
                         <div class="icon">
                             <span class="email-icon1 icon1 fas fa-exclamation"></span>
                             <span class="email-icon2 icon2 fas fa-check"></span>
@@ -69,7 +69,7 @@
                 <div class="title">dubify</div>
                 <form>
                     <div class="field">
-                        <input type="text" placeholder="Username" class="username" onkeyup="check1()" />
+                        <input type="text" placeholder="Username" class="username" onkeyup="check1(event)" onkeypress="return AvoidSpace(event)" />
                         <div class="icon">
                             <span class="username-icon1 icon1 fas fa-exclamation"></span>
                             <span class="username-icon2 icon2 fas fa-check"></span>
@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="field">
-                        <input type="text" placeholder="Name" class="name" onkeyup="check2()" />
+                        <input type="text" placeholder="First Name" class="name" onkeyup="check2()" onkeypress="return AvoidSpace(event)" />
                         <div class="icon">
                             <span class="name-icon1 icon1 fas fa-exclamation"></span>
                             <span class="name-icon2 icon2 fas fa-check"></span>
@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="field">
-                        <input type="text" placeholder="Email" class="signUpEmail" onkeyup="check3()" />
+                        <input type="text" placeholder="Email" class="signUpEmail" onkeyup="check3()" onkeypress="return AvoidSpace(event)" />
                         <div class="icon">
                             <span class="signUpEmail-icon1 icon1 fas fa-exclamation"></span>
                             <span class="signUpEmail-icon2 icon2 fas fa-check"></span>
@@ -100,7 +100,7 @@
                     <div class="error signUpEmail-error">Invalid Email</div>
 
                     <div class="field">
-                        <input type="password" placeholder="Password" class="signUpPassword" onkeyup="check4()" />
+                        <input type="password" placeholder="Password" class="signUpPassword" onkeyup="check4()" onkeypress="return AvoidSpace(event)" />
                         <div class="icon">
                             <span class="signUpPassword-icon1 icon1 fas fa-exclamation"></span>
                             <span class="signUpPassword-icon2 icon2 fas fa-check"></span>

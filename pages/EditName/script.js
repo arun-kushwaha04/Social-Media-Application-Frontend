@@ -20,6 +20,11 @@ const passwordError = document.querySelector('.password-error');
 const enterPassword = document.querySelector('.error-text');
 const button = document.querySelector('.btn');
 
+function AvoidSpace(event) {
+    var k = event ? event.which : window.event.keyCode;
+    if (k === 32) return false;
+}
+
 //function for checking correct name input
 function check() {
     if (namea.value.length <= 20) {

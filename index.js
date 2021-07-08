@@ -17,7 +17,6 @@ const loginPage = document.querySelector('#login');
 const signupPage = document.querySelector('#signup');
 
 toLogin.addEventListener('click', () => {
-    console.log('hi');
     signupPage.style.display = 'none';
     loginPage.style.display = 'block';
 });
@@ -61,6 +60,11 @@ window.addEventListener('load', () => {
     }, 2000);
 })
 
+
+function AvoidSpace(event) {
+    var k = event ? event.which : window.event.keyCode;
+    if (k === 32) return false;
+}
 
 //username
 
@@ -192,9 +196,26 @@ function check4() {
         signUpPasswordError.style.display = 'none';
         chk4 = 0;
     }
+    if (confirmPassword.value === signUpPassword.value) {
+        confirmPassword.style.borderColor = '#27ae60';
+        confirmPasswordIcon1.style.display = 'none';
+        confirmPasswordIcon2.style.display = 'block';
+        confirmPasswordError.style.display = 'none';
+        chk5 = 1;
+    }
     if (chk1 === 1 && chk2 === 1 && chk3 === 1 && chk4 === 1 && chk5 === 1) register.style.display = 'block';
     else register.style.display = 'none';
 }
+
+signUpPassword.addEventListener('change', () => {
+    if (confirmPassword.value != signUpPassword.value) {
+        confirmPassword.style.borderColor = '#e74c3c';
+        confirmPasswordIcon1.style.display = 'block';
+        confirmPasswordIcon2.style.display = 'none';
+        confirmPasswordError.style.display = 'block';
+        chk5 = 0;
+    }
+})
 
 //confirmPassword
 
