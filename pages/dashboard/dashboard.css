@@ -45,7 +45,8 @@ body::-webkit-scrollbar,
 .feed-text::-webkit-scrollbar,
 .left-section::-webkit-scrollbar,
 .right-section::-webkit-scrollbar,
-section::-webkit-scrollbar {
+section::-webkit-scrollbar,
+.post-container::-webkit-scrollbar {
     display: none;
 }
 
