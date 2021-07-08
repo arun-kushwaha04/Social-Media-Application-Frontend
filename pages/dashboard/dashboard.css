@@ -1580,10 +1580,13 @@ section.dark {
     font-size: 1rem;
     align-items: space-between;
     /* background: linear-gradient(to right, #170346, #0a034d); */
-    background: #928EAE;
     box-sizing: border-box;
     width: 100%;
     height: 90%;
+}
+
+section.dark .dsec {
+    background: #928EAE;
 }
 
 section.dark body {
