@@ -424,17 +424,23 @@ section .pprofile-photo img {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 11vh;
+        height: 9vh;
         padding: 0.5rem;
     }
     .pnav .heading {
         width: 100%;
-        height: 4vh;
+        font: size 1.35rem;
         margin-bottom: 0.5rem;
     }
     .pnav .options {
         width: 100%;
-        height: 4vh;
+        margin-bottom: 0.5rem;
+    }
+    .phome img,
+    .pedit img,
+    .plogout img {
+        width: 1.35rem;
+        height: 1.35rem;
     }
     section .top-part {
         flex-direction: column;
@@ -452,7 +458,6 @@ section .pprofile-photo img {
 
 @media (min-width: 601px) and (max-width:950px) {
     .pnav {
-        height: 15vh;
         padding: 0.5rem;
     }
     section .container {
