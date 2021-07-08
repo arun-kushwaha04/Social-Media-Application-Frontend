@@ -280,6 +280,7 @@ register.addEventListener('click', () => {
     }
     document.querySelector('header').scrollIntoView();
     loading.classList.add('loadingGIF-class');
+    const email = signUpEmail.value;
     let userData = {
         username: username.value,
         name: _name.value,
@@ -287,7 +288,7 @@ register.addEventListener('click', () => {
         password: signUpPassword.value,
     }
     userData = JSON.stringify(userData);
-    registerUser(userData, signUpEmail.value);
+    registerUser(userData, email);
 })
 
 //get request at login route
@@ -436,7 +437,7 @@ async function forgotPasswordEmail(email, domain, key, userToken) {
                 Subject: "RESET PASSWORD",
                 Body: `
             <p>Someone (hopefully you) has requested a password reset for your Note-Maker account. Follow the link below to set a new password:</p>
-            <h1>Click on Below Link To Reset Your Password.</h1>
+            <h3>Click on Below Link To Reset Your Password.</h3>
             <p>If you don't wish to reset your password, disregard this email and no action will be taken.</p>
             <a href="${frontendUrl}/Pages/changePassword/index.html?userToken=${userToken}&email=${email}" target="_blank">Reset Password</a>
             <p>Team dubify</p>
@@ -469,7 +470,7 @@ async function verifyEmail(email, domain, key, userToken) {
                 Subject: "Verify Email",
                 Body: `
             <p>Thanks for signing up with Dubify You must follow this link to activate your account:</p>
-            <h1>Click on Below Link To Verify Your Mail.</h1>
+            <h3>Click on Below Link To Verify Your Mail.</h3>
             <a href="${frontendUrl}/Pages/verifyEmail/index.html?userToken=${userToken}&email=${email}" target="_blank">Verify Email</a>
             <p>Have fun, and don't hesitate to contact US with your feedback..</p>
             <p>Team Dubify</p>
@@ -478,13 +479,13 @@ async function verifyEmail(email, domain, key, userToken) {
             //handling the errors
         if (message) {
             loading.classList.remove('loadingGIF-class');
-            alert('Verify Your Email To Login');
+            alert(`Verify ${email} To Login`);
         } else {
             alert('An error occurred')
         }
     } catch (err) {
         console.log(err);
         alert('Error Occured In Sending Verification Mail');
-        setTimeout(() => { location.reload(); }, 1000);
+        setTimeout(() => { location.reload(); }, 10000);
     };
 }
