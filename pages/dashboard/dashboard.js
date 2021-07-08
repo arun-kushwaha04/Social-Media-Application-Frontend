@@ -649,9 +649,9 @@ async function addPost() {
     const success = messageDiv.children[1];
     const error = messageDiv.children[0];
 
-    if (feedText.value.length > 40) {
+    if (feedText.value.length > 100) {
         messageDiv.removeChild(success);
-        message.textContent = '40 Characters At Max In Posts';
+        message.textContent = '100 Characters At Max In Posts';
         error.style.opacity = 1;
         setTimeout(() => {
             messageDiv.style.opacity = '0';
