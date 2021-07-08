@@ -437,12 +437,24 @@ body {
     background: -ms-linear-gradient(left, rgba(187, 95, 39, 0) 0%, rgba(187, 95, 39, 1) 30%, rgba(187, 95, 39, 1) 70%, rgba(187, 95, 39, 0) 100%);
     background: linear-gradient(to right, rgba(187, 95, 39, 0) 0%, rgba(187, 95, 39, 1) 30%, rgba(187, 95, 39, 1) 70%, rgba(187, 95, 39, 0) 100%);
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#00bb5f27', endColorstr='#00bb5f27', GradientType=1);
-    content: "Connecting To Server";
+    content: " ";
     display: block;
     height: 4px;
     left: -100px;
     position: relative;
     top: 100px;
+    width: 300px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+#loop:after {
+    content: "Connecting To Server";
+    display: block;
+    height: 4px;
+    left: -100px;
+    position: relative;
+    top: 110px;
     width: 300px;
     text-align: center;
     font-size: 1rem;
