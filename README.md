@@ -137,9 +137,7 @@ Database:
 
     - Check https://github.com/arun-kushwaha04/Social-Media-Application-Frontend/blob/main/query.txt for all table queries.
 
-<br>
-
-## Create .env file (keys)
+Create .env file (keys):
 
     - SALT_ROUND
     - SECRET_KEY
