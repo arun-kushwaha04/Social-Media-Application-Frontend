@@ -1,23 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 body {
-    margin: 0;
-    padding: 0;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    scroll-behavior: smooth;
-    position: relative;
-    /* background-color: #185adb; */
-    /* background: rgba(18, 87, 224, 0.753); */
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  scroll-behavior: smooth;
+  position: relative;
+  /* background-color: #185adb; */
+  /* background: rgba(18, 87, 224, 0.753); */
 }
 
 body::-webkit-scrollbar,
 section::-webkit-scrollbar,
 container::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 html {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 input,
@@ -27,450 +27,450 @@ select,
 div,
 i,
 a {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .theme-changer {
-    background: rgba(0, 0, 0, 0.644);
-    /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
-    backdrop-filter: blur(5.5px);
-    -webkit-backdrop-filter: blur(5.5px);
-    /* border-radius: 10px; */
-    border: 1px solid rgba(255, 255, 255, 0.493);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 0.5rem;
-    position: fixed;
-    width: 60px;
-    height: 35px;
-    left: -34px;
-    top: 63px;
-    /* bottom: 5%; */
-    /* border: 2px solid white; */
-    border-radius: 15px;
-    z-index: 20;
-    /* background-color: pink; */
+  background: rgba(0, 0, 0, 0.644);
+  /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
+  backdrop-filter: blur(5.5px);
+  -webkit-backdrop-filter: blur(5.5px);
+  /* border-radius: 10px; */
+  border: 1px solid rgba(255, 255, 255, 0.493);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 0.5rem;
+  position: fixed;
+  width: 60px;
+  height: 35px;
+  left: -34px;
+  top: 63px;
+  /* bottom: 5%; */
+  /* border: 2px solid white; */
+  border-radius: 15px;
+  z-index: 20;
+  /* background-color: pink; */
 }
 
 .pnav {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: rgb(12, 3, 58);
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100vw;
-    min-height: 9vh;
-    z-index: 10;
-    color: #ffc947;
-    border-bottom: 2px solid #2ef107;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgb(12, 3, 58);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100vw;
+  min-height: 9vh;
+  z-index: 10;
+  color: #ffc947;
+  border-bottom: 2px solid #2ef107;
 }
 
 .pnav .heading {
-    font-size: 1.65rem;
-    font-family: "pacifico", cursive;
-    width: 40%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  font-size: 1.65rem;
+  font-family: "pacifico", cursive;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pnav .options {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 40%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 40%;
 }
 
 .phome img,
 .pedit img,
 .plogout img {
-    width: 1.75rem;
-    height: 1.75rem;
+  width: 1.75rem;
+  height: 1.75rem;
 }
 
 .phome,
 .pedit,
 .plogout {
-    cursor: pointer;
-    position: relative;
+  cursor: pointer;
+  position: relative;
 }
 
 .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .phome::after,
 .pedit::after,
 .plogout::after {
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    content: "Hello";
-    position: absolute;
-    bottom: -3rem;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-    left: 50%;
-    transform: translate(-50%, 0);
-    background-color: rgba(0, 0, 0, 0.753);
-    color: white;
-    padding: 0.5em 1em;
-    border-radius: 0.5em;
-    text-align: center;
-    visibility: hidden;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  content: "Hello";
+  position: absolute;
+  bottom: -3rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgba(0, 0, 0, 0.753);
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  text-align: center;
+  visibility: hidden;
 }
 
 .phome::after {
-    content: "Home";
+  content: "Home";
 }
 
 .pedit::after {
-    content: "Edit";
+  content: "Edit";
 }
 
 .plogout::after {
-    content: "Logout";
+  content: "Logout";
 }
 
 .phome:hover::after,
 .pedit:hover::after,
 .plogout:hover::after {
-    visibility: visible;
+  visibility: visible;
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 10rem;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    top: 3rem;
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 10rem;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  top: 3rem;
 }
 
 .dropdown-content a {
-    color: black;
-    font-size: 0.9rem;
-    padding: 0.7em 0.5em;
-    text-decoration: none;
-    display: block;
+  color: black;
+  font-size: 0.9rem;
+  padding: 0.7em 0.5em;
+  text-decoration: none;
+  display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: #ddd;
+  background-color: #ddd;
 }
 
 .show {
-    display: block;
+  display: block;
 }
 
 .psec {
-    background-color: #5A71D7;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-    backdrop-filter: blur(100px);
-    -webkit-backdrop-filter: blur(100px);
-    display: flex;
-    min-height: 90vh;
-    width: 100vw;
-    justify-content: center;
-    scroll-behavior: smooth;
+  background-color: #5a71d7;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  display: flex;
+  min-height: 91vh;
+  width: 100vw;
+  justify-content: center;
+  scroll-behavior: smooth;
 }
 
 section .container {
-    display: flex;
-    flex-direction: column;
-    width: 50vw;
-    min-height: 90vh;
-    background: rgba(255, 255, 255, 0.445);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-    backdrop-filter: blur(100px);
-    -webkit-backdrop-filter: blur(100px);
-    border: 2px solid rgba(255, 255, 255, 0.13);
-    padding: 2.5rem 1.5rem 1.5rem 1.5rem;
-    scroll-behavior: smooth;
-    min-width: 50%;
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  min-height: 90vh;
+  background: rgba(255, 255, 255, 0.445);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  border: 2px solid rgba(255, 255, 255, 0.13);
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  scroll-behavior: smooth;
+  min-width: 50%;
 }
 
 section .top-part {
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 section .pright-side {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 section .paccount {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 section .username {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .email,
 .name {
-    margin-bottom: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 section .overview-sections {
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 section .overview-sections .section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.5rem;
 }
 
 section .pprofile-photo img {
-    width: 9rem;
-    height: 9rem;
-    border-radius: 50%;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
 }
 
 .pprofile-photo {
-    position: relative;
-    width: 9rem;
-    height: 9rem;
-    border-radius: 50%;
+  position: relative;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
 }
 
 .pprofile-photo-over {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background: rgba( 255, 255, 255, 0.45);
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
-    backdrop-filter: blur( 0.0px);
-    -webkit-backdrop-filter: blur( 0.0px);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
 .pprofile-photo-over div {
-    height: 2rem;
-    width: 2rem;
+  height: 2rem;
+  width: 2rem;
 }
 
 .fa-user-edit {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 .line {
-    margin: 1rem 0;
-    align-self: center;
-    width: 100%;
-    height: 2px;
-    background: white;
+  margin: 1rem 0;
+  align-self: center;
+  width: 100%;
+  height: 2px;
+  background: white;
 }
 
 .bottom-line {
-    margin-bottom: 3em;
+  margin-bottom: 3em;
 }
 
 .posts-header {
-    color: #ffffff;
-    margin: 0;
-    padding: 0;
-    font-size: 2rem;
-    align-self: center;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  font-size: 2rem;
+  align-self: center;
 }
 
 .about-container {
-    display: block;
-    font-weight: bold;
-    width: 80%;
-    margin: 1rem auto;
+  display: block;
+  font-weight: bold;
+  width: 80%;
+  margin: 1rem auto;
 }
 
 .underline {
-    margin: 0.5rem auto;
-    height: 0.1rem;
-    width: 100%;
-    background-color: grey;
+  margin: 0.5rem auto;
+  height: 0.1rem;
+  width: 100%;
+  background-color: grey;
 }
 
 .about {
-    font-weight: normal;
-    font-size: 0.85rem;
-    padding: 0 1rem;
+  font-weight: normal;
+  font-size: 0.85rem;
+  padding: 0 1rem;
 }
-
 
 /* post container */
 
 .Posts {
-    color: #ffffffcb;
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 1.5rem;
-    background-color: #0080ff;
-    box-shadow: -15px 15px 30px black;
-    border: 0.05px solid rgba(0, 0, 0, 0.144);
-    margin-bottom: 2rem;
-    position: relative;
-    /* border-bottom-left-radius: 0;
+  color: #ffffffcb;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1.5rem;
+  background-color: #0080ff;
+  box-shadow: -15px 15px 30px black;
+  border: 0.05px solid rgba(0, 0, 0, 0.144);
+  margin: 0 0.75rem 2rem 0.75rem;
+  position: relative;
+  /* border-bottom-left-radius: 0;
       border-bottom-right-radius: 0; */
 }
 
 .user-posts .crazy-button:hover {
-    transform: scale(1);
+  transform: scale(1);
 }
 
 .like-button,
 .comment-button,
 .share-button {
-    cursor: normal;
+  cursor: normal;
 }
 
 .fa-comment-alt {
-    font-size: 1.5rem;
-    color: #2ef107;
-    cursor: pointer;
+  font-size: 1.5rem;
+  color: #2ef107;
+  cursor: pointer;
 }
 
 .fa-trash-alt {
-    color: rgb(255, 129, 129);
-    font-size: 1.5rem;
-    cursor: pointer;
-    margin-right: 1rem;
+  color: rgb(255, 129, 129);
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-right: 1rem;
 }
 
 .fa-pen-square {
-    color: #b5ceff;
-    font-size: 1.7rem;
-    cursor: pointer;
-    margin-left: 1rem;
+  color: #b5ceff;
+  font-size: 1.7rem;
+  cursor: pointer;
+  margin-left: 1rem;
 }
 
 .update-post {
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 1rem;
-    transition: opacity 0.5s ease-in-out;
-    z-index: 100;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 100;
 }
 
 .psec .add-feed-after-click {
-    visibility: visible;
-    display: none;
+  visibility: visible;
+  display: none;
 }
 
 .preview .close-image {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 
 .follow-btn-user {
-    align-self: center;
-    border-radius: 1rem;
-    background-color: rgb(105, 142, 245);
-    font-size: 0.8rem;
-    display: none;
-    /* margin-bottom: 1rem; */
+  align-self: center;
+  border-radius: 1rem;
+  background-color: rgb(105, 142, 245);
+  font-size: 0.8rem;
+  display: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  /* margin-bottom: 1rem; */
 }
 
 .follow-btn-user div {
-    height: 3rem;
-    min-width: 7rem;
-    display: grid;
-    align-content: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    word-spacing: 0.1rem;
+  height: 3rem;
+  min-width: 7rem;
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  word-spacing: 0.1rem;
 }
-
 
 /* MEDIA QUERIES */
 
 @media (max-width: 600px) {
-    html {
-        font-size: 7px;
-    }
-    section .container {
-        width: 100vw;
-        padding: 1rem;
-    }
-    .pnav {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 9vh;
-        padding: 0.5rem;
-    }
-    .pnav .heading {
-        width: 100%;
-        font: size 1.35rem;
-        margin-bottom: 0.5rem;
-    }
-    .pnav .options {
-        width: 100%;
-        margin-bottom: 0.5rem;
-    }
-    .phome img,
-    .pedit img,
-    .plogout img {
-        width: 1.35rem;
-        height: 1.35rem;
-    }
-    section .top-part {
-        flex-direction: column;
-    }
-    .pprofile-photo {
-        margin-bottom: 1rem;
-    }
-    section .paccount {
-        align-items: center;
-    }
-    section .overview-sections .like-section {
-        margin-right: 0;
-    }
+  html {
+    font-size: 7px;
+  }
+  section .container {
+    width: 100vw;
+    padding: 1rem;
+  }
+  .pnav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 9vh;
+    padding: 0.5rem;
+  }
+  .pnav .heading {
+    width: 100%;
+    font: size 1.35rem;
+    margin-bottom: 0.5rem;
+  }
+  .pnav .options {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .phome img,
+  .pedit img,
+  .plogout img {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+  section .top-part {
+    flex-direction: column;
+  }
+  .pprofile-photo {
+    margin-bottom: 1rem;
+  }
+  section .paccount {
+    align-items: center;
+  }
+  section .overview-sections .like-section {
+    margin-right: 0;
+  }
 }
 
-@media (min-width: 601px) and (max-width:950px) {
-    .pnav {
-        padding: 0.5rem;
-    }
-    section .container {
-        width: 85vw;
-    }
+@media (min-width: 601px) and (max-width: 950px) {
+  .pnav {
+    padding: 0.5rem;
+  }
+  section .container {
+    width: 85vw;
+  }
 }
 
-@media (min-width: 951px) and (max-width:1200px) {
-    section .container {
-        width: 65vw;
-    }
+@media (min-width: 951px) and (max-width: 1200px) {
+  section .container {
+    width: 65vw;
+  }
 }
-
 
 /* @media (min-width: 1201px) and (max-width:1300px) {
     section .container {
@@ -478,132 +478,160 @@ section .pprofile-photo img {
     }
 } */
 
-
 /* DARK THEME */
 
 .dark {
-    background-color: rgb(43, 34, 85);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-    backdrop-filter: blur(100px);
-    -webkit-backdrop-filter: blur(100px);
-    display: flex;
-    min-height: 91vh;
-    width: 100%;
-    justify-content: center;
-    scroll-behavior: smooth;
+  background-color: rgb(43, 34, 85);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  display: flex;
+  min-height: 91vh;
+  width: 100%;
+  justify-content: center;
+  scroll-behavior: smooth;
 }
 
 .dark .psec {
-    background: #2F2660;
+  background: #2f2660;
 }
 
 .dark .container {
-    background-color: rgba(210, 200, 255, 0.418);
+  background-color: rgba(210, 200, 255, 0.418);
 }
 
 .dark .top-part {
-    color: #ffffffcc;
+  color: #ffffffcc;
 }
 
 .dark .posts-header {
-    color: #17324d;
+  color: #17324d;
 }
 
 .dark .edit-button {
-    background-color: rgb(123, 93, 255);
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    width: 95px;
-    padding: 0.25rem;
-    border-radius: 10px;
-    color: #ffffffcc;
+  background-color: rgb(123, 93, 255);
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 95px;
+  padding: 0.25rem;
+  border-radius: 10px;
+  color: #ffffffcc;
 }
 
 .dark .fa-pen-square {
-    color: rgb(103, 103, 255);
+  color: rgb(103, 103, 255);
 }
 
 .dark .fa-trash-alt {
-    color: red;
+  color: red;
 }
 
 .dark .follow-btn-user {
-    background-color: #785DF3;
+  background-color: #785df3;
 }
 
-@media (hover: none),
-(hover: on-demand) {
-    .crazy-button:hover {
-        transform: scale(1);
-    }
-    .page-button:hover::after {
-        display: none;
-    }
-    .page-button:hover {
-        border-bottom: none;
-    }
-    .feature:hover {
-        background-color: none;
-    }
-    .profile-photo-close:hover {
-        background-color: none;
-    }
-    .phome:hover::after,
-    .pedit:hover::after,
-    .plogout:hover::after {
-        visibility: visible;
-        background-color: none;
-    }
+@media (hover: none), (hover: on-demand) {
+  .crazy-button:hover {
+    transform: scale(1);
+  }
+  .page-button:hover::after {
+    display: none;
+  }
+  .page-button:hover {
+    border-bottom: none;
+  }
+  .feature:hover {
+    background-color: none;
+  }
+  .profile-photo-close:hover {
+    background-color: none;
+  }
+  .phome:hover::after,
+  .pedit:hover::after,
+  .plogout:hover::after {
+    visibility: visible;
+    background-color: none;
+  }
+  .follow-btn-user:hover .hover-effect {
+    display: none;
+  }
+}
+
+/* hover effect */
+.follow-btn-user:hover .hover-effect {
+  display: block;
+  width: 400px;
+  height: 400px;
+}
+
+.follow-btn-user .hover-effect {
+  position: absolute;
+  display: none;
+  width: 0px;
+  height: 0px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  /* background: rgba(11, 10, 95, 0.698); */
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.281);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  /* border-radius: 10px; */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: width 0.3s, height 0.3s;
+  z-index: 0;
+}
+.dark .follow-btn-user .hover-effect {
+  background: rgba(0, 0, 0, 0.116);
 }
 
 .ploader-animation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: fixed;
-    width: 100%;
-    min-height: 100vh;
-    top: 0rem;
-    left: 0;
-    background: #2c294f;
-    transition: opacity 0.5s ease-in-out;
-    z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  width: 100%;
+  min-height: 100vh;
+  top: 0rem;
+  left: 0;
+  background: #2c294f;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 10000;
 }
 
 .ploader-end {
-    z-index: -10000;
-    pointer-events: none;
-    opacity: 0;
+  z-index: -10000;
+  pointer-events: none;
+  opacity: 0;
 }
 
 .ploader-animation div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 
 /* Loader circles */
 
 .ploader-animation div span {
-    background: #fad000;
-    border-radius: 50%;
-    margin: 5rem 0.5rem;
-    animation: bouncingLoader 0.6s infinite alternate;
+  background: #fad000;
+  border-radius: 50%;
+  margin: 5rem 0.5rem;
+  animation: bouncingLoader 0.6s infinite alternate;
 }
 
 .ploader-animation .second {
-    animation-delay: 0.2s;
+  animation-delay: 0.2s;
 }
 
 .ploader-animation .third {
-    animation-delay: 0.4s;
+  animation-delay: 0.4s;
 }
 
 .ploader-animation p {
-    font-size: 2rem;
-    color: #a599e9;
-    text-align: center;
+  font-size: 2rem;
+  color: #a599e9;
+  text-align: center;
 }

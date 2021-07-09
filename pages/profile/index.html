@@ -83,9 +83,11 @@
                 </div>
             </div>
             <div class="follow-btn-user follow" onClick='followUser()'>
+                <div class="hover-effect"></div>
                 <div>Follow</div>
             </div>
             <div class="follow-btn-user unfollow" onClick='unfollowUser()'>
+                <div class="hover-effect"></div>
                 <div>UnFollow</div>
             </div>
             <!-- <div class="about-container">
@@ -214,6 +216,27 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="index.js"></script>
+<script>
+    $(document).ready(function(e) {
+        $(".follow-btn-user").on("mouseenter", function(e) {
+            x = e.pageX - $(this).offset().left;
+            y = e.pageY - $(this).offset().top;
+            $(this).find(".hover-effect").css({
+                top: y,
+                left: x
+            });
+        });
+        $(".follow-btn-user").on("mouseout", function(e) {
+            x = e.pageX - $(this).offset().left;
+            y = e.pageY - $(this).offset().top;
+            $(this).find(".hover-effect").css({
+                top: y,
+                left: x
+            });
+        });
+    });
+</script>
 
 </html>
