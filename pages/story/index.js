@@ -147,6 +147,7 @@ const renderMainContainerBackground = () => {
 //setting the fetched image to display
 const renderUserStory = (arg) => {
     console.log('hi');
+    nav.style.visibility = 'visible';
     previousButton.style.visibility = 'hidden';
     nextButton.style.visibility = 'visible';
 
@@ -175,6 +176,7 @@ const renderUserStory = (arg) => {
     if (arg) {
         nextButton.style.visibility = 'hidden';
         previousButton.style.visibility = 'hidden';
+        nav.style.visibility = 'hidden';
     }
     // setTimeout(nextButtonClick(), 5000);
     return;
@@ -294,7 +296,6 @@ const preloadImages = (image2, arg) => {
 }
 
 function allLoaded(arg) {
-    nav.style.visibility = 'visible';
     storyLoader.style.opacity = 0;
     storyLoader.style.zIndex = -100000;
     updateViewStory(element.storyid);
