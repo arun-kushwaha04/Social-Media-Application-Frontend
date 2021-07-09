@@ -128,6 +128,31 @@ main {
     gap: 1rem;
 }
 
+.about-story {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    color: black;
+}
+
+.about-story-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.about-story div div {
+    font-size: 1.5rem;
+}
+
 .story-loader {
     position: absolute;
     height: 100%;
