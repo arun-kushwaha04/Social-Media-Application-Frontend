@@ -371,7 +371,7 @@ async function loginUser(userData) {
         } else if (data.message === 'You Are Logged In Other Device Please Log Out') {
             //error to be show when the user is already logged in
             emailIcon1.style.display = 'block';
-            emailError.textContent = 'Logged In Ohter Device Please Log Out';
+            emailError.textContent = 'Logged In Other Device Please Log Out';
             emailError.style.display = 'block';
             loading.classList.remove('loadingGIF-class');
         } else if (data.message === 'Invalid Password') {
@@ -439,7 +439,10 @@ async function forgotPasswordEmail(email, domain, key, userToken) {
             <p>Someone (hopefully you) has requested a password reset for your Note-Maker account. Follow the link below to set a new password:</p>
             <h3>Click on Below Link To Reset Your Password.</h3>
             <p>If you don't wish to reset your password, disregard this email and no action will be taken.</p>
-            <a href="${frontendUrl}/Pages/changePassword/index.html?userToken=${userToken}&email=${email}" target="_blank">Reset Password</a>
+            <h3>Copy The Below Link .</h3>
+            <br>
+            ${frontendUrl}/Pages/changePassword/index.html?userToken=${userToken}&email=${email}
+            <br>
             <p>Team dubify</p>
         `,
             })
@@ -470,8 +473,10 @@ async function verifyEmail(email, domain, key, userToken) {
                 Subject: "Verify Email",
                 Body: `
             <p>Thanks for signing up with Dubify You must follow this link to activate your account:</p>
-            <h3>Click on Below Link To Verify Your Mail.</h3>
-            <a href="${frontendUrl}/Pages/verifyEmail/index.html?userToken=${userToken}&email=${email}" target="_blank">Verify Email</a>
+            <h3>Copy The Below Link To Verify Your Mail.</h3>
+            <br>
+            ${frontendUrl}/Pages/verifyEmail/index.html?userToken=${userToken}&email=${email}
+            <br>
             <p>Have fun, and don't hesitate to contact US with your feedback..</p>
             <p>Team Dubify</p>
         `,
