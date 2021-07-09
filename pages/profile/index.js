@@ -16,7 +16,7 @@ const body = document.querySelector('body');
 const homeButton = document.querySelector('.phome > img');
 const editProfileButtton = document.querySelector('.pedit');
 const dropDownList = document.querySelector('#myDropdown');
-const logoutButton = document.querySelector('.plogout > img');
+const logoutButton = document.querySelector('.plogout');
 const userToken = localStorage.getItem("userToken");
 
 const url = "https://sheltered-citadel-84490.herokuapp.com";
@@ -1030,6 +1030,10 @@ const tokenVerifier = async() => {
         if (data.message === "Token Expired") {
             location.replace(`${frontendUrl}`);
         }
+        if (data.message === "Valid Token") {
+            editProfileButtton.style.display = 'block';
+            logoutButton.style.display = 'block';
+        }
     } catch (error) {
         console.log(error);
     }
@@ -1037,11 +1041,14 @@ const tokenVerifier = async() => {
 
 
 //function calls
+if (userId && username) {
+    fetchCredentials();
+    fetchUserDetails();
+    if (username != localStorage.getItem('username')) isUserFollowing();
+    getUserPosts();
+}
+alert('Invalid User');
 tokenVerifier();
-fetchCredentials();
-fetchUserDetails();
-if (username != localStorage.getItem('username')) isUserFollowing();
-getUserPosts();
 
 window.addEventListener('load', () => {
     const loader = document.querySelector('.ploader-animation');

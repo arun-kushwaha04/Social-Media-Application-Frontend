@@ -99,6 +99,11 @@ a {
     position: relative;
 }
 
+.pedit,
+.plogout {
+    display: none;
+}
+
 .bold {
     font-weight: bold;
 }
