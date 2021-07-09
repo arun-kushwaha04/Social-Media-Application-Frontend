@@ -100,7 +100,8 @@ a {
 }
 
 .pedit,
-.plogout {
+.plogout,
+.phome {
     display: none;
 }
 

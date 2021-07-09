@@ -13,7 +13,7 @@ let loadCounter = 0;
 //message showing
 const messageContainer = document.querySelector('.message-container');
 const body = document.querySelector('body');
-const homeButton = document.querySelector('.phome > img');
+const homeButton = document.querySelector('.phome');
 const editProfileButtton = document.querySelector('.pedit');
 const dropDownList = document.querySelector('#myDropdown');
 const logoutButton = document.querySelector('.plogout');
@@ -1030,7 +1030,8 @@ const tokenVerifier = async() => {
         if (data.message === "Token Expired") {
             location.replace(`${frontendUrl}`);
         }
-        if (data.message === "Valid Token") {
+        if (data.message === "Valid token") {
+            homeButton.style.display = 'block';
             editProfileButtton.style.display = 'block';
             logoutButton.style.display = 'block';
         }
@@ -1042,13 +1043,14 @@ const tokenVerifier = async() => {
 
 //function calls
 if (userId && username) {
+    tokenVerifier();
     fetchCredentials();
     fetchUserDetails();
     if (username != localStorage.getItem('username')) isUserFollowing();
     getUserPosts();
+} else {
+    alert('Invalid URL');
 }
-alert('Invalid User');
-tokenVerifier();
 
 window.addEventListener('load', () => {
     const loader = document.querySelector('.ploader-animation');
