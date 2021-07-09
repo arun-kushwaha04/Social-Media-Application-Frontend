@@ -231,7 +231,7 @@ function addUserPost(element) {
             ${element.originalusername}
         `
     }
-    let buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>
+    let buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event,1)"></i>
     <i class="fas fa-pen-square" id = "${element.postid}" onClick="editPost(event)"></i>`
     if (element.userid != element.originaluserid) {
         buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>`;
@@ -284,7 +284,7 @@ function addUserPost(element) {
 }
 
 //function to delete the post 
-const deletePost = async(event) => {
+const deletePost = async(event, arg) => {
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
@@ -319,7 +319,7 @@ const deletePost = async(event) => {
         if (res.status === 200) {
             const data = await res.json();
             if (data.message === "Post Deleted" || data.message === "Post And All Shared Links Deleted") {
-                delteImagesFromFirebase(postId);
+                if (arg) { delteImagesFromFirebase(postId) };
                 messageDiv.removeChild(error);
                 message.textContent = data.message;
                 success.style.opacity = 1;
