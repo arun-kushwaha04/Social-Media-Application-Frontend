@@ -91,6 +91,13 @@ Time to get social. Isn’t it ? Then why wait. Get Started now. Finally, Dubify
     - getUserStory -> Fetch the user's story if uploaded.
     - updateLikeStory -> Update like on a story image.
     - updateViewStory -> Increase view on user's story.
+
+<br>
+
+### Dummy Login Credentials
+  Username - Admin_1
+  Password - 123456
+  
  <br>
  
  <h2 align="center">Technologies Used</h2>
