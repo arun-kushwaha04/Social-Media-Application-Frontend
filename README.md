@@ -6,8 +6,6 @@ Time to get social. Isn’t it ? Then why wait. Get Started now. Finally, Dubify
 
 
 ## Features Implemented
-<br>
-
 ### Frontend
 1. Login-SingUp pages:
     - Registeration of new users.
@@ -135,7 +133,7 @@ Backend:
 
 Database:
 
-    - Check https://github.com/arun-kushwaha04/Social-Media-Application-Frontend/blob/main/query.txt for all table queries.
+    - Check <a href = "https://github.com/arun-kushwaha04/Social-Media-Application-Frontend/blob/main/query.md"> Database Queries </a> for all table queries.
 
 Create .env file (keys):
 
