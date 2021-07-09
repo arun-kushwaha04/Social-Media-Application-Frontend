@@ -77,7 +77,7 @@ async function fetchCredentials() {
 
 // function to fetch user details
 const fetchUserDetails = async() => {
-    let userData = { username };
+    let userData = { username, userId };
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/user/getUserinfo`, {
@@ -88,8 +88,8 @@ const fetchUserDetails = async() => {
                 "Content-Type": "application/json",
             },
         })
-        if (res.status === 200) {
-            const data = await res.json();
+        const data = await res.json();
+        if (data.message === 'Fetched succesfully') {
             console.log(data);
             username_.innerHTML = username;
             name_.innerHTML = data.userData.name;
@@ -100,6 +100,9 @@ const fetchUserDetails = async() => {
             likeCount.innerHTML = data.userData.likes;
             // about.innerHTML = data.userData.about;            
             photo.src = data.userData.profilephoto;
+        }
+        if (data.message === 'Invalid Profile URL') {
+            alert('Invalid Profile URL')
         }
     } catch (error) {
         console.log(error);
@@ -183,7 +186,7 @@ themeLoader();
 //post on hover
 //function to get all user post
 async function getUserPosts() {
-    let userData = { username };
+    let userData = { username, userId };
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/feed/getUserPost`, {
@@ -1049,7 +1052,7 @@ if (userId && username) {
     if (username != localStorage.getItem('username')) isUserFollowing();
     getUserPosts();
 } else {
-    alert('Invalid URL');
+    alert('Invalid Profile URL');
 }
 
 window.addEventListener('load', () => {
