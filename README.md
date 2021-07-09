@@ -94,9 +94,16 @@ Time to get social. Isn’t it ? Then why wait. Get Started now. Finally, Dubify
 
 <br>
 
-### Dummy Login Credentials
-  Username - Admin_1
-  Password - 123456
+## Dummy Login Credentials
+  Username - Test1, Password - 123456
+  <br>
+  Username - Test2, Password - 123456
+  <br>
+  Username - Test3, Password - 123456
+  <br>
+  
+  *Please Log out from above accounts using logout button on profile page. So that it can be used by other people also for testing.* 
+  *We dont't allow multiple devices to access one login credentails.*
   
  <br>
  
@@ -179,6 +186,8 @@ Create .env file (keys):
 <br><br>
 
 <img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103025.png?alt=media&token=458298c5-abea-4aa0-a4fc-08b95f1625e9" style="margin-top: 30px"  align='center'>
+
+<a href="https://docs.google.com/forms/d/13_V6ZRlQ1BqP1lR9hVJy5E-sOtwGeNCrmah1EUkmiWU/edit"> <h2> Feedback Form </h2> </a>
 
 
 
