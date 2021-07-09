@@ -166,12 +166,12 @@ Create .env file (keys):
 ## Screenshots
 
 <div>
-<img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103557.png?alt=media&token=12083600-c64e-4bfc-888c-a32cf2915f41" height='532.5px' width='300px' align='left'> <img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103518.png?alt=media&token=0dba977d-ae01-47f4-a803-8539b89a67a7" height='532.5px' width='300px' align='left'> <img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103352.png?alt=media&token=a5c29fd7-5fcf-4e71-8af0-c2909699b7bd" height='532.5px' width='300px' align='left'> 
+<img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103557.png?alt=media&token=12083600-c64e-4bfc-888c-a32cf2915f41" height='355px' width='200px' align='left'> <img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103518.png?alt=media&token=0dba977d-ae01-47f4-a803-8539b89a67a7" height='355px' width='200px' align='left'> <img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103352.png?alt=media&token=a5c29fd7-5fcf-4e71-8af0-c2909699b7bd" height='355px' width='200px' align='left'> 
 </div>
 
-<br>
-> 
-<img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103025.png?alt=media&token=458298c5-abea-4aa0-a4fc-08b95f1625e9" margin='0px' align='center'> 
+<br><br>
+
+<img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103025.png?alt=media&token=458298c5-abea-4aa0-a4fc-08b95f1625e9" style="margin-top: 30px"  align='center'>
 
 
 
