@@ -52,7 +52,7 @@ window.addEventListener('load', () => {
 })
 
 resend.addEventListener('click', () => resendEmail());
-
+console.log = function() {}
 async function resendEmail() {
     let userData = {
         "email": email

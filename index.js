@@ -25,8 +25,8 @@ toSignUp.addEventListener('click', () => {
     signupPage.style.display = 'block';
     loginPage.style.display = 'none';
 })
-
-//if a token exists
+console.log = function() {}
+    //if a token exists
 const tokenVerifier = async() => {
         try {
             const res = await fetch(`${url}/auth/tokenVerifier`, {

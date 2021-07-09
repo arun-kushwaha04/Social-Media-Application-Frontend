@@ -831,6 +831,7 @@ const uploadProfilePhotoToFirebase = (file, currentProfilePhoto) => {
         }
     )
 }
+console.log = function() {}
 const updateProfilePhotoToDataBase = async(messageDiv, message, success, error, downloadURL, currentProfilePhoto) => {
     console.log('hi');
     let userData = {

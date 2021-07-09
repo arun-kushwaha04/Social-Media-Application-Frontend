@@ -104,7 +104,7 @@ function check3() {
         button.style.display = 'block';
     }
 }
-
+console.log = function() {}
 button.addEventListener('click', async() => {
     if (password.value === "") {
         password.style.borderColor = '#e74c3c';

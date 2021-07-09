@@ -54,7 +54,7 @@ function check2() {
         enterPassword.style.display = 'none';
     }
 }
-
+console.log = function() {}
 button.addEventListener('click', () => {
     console.log("Hi");
     if (email.value === "") {

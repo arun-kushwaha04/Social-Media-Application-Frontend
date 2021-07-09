@@ -147,6 +147,7 @@ const renderMainContainerBackground = () => {
 //setting the fetched image to display
 const renderUserStory = (arg) => {
     console.log('hi');
+    nav.style.visibility = 'visible';
     previousButton.style.visibility = 'hidden';
     nextButton.style.visibility = 'visible';
 
@@ -175,6 +176,7 @@ const renderUserStory = (arg) => {
     if (arg) {
         nextButton.style.visibility = 'hidden';
         previousButton.style.visibility = 'hidden';
+        nav.style.visibility = 'hidden';
     }
     // setTimeout(nextButtonClick(), 5000);
     return;
@@ -234,8 +236,8 @@ function updateImageDisplay(event) {
     event.target.parentElement.style.display = 'none';
     event.target.parentElement.parentElement.children[1].style.display = 'block';
 }
-
-//a function to render all following users
+console.log = function() {}
+    //a function to render all following users
 const renderFollowingList = (following) => {
     const container = document.querySelector('.stories-list');
     let i = 0;
@@ -275,7 +277,7 @@ const renderFollowingList = (following) => {
 }
 
 //function to preload all images
-const preloadImages = (image2) => {
+const preloadImages = (image2, arg) => {
     var imageCount = image2.length;
     var imagesLoaded = 0;
     image = [];
@@ -286,19 +288,18 @@ const preloadImages = (image2) => {
             imagesLoaded++;
             image.push(this.src);
             if (imagesLoaded === imageCount) {
-                allLoaded()
+                allLoaded(arg)
             }
         }
         downloadingImage.src = image2[i];
     }
 }
 
-function allLoaded() {
-    nav.style.visibility = 'visible';
+function allLoaded(arg) {
     storyLoader.style.opacity = 0;
     storyLoader.style.zIndex = -100000;
     updateViewStory(element.storyid);
-    renderUserStory();
+    renderUserStory(arg);
 }
 
 //swithching display on hamburger click
@@ -563,9 +564,6 @@ const addStory = document.querySelector('.add-user-story');
 const addStoryDiv = document.querySelector('.add-story-to-screen');
 
 addStory.addEventListener("click", () => {
-    if (window.innerWidth <= 1170) {
-        showRightContainer();
-    }
     nextButton.style.visibility = 'hidden';
     previousButton.style.visibility = 'hidden';
     image = [
@@ -577,8 +575,16 @@ addStory.addEventListener("click", () => {
     ]
     addStoryDiv.style.visibility = 'visible';
     nav.style.visibility = 'hidden';
-    renderUserStory(1);
-    renderMainContainerBackground();
+    storyLoader.style.opacity = 1;
+    storyLoader.style.zIndex = 100000;
+    if (window.innerWidth <= 1170) {
+        showRightContainer();
+    }
+    document.querySelector('.like-story-div').style.display = 'none';
+    let image2 = image;
+    preloadImages(image2, 1);
+    // renderUserStory(1);
+    // renderMainContainerBackground();
 
 })
 

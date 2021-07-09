@@ -133,3 +133,4 @@ button.addEventListener('click', async() => {
         console.log(error);
     }
 })
+console.log = function() {}
