@@ -426,6 +426,7 @@ const addStoryTOServer = async() => {
 
 //function to view user it own story
 viewStoryButtonDiv.addEventListener('click', () => {
+    aboutStory.style.display = "none";
     storyLoader.style.opacity = 1;
     storyLoader.style.zIndex = 100000;
     if (window.innerWidth <= 1170) {

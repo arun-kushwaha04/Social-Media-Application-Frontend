@@ -214,6 +214,16 @@ main {
     background-color: transparent;
     z-index: 10;
     visibility: hidden;
+    padding: 2rem 0.5rem;
+}
+
+.next:hover,
+.prev:hover {
+    background: rgba( 255, 255, 255, 0.40);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
+    backdrop-filter: blur( 1.5px);
+    -webkit-backdrop-filter: blur( 1.5px);
+    border-radius: 0.5rem;
 }
 
 .previous-image img,
@@ -554,6 +564,14 @@ nav {
         width: 100vw;
         grid-template-columns: 0fr 1fr 0fr;
         transition: opacity 1s ease-in-out;
+    }
+    .next,
+    .prev {
+        background: rgba( 255, 255, 255, 0.40);
+        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
+        backdrop-filter: blur( 1.5px);
+        -webkit-backdrop-filter: blur( 1.5px);
+        border-radius: 0.5rem;
     }
     .hamburger-div {
         display: block;
