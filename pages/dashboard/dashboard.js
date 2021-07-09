@@ -211,6 +211,7 @@ const tocovidInfo = document.querySelector('.toCovidInfo');
 const toStory = document.querySelector('.toStory');
 const toVideo = document.querySelector('.toVideo');
 const toTrending = document.querySelector('.toTrending');
+const toAbout = document.querySelector('.toAbout');
 const profile2 = document.querySelector('.toProfileInFeed');
 profile.addEventListener("click", () => {
         location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}&userId=${localStorage.getItem("userId")}`;
@@ -231,8 +232,10 @@ tocovidInfo.addEventListener("click", () => {
 toVideo.addEventListener("click", () => {
     location.href = "https://www.youtube.com/";
 })
-
-//a function to fetch firebase credentials from backend
+toAbout.addEventListener("click", () => {
+        location.href = "https://google.com";
+    })
+    //a function to fetch firebase credentials from backend
 async function fetchCredentials() {
     const response = await fetch(`${url}/uploadImage/addFeed`, {
         method: "GET",
@@ -1245,24 +1248,25 @@ async function unfollowUser(event) {
     getSuggestionList();
 }
 const tokenVerifier = async() => {
-        try {
-            const res = await fetch(`${url}/auth/tokenVerifier`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `${localStorage.getItem("userToken")}`,
-                },
-            })
-            const data = await res.json();
-            if (data.message === "Token Expired") {
-                location.replace(`${frontendUrl}`);
-            }
-
-        } catch (error) {
-            console.log(error);
+    try {
+        const res = await fetch(`${url}/auth/tokenVerifier`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("userToken")}`,
+            },
+        })
+        const data = await res.json();
+        if (data.message === "Token Expired") {
+            location.replace(`${frontendUrl}`);
         }
+
+    } catch (error) {
+        console.log(error);
     }
-    //function calls
+}
+
+// function calls
 tokenVerifier();
 getUserList();
 fetchCredentials();
