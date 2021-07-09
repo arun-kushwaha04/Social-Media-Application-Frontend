@@ -8,6 +8,7 @@ body {
     color: #ffffff;
     font-family: "ubuntu", sans-serif;
     letter-spacing: 2px;
+    overflow-y: hidden;
 }
 
 body::-webkit-scrollbar {
