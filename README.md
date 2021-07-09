@@ -91,6 +91,20 @@ Time to get social. Isn’t it ? Then why wait. Get Started now. Finally, Dubify
     - getUserStory -> Fetch the user's story if uploaded.
     - updateLikeStory -> Update like on a story image.
     - updateViewStory -> Increase view on user's story.
+
+<br>
+
+## Dummy Login Credentials
+  Username - Test1, Password - 123456
+  <br>
+  Username - Test2, Password - 123456
+  <br>
+  Username - Test3, Password - 123456
+  <br>
+  
+  *Please Log out from above accounts using logout button on profile page. So that it can be used by other people also for testing.* 
+  *We dont't allow multiple devices to access one login credentails.*
+  
  <br>
  
  <h2 align="center">Technologies Used</h2>
@@ -162,6 +176,8 @@ Create .env file (keys):
 - <a href='https://github.com/arun-kushwaha04'>Arun Singh Kushwaha</a> 2020IMT016
 - <a href='https://github.com/harshgupta1249'>Harsh Gupta</a> 2020IMT035
 - <a href='https://github.com/vishwas031'>Vishwas Singh</a> 2020BCS074
+
+<a href="https://docs.google.com/forms/d/13_V6ZRlQ1BqP1lR9hVJy5E-sOtwGeNCrmah1EUkmiWU/edit"> <h2> Feedback Form </h2> </a>
 
 ## Screenshots
 
