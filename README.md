@@ -134,7 +134,7 @@ Backend:
     - Open the folder in which you cloned the repository.
     - Run *npm install*.
     - Create a .env file.
-    - Now you can run npm run dev and start working locally.
+    - Now you can run 'npm run dev' and start working locally.
 
 Database:
 
