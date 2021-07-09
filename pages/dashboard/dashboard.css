@@ -79,6 +79,7 @@ a {
     /* background-color: rgba(204, 204, 204, 0.431); */
     display: flex;
     flex-direction: column;
+    scroll-behavior: smooth
 }
 
 .home-page {
@@ -177,6 +178,7 @@ a {
     -ms-overflow-style: none;
     scrollbar-width: none;
     display: none;
+    scroll-behavior: smooth
 }
 
 .comment-section-open {
@@ -285,6 +287,7 @@ section.dark .comment-user-name a {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
     backdrop-filter: blur(9px);
     -webkit-backdrop-filter: blur(9px);
+    scroll-behavior: smooth
     /* border-radius: 10px; */
     /* border: 1px solid rgba(255, 255, 255, 0.18); */
 }
@@ -327,6 +330,7 @@ section.dark .comment-user-name a {
     padding-left: 0.75rem;
     display: flex;
     flex-direction: column;
+    scroll-behavior: smooth
 }
 
 .user {
@@ -725,6 +729,7 @@ section {
     box-sizing: border-box;
     width: 100%;
     min-height: 100vh;
+    scroll-behavior: smooth
 }
 
 .left-section {
@@ -739,6 +744,7 @@ section {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
     backdrop-filter: blur(9px);
     -webkit-backdrop-filter: blur(9px);
+    scroll-behavior: smooth
 }
 
 .lower {

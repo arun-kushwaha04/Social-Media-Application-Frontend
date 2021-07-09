@@ -29,6 +29,7 @@ main {
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.157);
     color: white;
+    scroll-behavior: smooth
 }
 
 .main-container {
@@ -49,6 +50,7 @@ main {
     justify-content: flex-start;
     background-color: #0A1931;
     padding: 1rem;
+    scroll-behavior: smooth
 }
 
 .logo {
@@ -80,7 +82,7 @@ main {
     align-items: center;
     justify-content: flex-start;
     padding: 0.5rem 0.25rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     border-radius: 0.5em;
 }
 
