@@ -233,7 +233,7 @@ toVideo.addEventListener("click", () => {
     location.href = "https://www.youtube.com/";
 })
 toAbout.addEventListener("click", () => {
-        location.href = "https://google.com";
+        location.href = "../../pages/aboutUs/index.html";
     })
     //a function to fetch firebase credentials from backend
 async function fetchCredentials() {
