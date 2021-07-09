@@ -243,11 +243,13 @@ main {
     justify-content: center;
     text-align: center;
     position: relative;
+    width: 100%;
 }
 
 .previous-image,
 .next-image {
     height: 60%;
+    width: 100%;
     text-align: center;
     filter: blur(0.2rem);
     -webkit-filter: blur(0.2rem);
@@ -535,6 +537,28 @@ nav {
     background-color: white;
 }
 
+@media (max-width:300px) {
+    .current-image .picture {
+        /* margin: 0.5rem; */
+        width: 90%;
+        height: 75%;
+    }
+}
+
+@media (min-width: 301px) and (max-width:500px) {
+    .current-image .picture {
+        margin: 0.5rem;
+        width: 85%;
+    }
+}
+
+@media (min-width: 501px) and (max-width:800px) {
+    .current-image .picture {
+        margin: 1rem;
+        width: 70%;
+    }
+}
+
 @media (max-width: 768px) {
     .message-container {
         width: 100%;
@@ -543,7 +567,7 @@ nav {
     }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
     .message-container {
         width: 50%;
         right: 1rem;
