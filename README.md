@@ -177,6 +177,8 @@ Create .env file (keys):
 - <a href='https://github.com/harshgupta1249'>Harsh Gupta</a> 2020IMT035
 - <a href='https://github.com/vishwas031'>Vishwas Singh</a> 2020BCS074
 
+<a href="https://docs.google.com/forms/d/13_V6ZRlQ1BqP1lR9hVJy5E-sOtwGeNCrmah1EUkmiWU/edit"> <h2> Feedback Form </h2> </a>
+
 ## Screenshots
 
 <div>
@@ -186,8 +188,6 @@ Create .env file (keys):
 <br><br>
 
 <img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103025.png?alt=media&token=458298c5-abea-4aa0-a4fc-08b95f1625e9" style="margin-top: 30px"  align='center'>
-
-<a href="https://docs.google.com/forms/d/13_V6ZRlQ1BqP1lR9hVJy5E-sOtwGeNCrmah1EUkmiWU/edit"> <h2> Feedback Form </h2> </a>
 
 
 
