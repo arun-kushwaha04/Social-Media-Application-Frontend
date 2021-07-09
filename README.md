@@ -4,8 +4,11 @@
 
 Time to get social. Isn’t it ? Then why wait. Get Started now. Finally, Dubify is here to help you get connected with the world providing an easy to use environment with an amazing interface, meeting all your needs like posts creating, sharing, comments, likes, adding and viewing stories, managing personal information and  much more waiting to be discovered. Bored with the regular theme ? Don’t Worry. Dark Mode is ready for you.
 
+<img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/unknown.png?alt=media&token=80f896ad-4835-4e0c-8474-9e04495e38ab" align="center">
+
 
 ## Features Implemented
+
 ### Frontend
 1. Login-SingUp pages:
     - Registeration of new users.
@@ -133,7 +136,7 @@ Backend:
 
 Database:
 
-    - Check <a href = "https://github.com/arun-kushwaha04/Social-Media-Application-Frontend/blob/main/query.md"> Database Queries </a> for all table queries.
+   Check <a href = "https://github.com/arun-kushwaha04/Social-Media-Application-Frontend/blob/main/query.md" target="_blank"> Database Queries </a> for all table queries.
 
 Create .env file (keys):
 
@@ -150,6 +153,14 @@ Create .env file (keys):
     - MESSAGING_SENDER_ID
     - APP_ID 
     - MESUREMENT_ID
+
+## Screenshots
+
+<img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103557.png?alt=media&token=12083600-c64e-4bfc-888c-a32cf2915f41" height='532.5px' width='300px' align='left'> <img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103518.png?alt=media&token=0dba977d-ae01-47f4-a803-8539b89a67a7" height='532.5px' width='300px' align='left'> <img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103352.png?alt=media&token=a5c29fd7-5fcf-4e71-8af0-c2909699b7bd" height='532.5px' width='300px' align='left'> 
+<br>
+<img src="https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Screenshot%202021-07-09%20103025.png?alt=media&token=458298c5-abea-4aa0-a4fc-08b95f1625e9" margin='0px' align='center'> 
+
+
 
 
 
