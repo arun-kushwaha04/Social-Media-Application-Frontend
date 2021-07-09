@@ -577,3 +577,23 @@ body {
         width: 90%;
     }
 }
+
+.about-dubify {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 1.3rem;
+    background: rgba( 255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37);
+    border-radius: 5rem;
+    border: 1px solid rgba( 255, 255, 255, 0.18);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    text-transform: none;
+}
+
+.about-dubify a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}

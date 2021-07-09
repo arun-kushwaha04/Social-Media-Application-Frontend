@@ -17,6 +17,7 @@ const viewStoryButtonDiv = document.querySelector('.view-your-story');
 const leftContainer = document.querySelector('.left-container');
 const rightContainer = document.querySelector('.right-container');
 const hamburger = document.querySelector('.hamburger-div');
+const aboutStory = document.querySelector('.about-story');
 
 //Loader
 const storyLoader = document.querySelector('.story-loader');
@@ -248,6 +249,7 @@ const renderFollowingList = (following) => {
         div.addEventListener("click", async(event) => {
             chk = 0;
             const id = event.currentTarget.id;
+            aboutStory.style.display = "none";
             if (id) {
                 storyLoader.style.opacity = 1;
                 storyLoader.style.zIndex = 100000;
@@ -424,6 +426,7 @@ const addStoryTOServer = async() => {
 
 //function to view user it own story
 viewStoryButtonDiv.addEventListener('click', () => {
+    aboutStory.style.display = "none";
     storyLoader.style.opacity = 1;
     storyLoader.style.zIndex = 100000;
     if (window.innerWidth <= 1170) {
@@ -564,6 +567,7 @@ const addStory = document.querySelector('.add-user-story');
 const addStoryDiv = document.querySelector('.add-story-to-screen');
 
 addStory.addEventListener("click", () => {
+    aboutStory.style.display = "none";
     nextButton.style.visibility = 'hidden';
     previousButton.style.visibility = 'hidden';
     image = [

@@ -13,10 +13,10 @@ let loadCounter = 0;
 //message showing
 const messageContainer = document.querySelector('.message-container');
 const body = document.querySelector('body');
-const homeButton = document.querySelector('.phome > img');
+const homeButton = document.querySelector('.phome');
 const editProfileButtton = document.querySelector('.pedit');
 const dropDownList = document.querySelector('#myDropdown');
-const logoutButton = document.querySelector('.plogout > img');
+const logoutButton = document.querySelector('.plogout');
 const userToken = localStorage.getItem("userToken");
 
 const url = "https://sheltered-citadel-84490.herokuapp.com";
@@ -77,7 +77,7 @@ async function fetchCredentials() {
 
 // function to fetch user details
 const fetchUserDetails = async() => {
-    let userData = { username };
+    let userData = { username, userId };
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/user/getUserinfo`, {
@@ -88,8 +88,8 @@ const fetchUserDetails = async() => {
                 "Content-Type": "application/json",
             },
         })
-        if (res.status === 200) {
-            const data = await res.json();
+        const data = await res.json();
+        if (data.message === 'Fetched succesfully') {
             console.log(data);
             username_.innerHTML = username;
             name_.innerHTML = data.userData.name;
@@ -100,6 +100,9 @@ const fetchUserDetails = async() => {
             likeCount.innerHTML = data.userData.likes;
             // about.innerHTML = data.userData.about;            
             photo.src = data.userData.profilephoto;
+        }
+        if (data.message === 'Invalid Profile URL') {
+            alert('Invalid Profile URL')
         }
     } catch (error) {
         console.log(error);
@@ -183,7 +186,7 @@ themeLoader();
 //post on hover
 //function to get all user post
 async function getUserPosts() {
-    let userData = { username };
+    let userData = { username, userId };
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/feed/getUserPost`, {
@@ -231,13 +234,13 @@ function addUserPost(element) {
             ${element.originalusername}
         `
     }
-    let buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>
+    let buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event,1)"></i>
     <i class="fas fa-pen-square" id = "${element.postid}" onClick="editPost(event)"></i>`
-    if (username != localStorage.getItem("username")) {
-        buttons = '';
-    }
     if (element.userid != element.originaluserid) {
         buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>`;
+    }
+    if (username != localStorage.getItem("username")) {
+        buttons = '';
     }
     div.innerHTML = `
     
@@ -284,7 +287,7 @@ function addUserPost(element) {
 }
 
 //function to delete the post 
-const deletePost = async(event) => {
+const deletePost = async(event, arg) => {
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
@@ -319,7 +322,7 @@ const deletePost = async(event) => {
         if (res.status === 200) {
             const data = await res.json();
             if (data.message === "Post Deleted" || data.message === "Post And All Shared Links Deleted") {
-                delteImagesFromFirebase(postId);
+                if (arg) { delteImagesFromFirebase(postId) };
                 messageDiv.removeChild(error);
                 message.textContent = data.message;
                 success.style.opacity = 1;
@@ -877,6 +880,8 @@ const updateProfilePhotoToDataBase = async(messageDiv, message, success, error, 
 //follow or unfollow the user
 const followButton = document.querySelector('.follow');
 const unFollowerButton = document.querySelector('.unfollow');
+followButton.addEventListener('click', () => { followUser() });
+unFollowerButton.addEventListener('click', () => { unfollowUser() });
 const isUserFollowing = async() => {
     let userData = { username };
     userData = JSON.stringify(userData);
@@ -920,8 +925,6 @@ async function followUser() {
     const message = messageDiv.children[2];
     const success = messageDiv.children[1];
     const error = messageDiv.children[0];
-
-
     const following = userId;
     const followingrusername = username;
     let userData = {
@@ -929,7 +932,6 @@ async function followUser() {
         followingrusername,
     }
     userData = JSON.stringify(userData);
-
     try {
         const res = await fetch(`${url}/friend/addFollowing`, {
             method: "POST",
@@ -939,7 +941,6 @@ async function followUser() {
                 "Authorization": `${localStorage.getItem("userToken")}`,
             },
         })
-
         if (res.status === 200) {
             const data = await res.json();
             messageDiv.removeChild(error);
@@ -958,7 +959,6 @@ async function followUser() {
         message.textContent = 'Internal Server Error';
         error.style.opacity = 1;
     }
-
     setTimeout(() => {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
@@ -987,7 +987,6 @@ async function unfollowUser() {
         followingrusername,
     }
     userData = JSON.stringify(userData);
-
     try {
         const res = await fetch(`${url}/friend/removeFollowing`, {
             method: "POST",
@@ -997,7 +996,6 @@ async function unfollowUser() {
                 "Authorization": `${localStorage.getItem("userToken")}`,
             },
         })
-
         if (res.status === 200) {
             const data = await res.json();
             messageDiv.removeChild(error);
@@ -1035,6 +1033,11 @@ const tokenVerifier = async() => {
         if (data.message === "Token Expired") {
             location.replace(`${frontendUrl}`);
         }
+        if (data.message === "Valid token") {
+            homeButton.style.display = 'block';
+            editProfileButtton.style.display = 'block';
+            logoutButton.style.display = 'block';
+        }
     } catch (error) {
         console.log(error);
     }
@@ -1042,11 +1045,15 @@ const tokenVerifier = async() => {
 
 
 //function calls
-tokenVerifier();
-fetchCredentials();
-fetchUserDetails();
-if (username != localStorage.getItem('username')) isUserFollowing();
-getUserPosts();
+if (userId && username) {
+    tokenVerifier();
+    fetchCredentials();
+    fetchUserDetails();
+    if (username != localStorage.getItem('username')) isUserFollowing();
+    getUserPosts();
+} else {
+    alert('Invalid Profile URL');
+}
 
 window.addEventListener('load', () => {
     const loader = document.querySelector('.ploader-animation');
