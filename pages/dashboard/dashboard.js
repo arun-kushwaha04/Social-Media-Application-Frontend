@@ -567,7 +567,7 @@ function isLiked(element, div, container, divContainer) {
                 message.textContent = 'Internal Server Error';
             }
             let heading = ` <div class="user-name-feed">
-        <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}">
+        <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.userid}">
         ${element.username} </a>
         <div class="time">${element.datetime}</div>
         </div>`
@@ -585,7 +585,7 @@ function isLiked(element, div, container, divContainer) {
             if (html) {
                 div.innerHTML = `
             <header class="post-user-info">
-            <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}"><img class="profile-photo-feed-insert" src="${element.profilephoto}" /></a>
+            <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.userid}"><img class="profile-photo-feed-insert" src="${element.profilephoto}" /></a>
             ${heading}
             
             </header>

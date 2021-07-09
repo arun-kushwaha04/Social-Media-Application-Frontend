@@ -877,6 +877,8 @@ const updateProfilePhotoToDataBase = async(messageDiv, message, success, error, 
 //follow or unfollow the user
 const followButton = document.querySelector('.follow');
 const unFollowerButton = document.querySelector('.unfollow');
+followButton.addEventListener('click', () => { followUser() });
+unFollowerButton.addEventListener('click', () => { unfollowUser() });
 const isUserFollowing = async() => {
     let userData = { username };
     userData = JSON.stringify(userData);
@@ -920,8 +922,6 @@ async function followUser() {
     const message = messageDiv.children[2];
     const success = messageDiv.children[1];
     const error = messageDiv.children[0];
-
-
     const following = userId;
     const followingrusername = username;
     let userData = {
@@ -929,7 +929,6 @@ async function followUser() {
         followingrusername,
     }
     userData = JSON.stringify(userData);
-
     try {
         const res = await fetch(`${url}/friend/addFollowing`, {
             method: "POST",
@@ -939,7 +938,6 @@ async function followUser() {
                 "Authorization": `${localStorage.getItem("userToken")}`,
             },
         })
-
         if (res.status === 200) {
             const data = await res.json();
             messageDiv.removeChild(error);
@@ -958,7 +956,6 @@ async function followUser() {
         message.textContent = 'Internal Server Error';
         error.style.opacity = 1;
     }
-
     setTimeout(() => {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
@@ -987,7 +984,6 @@ async function unfollowUser() {
         followingrusername,
     }
     userData = JSON.stringify(userData);
-
     try {
         const res = await fetch(`${url}/friend/removeFollowing`, {
             method: "POST",
@@ -997,7 +993,6 @@ async function unfollowUser() {
                 "Authorization": `${localStorage.getItem("userToken")}`,
             },
         })
-
         if (res.status === 200) {
             const data = await res.json();
             messageDiv.removeChild(error);
