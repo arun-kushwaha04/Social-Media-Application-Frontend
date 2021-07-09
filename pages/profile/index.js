@@ -233,11 +233,11 @@ function addUserPost(element) {
     }
     let buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>
     <i class="fas fa-pen-square" id = "${element.postid}" onClick="editPost(event)"></i>`
-    if (username != localStorage.getItem("username")) {
-        buttons = '';
-    }
     if (element.userid != element.originaluserid) {
         buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>`;
+    }
+    if (username != localStorage.getItem("username")) {
+        buttons = '';
     }
     div.innerHTML = `
     
