@@ -105,6 +105,11 @@ Time to get social. Isn’t it ? Then why wait. Get Started now. Finally, Dubify
   *Please Log out from above accounts using logout button on profile page. So that it can be used by other people also for testing.* 
   *We dont't allow multiple devices to access one login credentails.*
   
+  <br>
+  
+  *If you try to sign up. It may take multiple attempts to get you registered on the database.* 
+  *On successful registration, Alert message will be prompted on your screen and Verification mail will be sent to your registered mail id.*
+  
  <br>
  
  <h2 align="center">Technologies Used</h2>
