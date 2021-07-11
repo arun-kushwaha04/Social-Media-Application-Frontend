@@ -29,14 +29,14 @@ Time to get social. Isn’t it ? Then why wait. Get Started now. Finally, Dubify
     - Viewing Posts and related Activities.
     - Search people registered on Dubify.
     - Viewing upcoming events.
-    - My-Contact list.
+    - My Friends list.
     - Connection suggestions.
     - Follow/Unfollow a user.
     - See Trending Info and play games 
 
 3. Stories Page :
     - Add your story
-    - See like and view count on ohter's story.
+    - See like and view count on other's story.
     - View Others stories and like them
 
 4. Profile Page:
