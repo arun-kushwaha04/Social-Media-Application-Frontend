@@ -13,7 +13,7 @@ Time to get social. Isn’t it ? Then why wait. Get Started now. Finally, Dubify
 
 ### Frontend
 1. Login-SingUp pages:
-    - Registeration of new users.
+    - Registration of new users.
     - Login A register user.
     - Send Password reset email using SMTP service. 
     - Verification of user's email using SMTP service.
