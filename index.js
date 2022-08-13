@@ -1,4 +1,4 @@
-const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = "https://dubify.herokuapp.com";
 // const url = "http://localhost:8000";
 
 //fortend url
