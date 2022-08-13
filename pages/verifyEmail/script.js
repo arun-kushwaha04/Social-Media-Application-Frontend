@@ -2,10 +2,10 @@ const heading = document.querySelector('.heading');
 const resend = document.querySelector('.btn');
 
 const currUrl = new URLSearchParams(window.location.search);
-const userToken = currUrl.get("userToken");
-const email = currUrl.get("email");
+const userToken = currUrl.get('userToken');
+const email = currUrl.get('email');
 
-const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = 'https://dubify.herokuapp.com';
 // const url = "http://localhost:8000";
 //fortend url
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
@@ -13,43 +13,49 @@ const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 
 window.addEventListener('load', () => {
     let userData = {
-        "email": email
-    }
+        email: email,
+    };
     userData = JSON.stringify(userData);
     fetch(`${url}/auth/verifyEmail`, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `${userToken}`,
-        },
-        body: userData,
-    }).then(res =>
-        res.json()
-    ).then(data => {
-        heading.textContent = data.message;
-        if (data.message === 'Email Verified Succesfully, Would Be Directed To Login Page Shortly.') {
-            setTimeout(() => { location.replace(`${frontendUrl}/index.html`) }, 2000);
-        } else {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${userToken}`,
+            },
+            body: userData,
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            heading.textContent = data.message;
+            if (
+                data.message ===
+                'Email Verified Succesfully, Would Be Directed To Login Page Shortly.'
+            ) {
+                setTimeout(() => {
+                    location.replace(`${frontendUrl}/index.html`);
+                }, 2000);
+            } else {
+                resend.style.display = 'block';
+            }
+        })
+        .catch((err) => {
+            heading.textContent = 'Server Down';
             resend.style.display = 'block';
-        }
-    }).catch(err => {
-        heading.textContent = 'Server Down';
-        resend.style.display = 'block';
-        console.log(err.message);
-    })
-})
+            console.log(err.message);
+        });
+});
 
 resend.addEventListener('click', () => resendEmail());
 
 async function resendEmail() {
     let userData = {
-        "email": email
-    }
+        email: email,
+    };
     userData = JSON.stringify(userData);
     const res = await fetch(`${url}/auth/resendVerificationLink`, {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         },
         body: userData,
     });
@@ -60,21 +66,21 @@ async function resendEmail() {
 async function verifyEmail(email, domain, key, userToken) {
     try {
         const message = await Email.send({
-                Host: "smtp.gmail.com",
-                Username: `${domain}`,
-                Password: `${key}`,
-                To: `${email}`,
-                From: "noReply@Dubify.com",
-                Subject: "Verify Email",
-                Body: `
+            Host: 'smtp.gmail.com',
+            Username: `${domain}`,
+            Password: `${key}`,
+            To: `${email}`,
+            From: 'noReply@Dubify.com',
+            Subject: 'Verify Email',
+            Body: `
             <p>Thanks for signing up with Dubify You must follow this link to activate your account:</p>
             <h1>Click on Below Link To Verify Your Mail.</h1>
             <a href="${frontendUrl}/Pages/verifyEmail/index.html?userToken=${userToken}&email=${email}" target="_blank">Verify Email</a>
             <p>Have fun, and don't hesitate to contact US with your feedback..</p>
             <p>Team Dubify</p>
         `,
-            })
-            //handling the errors
+        });
+        //handling the errors
         if (message) {
             console.log('mail sent successfully');
             heading.textContent = 'Verification Mail Sent';
@@ -84,5 +90,5 @@ async function verifyEmail(email, domain, key, userToken) {
         console.log(err);
         heading.textContent = 'Error In Sending Mail';
         // setTimeout(() => { location.reload(); }, 10000);
-    };
+    }
 }

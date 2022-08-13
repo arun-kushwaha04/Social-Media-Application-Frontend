@@ -1,4 +1,4 @@
-const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = 'https://dubify.herokuapp.com';
 // const url = "http://localhost:8000";
 
 //fortend url
@@ -23,9 +23,11 @@ const enterPassword = document.querySelector('.error-text');
 const button = document.querySelector('.btn');
 
 const currUrl = new URLSearchParams(window.location.search);
-const userToken = currUrl.get("userToken");
+const userToken = currUrl.get('userToken');
 
-let strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+let strongRegex = new RegExp(
+    '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})',
+);
 let chk1 = 0,
     chk2 = 0;
 
@@ -37,7 +39,7 @@ function check() {
         newPasswordError.style.display = 'none';
         chk1 = 1;
         password.style.display = 'none';
-        button.style.display = 'none;'
+        button.style.display = 'none;';
     } else {
         newPassword.style.borderColor = '#e74c3c';
         newPasswordIcon1.style.display = 'block';
@@ -45,16 +47,16 @@ function check() {
         newPasswordError.style.display = 'block';
         chk1 = 0;
         password.style.display = 'none';
-        button.style.display = 'none;'
+        button.style.display = 'none;';
     }
-    if (newPassword.value === "") {
+    if (newPassword.value === '') {
         newPassword.style.borderColor = 'lightgray';
         newPasswordIcon1.style.display = 'none';
         newPasswordIcon2.style.display = 'none';
         newPasswordError.style.display = 'none';
         chk1 = 0;
         password.style.display = 'none';
-        button.style.display = 'none;'
+        button.style.display = 'none;';
     }
     if (chk1 === 1 && chk2 === 1) {
         password.style.display = 'block';
@@ -63,7 +65,7 @@ function check() {
 }
 
 function check2() {
-    if (password.value !== "") {
+    if (password.value !== '') {
         password.style.borderColor = 'lightgray';
         passwordIcon1.style.display = 'none';
         passwordIcon2.style.display = 'none';
@@ -80,7 +82,7 @@ function check3() {
         confirmPasswordError.style.display = 'none';
         chk2 = 1;
         password.style.display = 'none';
-        button.style.display = 'none;'
+        button.style.display = 'none;';
     } else {
         confirmPassword.style.borderColor = '#e74c3c';
         confirmPasswordIcon1.style.display = 'block';
@@ -88,25 +90,25 @@ function check3() {
         confirmPasswordError.style.display = 'block';
         chk2 = 0;
         password.style.display = 'none';
-        button.style.display = 'none;'
+        button.style.display = 'none;';
     }
-    if (confirmPassword.value === "") {
+    if (confirmPassword.value === '') {
         confirmPassword.style.borderColor = 'lightgray';
         confirmPasswordIcon1.style.display = 'none';
         confirmPasswordIcon2.style.display = 'none';
         confirmPasswordError.style.display = 'none';
         chk2 = 0;
         password.style.display = 'none';
-        button.style.display = 'none;'
+        button.style.display = 'none;';
     }
     if (chk1 === 1 && chk2 === 1) {
         password.style.display = 'block';
         button.style.display = 'block';
     }
 }
-console.log = function() {}
+console.log = function() {};
 button.addEventListener('click', async() => {
-    if (password.value === "") {
+    if (password.value === '') {
         password.style.borderColor = '#e74c3c';
         passwordIcon1.style.display = 'block';
         passwordIcon2.style.display = 'none';
@@ -114,19 +116,19 @@ button.addEventListener('click', async() => {
         return;
     }
     let data = {
-        "newPassword": `${newPassword.value}`,
-        "password": `${password.value}`,
-    }
+        newPassword: `${newPassword.value}`,
+        password: `${password.value}`,
+    };
     data = JSON.stringify(data);
     try {
         const res = await fetch(`${url}/user/updatePassword`, {
             method: 'PUT',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
             body: data,
-        })
+        });
         if (res.status === 200) {
             const data = await res.json();
             heading.textContent = 'Password Updated';
@@ -155,9 +157,8 @@ button.addEventListener('click', async() => {
                 heading.textContent = 'Internal Server Error';
             }
         }
-
     } catch (error) {
         heading.textContent = 'Internal Server Error';
         console.log(error);
     }
-})
+});

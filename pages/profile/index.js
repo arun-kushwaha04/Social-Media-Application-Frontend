@@ -17,19 +17,18 @@ const homeButton = document.querySelector('.phome');
 const editProfileButtton = document.querySelector('.pedit');
 const dropDownList = document.querySelector('#myDropdown');
 const logoutButton = document.querySelector('.plogout');
-const userToken = localStorage.getItem("userToken");
+const userToken = localStorage.getItem('userToken');
 
-const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = 'https://dubify.herokuapp.com';
 // const url = "http://localhost:8000";
 
 //fortend url
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 // const frontendUrl = `http://localhost:5500`;
 
-
 const currUrl = new URLSearchParams(window.location.search);
-const username = currUrl.get("username");
-const userId = currUrl.get("userId");
+const username = currUrl.get('username');
+const userId = currUrl.get('userId');
 
 const name_ = document.querySelector('.name');
 const username_ = document.querySelector('.username');
@@ -41,30 +40,28 @@ const likeCount = document.querySelector('.likeCount');
 const about = document.querySelector('.about');
 const photo = document.querySelector('.user-image');
 
-
 let firebaseConfig;
 window.onload = () => {};
-
 
 //drop down menu items
 if (username != localStorage.getItem('username')) {
     editProfileButtton.style.display = 'none';
 }
 editProfileButtton.addEventListener('click', () => {
-    if (username === localStorage.getItem('username')) dropDownList.classList.toggle('show');
+    if (username === localStorage.getItem('username'))
+        dropDownList.classList.toggle('show');
 });
 
 //setting href for various edit functions
 const editName = document.querySelector('.update-name');
 const editPassword = document.querySelector('.update-password');
 editName.href = `../EditName/index.html`;
-editPassword.href = `../EditPassword/index.html`
-
+editPassword.href = `../EditPassword/index.html`;
 
 //get firebase credentials
 async function fetchCredentials() {
     const response = await fetch(`${url}/uploadImage/addFeed`, {
-        method: "GET",
+        method: 'GET',
     });
     const credentials = await response.json();
     if (response.ok) {
@@ -81,13 +78,13 @@ const fetchUserDetails = async() => {
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/user/getUserinfo`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Authorization": `${localStorage.getItem("userToken")}`,
-                "Content-Type": "application/json",
+                Authorization: `${localStorage.getItem('userToken')}`,
+                'Content-Type': 'application/json',
             },
-        })
+        });
         const data = await res.json();
         if (data.message === 'Fetched succesfully') {
             console.log(data);
@@ -98,17 +95,16 @@ const fetchUserDetails = async() => {
             followerCount.innerHTML = data.userData.followercount;
             followingCount.innerHTML = data.userData.followingcount;
             likeCount.innerHTML = data.userData.likes;
-            // about.innerHTML = data.userData.about;            
+            // about.innerHTML = data.userData.about;
             photo.src = data.userData.profilephoto;
         }
         if (data.message === 'Invalid Profile URL') {
-            alert('Invalid Profile URL')
+            alert('Invalid Profile URL');
         }
     } catch (error) {
         console.log(error);
     }
 };
-
 
 homeButton.addEventListener('click', () => {
     location.href = `${frontendUrl}/pages/dashboard/dashboard.html`;
@@ -117,14 +113,14 @@ homeButton.addEventListener('click', () => {
 logoutButton.addEventListener('click', () => {
     if (userToken) {
         fetch(`${url}/auth/logout`, {
-                method: "POST",
+                method: 'POST',
                 headers: {
                     authorization: userToken,
                 },
             })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.message)
+                console.log(data.message);
             })
             .catch((err) => {
                 console.log(err);
@@ -138,46 +134,45 @@ logoutButton.addEventListener('click', () => {
 });
 
 const nav2 = document.querySelector('.pnav');
-const sec = document.querySelector(".sec");
-const changeThemeButton = document.querySelector(".theme-changer");
+const sec = document.querySelector('.sec');
+const changeThemeButton = document.querySelector('.theme-changer');
 
 changeThemeButton.addEventListener('click', () => {
     console.log('hi');
-    themeSlector()
+    themeSlector();
 });
 
 //1 for dark and 0 for light
 function themeSlector() {
-    let theme = localStorage.getItem("theme");
+    let theme = localStorage.getItem('theme');
     if (theme == 1) {
-        nav2.style.background = "#0a1931";
-        nav2.style.borderBottom = "2px solid greenyellow";
+        nav2.style.background = '#0a1931';
+        nav2.style.borderBottom = '2px solid greenyellow';
         sec.classList.remove('dark');
         localStorage.setItem('theme', '0');
         changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
         return;
     } else {
-        nav2.style.background = "#0c033a";
+        nav2.style.background = '#0c033a';
         sec.classList.add('dark');
-        nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
+        nav2.style.borderBottom = '2px solid rgb(251, 122, 201)';
         changeThemeButton.innerHTML = ` <img src="../../assets/lightTheme.svg" alt="">`;
-        localStorage.setItem("theme", 1);
+        localStorage.setItem('theme', 1);
         return;
     }
 }
 
-
 function themeLoader() {
-    let theme = localStorage.getItem("theme");
+    let theme = localStorage.getItem('theme');
     if (theme == 0) {
-        nav2.style.background = "#0a1931";
-        nav2.style.borderBottom = "2px solid greenyellow";
+        nav2.style.background = '#0a1931';
+        nav2.style.borderBottom = '2px solid greenyellow';
         sec.classList.remove('dark');
         return;
     } else {
-        nav2.style.background = "#0c033a";
+        nav2.style.background = '#0c033a';
         sec.classList.add('dark');
-        nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
+        nav2.style.borderBottom = '2px solid rgb(251, 122, 201)';
         return;
     }
 }
@@ -190,11 +185,11 @@ async function getUserPosts() {
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/feed/getUserPost`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
         });
         if (res.status === 200) {
@@ -208,7 +203,6 @@ async function getUserPosts() {
         } else {
             const data = await res.json();
             //show the error of from the response.
-
         }
     } catch (e) {
         console.log(e);
@@ -223,23 +217,23 @@ function addUserPost(element) {
         originalpostid = element.postid;
     }
     const container = document.querySelector('.user-posts');
-    const divContainer = document.createElement("div");
-    const div = document.createElement("div");
-    div.classList = "Posts";
+    const divContainer = document.createElement('div');
+    const div = document.createElement('div');
+    div.classList = 'Posts';
     div.setAttribute('id', element.postid);
     let heading = `${element.username}`;
     if (element.userid != element.originaluserid) {
         heading = ` 
             ${element.username}</a>&nbsp; Shared Post Of &nbsp;
             ${element.originalusername}
-        `
+        `;
     }
     let buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event,1)"></i>
-    <i class="fas fa-pen-square" id = "${element.postid}" onClick="editPost(event)"></i>`
+    <i class="fas fa-pen-square" id = "${element.postid}" onClick="editPost(event)"></i>`;
     if (element.userid != element.originaluserid) {
         buttons = `<i class="fas fa-trash-alt" id = "${element.postid}" onClick="deletePost(event)"></i>`;
     }
-    if (username != localStorage.getItem("username")) {
+    if (username != localStorage.getItem('username')) {
         buttons = '';
     }
     div.innerHTML = `
@@ -277,7 +271,7 @@ function addUserPost(element) {
             </div>
         </div>
         
-    `
+    `;
     const div2 = document.createElement('div');
     div2.classList.add('comment-section');
     divContainer.appendChild(div);
@@ -286,7 +280,7 @@ function addUserPost(element) {
     addPostImage(element.images, element.postid);
 }
 
-//function to delete the post 
+//function to delete the post
 const deletePost = async(event, arg) => {
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
@@ -311,23 +305,28 @@ const deletePost = async(event, arg) => {
 
     try {
         const res = await fetch(`${url}/feed/deleteUserPost`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
-        })
+        });
 
         if (res.status === 200) {
             const data = await res.json();
-            if (data.message === "Post Deleted" || data.message === "Post And All Shared Links Deleted") {
-                if (arg) { delteImagesFromFirebase(postId) };
+            if (
+                data.message === 'Post Deleted' ||
+                data.message === 'Post And All Shared Links Deleted'
+            ) {
+                if (arg) {
+                    delteImagesFromFirebase(postId);
+                }
                 messageDiv.removeChild(error);
                 message.textContent = data.message;
                 success.style.opacity = 1;
                 post.parentElement.removeChild(post);
-            } else if (data.message === "Your Not Authoriized To Delete This Post") {
+            } else if (data.message === 'Your Not Authoriized To Delete This Post') {
                 messageDiv.removeChild(success);
                 message.textContent = data.message;
                 error.style.opacity = 1;
@@ -340,9 +339,7 @@ const deletePost = async(event, arg) => {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
     }, 2000);
-
-
-}
+};
 
 //function to delte images from firebase
 const delteImagesFromFirebase = async(postId) => {
@@ -355,11 +352,11 @@ const delteImagesFromFirebase = async(postId) => {
             break;
         }
     }
-    imageToDelete.forEach(element => {
+    imageToDelete.forEach((element) => {
         const ref = firebase.storage().refFromURL(element);
         ref.delete();
-    })
-}
+    });
+};
 
 //function to display image to preview
 function addPostImage(ImageArray, postId, divElement) {
@@ -367,7 +364,7 @@ function addPostImage(ImageArray, postId, divElement) {
     let preview = document.querySelector(`#${id}`);
     if (divElement) preview = divElement;
     let i = 0;
-    ImageArray.forEach(element => {
+    ImageArray.forEach((element) => {
         const div = document.createElement('div');
         div.style.position = 'relative';
         const img = document.createElement('img');
@@ -405,37 +402,40 @@ function addPostImage(ImageArray, postId, divElement) {
         img.src = element;
         div.appendChild(img);
         preview.appendChild(div);
-    })
+    });
 }
 
 //function to open comment section
 async function openCommentSection(event) {
-    const commentSection = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[1];
+    const commentSection =
+        event.target.parentElement.parentElement.parentElement.parentElement
+        .parentElement.children[1];
     commentSection.classList.toggle('comment-section-open');
     commentSection.parentElement.children[0].classList.toggle('Posts-open');
-    const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
+    const postid =
+        event.target.parentElement.parentElement.parentElement.parentElement.id;
     const originalpostid = event.target.id;
     let userData = {
         postid,
         originalpostid,
-    }
+    };
     userData = JSON.stringify(userData);
     getAllComment(commentSection, userData);
 }
 
 //function to get comments of a post
 async function getAllComment(commentSection, userData) {
-    commentSection.innerHTML = " ";
+    commentSection.innerHTML = ' ';
     while (commentSection.children.length > 1) {
         console.log(commentSection.children[0]);
         commentSection.removeChild(commentSection.children[0]);
     }
     const res = await fetch(`${url}/feed/getAllPostComment`, {
-        method: "POST",
+        method: 'POST',
         body: userData,
         headers: {
-            "Content-Type": "application/json",
-            "Authorization": `${localStorage.getItem("userToken")}`,
+            'Content-Type': 'application/json',
+            Authorization: `${localStorage.getItem('userToken')}`,
         },
     });
 
@@ -466,7 +466,6 @@ async function getAllComment(commentSection, userData) {
     }
 }
 
-
 //Edit The Post
 const editPostDiv = document.querySelector('.add-feed-after-click');
 const closeEditPostDiv = document.querySelector('.close-feed');
@@ -479,11 +478,10 @@ const uploadButton = document.querySelector('.upload-button');
 const feedText = document.querySelector('.feed-text');
 
 feedText.addEventListener('input', () => {
-
-    if (feedText.value === "") {
+    if (feedText.value === '') {
         postButton.style.display = 'none';
         uploadButton.style.display = 'none';
-    } else if (feedText.value !== "" && counter > 0) {
+    } else if (feedText.value !== '' && counter > 0) {
         if (checker) {
             postButton.style.display = 'block';
             uploadButton.style.display = 'none';
@@ -491,11 +489,11 @@ feedText.addEventListener('input', () => {
             postButton.style.display = 'none';
             uploadButton.style.display = 'block';
         }
-    } else if (feedText.value !== "" && counter === 0) {
+    } else if (feedText.value !== '' && counter === 0) {
         postButton.style.display = 'block';
         uploadButton.style.display = 'none';
     }
-})
+});
 
 //opening the post div for editing
 const editPost = async(event) => {
@@ -508,11 +506,11 @@ const editPost = async(event) => {
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/feed/getPostById`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
         });
         if (res.status === 200) {
@@ -522,7 +520,7 @@ const editPost = async(event) => {
             description.innerHTML = data.post.description;
             counter = data.post.images.length;
             if (counter <= 3) {
-                console.log('displaying image selector')
+                console.log('displaying image selector');
                 imageSelector.style.display = 'block';
             }
             postImage = data.post.images;
@@ -532,13 +530,11 @@ const editPost = async(event) => {
     } catch (error) {
         console.log(error);
     }
-
-}
+};
 closeEditPostDiv.addEventListener('click', () => {
     editPostDiv.style.display = 'none';
     body.style.overflowY = 'auto';
-})
-
+});
 
 //selecting various buttons
 const imageButton = document.querySelector('#img');
@@ -551,7 +547,7 @@ const loader = document.querySelector('.loader');
 imageButton.addEventListener('change', (event) => {
     imageToUpload.push(event.target.files[0]);
     updateImageDisplay();
-})
+});
 
 //function to display selected image to view
 function updateImageDisplay() {
@@ -585,7 +581,7 @@ function updateImageDisplay() {
             };
             const closeImage = document.createElement('img');
             closeImage.src = '../../assets/close.svg';
-            closeImage.setAttribute('id', `${count-1}`);
+            closeImage.setAttribute('id', `${count - 1}`);
             closeImage.classList.add('profile-photo-close');
             closeImage.classList.add('image-photo-close');
             closeImageDiv.appendChild(closeImage);
@@ -603,7 +599,7 @@ function updateImageDisplay() {
 
 //upload image to firebase storage then add th post to the database
 postButton.addEventListener('click', async() => {
-    //message div 
+    //message div
     if (checker === 1 || imageToUpload.length === 0) {
         await modifyImageUrl();
         addPost();
@@ -611,7 +607,7 @@ postButton.addEventListener('click', async() => {
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        window.scrollTo(0, 0);;
+        window.scrollTo(0, 0);
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('confirmation-message');
         messageDiv.innerHTML = `
@@ -638,11 +634,11 @@ const modifyImageUrl = () => {
         if (postImage[i] === null || postImage[i] === undefined) continue;
         else imageUrl.unshift(postImage[i]);
     }
-}
+};
 
 uploadButton.addEventListener('click', () => {
     uploadImageToFirebase();
-})
+});
 
 let imageUploadCounter = 0;
 //a function to uplaoad image to firebase
@@ -656,14 +652,19 @@ function uploadImageToFirebase() {
     loadingEffect.style.display = 'block';
     for (let i = 0; i < imageToUpload.length; i++) {
         let today = new Date();
-        let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let date =
+            today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let time =
+            today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
         let dateTime = date + ' ' + time;
         const element = imageToUpload[i];
         let ans = Math.random().toString(36).slice(2);
-        const refVar = firebase.storage().ref('feeds/' + ans + element.lastModified + dateTime + element.name);
+        const refVar = firebase
+            .storage()
+            .ref('feeds/' + ans + element.lastModified + dateTime + element.name);
         let task = refVar.put(element);
-        task.on('state_changed',
+        task.on(
+            'state_changed',
             function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 loader.value = percentage;
@@ -672,39 +673,37 @@ function uploadImageToFirebase() {
                 console.log(err);
             },
             function complete() {
-                task.snapshot.ref.getDownloadURL()
-                    .then(
-                        function(downloadURL) {
-                            //we got the url of the image 
-                            imageUrl.push(downloadURL);
-                        });
+                task.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    //we got the url of the image
+                    imageUrl.push(downloadURL);
+                });
                 imageUploadCounter++;
                 if (imageUploadCounter === imageToUpload.length) {
                     containerForPost.style.display = 'block';
                     loadingEffect.style.display = 'none';
                 }
                 // console.log(imageUrl);
-            }
-        )
+            },
+        );
     }
     checker = 1;
-    document.querySelectorAll('.close-image').forEach(element => {
+    document.querySelectorAll('.close-image').forEach((element) => {
         element.style.display = 'none';
-    })
+    });
     postButton.style.display = 'block';
     uploadButton.style.display = 'none';
 }
 
-//updating the post 
+//updating the post
 async function addPost() {
     console.log('hi');
     containerForPost.style.display = 'block';
     loadingEffect.style.display = 'none';
-    //message div 
+    //message div
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
-    window.scrollTo(0, 0);;
+    window.scrollTo(0, 0);
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -727,22 +726,21 @@ async function addPost() {
         }, 2000);
         return;
     } else {
-
         let userData = {
             image: imageUrl,
             description: feedText.value,
             postId,
-        }
+        };
         userData = JSON.stringify(userData);
         imageToUpload = [];
         imageUrl = [];
         try {
             const res = await fetch(`${url}/feed/editUserPost`, {
-                method: "POST",
+                method: 'POST',
                 body: userData,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `${localStorage.getItem("userToken")}`,
+                    'Content-Type': 'application/json',
+                    Authorization: `${localStorage.getItem('userToken')}`,
                 },
             });
             if (res.status === 200) {
@@ -755,9 +753,9 @@ async function addPost() {
                     messageDiv.removeChild(error);
                     message.textContent = data.message;
                     success.style.opacity = 1;
-                    imageToDelete.forEach(element => {
+                    imageToDelete.forEach((element) => {
                         element.delete();
-                    })
+                    });
                 } else {
                     //error handling to be done
                     messageDiv.removeChild(success);
@@ -779,26 +777,35 @@ async function addPost() {
     }
 }
 
-//profile photo update 
+//profile photo update
 
 const profilePhotoDiv = document.querySelector('.pprofile-photo');
 const updateProfilePhotoDiv = document.querySelector('.pprofile-photo-over');
 const newProfilePhoto = document.querySelector('#img-profile-photo');
 
-profilePhotoDiv.addEventListener('mouseover', () => {
-    if (username === localStorage.getItem('username')) updateProfilePhotoDiv.style.opacity = 1;
-}, false);
-profilePhotoDiv.addEventListener('mouseout', () => {
-    updateProfilePhotoDiv.style.opacity = 0;
-}, false);
+profilePhotoDiv.addEventListener(
+    'mouseover',
+    () => {
+        if (username === localStorage.getItem('username'))
+            updateProfilePhotoDiv.style.opacity = 1;
+    },
+    false,
+);
+profilePhotoDiv.addEventListener(
+    'mouseout',
+    () => {
+        updateProfilePhotoDiv.style.opacity = 0;
+    },
+    false,
+);
 newProfilePhoto.addEventListener('change', (event) => {
     const file = event.target.files[0];
     const currentProfilePhoto = localStorage.getItem('profilePhoto');
     uploadProfilePhotoToFirebase(file, currentProfilePhoto);
-})
+});
 
 const uploadProfilePhotoToFirebase = (file, currentProfilePhoto) => {
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -811,14 +818,21 @@ const uploadProfilePhotoToFirebase = (file, currentProfilePhoto) => {
     const success = messageDiv.children[1];
     const error = messageDiv.children[0];
     let today = new Date();
-    let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let date =
+        today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    let time =
+        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
     let dateTime = date + ' ' + time;
     const element = file;
     let ans = Math.random().toString(36).slice(2);
-    const refVar = firebase.storage().ref('Profile-Photos/' + ans + element.lastModified + dateTime + element.name);
+    const refVar = firebase
+        .storage()
+        .ref(
+            'Profile-Photos/' + ans + element.lastModified + dateTime + element.name,
+        );
     let task = refVar.put(element);
-    task.on('state_changed',
+    task.on(
+        'state_changed',
         function progress(snapshot) {
             var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         },
@@ -826,16 +840,28 @@ const uploadProfilePhotoToFirebase = (file, currentProfilePhoto) => {
             console.log(err);
         },
         function complete() {
-            task.snapshot.ref.getDownloadURL()
-                .then(
-                    function(downloadURL) {
-                        updateProfilePhotoToDataBase(messageDiv, message, success, error, downloadURL, currentProfilePhoto);
-                    });
-        }
-    )
-}
-console.log = function() {}
-const updateProfilePhotoToDataBase = async(messageDiv, message, success, error, downloadURL, currentProfilePhoto) => {
+            task.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                updateProfilePhotoToDataBase(
+                    messageDiv,
+                    message,
+                    success,
+                    error,
+                    downloadURL,
+                    currentProfilePhoto,
+                );
+            });
+        },
+    );
+};
+console.log = function() {};
+const updateProfilePhotoToDataBase = async(
+    messageDiv,
+    message,
+    success,
+    error,
+    downloadURL,
+    currentProfilePhoto,
+) => {
     console.log('hi');
     let userData = {
         profilePhoto: downloadURL,
@@ -845,15 +871,16 @@ const updateProfilePhotoToDataBase = async(messageDiv, message, success, error, 
         const res = await fetch(`${url}/user/updateProfilePhoto`, {
             method: 'PUT',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
             body: userData,
-        })
+        });
         if (res.status === 200) {
             const data = await res.json();
-            localStorage.setItem("profilePhoto", downloadURL);
-            const profilePhotoUrl = 'https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Profile-Photos%2F51f6fb256629fc755b8870c801092942.png?alt=media&token=f67200e6-85c6-49a8-afe1-9ebd06a298c5';
+            localStorage.setItem('profilePhoto', downloadURL);
+            const profilePhotoUrl =
+                'https://firebasestorage.googleapis.com/v0/b/dubify-7f0f8.appspot.com/o/Profile-Photos%2F51f6fb256629fc755b8870c801092942.png?alt=media&token=f67200e6-85c6-49a8-afe1-9ebd06a298c5';
             if (currentProfilePhoto != profilePhotoUrl) {
                 const ref = firebase.storage().refFromURL(currentProfilePhoto);
                 ref.delete();
@@ -863,7 +890,6 @@ const updateProfilePhotoToDataBase = async(messageDiv, message, success, error, 
             message.textContent = 'Profile Photo Updated';
             success.style.opacity = 1;
         }
-
     } catch (error) {
         console.log(error);
         messageDiv.removeChild(success);
@@ -875,13 +901,17 @@ const updateProfilePhotoToDataBase = async(messageDiv, message, success, error, 
         messageContainer.removeChild(messageDiv);
         location.reload();
     }, 2000);
-}
+};
 
 //follow or unfollow the user
 const followButton = document.querySelector('.follow');
 const unFollowerButton = document.querySelector('.unfollow');
-followButton.addEventListener('click', () => { followUser() });
-unFollowerButton.addEventListener('click', () => { unfollowUser() });
+followButton.addEventListener('click', () => {
+    followUser();
+});
+unFollowerButton.addEventListener('click', () => {
+    unfollowUser();
+});
 const isUserFollowing = async() => {
     let userData = { username };
     userData = JSON.stringify(userData);
@@ -890,30 +920,29 @@ const isUserFollowing = async() => {
         const res = await fetch(`${url}/friend/isUserFollowing`, {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
             body: userData,
-        })
+        });
         if (res.status === 200) {
             const data = await res.json();
             if (data.value === 0) {
-                unFollowerButton.style.display = "none";
+                unFollowerButton.style.display = 'none';
                 followButton.style.display = 'block';
             } else {
-                unFollowerButton.style.display = "block";
+                unFollowerButton.style.display = 'block';
                 followButton.style.display = 'none';
             }
         }
-
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 async function followUser() {
     console.log('follow');
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -930,23 +959,23 @@ async function followUser() {
     let userData = {
         following,
         followingrusername,
-    }
+    };
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/friend/addFollowing`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
-        })
+        });
         if (res.status === 200) {
             const data = await res.json();
             messageDiv.removeChild(error);
             message.textContent = data.message;
             success.style.opacity = 1;
-            unFollowerButton.style.display = "block";
+            unFollowerButton.style.display = 'block';
             followButton.style.display = 'none';
         } else {
             messageDiv.removeChild(success);
@@ -967,7 +996,7 @@ async function followUser() {
 
 async function unfollowUser() {
     console.log('Unfollow');
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -985,23 +1014,23 @@ async function unfollowUser() {
     let userData = {
         following,
         followingrusername,
-    }
+    };
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/friend/removeFollowing`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
-        })
+        });
         if (res.status === 200) {
             const data = await res.json();
             messageDiv.removeChild(error);
             message.textContent = data.message;
             success.style.opacity = 1;
-            unFollowerButton.style.display = "none";
+            unFollowerButton.style.display = 'none';
             followButton.style.display = 'block';
         } else {
             messageDiv.removeChild(success);
@@ -1023,17 +1052,17 @@ async function unfollowUser() {
 const tokenVerifier = async() => {
     try {
         const res = await fetch(`${url}/auth/tokenVerifier`, {
-            method: "GET",
+            method: 'GET',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
-        })
+        });
         const data = await res.json();
-        if (data.message === "Token Expired") {
+        if (data.message === 'Token Expired') {
             location.replace(`${frontendUrl}`);
         }
-        if (data.message === "Valid token") {
+        if (data.message === 'Valid token') {
             homeButton.style.display = 'block';
             editProfileButtton.style.display = 'block';
             logoutButton.style.display = 'block';
@@ -1041,8 +1070,7 @@ const tokenVerifier = async() => {
     } catch (error) {
         console.log(error);
     }
-}
-
+};
 
 //function calls
 if (userId && username) {
@@ -1057,5 +1085,7 @@ if (userId && username) {
 
 window.addEventListener('load', () => {
     const loader = document.querySelector('.ploader-animation');
-    setTimeout(() => { loader.classList.add('ploader-end'); }, 2000);
-})
+    setTimeout(() => {
+        loader.classList.add('ploader-end');
+    }, 2000);
+});

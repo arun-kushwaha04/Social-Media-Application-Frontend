@@ -4,7 +4,9 @@ let userStory = [];
 let followingStory = [];
 let element = [];
 let chk = null;
-const mainContainerBackground = document.querySelector('.current-background-image');
+const mainContainerBackground = document.querySelector(
+    '.current-background-image',
+);
 const previousImage = document.querySelector('.previous-image');
 const currentImage = document.querySelector('.current-image');
 const nextImage = document.querySelector('.next-image');
@@ -23,7 +25,7 @@ const aboutStory = document.querySelector('.about-story');
 const storyLoader = document.querySelector('.story-loader');
 const storyLoaderEnd = document.querySelector('.story-loader-end');
 
-const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = 'https://dubify.herokuapp.com';
 // const url = "http://localhost:8000";
 
 //fortend url
@@ -33,21 +35,21 @@ const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 window.addEventListener('load', () => {
     const loader = document.querySelector('.loader-animation');
     loader.classList.add('loader-end');
-})
+});
 
 //message showing
 const messageContainer = document.querySelector('.message-container');
 
 let firebaseConfig;
 
-
-window.onload = () => {}
-document.querySelector('.user-story-div').src = localStorage.getItem('profilePhoto');
+window.onload = () => {};
+document.querySelector('.user-story-div').src =
+    localStorage.getItem('profilePhoto');
 
 //a function to fetch firebase credentials from backend
 async function fetchCredentials() {
     const response = await fetch(`${url}/uploadImage/addFeed`, {
-        method: "GET",
+        method: 'GET',
     });
     const credentials = await response.json();
     if (response.ok) {
@@ -58,10 +60,7 @@ async function fetchCredentials() {
     }
 }
 
-
-fetch(`${url}/`, {
-
-});
+fetch(`${url}/`, {});
 
 // let image = [
 //     './assets/22917.jpg',
@@ -76,54 +75,54 @@ let storyUrl = [];
 
 //funtion to fetch a user story
 const getUserStory = async(userId, arg, arg2) => {
-        let userData = {
-            userId,
-        }
-        userData = JSON.stringify(userData);
-        try {
-            const res = await fetch(`${url}/story/getUserStory`, {
-                method: "POST",
-                body: userData,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `${localStorage.getItem("userToken")}`,
-                },
-            });
-            if (res.status === 200) {
-                const data = await res.json();
-                console.log(data);
-                if (arg) {
-                    if (data.message != 'No Story Found') {
-                        addStoryButtonDiv.style.display = 'none';
-                        viewStoryButtonDiv.style.display = 'block';
-                    }
-                } else {
-                    nextButton.style.visibility = 'visible';
-                    previousButton.style.visibility = 'visible';
-                }
+    let userData = {
+        userId,
+    };
+    userData = JSON.stringify(userData);
+    try {
+        const res = await fetch(`${url}/story/getUserStory`, {
+            method: 'POST',
+            body: userData,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
+            },
+        });
+        if (res.status === 200) {
+            const data = await res.json();
+            console.log(data);
+            if (arg) {
                 if (data.message != 'No Story Found') {
-                    image = data.story;
-                    userStory = data.story;
-                    element = data.element;
-                    if (arg2) renderUserStory();
+                    addStoryButtonDiv.style.display = 'none';
+                    viewStoryButtonDiv.style.display = 'block';
                 }
             } else {
-                console.log(error);
+                nextButton.style.visibility = 'visible';
+                previousButton.style.visibility = 'visible';
             }
-        } catch (error) {
+            if (data.message != 'No Story Found') {
+                image = data.story;
+                userStory = data.story;
+                element = data.element;
+                if (arg2) renderUserStory();
+            }
+        } else {
             console.log(error);
         }
+    } catch (error) {
+        console.log(error);
     }
-    //getting the following users
+};
+//getting the following users
 
 // console.log = function() {}
 async function getFollowing() {
     try {
         const res = await fetch(`${url}/story/getStoryList`, {
-            method: "GET",
+            method: 'GET',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
         });
         if (res.status === 200) {
@@ -143,7 +142,7 @@ async function getFollowing() {
 const renderMainContainerBackground = () => {
     mainContainerBackground.src = currentImage.children[1].src;
     return;
-}
+};
 
 //setting the fetched image to display
 const renderUserStory = (arg) => {
@@ -183,8 +182,7 @@ const renderUserStory = (arg) => {
     return;
 
     // previousButton.style.visibility = 'hidden';
-}
-
+};
 
 //function on next button clicked
 const nextButtonClick = () => {
@@ -195,7 +193,7 @@ const nextButtonClick = () => {
     nextImage.id = id + 1;
     previousImage.children[0].src = currentImage.children[1].src;
     currentImage.children[1].src = nextImage.children[0].src;
-    if ((id + 1) === image.length) {
+    if (id + 1 === image.length) {
         nextImage.style.visibility = 'hidden';
         nextButton.style.visibility = 'hidden';
         renderMainContainerBackground();
@@ -205,7 +203,7 @@ const nextButtonClick = () => {
     renderMainContainerBackground();
     // setTimeout(nextButtonClick(), 3000);
     return;
-}
+};
 
 //function on previous button clicked
 const previousButtonClick = () => {
@@ -225,31 +223,32 @@ const previousButtonClick = () => {
     previousImage.children[0].src = image[id - 3];
     renderMainContainerBackground();
     return;
-}
+};
 
 //function to render selected image to view when add image is clicked
 function updateImageDisplay(event) {
     imageToUpload = null;
-    imageToUpload = (event.target.files[0]);
-    currentImage.children[1].src = URL.createObjectURL(imageToUpload)
+    imageToUpload = event.target.files[0];
+    currentImage.children[1].src = URL.createObjectURL(imageToUpload);
     renderMainContainerBackground();
-    event.target.parentElement.parentElement.children[2].innerHTML = 'Upload / Change Image'
+    event.target.parentElement.parentElement.children[2].innerHTML =
+        'Upload / Change Image';
     event.target.parentElement.style.display = 'none';
     event.target.parentElement.parentElement.children[1].style.display = 'block';
 }
-console.log = function() {}
-    //a function to render all following users
+console.log = function() {};
+//a function to render all following users
 const renderFollowingList = (following) => {
     const container = document.querySelector('.stories-list');
     let i = 0;
-    following.forEach(element => {
+    following.forEach((element) => {
         const div = document.createElement('div');
         div.classList.add('story-item');
         div.setAttribute('id', `${i}`);
-        div.addEventListener("click", async(event) => {
+        div.addEventListener('click', async(event) => {
             chk = 0;
             const id = event.currentTarget.id;
-            aboutStory.style.display = "none";
+            aboutStory.style.display = 'none';
             if (id) {
                 storyLoader.style.opacity = 1;
                 storyLoader.style.zIndex = 100000;
@@ -264,19 +263,19 @@ const renderFollowingList = (following) => {
                 document.querySelector('.story-likes').innerHTML = `${element.likes}`;
                 document.querySelector('.story-views').innerHTML = `${element.views}`;
             }
-        })
+        });
         div.innerHTML = `    
             <div class="user-profile">
                 <img src="${element.profilephoto}" alt="user-image" />
             </div>
             <div class="user-name">${element.username}</div>
-        `
+        `;
         container.appendChild(div);
         followingStory.push(element.images);
         i++;
-    })
+    });
     console.log('end');
-}
+};
 
 //function to preload all images
 const preloadImages = (image2, arg) => {
@@ -290,12 +289,12 @@ const preloadImages = (image2, arg) => {
             imagesLoaded++;
             image.push(this.src);
             if (imagesLoaded === imageCount) {
-                allLoaded(arg)
+                allLoaded(arg);
             }
-        }
+        };
         downloadingImage.src = image2[i];
     }
-}
+};
 
 function allLoaded(arg) {
     storyLoader.style.opacity = 0;
@@ -310,16 +309,16 @@ const showRightContainer = () => {
     hamburger.style.zIndex = '50';
     rightContainer.style.opacity = '1';
     return;
-}
+};
 hamburger.addEventListener('click', () => {
     rightContainer.style.opacity = '0';
     rightContainer.style.zIndex = '-1';
     hamburger.style.zIndex = '-1';
     return;
-})
+});
 
 const uploadImageToFirebase = (event) => {
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -334,14 +333,19 @@ const uploadImageToFirebase = (event) => {
     const loader = document.querySelector('.loading-effect');
     loader.style.visibility = 'visible';
     let today = new Date();
-    let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let date =
+        today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    let time =
+        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
     let dateTime = date + ' ' + time;
     const element = imageToUpload;
     let ans = Math.random().toString(36).slice(2);
-    const refVar = firebase.storage().ref('story/' + ans + element.lastModified + dateTime + element.name);
+    const refVar = firebase
+        .storage()
+        .ref('story/' + ans + element.lastModified + dateTime + element.name);
     let task = refVar.put(element);
-    task.on('state_changed',
+    task.on(
+        'state_changed',
         function progress(snapshot) {
             var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             loader.value = percentage;
@@ -352,36 +356,38 @@ const uploadImageToFirebase = (event) => {
             loader.style.visibility = 'hidden';
         },
         function complete() {
-            task.snapshot.ref.getDownloadURL()
-                .then(
-                    function(downloadURL) {
-                        //we got the url of the image                                             
-                        storyImageUrl.push(downloadURL);
-                        console.log(storyImageUrl);
-                        loader.style.display = 'none';
-                        // document.querySelector('.add-story-to-screen').style.display = 'none';
-                        event.target.parentElement.style.display = 'none';
-                        event.target.parentElement.parentElement.children[0].style.display = 'block';
-                        event.target.parentElement.parentElement.children[2].innerHTML = 'Add-Photo';
-                        messageDiv.removeChild(error);
-                        message.textContent = 'Image Uploaded';
-                        success.style.opacity = 1;
-                        setTimeout(nextButtonClick(), 1000);
-                        document.querySelector('.add-story').style.display = 'block';
-                        setTimeout(() => {
-                            messageDiv.style.opacity = '0';
-                            messageContainer.removeChild(messageDiv);
-                        }, 2000);
-                    });
-        }
-    )
-}
+            task.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                //we got the url of the image
+                storyImageUrl.push(downloadURL);
+                console.log(storyImageUrl);
+                loader.style.display = 'none';
+                // document.querySelector('.add-story-to-screen').style.display = 'none';
+                event.target.parentElement.style.display = 'none';
+                event.target.parentElement.parentElement.children[0].style.display =
+                    'block';
+                event.target.parentElement.parentElement.children[2].innerHTML =
+                    'Add-Photo';
+                messageDiv.removeChild(error);
+                message.textContent = 'Image Uploaded';
+                success.style.opacity = 1;
+                setTimeout(nextButtonClick(), 1000);
+                document.querySelector('.add-story').style.display = 'block';
+                setTimeout(() => {
+                    messageDiv.style.opacity = '0';
+                    messageContainer.removeChild(messageDiv);
+                }, 2000);
+            });
+        },
+    );
+};
 
-addStoryButton.addEventListener('click', () => { addStoryTOServer() })
+addStoryButton.addEventListener('click', () => {
+    addStoryTOServer();
+});
 
 //function to uplaod user story
 const addStoryTOServer = async() => {
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -395,16 +401,16 @@ const addStoryTOServer = async() => {
     const error = messageDiv.children[0];
     let userData = {
         storyImageUrl,
-    }
+    };
     userData = JSON.stringify(userData);
     const res = await fetch(`${url}/story/addStory`, {
-        method: "POST",
+        method: 'POST',
         body: userData,
         headers: {
-            "Content-Type": "application/json",
-            "Authorization": `${localStorage.getItem("userToken")}`,
+            'Content-Type': 'application/json',
+            Authorization: `${localStorage.getItem('userToken')}`,
         },
-    })
+    });
     if (res.status === 200) {
         const data = await res.json();
         messageDiv.removeChild(error);
@@ -422,11 +428,11 @@ const addStoryTOServer = async() => {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
     }, 2000);
-}
+};
 
 //function to view user it own story
 viewStoryButtonDiv.addEventListener('click', () => {
-    aboutStory.style.display = "none";
+    aboutStory.style.display = 'none';
     storyLoader.style.opacity = 1;
     storyLoader.style.zIndex = 100000;
     if (window.innerWidth <= 1170) {
@@ -438,72 +444,81 @@ viewStoryButtonDiv.addEventListener('click', () => {
     document.querySelector('.story-likes').innerHTML = `${element.likes}`;
     document.querySelector('.story-views').innerHTML = `${element.views}`;
     document.querySelector('.like-story-div').style.display = 'none';
-})
+});
 
 //updating view on a story
 const updateViewStory = async(storyId) => {
     try {
         let userData = {
             storyId,
-        }
+        };
         userData = JSON.stringify(userData);
         const res = fetch(`${url}/story/updateViewStory`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
-        })
-        if (res.status === 200) console.log("query completed");
+        });
+        if (res.status === 200) console.log('query completed');
     } catch (error) {
         console.log(error);
     }
-}
-
+};
 
 //logic for liking a image in a story
 const likeButton = document.querySelector('.crazy-button');
 
-currentImage.addEventListener('mouseover', (e) => {
-    e.preventDefault();
-    const id = currentImage.id;
-    const storyId = currentImage.children[0].id;
-    if (id && storyId && chk === 0) {
-        const image = storyId + id;
-        let userData = { image };
-        userData = JSON.stringify(userData);
-        const res = fetch(`${url}/story/isImageLiked`, {
-                method: "POST",
-                body: userData,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `${localStorage.getItem("userToken")}`,
-                },
-            }).then(res => res.json())
-            .then(data => {
-                if (data.message === "Liked") {
-                    likeButton.classList.add('fas');
-                    likeButton.classList.remove('far');
-                }
-                if (data.message === "Not Liked") {
-                    likeButton.classList.add('far');
-                    likeButton.classList.remove('fas');
-                }
-            }).catch(err => console.log(err));
-        likeButton.setAttribute('id', `${image}`);
-        // setTimeout(() => { document.querySelector('.like-story').style.opacity = 1; }, 1000);
-        document.querySelector('.like-story').style.opacity = 1;
-    }
-}, false);
-currentImage.addEventListener('mouseout', (event) => {
-    const id = currentImage.id;
-    if (id) document.querySelector('.like-story').style.opacity = 0;
-}, false)
+currentImage.addEventListener(
+    'mouseover',
+    (e) => {
+        e.preventDefault();
+        const id = currentImage.id;
+        const storyId = currentImage.children[0].id;
+        if (id && storyId && chk === 0) {
+            const image = storyId + id;
+            let userData = { image };
+            userData = JSON.stringify(userData);
+            const res = fetch(`${url}/story/isImageLiked`, {
+                    method: 'POST',
+                    body: userData,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `${localStorage.getItem('userToken')}`,
+                    },
+                })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.message === 'Liked') {
+                        likeButton.classList.add('fas');
+                        likeButton.classList.remove('far');
+                    }
+                    if (data.message === 'Not Liked') {
+                        likeButton.classList.add('far');
+                        likeButton.classList.remove('fas');
+                    }
+                })
+                .catch((err) => console.log(err));
+            likeButton.setAttribute('id', `${image}`);
+            // setTimeout(() => { document.querySelector('.like-story').style.opacity = 1; }, 1000);
+            document.querySelector('.like-story').style.opacity = 1;
+        }
+    },
+    false,
+);
+currentImage.addEventListener(
+    'mouseout',
+    (event) => {
+        const id = currentImage.id;
+        if (id) document.querySelector('.like-story').style.opacity = 0;
+    },
+    false,
+);
 
 //updtae like on like
 const updateLike = async(event) => {
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -521,13 +536,13 @@ const updateLike = async(event) => {
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/story/updateLikeStory`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
-        })
+        });
         if (res.status === 200) {
             const data = await res.json();
             if (data.value === 1) {
@@ -555,19 +570,18 @@ const updateLike = async(event) => {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
     }, 2000);
-}
+};
 
 // adding event listeners when buttons are clicked
-nextButton.addEventListener("click", () => nextButtonClick());
-previousButton.addEventListener("click", () => previousButtonClick());
+nextButton.addEventListener('click', () => nextButtonClick());
+previousButton.addEventListener('click', () => previousButtonClick());
 
-
-//providing user to add the story 
+//providing user to add the story
 const addStory = document.querySelector('.add-user-story');
 const addStoryDiv = document.querySelector('.add-story-to-screen');
 
-addStory.addEventListener("click", () => {
-    aboutStory.style.display = "none";
+addStory.addEventListener('click', () => {
+    aboutStory.style.display = 'none';
     nextButton.style.visibility = 'hidden';
     previousButton.style.visibility = 'hidden';
     image = [
@@ -576,7 +590,7 @@ addStory.addEventListener("click", () => {
         'https://images.unsplash.com/photo-1513569771920-c9e1d31714af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
         'https://images.unsplash.com/photo-1581362716668-90cdec6b4882?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
         'https://images.unsplash.com/photo-1515446808777-87f69cb475aa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mjd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-    ]
+    ];
     addStoryDiv.style.visibility = 'visible';
     nav.style.visibility = 'hidden';
     storyLoader.style.opacity = 1;
@@ -589,29 +603,26 @@ addStory.addEventListener("click", () => {
     preloadImages(image2, 1);
     // renderUserStory(1);
     // renderMainContainerBackground();
-
-})
+});
 
 const tokenVerifier = async() => {
-        try {
-            const res = await fetch(`${url}/auth/tokenVerifier`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `${localStorage.getItem("userToken")}`,
-                },
-            })
-            const data = await res.json();
-            if (data.message === "Token Expired") {
-
-                location.replace(`${frontendUrl}`);
-            }
-
-        } catch (error) {
-            console.log(error);
+    try {
+        const res = await fetch(`${url}/auth/tokenVerifier`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
+            },
+        });
+        const data = await res.json();
+        if (data.message === 'Token Expired') {
+            location.replace(`${frontendUrl}`);
         }
+    } catch (error) {
+        console.log(error);
     }
-    //function calls
+};
+//function calls
 tokenVerifier();
 fetchCredentials();
 getFollowing();

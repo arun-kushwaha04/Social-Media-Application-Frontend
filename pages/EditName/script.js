@@ -1,10 +1,9 @@
-const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = 'https://dubify.herokuapp.com';
 // const url = "http://localhost:8000";
 
 //fortend url
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 // const frontendUrl = `http://localhost:5500`;
-
 
 //selcting all the elements to be manipulated
 const form = document.querySelector('body');
@@ -38,7 +37,7 @@ function check() {
         nameIcon2.style.display = 'none';
         nameError.style.display = 'block';
     }
-    if (namea.value === "") {
+    if (namea.value === '') {
         namea.style.borderColor = 'lightgray';
         nameIcon1.style.display = 'none';
         nameIcon2.style.display = 'none';
@@ -48,7 +47,7 @@ function check() {
 
 //function for reseting password field
 function check2() {
-    if (password.value !== "") {
+    if (password.value !== '') {
         password.style.borderColor = 'lightgray';
         passwordIcon1.style.display = 'none';
         passwordIcon2.style.display = 'none';
@@ -57,11 +56,9 @@ function check2() {
     }
 }
 
-
 button.addEventListener('click', async() => {
-
     //checking if name is empty
-    if (namea.value === "") {
+    if (namea.value === '') {
         namea.style.borderColor = '#e74c3c';
         nameIcon1.style.display = 'block';
         nameIcon2.style.display = 'none';
@@ -69,8 +66,8 @@ button.addEventListener('click', async() => {
         return;
     }
 
-    //checking if password is empty 
-    if (password.value === "") {
+    //checking if password is empty
+    if (password.value === '') {
         password.style.borderColor = '#e74c3c';
         passwordIcon1.style.display = 'block';
         passwordIcon2.style.display = 'none';
@@ -86,25 +83,25 @@ button.addEventListener('click', async() => {
 
     //forming data to be send to backend
     let data = {
-        "name": `${namea.value}`,
-        "password": `${password.value}`,
-    }
+        name: `${namea.value}`,
+        password: `${password.value}`,
+    };
     data = JSON.stringify(data);
 
     try {
         const res = await fetch(`${url}/user/updateName`, {
             method: 'PUT',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
             body: data,
-        })
+        });
         if (res.status === 200) {
             const data = await res.json();
             console.log('hi');
             heading.innerHTML = 'Name Updated';
-            localStorage.setItem("userToken", data.userToken);
+            localStorage.setItem('userToken', data.userToken);
             namea.style.display = 'none';
             password.style.display = 'none';
             nameIcon1.style.display = 'none';
@@ -127,10 +124,9 @@ button.addEventListener('click', async() => {
                 heading.textContent = 'Internal Server Error';
             }
         }
-
     } catch (error) {
         heading.textContent = 'Internal Server Error';
         console.log(error);
     }
-})
-console.log = function() {}
+});
+console.log = function() {};

@@ -1,5 +1,5 @@
-//url 
-const url = "https://sheltered-citadel-84490.herokuapp.com";
+//url
+const url = 'https://dubify.herokuapp.com';
 // const url = "http://localhost:8000";
 
 //fortend url
@@ -16,62 +16,62 @@ let following;
 window.addEventListener('load', () => {
     const loader = document.querySelector('.loader-animation');
     loader.classList.add('loader-end');
-})
+});
 
 console.log(window.innerWidth);
 
-const myProfile = document.querySelector(".profile-photo-feed");
-myProfile.addEventListener("click", () => {
-    location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}&userId=${localStorage.getItem("userId")}`;
-})
+const myProfile = document.querySelector('.profile-photo-feed');
+myProfile.addEventListener('click', () => {
+    location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem(
+  'username',
+ )}&userId=${localStorage.getItem('userId')}`;
+});
 
-const sec = document.querySelector(".sec");
-const nav2 = document.querySelector(".nav");
-const changeThemeButton = document.querySelector(".theme-changer");
+const sec = document.querySelector('.sec');
+const nav2 = document.querySelector('.nav');
+const changeThemeButton = document.querySelector('.theme-changer');
 
 changeThemeButton.addEventListener('click', () => themeSlector());
 
-
 //1 for dark and 0 for light
 function themeSlector() {
-    let theme = localStorage.getItem("theme");
+    let theme = localStorage.getItem('theme');
     if (theme == 1) {
-        nav2.style.background = "#0a1931";
-        nav2.style.borderBottom = "2px solid greenyellow";
+        nav2.style.background = '#0a1931';
+        nav2.style.borderBottom = '2px solid greenyellow';
         sec.classList.remove('dark');
         localStorage.setItem('theme', '0');
         changeThemeButton.innerHTML = ` <img src="../../assets/darkTheme.svg" alt="">`;
         return;
     } else {
-        nav2.style.background = "#0c033a";
+        nav2.style.background = '#0c033a';
         sec.classList.add('dark');
-        nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
+        nav2.style.borderBottom = '2px solid rgb(251, 122, 201)';
         changeThemeButton.innerHTML = ` <img src="../../assets/lightTheme.svg" alt="">`;
-        localStorage.setItem("theme", 1);
+        localStorage.setItem('theme', 1);
         return;
     }
 }
 
-
 function themeLoader() {
-    let theme = localStorage.getItem("theme");
+    let theme = localStorage.getItem('theme');
     if (theme == 0) {
-        nav2.style.background = "#0a1931";
-        nav2.style.borderBottom = "2px solid greenyellow";
+        nav2.style.background = '#0a1931';
+        nav2.style.borderBottom = '2px solid greenyellow';
         sec.classList.remove('dark');
         return;
     } else {
-        nav2.style.background = "#0c033a";
+        nav2.style.background = '#0c033a';
         sec.classList.add('dark');
-        nav2.style.borderBottom = "2px solid rgb(251, 122, 201)";
+        nav2.style.borderBottom = '2px solid rgb(251, 122, 201)';
         return;
     }
 }
 themeLoader();
 
-VanillaTilt.init(document.querySelectorAll(".event"), {
+VanillaTilt.init(document.querySelectorAll('.event'), {
     max: 15,
-    speed: 300
+    speed: 300,
 });
 
 async function getUserList() {
@@ -88,7 +88,7 @@ async function getUserList() {
 const populateSearchResults = (users) => {
     const container = document.querySelector('.search-result');
     container.innerHTML = '';
-    users.forEach(element => {
+    users.forEach((element) => {
         const div = document.createElement('div');
         div.classList.add('search-result-section');
         div.innerHTML = `
@@ -100,16 +100,15 @@ const populateSearchResults = (users) => {
         <span class="search-email"><a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.id}" target='_blank'>${element.email}</a></span>
         </div>
         
-        `
+        `;
         container.appendChild(div);
-    })
-}
+    });
+};
 
 const search = document.querySelector('.search');
 const searchContainer = document.querySelector('.search-container');
 const searchInput = document.querySelector('.search-input');
 const searchIcon = document.querySelector('.search-icon');
-
 
 document.querySelector('body').addEventListener('click', () => {
     if (searchInput === document.activeElement) return;
@@ -139,7 +138,7 @@ search.addEventListener('focusin', () => {
 
 searchInput.addEventListener('input', () => {
     updateSearchBox();
-})
+});
 
 const updateSearchBox = () => {
     const value = searchInput.value.toLowerCase();
@@ -148,35 +147,39 @@ const updateSearchBox = () => {
         const name = users[i].name.toLowerCase();
         const username = users[i].username.toLowerCase();
         const email = users[i].email.toLowerCase();
-        if (name.indexOf(value) > -1 || username.indexOf(value) > -1 || email.indexOf(value) > -1) temp.push(users[i]);
+        if (
+            name.indexOf(value) > -1 ||
+            username.indexOf(value) > -1 ||
+            email.indexOf(value) > -1
+        )
+            temp.push(users[i]);
     }
     populateSearchResults(temp);
-}
-
+};
 
 async function getSuggestionList() {
     try {
         const res = await fetch(`${url}/friend/getSuggestionList`, {
-            method: "GET",
+            method: 'GET',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
         });
         const data = await res.json();
         const suggestion = data.users;
-        console.log(suggestion)
+        console.log(suggestion);
         populateSuggestion(suggestion);
     } catch (error) {
         console.log(error);
     }
 }
-const suggestionsTable = document.querySelector('.users-table-suggestion')
+const suggestionsTable = document.querySelector('.users-table-suggestion');
 
-console.log = function() {}
+console.log = function() {};
 
 function populateSuggestion(suggestion) {
-    suggestionsTable.innerHTML = " ";
+    suggestionsTable.innerHTML = ' ';
     for (let i = 0; i < suggestion.length; i++) {
         if (i >= 10) break;
         element = suggestion[i];
@@ -190,21 +193,20 @@ function populateSuggestion(suggestion) {
         suggestionsTable.appendChild(div);
         div.children[2].children[0].addEventListener('click', (event) => {
             followUser(event);
-        })
+        });
         setRightSectionHeight();
     }
 }
 
+const game = document.querySelector('.game');
+const video = document.querySelector('.video');
+game.addEventListener('click', () => {
+    location.href = 'https://www.freeonlinegames.com/';
+});
 
-const game = document.querySelector(".game");
-const video = document.querySelector(".video");
-game.addEventListener("click", () => {
-    location.href = "https://www.freeonlinegames.com/"
-})
-
-video.addEventListener("click", () => {
-    location.href = "https://www.youtube.com/feed/trending"
-})
+video.addEventListener('click', () => {
+    location.href = 'https://www.youtube.com/feed/trending';
+});
 
 const profile = document.querySelector('.toProfile');
 const tocovidInfo = document.querySelector('.toCovidInfo');
@@ -213,32 +215,36 @@ const toVideo = document.querySelector('.toVideo');
 const toTrending = document.querySelector('.toTrending');
 const toAbout = document.querySelector('.toAbout');
 const profile2 = document.querySelector('.toProfileInFeed');
-profile.addEventListener("click", () => {
-        location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}&userId=${localStorage.getItem("userId")}`;
-    })
-    // profile.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
-profile2.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}&userId=${localStorage.getItem("userId")}`;
+profile.addEventListener('click', () => {
+    location.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem(
+  'username',
+ )}&userId=${localStorage.getItem('userId')}`;
+});
+// profile.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}`;
+profile2.href = `${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem(
+ 'username',
+)}&userId=${localStorage.getItem('userId')}`;
 
-
-toTrending.addEventListener("click", () => {
-    location.href = "https://trends.google.com/trends/";
-})
-toStory.addEventListener("click", () => {
+toTrending.addEventListener('click', () => {
+    location.href = 'https://trends.google.com/trends/';
+});
+toStory.addEventListener('click', () => {
     location.href = `${frontendUrl}/pages/story/index.html`;
-})
-tocovidInfo.addEventListener("click", () => {
-    location.href = "https://www.who.int/emergencies/diseases/novel-coronavirus-2019";
-})
-toVideo.addEventListener("click", () => {
-    location.href = "https://www.youtube.com/";
-})
-toAbout.addEventListener("click", () => {
-        location.href = "../../pages/aboutUs/index.html";
-    })
-    //a function to fetch firebase credentials from backend
+});
+tocovidInfo.addEventListener('click', () => {
+    location.href =
+        'https://www.who.int/emergencies/diseases/novel-coronavirus-2019';
+});
+toVideo.addEventListener('click', () => {
+    location.href = 'https://www.youtube.com/';
+});
+toAbout.addEventListener('click', () => {
+    location.href = '../../pages/aboutUs/index.html';
+});
+//a function to fetch firebase credentials from backend
 async function fetchCredentials() {
     const response = await fetch(`${url}/uploadImage/addFeed`, {
-        method: "GET",
+        method: 'GET',
     });
     const credentials = await response.json();
     if (response.ok) {
@@ -263,7 +269,7 @@ const setRightSectionHeight = () => {
     if (window.innerWidth > 768) return;
     const height = leftSection.offsetHeight;
     rightSection.style.top = `${height}px`;
-}
+};
 const mainContainer = document.querySelector('.main-container');
 hamburgerButton.addEventListener('click', () => {
     if (window.innerWidth <= 768) {
@@ -277,7 +283,7 @@ hamburgerButton.addEventListener('click', () => {
         rightSection.classList.toggle('open');
         rightSection.scrollIntoView();
     }
-})
+});
 
 //implementing the add feed logic
 
@@ -291,21 +297,21 @@ feedInput.addEventListener('click', () => {
     addFeed.style.visibility = 'visible';
     body.style.overflowY = 'hidden';
     addFeed.scrollIntoView();
-})
+});
 
 addPhoto.addEventListener('click', () => {
     imageUrl = [];
     addFeed.style.visibility = 'visible';
     body.style.overflowY = 'hidden';
     addFeed.scrollIntoView();
-})
+});
 
 closeAddFeed.addEventListener('click', () => {
     let i = 0;
-    imageUrl.forEach(element => {
+    imageUrl.forEach((element) => {
         let ref = firebase.storage().refFromURL(element);
         ref.delete();
-    })
+    });
     while (preview.firstChild) {
         preview.removeChild(preview.firstChild);
     }
@@ -315,9 +321,9 @@ closeAddFeed.addEventListener('click', () => {
     uploadButton.style.display = 'none';
     body.style.overflowY = 'scroll';
     addFeed.style.visibility = 'hidden';
-})
+});
 
-//selecting image from the system 
+//selecting image from the system
 
 const imageButton = document.querySelector('#img');
 const imageSelector = document.querySelector('.image-selector');
@@ -333,8 +339,7 @@ let images = [];
 imageButton.addEventListener('change', (event) => {
     imageToUpload.push(event.target.files[0]);
     updateImageDisplay();
-})
-
+});
 
 // showing post and hiding the post button
 
@@ -344,11 +349,10 @@ const feedText = document.querySelector('.feed-text');
 let checker = 0;
 
 feedText.addEventListener('input', () => {
-
-    if (feedText.value === "") {
+    if (feedText.value === '') {
         postButton.style.display = 'none';
         uploadButton.style.display = 'none';
-    } else if (feedText.value !== "" && counter > 0) {
+    } else if (feedText.value !== '' && counter > 0) {
         if (checker) {
             postButton.style.display = 'block';
             uploadButton.style.display = 'none';
@@ -356,11 +360,11 @@ feedText.addEventListener('input', () => {
             postButton.style.display = 'none';
             uploadButton.style.display = 'block';
         }
-    } else if (feedText.value !== "" && counter === 0) {
+    } else if (feedText.value !== '' && counter === 0) {
         postButton.style.display = 'block';
         uploadButton.style.display = 'none';
     }
-})
+});
 
 function updateImageDisplay() {
     const curFiles = imageButton.files;
@@ -390,7 +394,7 @@ function updateImageDisplay() {
             };
             const closeImage = document.createElement('img');
             closeImage.src = '../../assets/close.svg';
-            closeImage.setAttribute('id', `${counter-1}`);
+            closeImage.setAttribute('id', `${counter - 1}`);
             closeImage.classList.add('profile-photo-close');
             closeImage.classList.add('image-photo-close');
             closeImageDiv.appendChild(closeImage);
@@ -414,7 +418,7 @@ function updateImageDisplay() {
 postButton.addEventListener('click', () => {
     if (checker === 1 || imageToUpload.length === 0) addPost();
     else {
-        //message div 
+        //message div
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('confirmation-message');
         messageDiv.innerHTML = `
@@ -438,7 +442,7 @@ postButton.addEventListener('click', () => {
 
 uploadButton.addEventListener('click', () => {
     uploadImageToFirebase();
-})
+});
 
 let imageUploadCounter = 0;
 
@@ -447,14 +451,19 @@ function uploadImageToFirebase() {
     loadingEffect.style.display = 'block';
     for (let i = 0; i < imageToUpload.length; i++) {
         let today = new Date();
-        let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let date =
+            today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let time =
+            today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
         let dateTime = date + ' ' + time;
         const element = imageToUpload[i];
         let ans = Math.random().toString(36).slice(2);
-        const refVar = firebase.storage().ref('feeds/' + ans + element.lastModified + dateTime + element.name);
+        const refVar = firebase
+            .storage()
+            .ref('feeds/' + ans + element.lastModified + dateTime + element.name);
         let task = refVar.put(element);
-        task.on('state_changed',
+        task.on(
+            'state_changed',
             function progress(snapshot) {
                 var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 loader.value = percentage;
@@ -463,12 +472,10 @@ function uploadImageToFirebase() {
                 console.log(err);
             },
             function complete() {
-                task.snapshot.ref.getDownloadURL()
-                    .then(
-                        function(downloadURL) {
-                            //we got the url of the image 
-                            imageUrl.push(downloadURL);
-                        });
+                task.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    //we got the url of the image
+                    imageUrl.push(downloadURL);
+                });
                 imageUploadCounter++;
                 if (imageUploadCounter === imageToUpload.length) {
                     containerForPost.style.display = 'block';
@@ -479,26 +486,24 @@ function uploadImageToFirebase() {
                     // }, 2000);
                 }
                 // console.log(imageUrl);
-            }
-        )
+            },
+        );
     }
     checker = 1;
-    document.querySelectorAll('.close-image').forEach(element => {
+    document.querySelectorAll('.close-image').forEach((element) => {
         element.style.display = 'none';
-    })
+    });
     postButton.style.display = 'block';
     uploadButton.style.display = 'none';
 }
 
-
-
 async function getUserPosts() {
     try {
         const res = await fetch(`${url}/feed/getFollowingPosts`, {
-            method: "GET",
+            method: 'GET',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
         });
         if (res.status === 200) {
@@ -513,29 +518,32 @@ async function getUserPosts() {
             const data = await res.json();
             //show the error of from the response.]
             console.log('error');
-            setTimeout(() => { location.reload() }, 5000);
+            setTimeout(() => {
+                location.reload();
+            }, 5000);
         }
     } catch (e) {
         console.log(e);
         //error handling done
     }
-
 }
 
 //showing user image
 
 const profilePhotoFeed = document.querySelector('.profile-photo-feed');
-const profilePhotoFeedInsert = document.querySelector('.profile-photo-feed-insert');
+const profilePhotoFeedInsert = document.querySelector(
+    '.profile-photo-feed-insert',
+);
 const userNameFeed = document.querySelector('.user-name-feed');
-profilePhotoFeed.src = localStorage.getItem("profilePhoto");
-profilePhotoFeedInsert.src = localStorage.getItem("profilePhoto");
-userNameFeed.textContent = localStorage.getItem("username");
+profilePhotoFeed.src = localStorage.getItem('profilePhoto');
+profilePhotoFeedInsert.src = localStorage.getItem('profilePhoto');
+userNameFeed.textContent = localStorage.getItem('username');
 //function to populate the post
 function addUserPost(element) {
     const container = document.querySelector('.user-posts');
-    const divContainer = document.createElement("div");
-    const div = document.createElement("div");
-    div.classList = "Posts";
+    const divContainer = document.createElement('div');
+    const div = document.createElement('div');
+    div.classList = 'Posts';
     div.setAttribute('id', element.postid);
     isLiked(element, div, container, divContainer);
 }
@@ -543,20 +551,20 @@ function addUserPost(element) {
 //isPostLiked
 function isLiked(element, div, container, divContainer) {
     let userData = {
-        postid: element.postid
-    }
+        postid: element.postid,
+    };
     let html;
     userData = JSON.stringify(userData);
     fetch(`${url}/feed/isLiked`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
-        }).then(res => res.json())
-        .then(data => {
-
+        })
+        .then((res) => res.json())
+        .then((data) => {
             let originalpostid = element.originalpostid;
             if (originalpostid === null) {
                 originalpostid = element.postid;
@@ -573,7 +581,7 @@ function isLiked(element, div, container, divContainer) {
         <a href="${frontendUrl}/pages/profile/index.html?username=${element.username}&userId=${element.userid}">
         ${element.username} </a>
         <div class="time">${element.datetime}</div>
-        </div>`
+        </div>`;
 
             if (element.userid != element.originaluserid) {
                 heading = ` <div class="user-name-feed">
@@ -582,7 +590,7 @@ function isLiked(element, div, container, divContainer) {
             <a href="${frontendUrl}/pages/profile/index.html?username=${element.originalusername}&userId=${element.originaluserid}">
             ${element.originalusername}</a>
             <div class="time">${element.datetime}</div>
-            </div>`
+            </div>`;
             }
 
             if (html) {
@@ -620,35 +628,31 @@ function isLiked(element, div, container, divContainer) {
                     <input class="comment-input" type="text" placeholder="Add Comment">
                     <i class="fas fa-paper-plane add-comment-button" onClick = "commentButtonClick(event)"></i>
                     </div>
-                    `
+                    `;
                 divContainer.appendChild(div);
                 divContainer.appendChild(div2);
                 container.appendChild(divContainer);
                 addPostImage(element.images, element.postid);
             }
         })
-        .catch(err => {
+        .catch((err) => {
             //message.textContent = 'Unable To Load Post'
-        })
-
-
+        });
 }
 
 //showing each post image to the user
 function addPostImage(ImageArray, postId) {
     const id = `preview${postId}`;
     const preview = document.querySelector(`#${id}`);
-    ImageArray.forEach(element => {
+    ImageArray.forEach((element) => {
         const div = document.createElement('div');
         const img = document.createElement('img');
         img.classList.add('feed-image');
         img.src = element;
         div.appendChild(img);
         preview.appendChild(div);
-    })
+    });
 }
-
-
 
 //adding post to the server
 async function addPost() {
@@ -656,7 +660,7 @@ async function addPost() {
     loadingEffect.style.display = 'none';
     addFeed.style.visibility = 'hidden';
 
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -681,25 +685,27 @@ async function addPost() {
     } else {
         //dateTime
         let today = new Date();
-        let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let date =
+            today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let time =
+            today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
         let dateTime = date + ' ' + time;
 
         let userData = {
             image: imageUrl,
             description: feedText.value,
             dateTime,
-        }
+        };
         userData = JSON.stringify(userData);
         imageToUpload = [];
         imageUrl = [];
         try {
             const res = await fetch(`${url}/feed/addPost`, {
-                method: "POST",
+                method: 'POST',
                 body: userData,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `${localStorage.getItem("userToken")}`,
+                    'Content-Type': 'application/json',
+                    Authorization: `${localStorage.getItem('userToken')}`,
                 },
             });
             if (res.status === 200) {
@@ -729,8 +735,6 @@ async function addPost() {
             messageContainer.removeChild(messageDiv);
         }, 2000);
     }
-
-
 }
 
 //follower list
@@ -738,10 +742,10 @@ async function addPost() {
 async function getFollowing() {
     try {
         const res = await fetch(`${url}/friend/getFollowing`, {
-            method: "GET",
+            method: 'GET',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
         });
         if (res.status === 200) {
@@ -760,8 +764,8 @@ async function getFollowing() {
 const table = document.querySelector('.users-table');
 
 function renderFollowingList(following) {
-    table.innerHTML = " ";
-    following.forEach(element => {
+    table.innerHTML = ' ';
+    following.forEach((element) => {
         const div = document.createElement('div');
         div.classList.add('user');
         div.innerHTML = `
@@ -771,10 +775,10 @@ function renderFollowingList(following) {
         `;
         div.children[2].children[0].addEventListener('click', (event) => {
             unfollowUser(event);
-        })
+        });
         table.appendChild(div);
         setRightSectionHeight();
-    })
+    });
 }
 
 //update like
@@ -793,8 +797,9 @@ async function updateLike(event) {
     const error = messageDiv.children[0];
     const userid = event.target.parentNode.id;
     const originaluserid = event.target.parentNode.parentNode.id;
-    const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
-    const likes = (event.target.nextSibling);
+    const postid =
+        event.target.parentElement.parentElement.parentElement.parentElement.id;
+    const likes = event.target.nextSibling;
     const originalpostid = event.target.id;
     // console.log(originalpostid);
     let userData = {
@@ -802,16 +807,16 @@ async function updateLike(event) {
         originaluserid,
         postid,
         originalpostid,
-    }
+    };
     console.log(userData);
     userData = JSON.stringify(userData);
     try {
         const res = await fetch(`${url}/feed/updateLike`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
         });
         if (res.status === 200) {
@@ -850,15 +855,18 @@ async function updateLike(event) {
 //opening and closing the comment section
 
 async function openCommentSection(event) {
-    const commentSection = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[1];
+    const commentSection =
+        event.target.parentElement.parentElement.parentElement.parentElement
+        .parentElement.children[1];
     commentSection.classList.toggle('comment-section-open');
     commentSection.parentElement.children[0].classList.toggle('Posts-open');
-    const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
+    const postid =
+        event.target.parentElement.parentElement.parentElement.parentElement.id;
     const originalpostid = event.target.id;
     let userData = {
         postid,
         originalpostid,
-    }
+    };
     userData = JSON.stringify(userData);
     getAllComment(commentSection, userData);
 }
@@ -866,7 +874,7 @@ async function openCommentSection(event) {
 //adding the comment
 
 function commentButtonClick(event) {
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -882,7 +890,7 @@ function commentButtonClick(event) {
     //selecting the comment button
     const commentText = event.target.parentElement.children[0];
     let text = commentText.value;
-    if (text === "") {
+    if (text === '') {
         messageDiv.removeChild(success);
         message.textContent = 'Please Enter Comment Message';
         error.style.opacity = 1;
@@ -903,23 +911,31 @@ function commentButtonClick(event) {
     } else {
         messageContainer.removeChild(messageDiv);
         const postid = event.target.parentNode.parentNode.parentNode.children[0].id;
-        const originaluserid = event.target.parentNode.parentNode.parentNode.children[0].children[1].children[2].id;
-        const commentCounter = event.target.parentNode.parentNode.parentNode.children[0].children[1].children[2].children[1].children[1];
+        const originaluserid =
+            event.target.parentNode.parentNode.parentNode.children[0].children[1]
+            .children[2].id;
+        const commentCounter =
+            event.target.parentNode.parentNode.parentNode.children[0].children[1]
+            .children[2].children[1].children[1];
         const comment = text;
         //current date and time
         let today = new Date();
-        let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-        let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let date =
+            today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+        let time =
+            today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
         let dateTime = date + ' ' + time;
 
-        const originalpostid = event.target.parentNode.parentNode.parentNode.children[0].children[1].children[2].children[1].children[0].id;
+        const originalpostid =
+            event.target.parentNode.parentNode.parentNode.children[0].children[1]
+            .children[2].children[1].children[0].id;
         let userData = {
             postid,
             originaluserid,
             comment,
             dateTime,
             originalpostid,
-        }
+        };
         userData = JSON.stringify(userData);
         const commentSection = event.target.parentElement.parentElement;
         addComment(userData, commentCounter, commentText, commentSection);
@@ -928,8 +944,13 @@ function commentButtonClick(event) {
 
 //function for adding the comment
 
-async function addComment(userData, commentCounter, commentText, commentSection) {
-    //message div 
+async function addComment(
+    userData,
+    commentCounter,
+    commentText,
+    commentSection,
+) {
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -943,30 +964,36 @@ async function addComment(userData, commentCounter, commentText, commentSection)
     const error = messageDiv.children[0];
     try {
         const res = await fetch(`${url}/feed/commentPost`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
         });
         if (res.status === 200) {
             const data = await res.json();
             commentCounter.innerHTML = parseInt(commentCounter.innerHTML) + 1;
-            commentText.value = "";
+            commentText.value = '';
             messageDiv.removeChild(error);
             message.textContent = data.message;
             success.style.opacity = 1;
             userData = JSON.parse(userData);
-            //adding comment 
-            const div = document.createElement("div");
+            //adding comment
+            const div = document.createElement('div');
             div.classList.add('comment');
             div.innerHTML = `
             <div class="comment">
-            <a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}"><img class="profile-photo" src="${localStorage.getItem("profilePhoto")}" /></a>
+            <a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem(
+    'username',
+   )}"><img class="profile-photo" src="${localStorage.getItem(
+    'profilePhoto',
+   )}" /></a>
             <div class="comment-box">
             <div class="comment-details">
-            <div class="comment-user-name"><a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem("username")}">${localStorage.getItem("username")}</a></div>
+            <div class="comment-user-name"><a href="${frontendUrl}/pages/profile/index.html?username=${localStorage.getItem(
+    'username',
+   )}">${localStorage.getItem('username')}</a></div>
             <div class="comment-message">${userData.comment}</div>
             </div>
             <div class="time">${userData.dateTime}</div>
@@ -992,7 +1019,7 @@ async function addComment(userData, commentCounter, commentText, commentSection)
 
 //populating a the comments of a post
 async function getAllComment(commentSection, userData) {
-    commentSection.innerHTML = " ";
+    commentSection.innerHTML = ' ';
     const div = document.createElement('div');
     div.classList.add('add-comment');
     div.innerHTML = `
@@ -1005,11 +1032,11 @@ async function getAllComment(commentSection, userData) {
         commentSection.removeChild(commentSection.children[0]);
     }
     const res = await fetch(`${url}/feed/getAllPostComment`, {
-        method: "POST",
+        method: 'POST',
         body: userData,
         headers: {
-            "Content-Type": "application/json",
-            "Authorization": `${localStorage.getItem("userToken")}`,
+            'Content-Type': 'application/json',
+            Authorization: `${localStorage.getItem('userToken')}`,
         },
     });
 
@@ -1040,30 +1067,33 @@ async function getAllComment(commentSection, userData) {
     }
 }
 
-//sharing a post 
+//sharing a post
 
 function sharePostClick(event) {
-    const postid = event.target.parentElement.parentElement.parentElement.parentElement.id;
+    const postid =
+        event.target.parentElement.parentElement.parentElement.parentElement.id;
     const shareCounter = event.target.parentNode.children[1];
     const originaluserid = event.target.parentElement.parentElement.id;
     const originalpostid = event.target.id;
     //current date and time
     let today = new Date();
-    let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-    let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let date =
+        today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    let time =
+        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
     let dateTime = date + ' ' + time;
 
     let userData = {
         postid,
         dateTime,
         originalpostid,
-    }
+    };
     userData = JSON.stringify(userData);
     sharePost(userData, shareCounter, originaluserid);
 }
 
 async function sharePost(userData, shareCounter, originaluserid) {
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -1076,7 +1106,7 @@ async function sharePost(userData, shareCounter, originaluserid) {
     const success = messageDiv.children[1];
     const error = messageDiv.children[0];
 
-    const userId = localStorage.getItem("userId")
+    const userId = localStorage.getItem('userId');
     if (originaluserid === userId) {
         messageDiv.removeChild(success);
         message.textContent = `You Can't Re-Share Your Own Post`;
@@ -1084,11 +1114,11 @@ async function sharePost(userData, shareCounter, originaluserid) {
     } else {
         try {
             const res = await fetch(`${url}/feed/sharePost`, {
-                method: "POST",
+                method: 'POST',
                 body: userData,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `${localStorage.getItem("userToken")}`,
+                    'Content-Type': 'application/json',
+                    Authorization: `${localStorage.getItem('userToken')}`,
                 },
             });
 
@@ -1120,13 +1150,12 @@ async function sharePost(userData, shareCounter, originaluserid) {
         messageDiv.style.opacity = '0';
         messageContainer.removeChild(messageDiv);
     }, 2000);
-
 }
 
 async function followUser(event) {
     console.log('hi');
     event.preventDefault();
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -1139,27 +1168,29 @@ async function followUser(event) {
     const success = messageDiv.children[1];
     const error = messageDiv.children[0];
 
-
     const following = event.target.id;
-    const followingrusername = event.target.parentElement.parentElement.children[1].children[0].innerHTML;
-    console.log(event.target.parentElement.parentElement.children[1].children[0].innerHTML);
+    const followingrusername =
+        event.target.parentElement.parentElement.children[1].children[0].innerHTML;
+    console.log(
+        event.target.parentElement.parentElement.children[1].children[0].innerHTML,
+    );
     console.log(event.target.parentElement.parentElement.children[1].children[0]);
     const user = event.target.parentElement.parentElement;
     let userData = {
         following,
         followingrusername,
-    }
+    };
     userData = JSON.stringify(userData);
 
     try {
         const res = await fetch(`${url}/friend/addFollowing`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
-        })
+        });
 
         if (res.status === 200) {
             const data = await res.json();
@@ -1188,7 +1219,7 @@ async function followUser(event) {
 
 async function unfollowUser(event) {
     event.preventDefault();
-    //message div 
+    //message div
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('confirmation-message');
     messageDiv.innerHTML = `
@@ -1203,24 +1234,27 @@ async function unfollowUser(event) {
 
     const following = event.target.id;
     const user = event.target.parentElement.parentElement;
-    const followingrusername = event.target.parentElement.parentElement.children[1].children[0].innerHTML;
-    console.log(event.target.parentElement.parentElement.children[1].children[0].innerHTML);
+    const followingrusername =
+        event.target.parentElement.parentElement.children[1].children[0].innerHTML;
+    console.log(
+        event.target.parentElement.parentElement.children[1].children[0].innerHTML,
+    );
     console.log(event.target.parentElement.parentElement.children[1].children[0]);
     let userData = {
         following,
         followingrusername,
-    }
+    };
     userData = JSON.stringify(userData);
 
     try {
         const res = await fetch(`${url}/friend/removeFollowing`, {
-            method: "POST",
+            method: 'POST',
             body: userData,
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
-        })
+        });
 
         if (res.status === 200) {
             const data = await res.json();
@@ -1250,21 +1284,20 @@ async function unfollowUser(event) {
 const tokenVerifier = async() => {
     try {
         const res = await fetch(`${url}/auth/tokenVerifier`, {
-            method: "GET",
+            method: 'GET',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${localStorage.getItem("userToken")}`,
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
             },
-        })
+        });
         const data = await res.json();
-        if (data.message === "Token Expired") {
+        if (data.message === 'Token Expired') {
             location.replace(`${frontendUrl}`);
         }
-
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 // function calls
 tokenVerifier();

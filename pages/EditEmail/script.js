@@ -1,10 +1,9 @@
-const url = "https://sheltered-citadel-84490.herokuapp.com";
+const url = 'https://dubify.herokuapp.com';
 // const url = "http://localhost:8000";
 
 //fortend url
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
 // const frontendUrl = `http://localhost:5500`;
-
 
 //selecting all elements to be manipulated
 const email = document.querySelector('.email');
@@ -36,7 +35,7 @@ function check() {
         emailError.style.display = 'block';
         emailExists.style.display = 'none';
     }
-    if (email.value === "") {
+    if (email.value === '') {
         email.style.borderColor = 'lightgray';
         emailIcon1.style.display = 'none';
         emailIcon2.style.display = 'none';
@@ -46,7 +45,7 @@ function check() {
 }
 
 function check2() {
-    if (password.value !== "") {
+    if (password.value !== '') {
         password.style.borderColor = 'lightgray';
         passwordIcon1.style.display = 'none';
         passwordIcon2.style.display = 'none';
@@ -54,17 +53,17 @@ function check2() {
         enterPassword.style.display = 'none';
     }
 }
-console.log = function() {}
+console.log = function() {};
 button.addEventListener('click', () => {
-    console.log("Hi");
-    if (email.value === "") {
+    console.log('Hi');
+    if (email.value === '') {
         email.style.borderColor = '#e74c3c';
         emailIcon1.style.display = 'block';
         emailIcon2.style.display = 'none';
         emailError.style.display = 'block';
         return;
     }
-    if (password.value === "") {
+    if (password.value === '') {
         password.style.borderColor = '#e74c3c';
         passwordIcon1.style.display = 'block';
         passwordIcon2.style.display = 'none';
@@ -72,43 +71,43 @@ button.addEventListener('click', () => {
         return;
     }
     let data = {
-        "email": `${email.value}`,
-        "password": `${password.value}`,
-    }
+        email: `${email.value}`,
+        password: `${password.value}`,
+    };
     data = JSON.stringify(data);
     fetch(`${url}/user/updateEmail`, {
-        method: 'PUT',
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `${localStorage.getItem("userToken")}`,
-        },
-        body: data,
-    }).then(res =>
-        res.json()
-    ).then(data => {
-        console.log(data);
-        if (data.message === "Email Already Exists") {
-            email.style.borderColor = '#e74c3c';
-            emailIcon1.style.display = 'block';
-            emailIcon2.style.display = 'none';
-            emailError.style.display = 'none';
-            emailExists.style.display = 'block';
-        } else if (data.message === "Invalid Password") {
-            password.style.borderColor = '#e74c3c';
-            passwordIcon1.style.display = 'block';
-            passwordIcon2.style.display = 'none';
-            passwordError.style.display = 'block';
-            enterPassword.style.display = 'none';
-            return;
-        } else {
-            console.log(data.token);
-            localStorage.setItem('userToken', data.userToken);
-            alert('Email Updated Success');
-        }
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `${localStorage.getItem('userToken')}`,
+            },
+            body: data,
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            if (data.message === 'Email Already Exists') {
+                email.style.borderColor = '#e74c3c';
+                emailIcon1.style.display = 'block';
+                emailIcon2.style.display = 'none';
+                emailError.style.display = 'none';
+                emailExists.style.display = 'block';
+            } else if (data.message === 'Invalid Password') {
+                password.style.borderColor = '#e74c3c';
+                passwordIcon1.style.display = 'block';
+                passwordIcon2.style.display = 'none';
+                passwordError.style.display = 'block';
+                enterPassword.style.display = 'none';
+                return;
+            } else {
+                console.log(data.token);
+                localStorage.setItem('userToken', data.userToken);
+                alert('Email Updated Success');
+            }
+        })
+        .catch((err) => {
+            console.log('Hi from err');
 
-    }).catch(err => {
-        console.log('Hi from err');
-
-        console.log(err.message);
-    })
-})
+            console.log(err.message);
+        });
+});
