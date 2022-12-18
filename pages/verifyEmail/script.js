@@ -5,7 +5,7 @@ const currUrl = new URLSearchParams(window.location.search);
 const userToken = currUrl.get('userToken');
 const email = currUrl.get('email');
 
-const url = 'https://dubify.herokuapp.com';
+const url = 'https://dubify.onrender.com';
 // const url = "http://localhost:8000";
 //fortend url
 const frontendUrl = `https://webkirti-social-media-website.netlify.app`;
