@@ -25,7 +25,7 @@ const aboutStory = document.querySelector('.about-story');
 const storyLoader = document.querySelector('.story-loader');
 const storyLoaderEnd = document.querySelector('.story-loader-end');
 
-const url = 'https://dubify.herokuapp.com';
+const url = 'https://dubify.onrender.com';
 // const url = "http://localhost:8000";
 
 //fortend url
