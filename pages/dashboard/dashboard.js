@@ -1,5 +1,5 @@
 //url
-const url = 'https://dubify.herokuapp.com';
+const url = 'https://dubify.onrender.com';
 // const url = "http://localhost:8000";
 
 //fortend url
